@@ -7,9 +7,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 
-/**
- * Created by BichThao on 18/10/2015.
- */
 public class DatabaseHelper {
     public static interface IDataFetcher {
         public void fetchData(Cursor pCursor);
