@@ -1,87 +1,58 @@
 package com.dreamdigitizers.drugmanagement.data.models;
 
-import java.util.ArrayList;
-
 public class Alert extends Model {
-    private FamilyMember mFamilyMember;
-    private ArrayList<Medicine> mMedicineList;
-    private MedicineTime mTime;
-    private Interval mInterval;
-    private String mStartDate;
-    private int mAlertTimes;
-    private String mImagePath;
-    private boolean mIsAlert;
-    private String mAlertNote;
+    private MedicineTimeSetting mMedicineTimeSetting;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+    private int mHour;
+    private int mMinute;
 
-    public FamilyMember getFamilyMember() {
-        return this.mFamilyMember;
+    public MedicineTimeSetting getMedicineTimeSetting() {
+        return this.mMedicineTimeSetting;
     }
 
-    public void setFamilyMember(FamilyMember pFamilyMember) {
-        this.mFamilyMember = pFamilyMember;
+    public void setMedicineTimeSetting(MedicineTimeSetting pMedicineTimeSetting) {
+        this.mMedicineTimeSetting = pMedicineTimeSetting;
     }
 
-    public ArrayList<Medicine> getMedicineList() {
-        return this.mMedicineList;
+    public int getYear() {
+        return this.mYear;
     }
 
-    public void setMedicineList(ArrayList<Medicine> pMedicineList) {
-        this.mMedicineList = pMedicineList;
+    public void setYear(int pYear) {
+        this.mYear = pYear;
     }
 
-    public MedicineTime getTime() {
-        return this.mTime;
+    public int getMonth() {
+        return this.mMonth;
     }
 
-    public void setTime(MedicineTime pTime) {
-        this.mTime = pTime;
+    public void setMonth(int pMonth) {
+        this.mMonth = pMonth;
     }
 
-    public Interval getInterval() {
-        return this.mInterval;
+    public int getDay() {
+        return this.mDay;
     }
 
-    public void setInterval(Interval pInterval) {
-        this.mInterval = pInterval;
+    public void setDay(int pDay) {
+        this.mDay = pDay;
     }
 
-    public String getmStartDate() {
-        return this.mStartDate;
+    public int getHour() {
+        return this.mHour;
     }
 
-    public void setStartDate(String pStartDate) {
-        this.mStartDate = pStartDate;
+    public void setHour(int pHour) {
+        this.mHour = pHour;
     }
 
-    public int getAlertTimes() {
-        return this.mAlertTimes;
+    public int getMinute() {
+        return this.mMinute;
     }
 
-    public void setAlertTimes(int pAlertTimes) {
-        this.mAlertTimes = pAlertTimes;
-    }
-
-    public String getImagePath() {
-        return this.mImagePath;
-    }
-
-    public void setImagePath(String pImagePath) {
-        this.mImagePath = pImagePath;
-    }
-
-    public boolean getIsAlert() {
-        return this.mIsAlert;
-    }
-
-    public void setIsAlert(boolean pIsAlert) {
-        this.mIsAlert = pIsAlert;
-    }
-
-    public String getAlertNote() {
-        return this.mAlertNote;
-    }
-
-    public void setAlertNote(String pAlertNote) {
-        this.mAlertNote = pAlertNote;
+    public void setMinute(int pMinute) {
+        this.mMonth = pMinute;
     }
 }
