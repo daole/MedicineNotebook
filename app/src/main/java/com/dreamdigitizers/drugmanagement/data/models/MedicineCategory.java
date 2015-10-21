@@ -3,7 +3,7 @@ package com.dreamdigitizers.drugmanagement.data.models;
 public class MedicineCategory extends Model {
     private String mMedicineCategoryName;
 
-    public String getName() {
+    public String getMedicineCategoryName() {
         return this.mMedicineCategoryName;
     }
 

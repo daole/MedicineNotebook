@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class MedicineTimeSetting extends Model {
     private FamilyMember mFamilyMember;
-    private ArrayList<Medicine> mMedicineList;
     private MedicineTime mTime;
-    private Interval mInterval;
+    private MedicineInterval mInterval;
+    private ArrayList<TakenMedicine> mMedicineList;
     private String mStartDate;
-    private int mAlertTimes;
+    private int mMedicineTakingTimes;
     private String mImagePath;
     private boolean mIsAlert;
-    private String mAlertNote;
+    private String mNote;
 
     public FamilyMember getFamilyMember() {
         return this.mFamilyMember;
@@ -21,11 +21,11 @@ public class MedicineTimeSetting extends Model {
         this.mFamilyMember = pFamilyMember;
     }
 
-    public ArrayList<Medicine> getMedicineList() {
+    public ArrayList<TakenMedicine> getMedicineList() {
         return this.mMedicineList;
     }
 
-    public void setMedicineList(ArrayList<Medicine> pMedicineList) {
+    public void setMedicineList(ArrayList<TakenMedicine> pMedicineList) {
         this.mMedicineList = pMedicineList;
     }
 
@@ -37,11 +37,11 @@ public class MedicineTimeSetting extends Model {
         this.mTime = pTime;
     }
 
-    public Interval getInterval() {
+    public MedicineInterval getInterval() {
         return this.mInterval;
     }
 
-    public void setInterval(Interval pInterval) {
+    public void setInterval(MedicineInterval pInterval) {
         this.mInterval = pInterval;
     }
 
@@ -53,12 +53,12 @@ public class MedicineTimeSetting extends Model {
         this.mStartDate = pStartDate;
     }
 
-    public int getAlertTimes() {
-        return this.mAlertTimes;
+    public int getMedicineTakingTimes() {
+        return this.mMedicineTakingTimes;
     }
 
-    public void setAlertTimes(int pAlertTimes) {
-        this.mAlertTimes = pAlertTimes;
+    public void setMedicineTakingTimes(int pMedicineTakingTimes) {
+        this.mMedicineTakingTimes = pMedicineTakingTimes;
     }
 
     public String getImagePath() {
@@ -69,19 +69,19 @@ public class MedicineTimeSetting extends Model {
         this.mImagePath = pImagePath;
     }
 
-    public boolean getIsAlert() {
+    public boolean isAlert() {
         return this.mIsAlert;
     }
 
-    public void setIsAlert(boolean pIsAlert) {
+    public void setAlert(boolean pIsAlert) {
         this.mIsAlert = pIsAlert;
     }
 
-    public String getAlertNote() {
-        return this.mAlertNote;
+    public String getNote() {
+        return this.mNote;
     }
 
-    public void setAlertNote(String pAlertNote) {
-        this.mAlertNote = pAlertNote;
+    public void setNote(String pNote) {
+        this.mNote = pNote;
     }
 }

@@ -1,10 +1,18 @@
 package com.dreamdigitizers.drugmanagement.data.models;
 
 public class Medicine extends Model {
-    private String mMedicineName;
-    private String mMedicineNote;
-    private String mMedicineImagePath;
     private MedicineCategory mMedicineCategory;
+    private String mMedicineName;
+    private String mMedicineImagePath;
+    private String mMedicineNote;
+
+    public MedicineCategory getMedicineCategory() {
+        return this.mMedicineCategory;
+    }
+
+    public void setMedicineCategory(MedicineCategory pMedicineCategory) {
+        this.mMedicineCategory = pMedicineCategory;
+    }
 
     public String getMedicineName() {
         return mMedicineName;
@@ -12,14 +20,6 @@ public class Medicine extends Model {
 
     public void setMedicineName(String pMedicineName) {
         this.mMedicineName = pMedicineName;
-    }
-
-    public String getMedicineNote() {
-        return this.mMedicineNote;
-    }
-
-    public void setMedicineNote(String pMedicineNote) {
-        this.mMedicineNote = pMedicineNote;
     }
 
     public String getMedicineImagePath() {
@@ -30,11 +30,11 @@ public class Medicine extends Model {
         this.mMedicineImagePath = pMedicineImagePath;
     }
 
-    public MedicineCategory getMedicineCategory() {
-        return this.mMedicineCategory;
+    public String getMedicineNote() {
+        return this.mMedicineNote;
     }
 
-    public void setMedicineCategory(MedicineCategory pMedicineCategory) {
-        this.mMedicineCategory = pMedicineCategory;
+    public void setMedicineNote(String pMedicineNote) {
+        this.mMedicineNote = pMedicineNote;
     }
 }

@@ -2,11 +2,12 @@ package com.dreamdigitizers.drugmanagement.data.models;
 
 public class Alert extends Model {
     private MedicineTimeSetting mMedicineTimeSetting;
-    private int mYear;
-    private int mMonth;
-    private int mDay;
-    private int mHour;
-    private int mMinute;
+    private int mAlertYear;
+    private int mAlertMonth;
+    private int mAlertDay;
+    private int mAlertHour;
+    private int mAlertMinute;
+    private boolean mIsDone;
 
     public MedicineTimeSetting getMedicineTimeSetting() {
         return this.mMedicineTimeSetting;
@@ -16,43 +17,51 @@ public class Alert extends Model {
         this.mMedicineTimeSetting = pMedicineTimeSetting;
     }
 
-    public int getYear() {
-        return this.mYear;
+    public int getAlertYear() {
+        return this.mAlertYear;
     }
 
-    public void setYear(int pYear) {
-        this.mYear = pYear;
+    public void setAlertYear(int pAlertYear) {
+        this.mAlertYear = pAlertYear;
     }
 
-    public int getMonth() {
-        return this.mMonth;
+    public int getAlertMonth() {
+        return this.mAlertMonth;
     }
 
-    public void setMonth(int pMonth) {
-        this.mMonth = pMonth;
+    public void setMonth(int pAlertMonth) {
+        this.mAlertMonth = pAlertMonth;
     }
 
-    public int getDay() {
-        return this.mDay;
+    public int getAlertDay() {
+        return this.mAlertDay;
     }
 
-    public void setDay(int pDay) {
-        this.mDay = pDay;
+    public void setAlertDay(int pAlertDay) {
+        this.mAlertDay = pAlertDay;
     }
 
-    public int getHour() {
-        return this.mHour;
+    public int getAlertHour() {
+        return this.mAlertHour;
     }
 
-    public void setHour(int pHour) {
-        this.mHour = pHour;
+    public void setAlertHour(int pAlertHour) {
+        this.mAlertHour = pAlertHour;
     }
 
-    public int getMinute() {
-        return this.mMinute;
+    public int getAlertMinute() {
+        return this.mAlertMinute;
     }
 
-    public void setMinute(int pMinute) {
-        this.mMonth = pMinute;
+    public void setAlertMinute(int pAlertMinute) {
+        this.mAlertMinute = pAlertMinute;
+    }
+
+    public boolean isDone() {
+        return this.mIsDone;
+    }
+
+    public void setDone(boolean pIsDone) {
+        this.mIsDone = pIsDone;
     }
 }

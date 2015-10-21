@@ -1,0 +1,26 @@
+package com.dreamdigitizers.drugmanagement.data.dal.tables;
+
+import android.database.sqlite.SQLiteDatabase;
+
+public class TableMedicineCategory extends Table {
+    public static final String TABLE_NAME = "medicine_category";
+
+    public static final String COLUMN_NAME__MEDICINE_CATEGORY_NAME = "medicine_category_name";
+
+    public static final int COLUMN_INDEX__MEDICINE_CATEGORY_NAME = 1;
+
+    private static String CREATE_STATEMENT = "CREATE TABLE `" + TableMedicineCategory.TABLE_NAME + "` ("
+            + "`" + TableMedicineCategory.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+            + "`" + TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME + "` TEXT NOT NULL"
+            + ");";
+
+    private static String UPDATE_STATEMENT = "";
+
+    public static void onCreate(SQLiteDatabase pSQLiteDatabase) {
+        pSQLiteDatabase.execSQL(TableMedicineCategory.CREATE_STATEMENT);
+    }
+
+    public static void onUpdate(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+
+    }
+}
