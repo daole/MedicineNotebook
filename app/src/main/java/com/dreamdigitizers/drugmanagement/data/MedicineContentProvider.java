@@ -485,8 +485,9 @@ public class MedicineContentProvider extends ContentProvider {
             ContentProviderResult[] results = super.applyBatch(pOperations);
             this.mDatabaseHelper.commitTransaction();
             return results;
-        } finally {
-            this.mDatabaseHelper.endTransaction();
+        } catch (OperationApplicationException e){
+            this.mDatabaseHelper.rollbackTransaction();
+            throw e;
         }
     }
 }
