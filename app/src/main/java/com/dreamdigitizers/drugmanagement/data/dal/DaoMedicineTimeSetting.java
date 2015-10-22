@@ -7,8 +7,8 @@ import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTimeSetti
 import java.util.Arrays;
 import java.util.List;
 
-public class DaoTableMedicineTimeSetting extends Dao {
-    public DaoTableMedicineTimeSetting(DatabaseHelper pDatabaseHelper) {
+public class DaoMedicineTimeSetting extends Dao {
+    public DaoMedicineTimeSetting(DatabaseHelper pDatabaseHelper) {
         super(pDatabaseHelper);
     }
 

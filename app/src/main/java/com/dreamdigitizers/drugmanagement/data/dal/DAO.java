@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
 
 public abstract class Dao {
-    protected static final String ERROR_MESSAGE__UNKNOWN_COLUMNS = "There are unknown columns in projection";
-
     protected DatabaseHelper mDatabaseHelper;
     protected SQLiteQueryBuilder mSQLiteQueryBuilder;
 
@@ -49,16 +47,12 @@ public abstract class Dao {
     }
 
     public Cursor select(String[] pProjection, String pWhereClause, String[] pWhereArgs, String pGroupBy, String pHaving, String pSortOrder, boolean pIsCloseOnEnd) {
-        boolean checkResult = this.checkColumns(pProjection);
-        if(!checkResult) {
-            throw new IllegalArgumentException(Dao.ERROR_MESSAGE__UNKNOWN_COLUMNS);
-        }
-
         this.mSQLiteQueryBuilder.setTables(this.getTableName());
         Cursor cursor = this.mDatabaseHelper.select(this.mSQLiteQueryBuilder, pProjection, pWhereClause, pWhereArgs, pGroupBy, pHaving, pSortOrder, null, pIsCloseOnEnd);
         return  cursor;
     }
 
+    public abstract boolean checkColumns(String[] pProjection);
+
     protected abstract String getTableName();
-    protected abstract boolean checkColumns(String[] pProjection);
 }

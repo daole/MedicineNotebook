@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
-	private static final String DB__NAME = "DrugManagement";
+	private static final String DB__NAME = "drug_management.db";
 	private static final int DB__VERSION = 1;
 
 	public MySQLiteOpenHelper(Context pContext) {
