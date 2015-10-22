@@ -2,6 +2,9 @@ package com.dreamdigitizers.drugmanagement.data.dal.tables;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TableFamilyMember extends Table {
     public static final String TABLE_NAME = "family_member";
 
@@ -15,6 +18,15 @@ public class TableFamilyMember extends Table {
         + ");";
 
     private static String UPDATE_STATEMENT = "";
+
+    public static List<String> getColumns() {
+        List<String> columns = new ArrayList<String>();
+
+        columns.add(TableFamilyMember.COLUMN_NAME__ID);
+        columns.add(TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME);
+
+        return columns;
+    }
 
     public static void onCreate(SQLiteDatabase pSQLiteDatabase) {
         pSQLiteDatabase.execSQL(TableFamilyMember.CREATE_STATEMENT);

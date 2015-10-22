@@ -2,6 +2,9 @@ package com.dreamdigitizers.drugmanagement.data.dal.tables;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TableMedicineCategory extends Table {
     public static final String TABLE_NAME = "medicine_category";
 
@@ -15,6 +18,15 @@ public class TableMedicineCategory extends Table {
             + ");";
 
     private static String UPDATE_STATEMENT = "";
+
+    public static List<String> getColumns() {
+        List<String> columns = new ArrayList<String>();
+
+        columns.add(TableMedicineCategory.COLUMN_NAME__ID);
+        columns.add(TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME);
+
+        return columns;
+    }
 
     public static void onCreate(SQLiteDatabase pSQLiteDatabase) {
         pSQLiteDatabase.execSQL(TableMedicineCategory.CREATE_STATEMENT);

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 
 public class DatabaseHelper {
     public static interface IDataFetcher {
@@ -172,27 +173,27 @@ public class DatabaseHelper {
         return affectedRows;
     }
 
-    public void select(String pSql, String[] pSelectionArgs, IDataFetcher pDataFetcher) {
-        this.select(pSql, pSelectionArgs, pDataFetcher, false, false, false);
+    public Cursor select(String pSql, String[] pSelectionArgs, IDataFetcher pDataFetcher) {
+        return this.select(pSql, pSelectionArgs, pDataFetcher, false, false, false);
     }
 
-    public void select(String pSql, String[] pSelectionArgs, IDataFetcher pDataFetcher, boolean pIsBeginTransaction) {
-        this.select(pSql, pSelectionArgs, pDataFetcher, pIsBeginTransaction, false, false);
+    public Cursor select(String pSql, String[] pSelectionArgs, IDataFetcher pDataFetcher, boolean pIsBeginTransaction) {
+        return this.select(pSql, pSelectionArgs, pDataFetcher, pIsBeginTransaction, false, false);
     }
 
-    public void select(String pSql, String[] pSelectionArgs, IDataFetcher pDataFetcher, boolean pIsCommitTransaction, boolean pIsCloseOnEnd) {
-        this.select(pSql, pSelectionArgs, pDataFetcher, false, pIsCommitTransaction, pIsCloseOnEnd);
+    public Cursor select(String pSql, String[] pSelectionArgs, IDataFetcher pDataFetcher, boolean pIsCommitTransaction, boolean pIsCloseOnEnd) {
+        return this.select(pSql, pSelectionArgs, pDataFetcher, false, pIsCommitTransaction, pIsCloseOnEnd);
     }
 
-    public void selectThenCommit(String pSql, String[] pSelectionArgs, IDataFetcher pDataFetcher) {
-        this.select(pSql, pSelectionArgs, pDataFetcher, false, true, true);
+    public Cursor selectThenCommit(String pSql, String[] pSelectionArgs, IDataFetcher pDataFetcher) {
+        return this.select(pSql, pSelectionArgs, pDataFetcher, false, true, true);
     }
 
-    public void selectThenClose(String pSql, String[] pSelectionArgs, IDataFetcher pDataFetcher) {
-        this.select(pSql, pSelectionArgs, pDataFetcher, false, false, true);
+    public Cursor selectThenClose(String pSql, String[] pSelectionArgs, IDataFetcher pDataFetcher) {
+        return this.select(pSql, pSelectionArgs, pDataFetcher, false, false, true);
     }
 
-    public void select(String pSql, String[] pSelectionArgs, IDataFetcher pDataFetcher, boolean pIsBeginTransaction, boolean pIsCommitTransaction, boolean pIsCloseOnEnd) {
+    public Cursor select(String pSql, String[] pSelectionArgs, IDataFetcher pDataFetcher, boolean pIsBeginTransaction, boolean pIsCommitTransaction, boolean pIsCloseOnEnd) {
         this.open(SQLiteDatabase.OPEN_READONLY);
         if(pIsBeginTransaction) {
             this.beginTransaction();
@@ -201,6 +202,8 @@ public class DatabaseHelper {
         Cursor cursor = this.mSQLiteDatabase.rawQuery(pSql, pSelectionArgs);
         if(pDataFetcher != null) {
             pDataFetcher.fetchData(cursor);
+            cursor.close();
+            cursor = null;
         }
 
         if(pIsCommitTransaction) {
@@ -209,6 +212,51 @@ public class DatabaseHelper {
         if(pIsCloseOnEnd) {
             this.close();
         }
+
+        return cursor;
+    }
+
+    public Cursor select(SQLiteQueryBuilder pSQLiteQueryBuilder, String[] pProjection, String pWhereClause, String[] pWhereArgs, String pGroupBy, String pHaving, String pSortOrder, IDataFetcher pDataFetcher) {
+        return this.select(pSQLiteQueryBuilder, pProjection, pWhereClause, pWhereArgs, pGroupBy, pHaving, pSortOrder, pDataFetcher, false, false, false);
+    }
+
+    public Cursor select(SQLiteQueryBuilder pSQLiteQueryBuilder, String[] pProjection, String pWhereClause, String[] pWhereArgs, String pGroupBy, String pHaving, String pSortOrder, IDataFetcher pDataFetcher, boolean pIsBeginTransaction) {
+        return this.select(pSQLiteQueryBuilder, pProjection, pWhereClause, pWhereArgs, pGroupBy, pHaving, pSortOrder, pDataFetcher, pIsBeginTransaction, false, false);
+    }
+
+    public Cursor select(SQLiteQueryBuilder pSQLiteQueryBuilder, String[] pProjection, String pWhereClause, String[] pWhereArgs, String pGroupBy, String pHaving, String pSortOrder, IDataFetcher pDataFetcher, boolean pIsCommitTransaction, boolean pIsCloseOnEnd) {
+        return this.select(pSQLiteQueryBuilder, pProjection, pWhereClause, pWhereArgs, pGroupBy, pHaving, pSortOrder, pDataFetcher, false, pIsCommitTransaction, pIsCloseOnEnd);
+    }
+
+    public Cursor selectThenCommit(SQLiteQueryBuilder pSQLiteQueryBuilder, String[] pProjection, String pWhereClause, String[] pWhereArgs, String pGroupBy, String pHaving, String pSortOrder, IDataFetcher pDataFetcher) {
+        return this.select(pSQLiteQueryBuilder, pProjection, pWhereClause, pWhereArgs, pGroupBy, pHaving, pSortOrder, pDataFetcher, false, true, true);
+    }
+
+    public Cursor selectThenClose(SQLiteQueryBuilder pSQLiteQueryBuilder, String[] pProjection, String pWhereClause, String[] pWhereArgs, String pGroupBy, String pHaving, String pSortOrder, IDataFetcher pDataFetcher) {
+        return this.select(pSQLiteQueryBuilder, pProjection, pWhereClause, pWhereArgs, pGroupBy, pHaving, pSortOrder, pDataFetcher, false, false, true);
+    }
+
+    public Cursor select(SQLiteQueryBuilder pSQLiteQueryBuilder, String[] pProjection, String pWhereClause, String[] pWhereArgs, String pGroupBy, String pHaving, String pSortOrder, IDataFetcher pDataFetcher, boolean pIsBeginTransaction, boolean pIsCommitTransaction, boolean pIsCloseOnEnd) {
+        this.open(SQLiteDatabase.OPEN_READWRITE);
+        if(pIsBeginTransaction) {
+            this.beginTransaction();
+        }
+
+        Cursor cursor = pSQLiteQueryBuilder.query(this.mSQLiteDatabase, pProjection, pWhereClause, pWhereArgs, pGroupBy, pHaving, pSortOrder);
+        if(pDataFetcher != null) {
+            pDataFetcher.fetchData(cursor);
+            cursor.close();
+            cursor = null;
+        }
+
+        if(pIsCommitTransaction) {
+            this.commitTransaction();
+        }
+        if(pIsCloseOnEnd) {
+            this.close();
+        }
+
+        return cursor;
     }
 
     synchronized public void beginTransaction() {
