@@ -17,7 +17,7 @@ public class DaoAlert extends Dao {
     }
 
     @Override
-    protected boolean checkColumns(String[] pProjection) {
+    public boolean checkColumns(String[] pProjection) {
         if(pProjection == null) {
             return false;
         }

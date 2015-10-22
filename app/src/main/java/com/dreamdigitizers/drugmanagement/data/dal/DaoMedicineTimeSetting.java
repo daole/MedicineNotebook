@@ -1,7 +1,6 @@
 package com.dreamdigitizers.drugmanagement.data.dal;
 
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
-import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineInterval;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTimeSetting;
 
 import java.util.Arrays;
@@ -18,7 +17,7 @@ public class DaoMedicineTimeSetting extends Dao {
     }
 
     @Override
-    protected boolean checkColumns(String[] pProjection) {
+    public boolean checkColumns(String[] pProjection) {
         if(pProjection == null) {
             return false;
         }

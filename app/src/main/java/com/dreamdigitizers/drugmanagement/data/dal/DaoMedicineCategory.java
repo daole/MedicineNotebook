@@ -1,7 +1,6 @@
 package com.dreamdigitizers.drugmanagement.data.dal;
 
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
-import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 
 import java.util.Arrays;
@@ -18,7 +17,7 @@ public class DaoMedicineCategory extends Dao {
     }
 
     @Override
-    protected boolean checkColumns(String[] pProjection) {
+    public boolean checkColumns(String[] pProjection) {
         if(pProjection == null) {
             return false;
         }

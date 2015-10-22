@@ -9,10 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 
 public class DatabaseHelper {
-    public static interface IDataFetcher {
-        public void fetchData(Cursor pCursor);
-    }
-
     public static final int DB_ERROR_CODE__CONSTRAINT = -1;
     public static final int DB_ERROR_CODE__OTHER = -2;
 
@@ -290,5 +286,9 @@ public class DatabaseHelper {
             this.mSQLiteDatabase.endTransaction();
             this.mIsInTransaction = false;
         }
+    }
+
+    public static interface IDataFetcher {
+        public void fetchData(Cursor pCursor);
     }
 }
