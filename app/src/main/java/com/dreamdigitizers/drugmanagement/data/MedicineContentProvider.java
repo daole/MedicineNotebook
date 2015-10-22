@@ -259,6 +259,7 @@ public class MedicineContentProvider extends ContentProvider {
                 pSelection += Table.COLUMN_NAME__ID + " = " + id;
             }
             cursor = dao.select(pProjection, pSelection, pSelectionArgs, null, null, pSortOrder);
+            cursor.setNotificationUri(this.getContext().getContentResolver(), pUri);
         }
 
         return cursor;
@@ -384,6 +385,7 @@ public class MedicineContentProvider extends ContentProvider {
                 pSelection += Table.COLUMN_NAME__ID + " = " + id;
             }
             affectedRows = dao.update(pValues, pSelection, pSelectionArgs);
+            this.getContext().getContentResolver().notifyChange(pUri, null);
         }
 
         return affectedRows;
@@ -465,6 +467,7 @@ public class MedicineContentProvider extends ContentProvider {
                 pSelection += Table.COLUMN_NAME__ID + " = " + id;
             }
             affectedRows = dao.delete(pSelection, pSelectionArgs);
+            this.getContext().getContentResolver().notifyChange(pUri, null);
         }
 
         return affectedRows;
