@@ -81,6 +81,10 @@ public class DatabaseHelper {
             } else {
                 newID = DatabaseHelper.DB_ERROR_CODE__OTHER;
             }
+
+            if(pIsCommitTransaction) {
+                this.rollbackTransaction();
+            }
         } finally {
             if(pIsCloseOnEnd) {
                 this.close();
@@ -127,6 +131,10 @@ public class DatabaseHelper {
                 affectedRows = DatabaseHelper.DB_ERROR_CODE__CONSTRAINT;
             } else {
                 affectedRows = DatabaseHelper.DB_ERROR_CODE__OTHER;
+            }
+
+            if(pIsCommitTransaction) {
+                this.rollbackTransaction();
             }
         } finally {
             if(pIsCloseOnEnd) {

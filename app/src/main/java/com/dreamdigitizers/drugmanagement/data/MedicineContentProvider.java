@@ -1,9 +1,12 @@
 package com.dreamdigitizers.drugmanagement.data;
 
 import android.content.ContentProvider;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.OperationApplicationException;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
@@ -27,6 +30,8 @@ import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTime;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTimeSetting;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableTakenMedicine;
 import com.dreamdigitizers.drugmanagement.utils.StringUtils;
+
+import java.util.ArrayList;
 
 public class MedicineContentProvider extends ContentProvider {
     protected static final String ERROR_MESSAGE__UNKNOWN_COLUMNS = "There are unknown columns in projection";
@@ -471,5 +476,17 @@ public class MedicineContentProvider extends ContentProvider {
         }
 
         return affectedRows;
+    }
+
+    @Override
+    public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> pOperations) throws OperationApplicationException {
+        this.mDatabaseHelper.beginTransaction();
+        try {
+            ContentProviderResult[] results = super.applyBatch(pOperations);
+            this.mDatabaseHelper.commitTransaction();
+            return results;
+        } finally {
+            this.mDatabaseHelper.endTransaction();
+        }
     }
 }
