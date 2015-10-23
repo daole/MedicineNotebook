@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="navigation_drawer_icons">
+        <item>@drawable/icon__schedule</item>
+        <item>@drawable/icon__family</item>
+        <item>@drawable/icon__medicines</item>
+        <item>@drawable/icon__medicine_categories</item>
+        <item>@drawable/icon__medicine_time</item>
+        <item>@drawable/icon__medicine_intervals</item>
+    </array>
+</resources>

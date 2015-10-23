@@ -2,15 +2,16 @@
     <string name="app_name">Drug Management</string>
     <string name="title_activity_main">Main Activity</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
 
+    <string name="action_settings">Settings</string>
+    <string name="action_example">Example action</string>
+    <string name="menu_item__add">Add</string>
+    <string name="menu_item__delete">Delete</string>
+
+    <string name="desc__menu_item_icon">Menu item icon</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_example">Example action</string>
 </resources>

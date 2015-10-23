@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements INavigationDrawer
     @Override
     protected void onCreate(Bundle pSavedInstanceState) {
         super.onCreate(pSavedInstanceState);
-        this.setContentView(R.layout.activity_main);
+        this.setContentView(R.layout.activity__main);
 
         this.mTitle = this.getTitle();
         this.mNavigationDrawerFragment = (NavigationDrawerFragment)this.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements INavigationDrawer
 
         @Override
         public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer, Bundle pSavedInstanceState) {
-            View rootView = pInflater.inflate(R.layout.fragment_main, pContainer, false);
+            View rootView = pInflater.inflate(R.layout.fragment__main, pContainer, false);
             return rootView;
         }
 

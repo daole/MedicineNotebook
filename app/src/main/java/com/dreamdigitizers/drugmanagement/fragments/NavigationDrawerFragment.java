@@ -1,6 +1,8 @@
 package com.dreamdigitizers.drugmanagement.fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -17,7 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dreamdigitizers.drugmanagement.R;
@@ -77,22 +82,14 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer, Bundle pSavedInstanceState) {
-        this.mDrawerListView = (ListView)pInflater.inflate(R.layout.fragment_navigation_drawer, pContainer, false);
+        this.mDrawerListView = (ListView)pInflater.inflate(R.layout.fragment__navigation_drawer, pContainer, false);
         this.mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView pParent, View pView, int pPosition, long pId) {
                 NavigationDrawerFragment.this.selectItem(pPosition);
             }
         });
-        this.mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                this.getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                new String[]{
-                        this.getString(R.string.title_section1),
-                        this.getString(R.string.title_section2),
-                        this.getString(R.string.title_section3),
-                }));
+        this.mDrawerListView.setAdapter(new NavigationDrawerListAdapter(this.getContext()));
         this.mDrawerListView.setItemChecked(this.mCurrentSelectedPosition, true);
         return this.mDrawerListView;
     }
@@ -132,7 +129,6 @@ public class NavigationDrawerFragment extends Fragment {
         // If the drawer is open, show the global app actions in the action bar. See also
         // showGlobalContextActionBar, which controls the top-left area of the action bar.
         if (this.mDrawerLayout != null && this.isDrawerOpen()) {
-            pInflater.inflate(R.menu.global, pMenu);
             this.showGlobalContextActionBar();
         }
 
@@ -142,11 +138,6 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem pItem) {
         if (this.mDrawerToggle.onOptionsItemSelected(pItem)) {
-            return true;
-        }
-
-        if (pItem.getItemId() == R.id.action_example) {
-            Toast.makeText(this.getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -240,6 +231,60 @@ public class NavigationDrawerFragment extends Fragment {
 
     private ActionBar getActionBar() {
         return ((AppCompatActivity)this.getActivity()).getSupportActionBar();
+    }
+
+    private static class NavigationDrawerListAdapter extends BaseAdapter {
+        private Context mContext;
+        private TypedArray mMenuItemIcons;
+        private String[] mMenuItemTitles;
+
+        public NavigationDrawerListAdapter(Context pContext) {
+            this.mContext = pContext;
+            this.mMenuItemTitles = this.mContext.getResources().getStringArray(R.array.navigation_drawer_items);
+            this.mMenuItemIcons = this.mContext.getResources().obtainTypedArray(R.array.navigation_drawer_icons);
+        }
+
+        @Override
+        public int getCount() {
+            return this.mMenuItemTitles.length;
+        }
+
+        @Override
+        public Object getItem(int pPosition) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int pPosition) {
+            return pPosition;
+        }
+
+        @Override
+        public View getView(int pPosition, View pConvertView, ViewGroup pParent) {
+            ViewHolder viewHolder = null;
+            if(pConvertView == null) {
+                LayoutInflater layoutInflater = (LayoutInflater)this.mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+                pConvertView = layoutInflater.inflate(R.layout.part__navigation_drawer_item, pParent, false);
+
+                viewHolder = new ViewHolder();
+                viewHolder.mMenuItemIcon = (ImageView)pConvertView.findViewById(R.id.menu_item_icon);
+                viewHolder.mMenuItemText = (TextView)pConvertView.findViewById(R.id.menu_item_text);
+                viewHolder.mMenuItemCounter = (TextView)pConvertView.findViewById(R.id.menu_item_counter);
+                pConvertView.setTag(viewHolder);
+            }
+
+            viewHolder = (ViewHolder)pConvertView.getTag();
+            viewHolder.mMenuItemIcon.setImageResource(this.mMenuItemIcons.getResourceId(pPosition, -1));
+            viewHolder.mMenuItemText.setText(this.mMenuItemTitles[pPosition]);
+
+            return pConvertView;
+        }
+
+        private static class ViewHolder {
+            public ImageView mMenuItemIcon;
+            public TextView mMenuItemText;
+            public TextView mMenuItemCounter;
+        }
     }
 
     /**

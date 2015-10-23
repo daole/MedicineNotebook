@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="navigation_drawer_items">
+        <item >Schedule</item>
+        <item >Family</item>
+        <item >Medicines</item>
+        <item >Medicine Categories</item>
+        <item >Medicine Time</item>
+        <item >Medicine Intervals</item>
+    </string-array>
+</resources>
