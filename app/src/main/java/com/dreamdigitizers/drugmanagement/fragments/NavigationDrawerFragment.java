@@ -31,9 +31,6 @@ import com.dreamdigitizers.drugmanagement.R;
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
 public class NavigationDrawerFragment extends Fragment {
-
-    private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement INavigationDrawerCallbacks.";
-
     /**
      * Remember the position of the selected item.
      */
@@ -42,7 +39,7 @@ public class NavigationDrawerFragment extends Fragment {
     /**
      * A pointer to the current callbacks instance (the Activity).
      */
-    private INavigationDrawerCallbacks mCallbacks;
+    private INavigationDrawerItemClickListener mINavigationDrawerItemSelectListener;
 
     /**
      * Helper component that ties the action bar to the navigation drawer.
@@ -93,19 +90,9 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context pContext) {
-        super.onAttach(pContext);
-        try {
-            this.mCallbacks = (INavigationDrawerCallbacks)pContext;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(NavigationDrawerFragment.ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE);
-        }
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
-        this.mCallbacks = null;
+        this.mINavigationDrawerItemSelectListener = null;
     }
 
     @Override
@@ -145,11 +132,16 @@ public class NavigationDrawerFragment extends Fragment {
     /**
      * Users of this fragment must call this method to set up the navigation drawer interactions.
      *
-     * @param pFragmentId   The android:id of this fragment in its activity's layout.
+     * @param pFragmentContainerViewId   The android:id of this fragment in its activity's layout.
      * @param pDrawerLayout The DrawerLayout containing this fragment's UI.
      */
-    public void setUp(int pFragmentId, DrawerLayout pDrawerLayout, int pIconsResourceKey, int pTitlesResourceKey) {
-        this.mFragmentContainerView = this.getActivity().findViewById(pFragmentId);
+    public void setUp(int pIconsResourceKey, int pTitlesResourceKey, int pFragmentContainerViewId, DrawerLayout pDrawerLayout, INavigationDrawerItemClickListener pINavigationDrawerItemClickListerner) {
+        this.mINavigationDrawerItemSelectListener = pINavigationDrawerItemClickListerner;
+
+        this.mDrawerListView.setAdapter(new NavigationDrawerListAdapter(this.getContext(), pIconsResourceKey, pTitlesResourceKey));
+        this.mDrawerListView.setItemChecked(this.mCurrentSelectedPosition, true);
+
+        this.mFragmentContainerView = this.getActivity().findViewById(pFragmentContainerViewId);
         this.mDrawerLayout = pDrawerLayout;
 
         // set a custom shadow that overlays the main content when the drawer opens
@@ -198,13 +190,14 @@ public class NavigationDrawerFragment extends Fragment {
         });
 
         this.mDrawerLayout.setDrawerListener(this.mDrawerToggle);
-
-        this.mDrawerListView.setAdapter(new NavigationDrawerListAdapter(this.getContext(), pIconsResourceKey, pTitlesResourceKey));
-        this.mDrawerListView.setItemChecked(this.mCurrentSelectedPosition, true);
     }
 
     public boolean isDrawerOpen() {
         return this.mDrawerLayout != null && this.mDrawerLayout.isDrawerOpen(this.mFragmentContainerView);
+    }
+
+    public void closeDrawer() {
+        this.mDrawerLayout.closeDrawer(this.mFragmentContainerView);
     }
 
     private void selectItem(int pPosition) {
@@ -215,8 +208,8 @@ public class NavigationDrawerFragment extends Fragment {
         if (this.mDrawerLayout != null) {
             this.mDrawerLayout.closeDrawer(this.mFragmentContainerView);
         }
-        if (this.mCallbacks != null) {
-            this.mCallbacks.onNavigationDrawerItemSelected(pPosition);
+        if (this.mINavigationDrawerItemSelectListener != null) {
+            this.mINavigationDrawerItemSelectListener.onNavigationDrawerItemSelected(pPosition);
         }
     }
 
@@ -291,7 +284,7 @@ public class NavigationDrawerFragment extends Fragment {
     /**
      * Callbacks interface that all activities using this fragment must implement.
      */
-    public static interface INavigationDrawerCallbacks {
+    public static interface INavigationDrawerItemClickListener {
         /**
          * Called when an item in the navigation drawer is selected.
          */

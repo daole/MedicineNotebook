@@ -15,9 +15,9 @@ import android.support.v4.widget.DrawerLayout;
 
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.fragments.NavigationDrawerFragment;
-import com.dreamdigitizers.drugmanagement.fragments.NavigationDrawerFragment.INavigationDrawerCallbacks;
+import com.dreamdigitizers.drugmanagement.fragments.NavigationDrawerFragment.INavigationDrawerItemClickListener;
 
-public class MainActivity extends AppCompatActivity implements INavigationDrawerCallbacks {
+public class MainActivity extends AppCompatActivity implements INavigationDrawerItemClickListener {
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
 
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements INavigationDrawer
         this.mNavigationDrawerFragment = (NavigationDrawerFragment)this.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
         // Set up the drawer.
-        this.mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_layout), R.array.navigation_drawer_icons, R.array.navigation_drawer_titles);
+        this.mNavigationDrawerFragment.setUp(R.array.navigation_drawer_icons, R.array.navigation_drawer_titles, R.id.navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_layout), this);
     }
 
     @Override
@@ -67,6 +67,15 @@ public class MainActivity extends AppCompatActivity implements INavigationDrawer
         }
 
         return super.onOptionsItemSelected(pItem);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(this.mNavigationDrawerFragment.isDrawerOpen()){
+            this.mNavigationDrawerFragment.closeDrawer();
+        }else{
+            super.onBackPressed();
+        }
     }
 
     public void onSectionAttached(int pNumber) {
