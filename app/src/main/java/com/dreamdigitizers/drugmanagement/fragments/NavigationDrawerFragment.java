@@ -136,7 +136,7 @@ public class NavigationDrawerFragment extends Fragment {
         this.mINavigationDrawerItemSelectListener = pINavigationDrawerItemClickListerner;
 
         this.mDrawerListView.setAdapter(new NavigationDrawerListAdapter(this.getContext(), pIconsResourceKey, pTitlesResourceKey));
-        this.mDrawerListView.setItemChecked(this.mCurrentSelectedPosition, true);
+        this.setItemChecked(this.mCurrentSelectedPosition);
 
         // Select either the default item (0) or the last selected item.
         this.selectItem(this.mCurrentSelectedPosition);
@@ -192,6 +192,10 @@ public class NavigationDrawerFragment extends Fragment {
         this.mDrawerLayout.setDrawerListener(this.mDrawerToggle);
     }
 
+    public void setItemChecked(int pPosition) {
+        this.mDrawerListView.setItemChecked(pPosition, true);
+    }
+
     public boolean isDrawerOpen() {
         return this.mDrawerLayout != null && this.mDrawerLayout.isDrawerOpen(this.mFragmentContainerView);
     }
@@ -203,7 +207,7 @@ public class NavigationDrawerFragment extends Fragment {
     private void selectItem(int pPosition) {
         this.mCurrentSelectedPosition = pPosition;
         if (this.mDrawerListView != null) {
-            this.mDrawerListView.setItemChecked(pPosition, true);
+            this.setItemChecked(pPosition);
         }
         if (this.mDrawerLayout != null) {
             this.mDrawerLayout.closeDrawer(this.mFragmentContainerView);

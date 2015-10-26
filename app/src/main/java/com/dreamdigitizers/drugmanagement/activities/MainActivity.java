@@ -69,6 +69,7 @@ public class MainActivity extends MyActivity implements INavigationDrawerItemCli
                 this.finish();
                 return;
             } else {
+                this.mNavigationDrawerFragment.setItemChecked(Constants.NAVIGATION_DRAWER_ITEM_ID__SCHEDULE);
                 this.changeScreen(new ScreenSchedule());
                 return;
             }
