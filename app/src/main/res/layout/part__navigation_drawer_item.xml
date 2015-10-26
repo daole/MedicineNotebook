@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
-    android:background="@drawable/background__navigation_drawer_item_color_selector" >
+    android:background="@drawable/selector__navigation_drawer_item_background_color">
 
     <ImageView
         android:id="@+id/menu_item_icon"
@@ -13,18 +12,18 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="10dp"
-        android:contentDescription="@string/desc__menu_item_icon" />
+        android:contentDescription="@string/desc__menu_item_icon"/>
 
     <TextView
         android:id="@+id/menu_item_text"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/menu_item_icon"
-        android:textColor="@drawable/color__navigation_drawer_title_color_selector"
+        android:textColor="@drawable/selector__navigation_drawer_title_color"
         android:duplicateParentState="true"
         android:gravity="center_vertical"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
 
     <TextView
         android:id="@+id/menu_item_counter"
@@ -34,6 +33,6 @@
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/menu_item_icon"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
 
 </RelativeLayout>
