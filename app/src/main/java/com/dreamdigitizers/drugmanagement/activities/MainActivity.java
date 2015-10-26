@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements INavigationDrawer
         this.mNavigationDrawerFragment = (NavigationDrawerFragment)this.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
         // Set up the drawer.
-        this.mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
+        this.mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_layout), R.array.navigation_drawer_icons, R.array.navigation_drawer_titles);
     }
 
     @Override

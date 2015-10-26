@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="navigation_drawer_items">
+    <string-array name="navigation_drawer_titles">
         <item >Schedule</item>
         <item >Family</item>
         <item >Medicines</item>

@@ -18,12 +18,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dreamdigitizers.drugmanagement.R;
 
@@ -33,12 +31,13 @@ import com.dreamdigitizers.drugmanagement.R;
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
 public class NavigationDrawerFragment extends Fragment {
+
     private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement INavigationDrawerCallbacks.";
 
     /**
      * Remember the position of the selected item.
      */
-    private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
+    private static final String BUNDLE_KEY__STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
     /**
      * A pointer to the current callbacks instance (the Activity).
@@ -65,7 +64,7 @@ public class NavigationDrawerFragment extends Fragment {
         super.onCreate(pSavedInstanceState);
 
         if (pSavedInstanceState != null) {
-            this.mCurrentSelectedPosition = pSavedInstanceState.getInt(NavigationDrawerFragment.STATE_SELECTED_POSITION);
+            this.mCurrentSelectedPosition = pSavedInstanceState.getInt(NavigationDrawerFragment.BUNDLE_KEY__STATE_SELECTED_POSITION);
         }
 
         // Select either the default item (0) or the last selected item.
@@ -89,8 +88,7 @@ public class NavigationDrawerFragment extends Fragment {
                 NavigationDrawerFragment.this.selectItem(pPosition);
             }
         });
-        this.mDrawerListView.setAdapter(new NavigationDrawerListAdapter(this.getContext()));
-        this.mDrawerListView.setItemChecked(this.mCurrentSelectedPosition, true);
+
         return this.mDrawerListView;
     }
 
@@ -113,7 +111,7 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
-        pOutState.putInt(NavigationDrawerFragment.STATE_SELECTED_POSITION, this.mCurrentSelectedPosition);
+        pOutState.putInt(NavigationDrawerFragment.BUNDLE_KEY__STATE_SELECTED_POSITION, this.mCurrentSelectedPosition);
     }
 
     @Override
@@ -150,7 +148,7 @@ public class NavigationDrawerFragment extends Fragment {
      * @param pFragmentId   The android:id of this fragment in its activity's layout.
      * @param pDrawerLayout The DrawerLayout containing this fragment's UI.
      */
-    public void setUp(int pFragmentId, DrawerLayout pDrawerLayout) {
+    public void setUp(int pFragmentId, DrawerLayout pDrawerLayout, int pIconsResourceKey, int pTitlesResourceKey) {
         this.mFragmentContainerView = this.getActivity().findViewById(pFragmentId);
         this.mDrawerLayout = pDrawerLayout;
 
@@ -200,6 +198,9 @@ public class NavigationDrawerFragment extends Fragment {
         });
 
         this.mDrawerLayout.setDrawerListener(this.mDrawerToggle);
+
+        this.mDrawerListView.setAdapter(new NavigationDrawerListAdapter(this.getContext(), pIconsResourceKey, pTitlesResourceKey));
+        this.mDrawerListView.setItemChecked(this.mCurrentSelectedPosition, true);
     }
 
     public boolean isDrawerOpen() {
@@ -233,15 +234,15 @@ public class NavigationDrawerFragment extends Fragment {
         return ((AppCompatActivity)this.getActivity()).getSupportActionBar();
     }
 
-    private static class NavigationDrawerListAdapter extends BaseAdapter {
+    public static class NavigationDrawerListAdapter extends BaseAdapter {
         private Context mContext;
         private TypedArray mMenuItemIcons;
         private String[] mMenuItemTitles;
 
-        public NavigationDrawerListAdapter(Context pContext) {
+        public NavigationDrawerListAdapter(Context pContext, int pIconsKeys, int pTitlesKey) {
             this.mContext = pContext;
-            this.mMenuItemTitles = this.mContext.getResources().getStringArray(R.array.navigation_drawer_items);
-            this.mMenuItemIcons = this.mContext.getResources().obtainTypedArray(R.array.navigation_drawer_icons);
+            this.mMenuItemIcons = this.mContext.getResources().obtainTypedArray(pIconsKeys);
+            this.mMenuItemTitles = this.mContext.getResources().getStringArray(pTitlesKey);
         }
 
         @Override
