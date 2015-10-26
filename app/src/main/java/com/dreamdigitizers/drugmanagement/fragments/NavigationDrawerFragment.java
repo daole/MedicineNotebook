@@ -63,9 +63,6 @@ public class NavigationDrawerFragment extends Fragment {
         if (pSavedInstanceState != null) {
             this.mCurrentSelectedPosition = pSavedInstanceState.getInt(NavigationDrawerFragment.BUNDLE_KEY__STATE_SELECTED_POSITION);
         }
-
-        // Select either the default item (0) or the last selected item.
-        this.selectItem(this.mCurrentSelectedPosition);
     }
 
     @Override
@@ -141,10 +138,13 @@ public class NavigationDrawerFragment extends Fragment {
         this.mDrawerListView.setAdapter(new NavigationDrawerListAdapter(this.getContext(), pIconsResourceKey, pTitlesResourceKey));
         this.mDrawerListView.setItemChecked(this.mCurrentSelectedPosition, true);
 
+        // Select either the default item (0) or the last selected item.
+        this.selectItem(this.mCurrentSelectedPosition);
+
         this.mFragmentContainerView = this.getActivity().findViewById(pFragmentContainerViewId);
         this.mDrawerLayout = pDrawerLayout;
 
-        // set a custom shadow that overlays the main content when the drawer opens
+        // set a custom shadow that overlays the menu__main content when the drawer opens
         this.mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
 
@@ -220,7 +220,7 @@ public class NavigationDrawerFragment extends Fragment {
     private void showGlobalContextActionBar() {
         ActionBar actionBar = this.getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(R.string.app_name);
+        actionBar.setTitle(R.string.title__menu);
     }
 
     private ActionBar getActionBar() {

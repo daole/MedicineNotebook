@@ -7,10 +7,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="family"/>
+        android:text="schedule"/>
 
     <ListView
-        android:id="@+id/family_member_list"
+        android:id="@+id/schedule_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"/>
