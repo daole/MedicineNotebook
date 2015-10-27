@@ -44,4 +44,17 @@ public class MyActivity  extends AppCompatActivity {
             this.finish();
         }
     }
+
+    public void back() {
+        int backStackEntryCount = this.getSupportFragmentManager().getBackStackEntryCount();
+        if(backStackEntryCount <= 1) {
+            this.finish();
+            return;
+        }
+
+        boolean result = this.getSupportFragmentManager().popBackStackImmediate();
+        if (!result) {
+            this.finish();
+        }
+    }
 }

@@ -10,6 +10,7 @@ import android.content.OperationApplicationException;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.dreamdigitizers.drugmanagement.data.dal.Dao;
 import com.dreamdigitizers.drugmanagement.data.dal.DaoAlert;
@@ -466,7 +467,7 @@ public class MedicineContentProvider extends ContentProvider {
 
         if(dao != null) {
             if(id != null) {
-                if(!StringUtils.isEmpty(pSelection)) {
+                if(!TextUtils.isEmpty(pSelection)) {
                     pSelection += " and ";
                 }
                 pSelection += Table.COLUMN_NAME__ID + " = " + id;

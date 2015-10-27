@@ -288,7 +288,7 @@ public class DatabaseHelper {
         }
     }
 
-    public static interface IDataFetcher {
-        public void fetchData(Cursor pCursor);
+    public interface IDataFetcher {
+        void fetchData(Cursor pCursor);
     }
 }

@@ -13,13 +13,19 @@ import android.view.inputmethod.InputMethodManager;
 import com.dreamdigitizers.drugmanagement.activities.MyActivity;
 
 public abstract class Screen extends Fragment {
-	protected float mDensity;
-	
+	private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IScreenActionsListener.";
+
+	protected IScreenActionsListener mIScreenActionsListener;
+
 	@Override
 	public void onAttach(Context pContext) {
 		super.onAttach(pContext);
-		DisplayMetrics metrics = pContext.getResources().getDisplayMetrics();
-		this.mDensity = metrics.density;
+		try {
+			this.mIScreenActionsListener = (IScreenActionsListener)pContext;
+			this.mIScreenActionsListener.onSetCurrentScreen(this);
+		} catch (ClassCastException e) {
+			throw new ClassCastException(Screen.ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE);
+		}
 	}
 	
 	@Override
@@ -44,6 +50,12 @@ public abstract class Screen extends Fragment {
 		InputMethodManager imm = (InputMethodManager)this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(this.getView().getWindowToken(), 0);
 	}
+
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		this.mIScreenActionsListener = null;
+	}
 	
 	protected void addChildToViewGroup(ViewGroup pParent, View pChild, int pPosition) {
 		if(pPosition >= 0) {
@@ -66,9 +78,18 @@ public abstract class Screen extends Fragment {
 		pParent.removeViewAt(pPosition);
 		pParent.addView(pChild, pPosition);
 	}
+
+	public boolean onBackPressed() {
+		return false;
+	}
 	
 	protected abstract View loadView(LayoutInflater pInflater, ViewGroup pContainer);
 	protected abstract void retrieveScreenItems(View pView);
 	protected abstract void recoverInstanceState(Bundle pSavedInstanceState);
 	protected abstract void mapInformationToScreenItems();
+
+	public interface IScreenActionsListener {
+		void onSetCurrentScreen(Screen pCurrentScreen);
+		void onBackAction();
+	}
 }

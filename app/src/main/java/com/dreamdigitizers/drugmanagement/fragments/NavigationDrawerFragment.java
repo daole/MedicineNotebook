@@ -31,6 +31,8 @@ import com.dreamdigitizers.drugmanagement.R;
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
 public class NavigationDrawerFragment extends Fragment {
+    private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement INavigationDrawerItemSelectListener.";
+
     /**
      * Remember the position of the selected item.
      */
@@ -39,7 +41,7 @@ public class NavigationDrawerFragment extends Fragment {
     /**
      * A pointer to the current callbacks instance (the Activity).
      */
-    private INavigationDrawerItemClickListener mINavigationDrawerItemSelectListener;
+    private INavigationDrawerItemSelectListener mINavigationDrawerItemSelectListener;
 
     /**
      * Helper component that ties the action bar to the navigation drawer.
@@ -84,6 +86,16 @@ public class NavigationDrawerFragment extends Fragment {
         });
 
         return this.mDrawerListView;
+    }
+
+    @Override
+    public void onAttach(Context pContext) {
+        super.onAttach(pContext);
+        try {
+            this.mINavigationDrawerItemSelectListener = (INavigationDrawerItemSelectListener)pContext;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(NavigationDrawerFragment.ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE);
+        }
     }
 
     @Override
@@ -132,10 +144,9 @@ public class NavigationDrawerFragment extends Fragment {
      * @param pFragmentContainerViewId   The android:id of this fragment in its activity's layout.
      * @param pDrawerLayout The DrawerLayout containing this fragment's UI.
      */
-    public void setUp(int pIconsResourceKey, int pTitlesResourceKey, int pFragmentContainerViewId, DrawerLayout pDrawerLayout, INavigationDrawerItemClickListener pINavigationDrawerItemClickListerner) {
-        this.mINavigationDrawerItemSelectListener = pINavigationDrawerItemClickListerner;
+    public void setUp(int pIconsResourceId, int pTitlesResourceId, int pFragmentContainerViewId, DrawerLayout pDrawerLayout) {
 
-        this.mDrawerListView.setAdapter(new NavigationDrawerListAdapter(this.getContext(), pIconsResourceKey, pTitlesResourceKey));
+        this.mDrawerListView.setAdapter(new NavigationDrawerListAdapter(this.getContext(), pIconsResourceId, pTitlesResourceId));
         this.setItemChecked(this.mCurrentSelectedPosition);
 
         // Select either the default item (0) or the last selected item.
@@ -157,8 +168,8 @@ public class NavigationDrawerFragment extends Fragment {
         this.mDrawerToggle = new ActionBarDrawerToggle(
                 this.getActivity(),  /* host Activity */
                 this.mDrawerLayout, /* DrawerLayout object */
-                R.string.navigation_drawer_open,    /* "open drawer" description for accessibility */
-                R.string.navigation_drawer_close    /* "close drawer" description for accessibility */
+                R.string.desc__navigation_drawer_open,    /* "open drawer" description for accessibility */
+                R.string.desc__navigation_drawer_close    /* "close drawer" description for accessibility */
         ) {
             @Override
             public void onDrawerOpened(View pDrawerView) {
@@ -288,7 +299,7 @@ public class NavigationDrawerFragment extends Fragment {
     /**
      * Callbacks interface that all activities using this fragment must implement.
      */
-    public static interface INavigationDrawerItemClickListener {
+    public interface INavigationDrawerItemSelectListener {
         /**
          * Called when an item in the navigation drawer is selected.
          */

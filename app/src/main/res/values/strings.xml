@@ -1,18 +1,21 @@
 <resources>
-    <string name="app_name">Drug Management</string>
-    <string name="title_activity_main">Main Activity</string>
+    <string name="title__app_name">Drug Management</string>
+    <string name="title__activity_main">Main Activity</string>
     <string name="title__menu">Menu</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
-    <string name="menu_item__settings">Settings</string>
-    <string name="menu_item___example">Example</string>
     <string name="menu_item__add">Add</string>
     <string name="menu_item__delete">Delete</string>
 
+    <string name="lbl__family_member">Family member:</string>
+
+    <string name="hint__family_member">Mother, Father, Me etc...</string>
+
+    <string name="btn__add">Add</string>
+    <string name="btn__cancel">Cancel</string>
+
+    <string name="error__blank_family_member">Please input your family member.</string>
+
     <string name="desc__menu_item_icon">Menu item icon</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="desc__navigation_drawer_open">Open navigation drawer</string>
+    <string name="desc__navigation_drawer_close">Close navigation drawer</string>
 </resources>
