@@ -4,11 +4,14 @@ import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dreamdigitizers.drugmanagement.R;
@@ -20,7 +23,7 @@ import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
 public class ScreenFamilyMemberAdd extends Screen {
     private EditText mTxtFamilyMember;
     private Button mBtnAdd;
-    private Button mBtnCancel;
+    private Button mBtnBack;
 
     @Override
     public void onActivityCreated(Bundle pSavedInstanceState) {
@@ -38,7 +41,7 @@ public class ScreenFamilyMemberAdd extends Screen {
     protected void retrieveScreenItems(View pView) {
         this.mTxtFamilyMember = (EditText)pView.findViewById(R.id.txtFamilyMember);
         this.mBtnAdd = (Button)pView.findViewById(R.id.btnAdd);
-        this.mBtnCancel = (Button)pView.findViewById(R.id.btnCancel);
+        this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
     }
 
     @Override
@@ -48,6 +51,16 @@ public class ScreenFamilyMemberAdd extends Screen {
 
     @Override
     protected void mapInformationToScreenItems() {
+        this.mTxtFamilyMember.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView pTextView, int pActionId, KeyEvent pEvent) {
+                if (pActionId == EditorInfo.IME_ACTION_DONE) {
+                    ScreenFamilyMemberAdd.this.buttonAddClick(pTextView);
+                }
+                return false;
+            }
+        });
+
         this.mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View pView) {
@@ -55,10 +68,10 @@ public class ScreenFamilyMemberAdd extends Screen {
             }
         });
 
-        this.mBtnCancel.setOnClickListener(new View.OnClickListener() {
+        this.mBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View pView) {
-                ScreenFamilyMemberAdd.this.buttonCancelClick(pView);
+                ScreenFamilyMemberAdd.this.buttonBackClick(pView);
             }
         });
     }
@@ -81,7 +94,7 @@ public class ScreenFamilyMemberAdd extends Screen {
         }
     }
 
-    public void buttonCancelClick(View pView) {
+    public void buttonBackClick(View pView) {
         this.mIScreenActionsListener.onBack();
     }
 

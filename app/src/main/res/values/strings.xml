@@ -9,11 +9,13 @@
     <string name="menu_item__delete">Delete</string>
 
     <string name="lbl__family_member">Family member:</string>
+    <string name="lbl__empty">There is no saved data.</string>
 
     <string name="hint__family_member">Mother, Father, Me etc...</string>
 
     <string name="btn__add">Add</string>
-    <string name="btn__cancel">Cancel</string>
+    <string name="btn__update">Update</string>
+    <string name="btn__back">Back</string>
     <string name="btn__ok">OK</string>
     <string name="btn__no">No</string>
 

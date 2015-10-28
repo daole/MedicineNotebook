@@ -43,12 +43,12 @@
             android:text="@string/btn__add"/>
 
         <Button
-            android:id="@+id/btnCancel"
+            android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/btnAdd"
             android:minWidth="100dp"
-            android:text="@string/btn__cancel"/>
+            android:text="@string/btn__back"/>
 
     </RelativeLayout>
 
