@@ -15,14 +15,17 @@
             android:id="@+id/lblFamilyMember"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="@string/lbl__family_member"/>
 
         <EditText
             android:id="@+id/txtFamilyMember"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignBottom="@id/lblFamilyMember"
             android:layout_toRightOf="@id/lblFamilyMember"
+            android:inputType="text"
+            android:singleLine="true"
             android:hint="@string/hint__family_member"/>
 
     </RelativeLayout>

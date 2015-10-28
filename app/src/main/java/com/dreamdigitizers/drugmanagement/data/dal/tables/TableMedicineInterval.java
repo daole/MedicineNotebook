@@ -17,7 +17,7 @@ public class TableMedicineInterval extends Table {
     private static String CREATE_STATEMENT = "CREATE TABLE `" + TableMedicineInterval.TABLE_NAME + "` ("
             + "`" + TableMedicineInterval.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
             + "`" + TableMedicineInterval.COLUMN_NAME__INTERVAL_NAME + "` TEXT NOT NULL,"
-            + "`" + TableMedicineInterval.COLUMN_NAME__INTERVAL_VALUE + "` INTEGER NOT NULL"
+            + "`" + TableMedicineInterval.COLUMN_NAME__INTERVAL_VALUE + "` INTEGER NOT NULL UNIQUE"
             + ");";
 
     private static String UPDATE_STATEMENT = "";
@@ -36,7 +36,7 @@ public class TableMedicineInterval extends Table {
         pSQLiteDatabase.execSQL(TableMedicineInterval.CREATE_STATEMENT);
     }
 
-    public static void onUpdate(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+    public static void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
     }
 }

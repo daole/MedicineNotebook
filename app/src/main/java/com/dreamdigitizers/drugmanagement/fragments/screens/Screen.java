@@ -90,6 +90,7 @@ public abstract class Screen extends Fragment {
 
 	public interface IScreenActionsListener {
 		void onSetCurrentScreen(Screen pCurrentScreen);
-		void onBackAction();
+		void onChangeScreen(Screen pScreen);
+		void onBack();
 	}
 }

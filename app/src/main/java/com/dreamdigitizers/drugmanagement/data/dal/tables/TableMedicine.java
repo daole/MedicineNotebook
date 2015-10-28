@@ -21,7 +21,7 @@ public class TableMedicine extends Table {
     private static String CREATE_STATEMENT = "CREATE TABLE `" + TableMedicine.TABLE_NAME + "` ("
             + "`" + TableMedicine.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
             + "`" + TableMedicine.COLUMN_NAME__MEDICINE_CATEGORY_ID + "` INTEGER,"
-            + "`" + TableMedicine.COLUMN_NAME__MEDICINE_NAME + "` TEXT NOT NULL,"
+            + "`" + TableMedicine.COLUMN_NAME__MEDICINE_NAME + "` TEXT NOT NULL UNIQUE,"
             + "`" + TableMedicine.COLUMN_NAME__MEDICINE_IMAGE_PATH + "` TEXT,"
             + "`" + TableMedicine.COLUMN_NAME__MEDICINE_NOTE + "` TEXT"
             + ");";
@@ -44,7 +44,7 @@ public class TableMedicine extends Table {
         pSQLiteDatabase.execSQL(TableMedicine.CREATE_STATEMENT);
     }
 
-    public static void onUpdate(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+    public static void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
     }
 }

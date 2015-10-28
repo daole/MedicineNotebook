@@ -14,7 +14,7 @@ public class TableFamilyMember extends Table {
 
     private static String CREATE_STATEMENT = "CREATE TABLE `" + TableFamilyMember.TABLE_NAME + "` ("
         + "`" + TableFamilyMember.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-        + "`" + TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME + "` TEXT NOT NULL"
+        + "`" + TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME + "` TEXT NOT NULL UNIQUE"
         + ");";
 
     private static String UPDATE_STATEMENT = "";
@@ -32,7 +32,7 @@ public class TableFamilyMember extends Table {
         pSQLiteDatabase.execSQL(TableFamilyMember.CREATE_STATEMENT);
     }
 
-    public static void onUpdate(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+    public static void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
     }
 }

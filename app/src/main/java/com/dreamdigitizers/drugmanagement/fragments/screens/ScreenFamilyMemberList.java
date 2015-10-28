@@ -31,6 +31,7 @@ public class ScreenFamilyMemberList extends Screen {
     public boolean onOptionsItemSelected(MenuItem pItem) {
         switch(pItem.getItemId()) {
             case R.id.menu_item__add:
+                this.goToAddScreen();
                 return true;
             case R.id.menu_item__delete:
                 return true;
@@ -60,5 +61,10 @@ public class ScreenFamilyMemberList extends Screen {
     @Override
     protected void mapInformationToScreenItems() {
 
+    }
+
+    private void goToAddScreen() {
+        Screen screen = new ScreenFamilyMemberAdd();
+        this.mIScreenActionsListener.onChangeScreen(screen);
     }
 }

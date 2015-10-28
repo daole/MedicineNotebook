@@ -60,7 +60,7 @@ public class DialogUtils {
 	public static void displayErrorDialog(final Activity pActivity,
 										  final String pTitle,
 										  final String pMessage,
-										  final String pPositiveButtonText) {
+										  final String pButtonText) {
 		IOnDialogButtonClickListener dialogButtonClickListener = new IOnDialogButtonClickListener() {
 			@Override
 			public void onPositiveButtonClick(
@@ -84,7 +84,7 @@ public class DialogUtils {
 				
 			}
 		};
-		DialogUtils.displayDialog(pActivity, pTitle, pMessage, false, pPositiveButtonText, null, dialogButtonClickListener);
+		DialogUtils.displayDialog(pActivity, pTitle, pMessage, false, pButtonText, null, dialogButtonClickListener);
 	}
 	
 	public static void showProgressDialog(final Activity pActivity,

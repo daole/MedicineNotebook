@@ -56,7 +56,7 @@ public class TableAlert extends Table {
         pSQLiteDatabase.execSQL(TableAlert.CREATE_STATEMENT);
     }
 
-    public static void onUpdate(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+    public static void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
     }
 }

@@ -17,7 +17,7 @@ public class TableMedicineTime extends Table {
     private static String CREATE_STATEMENT = "CREATE TABLE `" + TableMedicineTime.TABLE_NAME + "` ("
             + "`" + TableMedicineTime.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
             + "`" + TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_NAME + "` TEXT NOT NULL,"
-            + "`" + TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_VALUE + "` TEXT NOT NULL"
+            + "`" + TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_VALUE + "` TEXT NOT NULL UNIQUE"
             + ");";
 
     private static String UPDATE_STATEMENT = "";
@@ -36,7 +36,7 @@ public class TableMedicineTime extends Table {
         pSQLiteDatabase.execSQL(TableMedicineTime.CREATE_STATEMENT);
     }
 
-    public static void onUpdate(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+    public static void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
     }
 }

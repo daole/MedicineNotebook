@@ -113,7 +113,12 @@ public class MainActivity extends MyActivity implements INavigationDrawerItemSel
     }
 
     @Override
-    public void onBackAction() {
+    public void onChangeScreen(Screen pScreen) {
+        this.changeScreen(pScreen);
+    }
+
+    @Override
+    public void onBack() {
         this.back();
     }
 

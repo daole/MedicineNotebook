@@ -14,7 +14,7 @@ public class TableMedicineCategory extends Table {
 
     private static String CREATE_STATEMENT = "CREATE TABLE `" + TableMedicineCategory.TABLE_NAME + "` ("
             + "`" + TableMedicineCategory.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-            + "`" + TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME + "` TEXT NOT NULL"
+            + "`" + TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME + "` TEXT NOT NULL UNIQUE"
             + ");";
 
     private static String UPDATE_STATEMENT = "";
@@ -32,7 +32,7 @@ public class TableMedicineCategory extends Table {
         pSQLiteDatabase.execSQL(TableMedicineCategory.CREATE_STATEMENT);
     }
 
-    public static void onUpdate(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+    public static void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
     }
 }

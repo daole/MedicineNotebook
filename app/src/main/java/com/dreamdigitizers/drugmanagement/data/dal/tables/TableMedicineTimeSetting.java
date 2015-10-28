@@ -60,7 +60,7 @@ public class TableMedicineTimeSetting extends Table {
         pSQLiteDatabase.execSQL(TableMedicineTimeSetting.CREATE_STATEMENT);
     }
 
-    public static void onUpdate(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+    public static void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
     }
 }
