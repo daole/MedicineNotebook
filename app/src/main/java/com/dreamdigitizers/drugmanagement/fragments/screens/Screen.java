@@ -9,10 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
+import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.activities.MyActivity;
+import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
+import com.dreamdigitizers.drugmanagement.views.IView;
 
-public abstract class Screen extends Fragment {
+public abstract class Screen extends Fragment implements IView {
 	private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IScreenActionsListener.";
 
 	protected IScreenActionsListener mIScreenActionsListener;
@@ -55,6 +59,24 @@ public abstract class Screen extends Fragment {
 	public void onDetach() {
 		super.onDetach();
 		this.mIScreenActionsListener = null;
+	}
+
+	@Override
+	public Context getViewContext() {
+		return this.getContext();
+	}
+
+	@Override
+	public void showError(int pStringResourceId) {
+		String title = this.getString(R.string.title__error_dialog);
+		String buttonText = this.getString(R.string.btn__ok);
+		String message = this.getString(pStringResourceId);
+		DialogUtils.displayErrorDialog(this.getActivity(), title, message, buttonText);
+	}
+
+	@Override
+	public void showMessage(int pStringResourceId) {
+		Toast.makeText(this.getActivity(), pStringResourceId, Toast.LENGTH_SHORT).show();
 	}
 	
 	protected void addChildToViewGroup(ViewGroup pParent, View pChild, int pPosition) {
