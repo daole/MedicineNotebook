@@ -13,8 +13,9 @@ import android.widget.TextView;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.presenters.interfaces.IPresenterFamilyMemberAdd;
+import com.dreamdigitizers.drugmanagement.views.IViewFamilyMemberAdd;
 
-public class ScreenFamilyMemberAdd extends Screen {
+public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAdd {
     private IPresenterFamilyMemberAdd mPresenterFamilyMemberAdd;
     private EditText mTxtFamilyMember;
     private Button mBtnAdd;
@@ -23,7 +24,6 @@ public class ScreenFamilyMemberAdd extends Screen {
     @Override
     public void onActivityCreated(Bundle pSavedInstanceState) {
         super.onActivityCreated(pSavedInstanceState);
-        this.mPresenterFamilyMemberAdd = (IPresenterFamilyMemberAdd)PresenterFactory.createPresenter(IPresenterFamilyMemberAdd.class, this);
         this.setHasOptionsMenu(false);
     }
 
@@ -47,6 +47,8 @@ public class ScreenFamilyMemberAdd extends Screen {
 
     @Override
     protected void mapInformationToScreenItems() {
+        this.mPresenterFamilyMemberAdd = (IPresenterFamilyMemberAdd)PresenterFactory.createPresenter(IPresenterFamilyMemberAdd.class, this);
+
         this.mTxtFamilyMember.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView pTextView, int pActionId, KeyEvent pEvent) {
