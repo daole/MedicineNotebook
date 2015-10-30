@@ -26,7 +26,7 @@ import com.dreamdigitizers.drugmanagement.views.IViewMedicineCategoryList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
+class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
     private IViewMedicineCategoryList mViewMedicineCategoryList;
     private SimpleCursorAdapter mSimpleCursorAdapter;
     private List<Integer> mSelectedPositions;

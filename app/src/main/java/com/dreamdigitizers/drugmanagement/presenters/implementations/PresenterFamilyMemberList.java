@@ -25,7 +25,7 @@ import com.dreamdigitizers.drugmanagement.views.IViewFamilyMemberList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PresenterFamilyMemberList implements IPresenterFamilyMemberList {
+class PresenterFamilyMemberList implements IPresenterFamilyMemberList {
     private IViewFamilyMemberList mViewFamilyMemberList;
     private SimpleCursorAdapter mSimpleCursorAdapter;
     private List<Integer> mSelectedPositions;
