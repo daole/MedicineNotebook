@@ -15,12 +15,6 @@ public class ScreenSchedule extends Screen {
     private ListView mListView;
 
     @Override
-    public void onActivityCreated(Bundle pSavedInstanceState) {
-        super.onActivityCreated(pSavedInstanceState);
-        this.setHasOptionsMenu(true);
-    }
-
-    @Override
     public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
         super.onCreateOptionsMenu(pMenu, pInflater);
         pInflater.inflate(R.menu.menu__add_delete, pMenu);
@@ -59,5 +53,10 @@ public class ScreenSchedule extends Screen {
     @Override
     protected void mapInformationToScreenItems() {
 
+    }
+
+    @Override
+    protected int getTitle() {
+        return R.string.title__screen_schedule;
     }
 }

@@ -22,12 +22,6 @@ public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAd
     private Button mBtnBack;
 
     @Override
-    public void onActivityCreated(Bundle pSavedInstanceState) {
-        super.onActivityCreated(pSavedInstanceState);
-        this.setHasOptionsMenu(false);
-    }
-
-    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__family_member_add, pContainer, false);
         return rootView;
@@ -72,6 +66,11 @@ public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAd
                 ScreenFamilyMemberAdd.this.buttonBackClick(pView);
             }
         });
+    }
+
+    @Override
+    protected int getTitle() {
+        return R.string.title__screen_family_member_add;
     }
 
     @Override

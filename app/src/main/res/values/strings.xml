@@ -1,9 +1,12 @@
 <resources>
     <string name="title__app_name">Drug Management</string>
-    <string name="title__activity_main">Main Activity</string>
     <string name="title__menu">Menu</string>
     <string name="title__dialog">Message</string>
     <string name="title__error_dialog">Error</string>
+    <string name="title__screen_schedule">Schedule</string>
+    <string name="title__screen_family_member_list">Family Members</string>
+    <string name="title__screen_family_member_add">Add family member</string>
+    <string name="title__screen_medicine_list">Medicines</string>
 
     <string name="menu_item__add">Add</string>
     <string name="menu_item__delete">Delete</string>

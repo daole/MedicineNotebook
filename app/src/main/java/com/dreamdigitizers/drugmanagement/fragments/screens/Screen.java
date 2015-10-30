@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -26,7 +30,6 @@ public abstract class Screen extends Fragment implements IView {
 		super.onAttach(pContext);
 		try {
 			this.mIScreenActionsListener = (IScreenActionsListener)pContext;
-			this.mIScreenActionsListener.onSetCurrentScreen(this);
 		} catch (ClassCastException e) {
 			throw new ClassCastException(Screen.ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE);
 		}
@@ -42,10 +45,17 @@ public abstract class Screen extends Fragment implements IView {
 	@Override
 	public void onActivityCreated(Bundle pSavedInstanceState) {
 		super.onActivityCreated(pSavedInstanceState);
+		this.setHasOptionsMenu(true);
 		if(pSavedInstanceState != null) {
 			this.recoverInstanceState(pSavedInstanceState);
 		}
 		this.mapInformationToScreenItems();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		this.mIScreenActionsListener.onSetCurrentScreen(this);
 	}
 	
 	@Override
@@ -59,6 +69,13 @@ public abstract class Screen extends Fragment implements IView {
 	public void onDetach() {
 		super.onDetach();
 		this.mIScreenActionsListener = null;
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
+		ActionBar actionBar = this.getActionBar();
+		actionBar.setDisplayShowTitleEnabled(true);
+		actionBar.setTitle(this.getTitle());
 	}
 
 	@Override
@@ -104,11 +121,16 @@ public abstract class Screen extends Fragment implements IView {
 	public boolean onBackPressed() {
 		return false;
 	}
+
+	private ActionBar getActionBar() {
+		return ((AppCompatActivity)this.getActivity()).getSupportActionBar();
+	}
 	
 	protected abstract View loadView(LayoutInflater pInflater, ViewGroup pContainer);
 	protected abstract void retrieveScreenItems(View pView);
 	protected abstract void recoverInstanceState(Bundle pSavedInstanceState);
 	protected abstract void mapInformationToScreenItems();
+	protected abstract int getTitle();
 
 	public interface IScreenActionsListener {
 		void onSetCurrentScreen(Screen pCurrentScreen);

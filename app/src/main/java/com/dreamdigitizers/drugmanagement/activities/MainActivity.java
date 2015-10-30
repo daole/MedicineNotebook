@@ -2,6 +2,7 @@ package com.dreamdigitizers.drugmanagement.activities;
 
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
@@ -84,13 +85,19 @@ public class MainActivity extends MyActivity implements INavigationDrawerItemSel
         Screen screen = null;
         switch (pPosition) {
             case Constants.NAVIGATION_DRAWER_ITEM_ID__SCHEDULE:
-                screen = new ScreenSchedule();
+                if(!(this.mCurrentScreen instanceof ScreenSchedule)) {
+                    screen = new ScreenSchedule();
+                }
                 break;
             case Constants.NAVIGATION_DRAWER_ITEM_ID__FAMILY:
-                screen = new ScreenFamilyMemberList();
+                if(!(this.mCurrentScreen instanceof ScreenFamilyMemberList)) {
+                    screen = new ScreenFamilyMemberList();
+                }
                 break;
             case Constants.NAVIGATION_DRAWER_ITEM_ID__MEDICINES:
-                screen = new ScreenMedicineList();
+                if(!(this.mCurrentScreen instanceof ScreenMedicineList)) {
+                    screen = new ScreenMedicineList();
+                }
                 break;
             case Constants.NAVIGATION_DRAWER_ITEM_ID__MEDICINE_CATEGORIES:
                 break;

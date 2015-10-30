@@ -22,12 +22,6 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
     private ListView mListView;
 
     @Override
-    public void onActivityCreated(Bundle pSavedInstanceState) {
-        super.onActivityCreated(pSavedInstanceState);
-        this.setHasOptionsMenu(true);
-    }
-
-    @Override
     public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
         super.onCreateOptionsMenu(pMenu, pInflater);
         pInflater.inflate(R.menu.menu__add_delete, pMenu);
@@ -69,6 +63,11 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
     @Override
     protected void mapInformationToScreenItems() {
         this.mPresenterFamilyMemberList = (IPresenterFamilyMemberList)PresenterFactory.createPresenter(IPresenterFamilyMemberList.class, this);
+    }
+
+    @Override
+    protected int getTitle() {
+        return R.string.title__screen_family_member_list;
     }
 
     @Override
