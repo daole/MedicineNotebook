@@ -26,13 +26,13 @@
     <string name="hint__medicine_category">Otolaryngology</string>
 
     <string name="btn__add">Add</string>
-    <string name="btn__update">Update</string>
+    <string name="btn__edit">Edit</string>
     <string name="btn__back">Back</string>
     <string name="btn__ok">OK</string>
     <string name="btn__no">No</string>
 
     <string name="message__insert_successful">Data has been saved.</string>
-    <string name="message__update_successful">Data has been updated.</string>
+    <string name="message__edit_successful">Data has been updated.</string>
     <string name="message__delete_successful">Data has been deleted.</string>
 
     <string name="confirmation__delete_successful">Are you sure you want to delete the selected data?.</string>
