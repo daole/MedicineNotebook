@@ -9,12 +9,15 @@ public class TableMedicineCategory extends Table {
     public static final String TABLE_NAME = "medicine_category";
 
     public static final String COLUMN_NAME__MEDICINE_CATEGORY_NAME = "medicine_category_name";
+    public static final String COLUMN_NAME__MEDICINE_CATEGORY_NOTE = "medicine_category_note";
 
     public static final int COLUMN_INDEX__MEDICINE_CATEGORY_NAME = 1;
+    public static final int COLUMN_INDEX__MEDICINE_CATEGORY_NOTE = 2;
 
     private static String CREATE_STATEMENT = "CREATE TABLE `" + TableMedicineCategory.TABLE_NAME + "` ("
             + "`" + TableMedicineCategory.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-            + "`" + TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME + "` TEXT NOT NULL UNIQUE"
+            + "`" + TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME + "` TEXT NOT NULL UNIQUE,"
+            + "`" + TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NOTE + "` TEXT NOT NULL"
             + ");";
 
     private static String UPDATE_STATEMENT = "";
@@ -24,6 +27,7 @@ public class TableMedicineCategory extends Table {
 
         columns.add(TableMedicineCategory.COLUMN_NAME__ID);
         columns.add(TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME);
+        columns.add(TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NOTE);
 
         return columns;
     }

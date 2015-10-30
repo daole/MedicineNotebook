@@ -6,15 +6,24 @@
     <string name="title__screen_schedule">Schedule</string>
     <string name="title__screen_family_member_list">Family Members</string>
     <string name="title__screen_family_member_add">Add family member</string>
+    <string name="title__screen_family_member_edit">Edit family member</string>
     <string name="title__screen_medicine_list">Medicines</string>
+    <string name="title__screen_medicine_add">Add Medicine</string>
+    <string name="title__screen_medicine_edit">Edit Medicine</string>
+    <string name="title__screen_medicine_category_list">Medicine Categories</string>
+    <string name="title__screen_medicine_category_add">Add Medicine Category</string>
+    <string name="title__screen_medicine_category_edit">Edit Medicine Category</string>
 
     <string name="menu_item__add">Add</string>
     <string name="menu_item__delete">Delete</string>
 
-    <string name="lbl__family_member">Family member:</string>
-    <string name="lbl__empty">There is no saved data.</string>
+    <string name="lbl__family_member">Family Member:</string>
+    <string name="lbl__medicine_category">Medicine Category:</string>
+    <string name="lbl__note">Note:</string>
+    <string name="lbl__empty">There is no data to show.</string>
 
-    <string name="hint__family_member">Mother, Father, Me etc...</string>
+    <string name="hint__family_member">Mom</string>
+    <string name="hint__medicine_category">Otolaryngology</string>
 
     <string name="btn__add">Add</string>
     <string name="btn__update">Update</string>
@@ -30,7 +39,7 @@
 
     <string name="error__blank_family_member">Please input your family member.</string>
     <string name="error__duplicated_data">Same data already exists.</string>
-    <string name="error__no_data_selected">You have not yet selected anything.</string>
+    <string name="error__no_data_selected">You have not selected anything.</string>
     <string name="error__unknown_error">An error has occurred. The operation could not be completed.</string>
 
     <string name="desc__menu_item_icon">Menu item icon</string>

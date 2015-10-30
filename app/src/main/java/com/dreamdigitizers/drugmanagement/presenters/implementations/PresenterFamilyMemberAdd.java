@@ -19,18 +19,18 @@ class PresenterFamilyMemberAdd implements IPresenterFamilyMemberAdd {
     }
 
     @Override
-    public void insert(String pFamilyMember) {
-        int result = this.checkInputData(pFamilyMember);
+    public void insert(String pFamilyMemberName) {
+        int result = this.checkInputData(pFamilyMemberName);
         if(result != 0) {
             this.mViewFamilyMemberAdd.showError(result);
             return;
         }
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME, pFamilyMember);
+        contentValues.put(TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME, pFamilyMemberName);
+
         Uri uri = this.mViewFamilyMemberAdd.getViewContext().getContentResolver().insert(
                 MedicineContentProvider.CONTENT_URI__FAMILY_MEMBER, contentValues);
-
         long newId = Long.parseLong(uri.getLastPathSegment());
         if(newId == DatabaseHelper.DB_ERROR_CODE__CONSTRAINT) {
             this.mViewFamilyMemberAdd.showError(R.string.error__duplicated_data);
@@ -41,8 +41,8 @@ class PresenterFamilyMemberAdd implements IPresenterFamilyMemberAdd {
         }
     }
 
-    private int checkInputData(String pFamilyMember) {
-        if(TextUtils.isEmpty(pFamilyMember)) {
+    private int checkInputData(String pFamilyMemberName) {
+        if(TextUtils.isEmpty(pFamilyMemberName)) {
             return R.string.error__blank_family_member;
         }
         return 0;

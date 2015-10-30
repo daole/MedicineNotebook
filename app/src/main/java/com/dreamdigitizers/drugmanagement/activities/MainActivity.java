@@ -14,6 +14,7 @@ import com.dreamdigitizers.drugmanagement.fragments.NavigationDrawerFragment.INa
 import com.dreamdigitizers.drugmanagement.fragments.screens.Screen;
 import com.dreamdigitizers.drugmanagement.fragments.screens.Screen.IScreenActionsListener;
 import com.dreamdigitizers.drugmanagement.fragments.screens.ScreenFamilyMemberList;
+import com.dreamdigitizers.drugmanagement.fragments.screens.ScreenMedicineCategoryList;
 import com.dreamdigitizers.drugmanagement.fragments.screens.ScreenMedicineList;
 import com.dreamdigitizers.drugmanagement.fragments.screens.ScreenSchedule;
 
@@ -100,6 +101,9 @@ public class MainActivity extends MyActivity implements INavigationDrawerItemSel
                 }
                 break;
             case Constants.NAVIGATION_DRAWER_ITEM_ID__MEDICINE_CATEGORIES:
+                if(!(this.mCurrentScreen instanceof ScreenMedicineCategoryList)) {
+                    screen = new ScreenMedicineCategoryList();
+                }
                 break;
             case Constants.NAVIGATION_DRAWER_ITEM_ID__MEDICINE_TIME:
                 break;

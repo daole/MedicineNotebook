@@ -13,11 +13,11 @@ import android.widget.ListView;
 
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
-import com.dreamdigitizers.drugmanagement.presenters.interfaces.IPresenterFamilyMemberList;
-import com.dreamdigitizers.drugmanagement.views.IViewFamilyMemberList;
+import com.dreamdigitizers.drugmanagement.presenters.interfaces.IPresenterMedicineCategoryList;
+import com.dreamdigitizers.drugmanagement.views.IViewMedicineCategoryList;
 
-public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberList {
-    private IPresenterFamilyMemberList mPresenterFamilyMemberList;
+public class ScreenMedicineCategoryList extends Screen implements IViewMedicineCategoryList {
+    private IPresenterMedicineCategoryList mPresenterMedicineCategoryList;
     private ListView mListView;
 
     @Override
@@ -44,13 +44,13 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
 
     @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
-        View rootView = pInflater.inflate(R.layout.screen__family_member_list, pContainer, false);
+        View rootView = pInflater.inflate(R.layout.screen__medicine_category_list, pContainer, false);
         return rootView;
     }
 
     @Override
     protected void retrieveScreenItems(View pView) {
-        this.mListView = (ListView)pView.findViewById(R.id.lstFamilyMembers);
+        this.mListView = (ListView)pView.findViewById(R.id.lstMedicineCategories);
         View lblEmpty = pView.findViewById(R.id.lblEmpty);
         this.mListView.setEmptyView(lblEmpty);
     }
@@ -62,12 +62,12 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
 
     @Override
     protected void mapInformationToScreenItems() {
-        this.mPresenterFamilyMemberList = (IPresenterFamilyMemberList)PresenterFactory.createPresenter(IPresenterFamilyMemberList.class, this);
+        this.mPresenterMedicineCategoryList = (IPresenterMedicineCategoryList) PresenterFactory.createPresenter(IPresenterMedicineCategoryList.class, this);
     }
 
     @Override
     protected int getTitle() {
-        return R.string.title__screen_family_member_list;
+        return R.string.title__screen_medicine_category_list;
     }
 
     @Override
@@ -85,11 +85,11 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
     }
 
     private void optionDeleteSelected() {
-        this.mPresenterFamilyMemberList.delete();
+        this.mPresenterMedicineCategoryList.delete();
     }
 
     private void goToAddScreen() {
-        Screen screen = new ScreenFamilyMemberAdd();
+        Screen screen = new ScreenMedicineCategoryAdd();
         this.mIScreenActionsListener.onChangeScreen(screen);
     }
 }
