@@ -21,6 +21,8 @@ import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
 import com.dreamdigitizers.drugmanagement.views.IView;
 
 public abstract class Screen extends Fragment implements IView {
+	public static final String BUNDLE_KEY__ROW_ID = "row_id";
+
 	private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IScreenActionsListener.";
 
 	protected IScreenActionsListener mIScreenActionsListener;

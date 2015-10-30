@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -53,6 +54,12 @@ public class ScreenMedicineCategoryList extends Screen implements IViewMedicineC
         this.mListView = (ListView)pView.findViewById(R.id.lstMedicineCategories);
         View lblEmpty = pView.findViewById(R.id.lblEmpty);
         this.mListView.setEmptyView(lblEmpty);
+        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
+                ScreenMedicineCategoryList.this.listItemClick(pRowId);
+            }
+        });
     }
 
     @Override
@@ -88,8 +95,20 @@ public class ScreenMedicineCategoryList extends Screen implements IViewMedicineC
         this.mPresenterMedicineCategoryList.delete();
     }
 
+    private void listItemClick(long pRowId) {
+        this.goToEditScreen(pRowId);
+    }
+
     private void goToAddScreen() {
         Screen screen = new ScreenMedicineCategoryAdd();
+        this.mIScreenActionsListener.onChangeScreen(screen);
+    }
+
+    private void goToEditScreen(long pRowId) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(ScreenMedicineCategoryEdit.BUNDLE_KEY__ROW_ID, pRowId);
+        Screen screen = new ScreenMedicineCategoryEdit();
+        screen.setArguments(bundle);
         this.mIScreenActionsListener.onChangeScreen(screen);
     }
 }

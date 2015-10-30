@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.data.models.FamilyMember;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.presenters.interfaces.IPresenterFamilyMemberEdit;
 import com.dreamdigitizers.drugmanagement.views.IViewFamilyMemberEdit;
@@ -20,6 +21,7 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
     private EditText mTxtFamilyMemberName;
     private Button mBtnEdit;
     private Button mBtnBack;
+
     private long mRowId;
 
     @Override
@@ -33,16 +35,25 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
         this.mTxtFamilyMemberName = (EditText)pView.findViewById(R.id.txtFamilyMemberName);
         this.mBtnEdit = (Button)pView.findViewById(R.id.btnEdit);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
+
+        this.mRowId = this.getArguments().getLong(ScreenFamilyMemberEdit.BUNDLE_KEY__ROW_ID);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle pOutState) {
+        super.onSaveInstanceState(pOutState);
+        pOutState.putLong(ScreenFamilyMemberEdit.BUNDLE_KEY__ROW_ID, this.mRowId);
     }
 
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
-
+        this.mRowId = pSavedInstanceState.getLong(ScreenFamilyMemberEdit.BUNDLE_KEY__ROW_ID);
     }
 
     @Override
     protected void mapInformationToScreenItems() {
         this.mPresenterFamilyMemberEdit = (IPresenterFamilyMemberEdit)PresenterFactory.createPresenter(IPresenterFamilyMemberEdit.class, this);
+        this.mPresenterFamilyMemberEdit.select(this.mRowId);
 
         this.mTxtFamilyMemberName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -71,13 +82,18 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
 
     @Override
     protected int getTitle() {
-        return R.string.title__screen_family_member_add;
+        return R.string.title__screen_family_member_edit;
     }
 
     @Override
     public boolean onBackPressed() {
         this.mIScreenActionsListener.onBack();
         return true;
+    }
+
+    @Override
+    public void bindData(FamilyMember pModel) {
+        this.mTxtFamilyMemberName.setText(pModel.getFamilyMemberName());
     }
 
     public void buttonEditClick() {

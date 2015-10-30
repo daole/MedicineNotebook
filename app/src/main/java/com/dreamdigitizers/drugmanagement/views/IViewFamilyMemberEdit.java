@@ -1,5 +1,7 @@
 package com.dreamdigitizers.drugmanagement.views;
 
-public interface IViewFamilyMemberEdit extends IView {
+import com.dreamdigitizers.drugmanagement.data.models.FamilyMember;
 
+public interface IViewFamilyMemberEdit extends IView {
+    void bindData(FamilyMember pModel);
 }

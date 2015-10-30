@@ -38,6 +38,7 @@
     <string name="confirmation__delete_successful">Are you sure you want to delete the selected data?.</string>
 
     <string name="error__blank_family_member">Please input your family member.</string>
+    <string name="error__blank_medicine_category">Please input medicine category.</string>
     <string name="error__duplicated_data">Same data already exists.</string>
     <string name="error__no_data_selected">You have not selected anything.</string>
     <string name="error__unknown_error">An error has occurred. The operation could not be completed.</string>

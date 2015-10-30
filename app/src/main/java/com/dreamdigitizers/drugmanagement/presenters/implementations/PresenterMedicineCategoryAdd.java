@@ -46,7 +46,7 @@ class PresenterMedicineCategoryAdd implements IPresenterMedicineCategoryAdd {
 
     private int checkInputData(String pMedicineCategoryName) {
         if(TextUtils.isEmpty(pMedicineCategoryName)) {
-            return R.string.error__blank_family_member;
+            return R.string.error__blank_medicine_category;
         }
         return 0;
     }

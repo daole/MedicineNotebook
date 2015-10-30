@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -53,6 +54,12 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
         this.mListView = (ListView)pView.findViewById(R.id.lstFamilyMembers);
         View lblEmpty = pView.findViewById(R.id.lblEmpty);
         this.mListView.setEmptyView(lblEmpty);
+        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
+                ScreenFamilyMemberList.this.listItemClick(pRowId);
+            }
+        });
     }
 
     @Override
@@ -88,8 +95,20 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
         this.mPresenterFamilyMemberList.delete();
     }
 
+    private void listItemClick(long pRowId) {
+        this.goToEditScreen(pRowId);
+    }
+
     private void goToAddScreen() {
         Screen screen = new ScreenFamilyMemberAdd();
+        this.mIScreenActionsListener.onChangeScreen(screen);
+    }
+
+    private void goToEditScreen(long pRowId) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(ScreenFamilyMemberEdit.BUNDLE_KEY__ROW_ID, pRowId);
+        Screen screen = new ScreenFamilyMemberEdit();
+        screen.setArguments(bundle);
         this.mIScreenActionsListener.onChangeScreen(screen);
     }
 }
