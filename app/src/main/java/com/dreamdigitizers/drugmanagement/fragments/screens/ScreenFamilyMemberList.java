@@ -31,9 +31,10 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
     public boolean onOptionsItemSelected(MenuItem pItem) {
         switch(pItem.getItemId()) {
             case R.id.menu_item__add:
-                this.goToAddScreen();
+                this.optionAddSelected();
                 return true;
             case R.id.menu_item__delete:
+                this.optionDeleteSelected();
                 return true;
             default:
                 break;
@@ -78,6 +79,14 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
     @Override
     public void setAdapter(ListAdapter pListAdapter) {
         this.mListView.setAdapter(pListAdapter);
+    }
+
+    private void optionAddSelected() {
+        this.goToAddScreen();
+    }
+
+    private void optionDeleteSelected() {
+        this.mPresenterFamilyMemberList.delete();
     }
 
     private void goToAddScreen() {

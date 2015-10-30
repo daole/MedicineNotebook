@@ -56,7 +56,8 @@ public class MedicineContentProvider extends ContentProvider {
     private static final int TAKEN_MEDICINE = 71;
 
     private static final String SCHEME = "content://";
-    private static final String AUTHORITY = "com.dreamdigitizers.drugmanagement.contentprovider";
+
+    public static final String AUTHORITY = "com.dreamdigitizers.drugmanagement.contentprovider";
 
     public static final Uri CONTENT_URI__ALERT = Uri.parse(MedicineContentProvider.SCHEME + MedicineContentProvider.AUTHORITY + "/" + TableAlert.TABLE_NAME);
     public static final Uri CONTENT_URI__FAMILY_MEMBER = Uri.parse(MedicineContentProvider.SCHEME + MedicineContentProvider.AUTHORITY + "/" + TableFamilyMember.TABLE_NAME);
@@ -259,7 +260,9 @@ public class MedicineContentProvider extends ContentProvider {
                 throw new IllegalArgumentException(MedicineContentProvider.ERROR_MESSAGE__UNKNOWN_COLUMNS);
             }
             if(id != null) {
-                if(!StringUtils.isEmpty(pSelection)) {
+                if(StringUtils.isEmpty(pSelection)) {
+                    pSelection = "";
+                } else {
                     pSelection += " and ";
                 }
                 pSelection += Table.COLUMN_NAME__ID + " = " + id;
@@ -385,7 +388,9 @@ public class MedicineContentProvider extends ContentProvider {
 
         if(dao != null) {
             if(id != null) {
-                if(!StringUtils.isEmpty(pSelection)) {
+                if(StringUtils.isEmpty(pSelection)) {
+                    pSelection = "";
+                } else {
                     pSelection += " and ";
                 }
                 pSelection += Table.COLUMN_NAME__ID + " = " + id;
@@ -467,7 +472,9 @@ public class MedicineContentProvider extends ContentProvider {
 
         if(dao != null) {
             if(id != null) {
-                if(!TextUtils.isEmpty(pSelection)) {
+                if(TextUtils.isEmpty(pSelection)) {
+                    pSelection = "";
+                } else {
                     pSelection += " and ";
                 }
                 pSelection += Table.COLUMN_NAME__ID + " = " + id;

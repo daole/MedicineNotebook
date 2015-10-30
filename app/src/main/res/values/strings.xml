@@ -25,9 +25,13 @@
     <string name="message__insert_successful">Data has been saved.</string>
     <string name="message__update_successful">Data has been updated.</string>
     <string name="message__delete_successful">Data has been deleted.</string>
+
+    <string name="confirmation__delete_successful">Are you sure you want to delete the selected data?.</string>
+
     <string name="error__blank_family_member">Please input your family member.</string>
     <string name="error__duplicated_data">Same data already exists.</string>
-    <string name="error__unknown_error">An error has occurred. Data could not be saved.</string>
+    <string name="error__no_data_selected">You have not yet selected anything.</string>
+    <string name="error__unknown_error">An error has occurred. The operation could not be completed.</string>
 
     <string name="desc__menu_item_icon">Menu item icon</string>
     <string name="desc__navigation_drawer_open">Open navigation drawer</string>
