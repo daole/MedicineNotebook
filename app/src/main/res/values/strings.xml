@@ -5,14 +5,14 @@
     <string name="title__error_dialog">Error</string>
     <string name="title__screen_schedule">Schedule</string>
     <string name="title__screen_family_member_list">Family Members</string>
-    <string name="title__screen_family_member_add">Add family member</string>
-    <string name="title__screen_family_member_edit">Edit family member</string>
+    <string name="title__screen_family_member_add">Add Family Member</string>
+    <string name="title__screen_family_member_edit">Edit Family Member</string>
     <string name="title__screen_medicine_list">Medicines</string>
     <string name="title__screen_medicine_add">Add Medicine</string>
     <string name="title__screen_medicine_edit">Edit Medicine</string>
-    <string name="title__screen_medicine_category_list">Medicine Categories</string>
-    <string name="title__screen_medicine_category_add">Add Medicine Category</string>
-    <string name="title__screen_medicine_category_edit">Edit Medicine Category</string>
+    <string name="title__screen_medicine_category_list">Categories</string>
+    <string name="title__screen_medicine_category_add">Add Category</string>
+    <string name="title__screen_medicine_category_edit">Edit Category</string>
 
     <string name="menu_item__add">Add</string>
     <string name="menu_item__delete">Delete</string>
