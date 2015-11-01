@@ -3,10 +3,15 @@ package com.dreamdigitizers.drugmanagement.utils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.widget.TimePicker;
+
+import java.util.Calendar;
 
 public class DialogUtils {
 	public static final int MAX_INDETERMINATE = 100;
+	private static TimePickerDialog timePickerDialog;
 	private static ProgressDialog progressDialog;
 	
 	public static void displayDialog(final Activity pActivity,
@@ -86,45 +91,74 @@ public class DialogUtils {
 		};
 		DialogUtils.displayDialog(pActivity, pTitle, pMessage, false, pButtonText, null, dialogButtonClickListener);
 	}
+
+	public static void displayTimePickerDialog(final Activity pActivity, final boolean pIs24HourView, final IOnTimeSetListener pListener) {
+		if(DialogUtils.timePickerDialog == null) {
+			Calendar calendar = Calendar.getInstance();
+			DialogUtils.timePickerDialog = new TimePickerDialog(pActivity,
+					new TimePickerDialog.OnTimeSetListener() {
+						@Override
+						public void onTimeSet(TimePicker pView, int pHourOfDay, int pMinute) {
+							if(pListener != null) {
+								pListener.onTimeSet(pHourOfDay, pMinute, pActivity, pIs24HourView);
+							}
+							DialogUtils.closeTimePickerDialog();
+						}
+					},
+					calendar.get(Calendar.HOUR_OF_DAY),
+					calendar.get(Calendar.MINUTE),
+					pIs24HourView);
+			DialogUtils.timePickerDialog.show();
+		}
+	}
+
+	public static void closeTimePickerDialog() {
+		if(DialogUtils.timePickerDialog != null) {
+			DialogUtils.timePickerDialog.dismiss();
+			DialogUtils.timePickerDialog = null;
+		}
+	}
 	
-	public static void showProgressDialog(final Activity pActivity,
-										  final int pStyle,
-										  final String pTitle,
-										  final String pMessage,
-										  final boolean pIsCancelable,
-										  final String pCancelButtonText,
-										  final boolean pIsCanceledOnTouchOutside,
-										  final boolean pIndeterminate,
-										  final IOnProgressDialogCancelButtonClickListener pListener) {
-		if(progressDialog == null) {
-			progressDialog = new ProgressDialog(pActivity);
-			progressDialog.setProgressStyle(pStyle);
-			progressDialog.setTitle(pTitle);
-			progressDialog.setMessage(pMessage);
-			progressDialog.setCancelable(pIsCancelable);
-			progressDialog.setCanceledOnTouchOutside(pIsCanceledOnTouchOutside);
-			progressDialog.setIndeterminate(pIndeterminate);
+	public static void displayProgressDialog(final Activity pActivity,
+											 final int pStyle,
+											 final String pTitle,
+											 final String pMessage,
+											 final boolean pIsCancelable,
+											 final String pCancelButtonText,
+											 final boolean pIsCanceledOnTouchOutside,
+											 final boolean pIndeterminate,
+											 final IOnProgressDialogCancelButtonClickListener pListener) {
+		if(DialogUtils.progressDialog == null) {
+			DialogUtils.progressDialog = new ProgressDialog(pActivity);
+			DialogUtils.progressDialog.setProgressStyle(pStyle);
+			DialogUtils.progressDialog.setTitle(pTitle);
+			DialogUtils.progressDialog.setMessage(pMessage);
+			DialogUtils.progressDialog.setCancelable(pIsCancelable);
+			DialogUtils.progressDialog.setCanceledOnTouchOutside(pIsCanceledOnTouchOutside);
+			DialogUtils.progressDialog.setIndeterminate(pIndeterminate);
 			if(pIsCancelable && pListener != null) {
-				progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, pCancelButtonText, new DialogInterface.OnClickListener() {
+				DialogUtils.progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, pCancelButtonText, new DialogInterface.OnClickListener() {
 				    @Override
 				    public void onClick(DialogInterface pDialog, int pWhich) {
-						pListener.onCancelButtonClick(
-								pActivity,
-								pStyle,
-								pTitle,
-								pMessage,
-								pIsCancelable,
-								pCancelButtonText,
-								pIsCanceledOnTouchOutside,
-								pIndeterminate);
+						if(pListener != null) {
+							pListener.onCancelButtonClick(
+									pActivity,
+									pStyle,
+									pTitle,
+									pMessage,
+									pIsCancelable,
+									pCancelButtonText,
+									pIsCanceledOnTouchOutside,
+									pIndeterminate);
+						}
 						DialogUtils.closeProgressDialog();
 				    }
 				});
 			}
 			if(!pIndeterminate) {
-				progressDialog.setMax(DialogUtils.MAX_INDETERMINATE);
+				DialogUtils.progressDialog.setMax(DialogUtils.MAX_INDETERMINATE);
 			}
-			progressDialog.show();
+			DialogUtils.progressDialog.show();
 		}
 	}
 	
@@ -136,19 +170,23 @@ public class DialogUtils {
 	}
 
 	public interface IOnDialogButtonClickListener {
-		void onPositiveButtonClick(Activity pActivity,
-								   String pTitle,
-								   String pMessage,
-								   boolean pIsTwoButton,
-								   String pPositiveButtonText,
-								   String pNegativeButtonText);
+		void onPositiveButtonClick(final Activity pActivity,
+								   final String pTitle,
+								   final String pMessage,
+								   final boolean pIsTwoButton,
+								   final String pPositiveButtonText,
+								   final String pNegativeButtonText);
 
-		void onNegativeButtonClick(Activity pActivity,
-								   String pTitle,
-								   String pMessage,
-								   boolean pIsTwoButton,
-								   String pPositiveButtonText,
-								   String pNegativeButtonText);
+		void onNegativeButtonClick(final Activity pActivity,
+								   final String pTitle,
+								   final String pMessage,
+								   final boolean pIsTwoButton,
+								   final String pPositiveButtonText,
+								   final String pNegativeButtonText);
+	}
+
+	public interface IOnTimeSetListener {
+		void onTimeSet(final int pHourOfDay, final int pMinute, final Activity pActivity, final boolean pIs24HourView);
 	}
 
 	public interface IOnProgressDialogCancelButtonClickListener{

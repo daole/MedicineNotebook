@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/lbl__family_member"/>
+            android:text="@string/lbl__family_member_name"/>
 
         <EditText
             android:id="@+id/txtFamilyMemberName"
@@ -25,8 +25,7 @@
             android:layout_alignBottom="@id/lblFamilyMemberName"
             android:layout_toRightOf="@id/lblFamilyMemberName"
             android:inputType="text"
-            android:singleLine="true"
-            android:hint="@string/hint__family_member"/>
+            android:hint="@string/hint__family_member_name"/>
 
     </RelativeLayout>
 

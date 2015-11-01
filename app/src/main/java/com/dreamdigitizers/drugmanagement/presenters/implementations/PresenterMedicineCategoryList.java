@@ -19,9 +19,9 @@ import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableFamilyMember;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
-import com.dreamdigitizers.drugmanagement.presenters.interfaces.IPresenterMedicineCategoryList;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryList;
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
-import com.dreamdigitizers.drugmanagement.views.IViewMedicineCategoryList;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryList;
 
 import java.util.ArrayList;
 import java.util.List;

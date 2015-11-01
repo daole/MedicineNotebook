@@ -11,8 +11,8 @@ import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
 import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 import com.dreamdigitizers.drugmanagement.data.models.MedicineCategory;
-import com.dreamdigitizers.drugmanagement.presenters.interfaces.IPresenterMedicineCategoryEdit;
-import com.dreamdigitizers.drugmanagement.views.IViewMedicineCategoryEdit;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryEdit;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryEdit;
 
 import java.util.List;
 
@@ -67,7 +67,7 @@ class PresenterMedicineCategoryEdit implements IPresenterMedicineCategoryEdit {
 
     private int checkInputData(String pMedicineCategoryName) {
         if(TextUtils.isEmpty(pMedicineCategoryName)) {
-            return R.string.error__blank_medicine_category;
+            return R.string.error__blank_medicine_category_name;
         }
         return 0;
     }

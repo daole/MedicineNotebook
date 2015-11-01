@@ -13,20 +13,27 @@
     <string name="title__screen_medicine_category_list">Categories</string>
     <string name="title__screen_medicine_category_add">Add Category</string>
     <string name="title__screen_medicine_category_edit">Edit Category</string>
+    <string name="title__screen_medicine_time_list">Time</string>
+    <string name="title__screen_medicine_time_add">Add Time</string>
+    <string name="title__screen_medicine_time_edit">Edit Time</string>
 
     <string name="menu_item__add">Add</string>
     <string name="menu_item__delete">Delete</string>
 
-    <string name="lbl__family_member">Family Member:</string>
-    <string name="lbl__medicine_category">Medicine Category:</string>
+    <string name="lbl__family_member_name">Family Member:</string>
+    <string name="lbl__medicine_category_name">Medicine Category:</string>
+    <string name="lbl__medicine_time_name">Medicine Time:</string>
+    <string name="lbl__medicine_time_value">Time Value:</string>
     <string name="lbl__note">Note:</string>
     <string name="lbl__empty">There is no data to show.</string>
 
-    <string name="hint__family_member">Mom</string>
-    <string name="hint__medicine_category">Otolaryngology</string>
+    <string name="hint__family_member_name">Mom</string>
+    <string name="hint__medicine_category_name">Otolaryngology</string>
+    <string name="hint__medicine_time_name">Before breakfast</string>
 
     <string name="btn__add">Add</string>
     <string name="btn__edit">Edit</string>
+    <string name="btn__delete">Delete</string>
     <string name="btn__back">Back</string>
     <string name="btn__ok">OK</string>
     <string name="btn__no">No</string>
@@ -37,8 +44,10 @@
 
     <string name="confirmation__delete_successful">Are you sure you want to delete the selected data?.</string>
 
-    <string name="error__blank_family_member">Please input your family member.</string>
-    <string name="error__blank_medicine_category">Please input medicine category.</string>
+    <string name="error__blank_family_member_name">Please input your family member.</string>
+    <string name="error__blank_medicine_category_name">Please input medicine category.</string>
+    <string name="error__blank_medicine_time_name">Please input medicine time.</string>
+    <string name="error__blank_medicine_time_value">Please input time value.</string>
     <string name="error__duplicated_data">Same data already exists.</string>
     <string name="error__no_data_selected">You have not selected anything.</string>
     <string name="error__unknown_error">An error has occurred. The operation could not be completed.</string>

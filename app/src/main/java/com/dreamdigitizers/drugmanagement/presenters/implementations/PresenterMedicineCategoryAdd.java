@@ -8,8 +8,8 @@ import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
 import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
-import com.dreamdigitizers.drugmanagement.presenters.interfaces.IPresenterMedicineCategoryAdd;
-import com.dreamdigitizers.drugmanagement.views.IViewMedicineCategoryAdd;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryAdd;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryAdd;
 
 class PresenterMedicineCategoryAdd implements IPresenterMedicineCategoryAdd {
     private IViewMedicineCategoryAdd mViewMedicineCategoryAdd;
@@ -46,7 +46,7 @@ class PresenterMedicineCategoryAdd implements IPresenterMedicineCategoryAdd {
 
     private int checkInputData(String pMedicineCategoryName) {
         if(TextUtils.isEmpty(pMedicineCategoryName)) {
-            return R.string.error__blank_medicine_category;
+            return R.string.error__blank_medicine_category_name;
         }
         return 0;
     }

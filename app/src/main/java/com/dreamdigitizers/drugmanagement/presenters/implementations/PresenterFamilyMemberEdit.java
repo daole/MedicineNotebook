@@ -11,8 +11,8 @@ import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
 import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableFamilyMember;
 import com.dreamdigitizers.drugmanagement.data.models.FamilyMember;
-import com.dreamdigitizers.drugmanagement.presenters.interfaces.IPresenterFamilyMemberEdit;
-import com.dreamdigitizers.drugmanagement.views.IViewFamilyMemberEdit;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyMemberEdit;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberEdit;
 
 import java.util.List;
 
@@ -66,7 +66,7 @@ class PresenterFamilyMemberEdit implements IPresenterFamilyMemberEdit {
 
     private int checkInputData(String pFamilyMemberName) {
         if(TextUtils.isEmpty(pFamilyMemberName)) {
-            return R.string.error__blank_family_member;
+            return R.string.error__blank_family_member_name;
         }
         return 0;
     }

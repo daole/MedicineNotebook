@@ -18,9 +18,9 @@ import android.widget.CompoundButton;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableFamilyMember;
-import com.dreamdigitizers.drugmanagement.presenters.interfaces.IPresenterFamilyMemberList;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyMemberList;
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
-import com.dreamdigitizers.drugmanagement.views.IViewFamilyMemberList;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberList;
 
 import java.util.ArrayList;
 import java.util.List;

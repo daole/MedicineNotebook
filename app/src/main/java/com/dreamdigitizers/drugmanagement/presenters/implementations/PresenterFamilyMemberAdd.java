@@ -8,8 +8,8 @@ import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
 import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableFamilyMember;
-import com.dreamdigitizers.drugmanagement.presenters.interfaces.IPresenterFamilyMemberAdd;
-import com.dreamdigitizers.drugmanagement.views.IViewFamilyMemberAdd;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyMemberAdd;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberAdd;
 
 class PresenterFamilyMemberAdd implements IPresenterFamilyMemberAdd {
     private IViewFamilyMemberAdd mViewFamilyMemberAdd;
@@ -43,7 +43,7 @@ class PresenterFamilyMemberAdd implements IPresenterFamilyMemberAdd {
 
     private int checkInputData(String pFamilyMemberName) {
         if(TextUtils.isEmpty(pFamilyMemberName)) {
-            return R.string.error__blank_family_member;
+            return R.string.error__blank_family_member_name;
         }
         return 0;
     }

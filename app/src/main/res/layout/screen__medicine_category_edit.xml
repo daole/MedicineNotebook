@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/lbl__medicine_category"/>
+            android:text="@string/lbl__medicine_category_name"/>
 
         <EditText
             android:id="@+id/txtMedicineCategoryName"
@@ -25,8 +25,7 @@
             android:layout_alignBottom="@id/lblMedicineCategoryName"
             android:layout_toRightOf="@id/lblMedicineCategoryName"
             android:inputType="text"
-            android:singleLine="true"
-            android:hint="@string/hint__medicine_category"/>
+            android:hint="@string/hint__medicine_category_name"/>
 
         <TextView
             android:id="@+id/lblMedicineCategoryNote"
