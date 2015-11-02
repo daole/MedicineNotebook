@@ -8,16 +8,16 @@ import java.util.List;
 public class TableMedicineInterval extends Table {
     public static final String TABLE_NAME = "medicine_interval";
 
-    public static final String COLUMN_NAME__INTERVAL_NAME = "medicine_interval_name";
-    public static final String COLUMN_NAME__INTERVAL_VALUE = "medicine_interval_value";
+    public static final String COLUMN_NAME__MEDICINE_INTERVAL_NAME = "medicine_interval_name";
+    public static final String COLUMN_NAME__MEDICINE_INTERVAL_VALUE = "medicine_interval_value";
 
-    public static final int COLUMN_INDEX__INTERVAL_NAME = 1;
-    public static final int COLUMN_INDEX__INTERVAL_VALUE = 2;
+    public static final int COLUMN_INDEX__MEDICINE_INTERVAL_NAME = 1;
+    public static final int COLUMN_INDEX__MEDICINE_INTERVAL_VALUE = 2;
 
     private static String CREATE_STATEMENT = "CREATE TABLE `" + TableMedicineInterval.TABLE_NAME + "` ("
             + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-            + "`" + TableMedicineInterval.COLUMN_NAME__INTERVAL_NAME + "` TEXT NOT NULL,"
-            + "`" + TableMedicineInterval.COLUMN_NAME__INTERVAL_VALUE + "` INTEGER NOT NULL UNIQUE"
+            + "`" + TableMedicineInterval.COLUMN_NAME__MEDICINE_INTERVAL_NAME + "` TEXT NOT NULL,"
+            + "`" + TableMedicineInterval.COLUMN_NAME__MEDICINE_INTERVAL_VALUE + "` INTEGER NOT NULL UNIQUE"
             + ");";
 
     private static String UPDATE_STATEMENT = "";
@@ -26,8 +26,8 @@ public class TableMedicineInterval extends Table {
         List<String> columns = new ArrayList<String>();
 
         columns.add(Table.COLUMN_NAME__ID);
-        columns.add(TableMedicineInterval.COLUMN_NAME__INTERVAL_NAME);
-        columns.add(TableMedicineInterval.COLUMN_NAME__INTERVAL_VALUE);
+        columns.add(TableMedicineInterval.COLUMN_NAME__MEDICINE_INTERVAL_NAME);
+        columns.add(TableMedicineInterval.COLUMN_NAME__MEDICINE_INTERVAL_VALUE);
 
         return columns;
     }

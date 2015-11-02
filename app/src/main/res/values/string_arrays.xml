@@ -8,4 +8,66 @@
         <item >Medicine Time</item>
         <item >Medicine Intervals</item>
     </string-array>
+
+    <string-array name="family_member_names">
+        <item >Myself</item>
+        <item >Mom</item>
+        <item >Dad</item>
+    </string-array>
+
+    <string-array name="medicine_category_names">
+        <item >Psychosomatic</item>
+        <item >Otolaryngology</item>
+        <item >Internal Medicines</item>
+    </string-array>
+
+    <string-array name="medicine_time_names">
+        <item >Before breakfast</item>
+        <item >Breakfast</item>
+        <item >After breakfast</item>
+        <item >Between breakfast and lunch</item>
+        <item >Before lunch</item>
+        <item >Lunch</item>
+        <item >After lunch</item>
+        <item >Between lunch and dinner</item>
+        <item >Before dinner</item>
+        <item >Dinner</item>
+        <item >After dinner</item>
+        <item >Night</item>
+    </string-array>
+    <string-array name="medicine_time_values">
+        <item >07:30</item>
+        <item >08:00</item>
+        <item >08:30</item>
+        <item >10:00</item>
+        <item >11:30</item>
+        <item >12:00</item>
+        <item >12:30</item>
+        <item >15:00</item>
+        <item >17:30</item>
+        <item >18:00</item>
+        <item >18:30</item>
+        <item >22:00</item>
+    </string-array>
+
+    <string-array name="medicine_interval_names">
+        <item >Only Once</item>
+        <item >Everyday</item>
+        <item >Every second day</item>
+        <item >Every 3 days</item>
+        <item >Every 4 days</item>
+        <item >Every 5 days</item>
+        <item >Every 6 days</item>
+        <item >Every 7 days</item>
+    </string-array>
+    <string-array name="medicine_interval_values">
+        <item >0</item>
+        <item >1</item>
+        <item >2</item>
+        <item >3</item>
+        <item >4</item>
+        <item >5</item>
+        <item >6</item>
+        <item >7</item>
+    </string-array>
 </resources>
