@@ -16,10 +16,11 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyM
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberAdd;
 
 public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAdd {
-    private IPresenterFamilyMemberAdd mPresenterFamilyMemberAdd;
     private EditText mTxtFamilyMemberName;
     private Button mBtnAdd;
     private Button mBtnBack;
+
+    private IPresenterFamilyMemberAdd mPresenter;
 
     @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
@@ -65,7 +66,7 @@ public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAd
             }
         });
 
-        this.mPresenterFamilyMemberAdd = (IPresenterFamilyMemberAdd)PresenterFactory.createPresenter(IPresenterFamilyMemberAdd.class, this);
+        this.mPresenter = (IPresenterFamilyMemberAdd)PresenterFactory.createPresenter(IPresenterFamilyMemberAdd.class, this);
     }
 
     @Override
@@ -86,7 +87,7 @@ public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAd
 
     public void buttonAddClick() {
         String familyMemberName = this.mTxtFamilyMemberName.getText().toString().trim();
-        this.mPresenterFamilyMemberAdd.insert(familyMemberName);
+        this.mPresenter.insert(familyMemberName);
     }
 
     public void buttonBackClick() {

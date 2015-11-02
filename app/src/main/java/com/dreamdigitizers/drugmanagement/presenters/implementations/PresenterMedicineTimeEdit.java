@@ -9,31 +9,31 @@ import android.text.TextUtils;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
 import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
-import com.dreamdigitizers.drugmanagement.data.dal.tables.TableFamilyMember;
-import com.dreamdigitizers.drugmanagement.data.models.FamilyMember;
-import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyMemberEdit;
-import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberEdit;
+import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTime;
+import com.dreamdigitizers.drugmanagement.data.models.MedicineTime;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeEdit;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeEdit;
 
 import java.util.List;
 
-class PresenterFamilyMemberEdit implements IPresenterFamilyMemberEdit {
-    private IViewFamilyMemberEdit mView;
+class PresenterMedicineTimeEdit implements IPresenterMedicineTimeEdit {
+    private IViewMedicineTimeEdit mView;
 
-    public PresenterFamilyMemberEdit(IViewFamilyMemberEdit pViewFamilyMemberEdit) {
-        this.mView = pViewFamilyMemberEdit;
+    public PresenterMedicineTimeEdit(IViewMedicineTimeEdit pViewMedicineTimeEdit) {
+        this.mView = pViewMedicineTimeEdit;
     }
 
     @Override
     public  void select(long pRowId) {
         String[] projection = new String[0];
-        projection = TableFamilyMember.getColumns().toArray(projection);
-        Uri uri = MedicineContentProvider.CONTENT_URI__FAMILY_MEMBER;
+        projection = TableMedicineTime.getColumns().toArray(projection);
+        Uri uri = MedicineContentProvider.CONTENT_URI__MEDICINE_TIME;
         uri = ContentUris.withAppendedId(uri, pRowId);
         Cursor cursor = this.mView.getViewContext().getContentResolver().query(uri, projection, null, null, null);
         if (cursor != null) {
-            List<FamilyMember> list = FamilyMember.fetchData(cursor);
+            List<MedicineTime> list = MedicineTime.fetchData(cursor);
             if(list.size() > 0) {
-                FamilyMember model = list.get(0);
+                MedicineTime model = list.get(0);
                 this.mView.bindData(model);
             }
             cursor.close();
@@ -41,17 +41,18 @@ class PresenterFamilyMemberEdit implements IPresenterFamilyMemberEdit {
     }
 
     @Override
-    public void edit(long pRowId, String pFamilyMemberName) {
-        int result = this.checkInputData(pFamilyMemberName);
+    public void edit(long pRowId, String pMedicineTimeName, String pMedicineTimeValue) {
+        int result = this.checkInputData(pMedicineTimeName, pMedicineTimeValue);
         if(result != 0) {
             this.mView.showError(result);
             return;
         }
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME, pFamilyMemberName);
+        contentValues.put(TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_NAME, pMedicineTimeName);
+        contentValues.put(TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_VALUE, pMedicineTimeValue);
 
-        Uri uri = MedicineContentProvider.CONTENT_URI__FAMILY_MEMBER;
+        Uri uri = MedicineContentProvider.CONTENT_URI__MEDICINE_TIME;
         uri = ContentUris.withAppendedId(uri, pRowId);
         int affectedRows = this.mView.getViewContext().getContentResolver().update(
                 uri, contentValues, null, null);
@@ -64,9 +65,12 @@ class PresenterFamilyMemberEdit implements IPresenterFamilyMemberEdit {
         }
     }
 
-    private int checkInputData(String pFamilyMemberName) {
-        if(TextUtils.isEmpty(pFamilyMemberName)) {
-            return R.string.error__blank_family_member_name;
+    private int checkInputData(String pMedicineTimeName, String pMedicineTimeValue) {
+        if(TextUtils.isEmpty(pMedicineTimeName)) {
+            return R.string.error__blank_medicine_time_name;
+        }
+        if(TextUtils.isEmpty(pMedicineTimeValue)) {
+            return R.string.error__blank_medicine_time_value;
         }
         return 0;
     }

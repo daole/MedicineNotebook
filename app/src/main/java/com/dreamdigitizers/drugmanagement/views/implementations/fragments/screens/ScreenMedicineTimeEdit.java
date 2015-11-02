@@ -12,27 +12,30 @@ import android.widget.ListView;
 
 import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
-import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeAdd;
+import com.dreamdigitizers.drugmanagement.data.models.MedicineTime;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeEdit;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
-import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeAdd;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeEdit;
 import com.dreamdigitizers.drugmanagement.views.implementations.adapters.TimeValueArrayAdapter;
 
 import java.util.List;
 
-public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAdd {
+public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeEdit {
     private EditText mTxtMedicineTimeName;
     private ListView mListView;
     private Button mBtnAddTimeValue;
-    private Button mBtnAdd;
+    private Button mBtnEdit;
     private Button mBtnBack;
     private TimeValueArrayAdapter mAdapter;
 
-    private IPresenterMedicineTimeAdd mPresenter;
+    private IPresenterMedicineTimeEdit mPresenter;
+
+    private long mRowId;
 
     @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
-        View rootView = pInflater.inflate(R.layout.screen__medicine_time_add, pContainer, false);
+        View rootView = pInflater.inflate(R.layout.screen__medicine_time_edit, pContainer, false);
         return rootView;
     }
 
@@ -41,13 +44,21 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
         this.mTxtMedicineTimeName = (EditText)pView.findViewById(R.id.txtMedicineTimeName);
         this.mListView = (ListView)pView.findViewById(R.id.lstMedicineTimeValues);
         this.mBtnAddTimeValue = (Button)pView.findViewById(R.id.btnAddTimeValue);
-        this.mBtnAdd = (Button)pView.findViewById(R.id.btnAdd);
+        this.mBtnEdit = (Button)pView.findViewById(R.id.btnEdit);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
+
+        this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle pOutState) {
+        super.onSaveInstanceState(pOutState);
+        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
     }
 
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
-
+        this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
     }
 
     @Override
@@ -58,30 +69,31 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
         this.mBtnAddTimeValue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View pView) {
-                ScreenMedicineTimeAdd.this.buttonAddTimeValueClick();
+                ScreenMedicineTimeEdit.this.buttonAddTimeValueClick();
             }
         });
 
-        this.mBtnAdd.setOnClickListener(new View.OnClickListener() {
+        this.mBtnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View pView) {
-                ScreenMedicineTimeAdd.this.buttonAddClick();
+                ScreenMedicineTimeEdit.this.buttonEditClick();
             }
         });
 
         this.mBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View pView) {
-                ScreenMedicineTimeAdd.this.buttonBackClick();
+                ScreenMedicineTimeEdit.this.buttonBackClick();
             }
         });
 
-        this.mPresenter = (IPresenterMedicineTimeAdd)PresenterFactory.createPresenter(IPresenterMedicineTimeAdd.class, this);
+        this.mPresenter = (IPresenterMedicineTimeEdit)PresenterFactory.createPresenter(IPresenterMedicineTimeEdit.class, this);
+        this.mPresenter.select(this.mRowId);
     }
 
     @Override
     protected int getTitle() {
-        return R.string.title__screen_medicine_time_add;
+        return R.string.title__screen_medicine_time_edit;
     }
 
     @Override
@@ -91,9 +103,10 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
     }
 
     @Override
-    public void clearInput() {
-        this.mTxtMedicineTimeName.setText("");
-        this.mAdapter.clearItem();
+    public void bindData(MedicineTime pModel) {
+        this.mTxtMedicineTimeName.setText(pModel.getMedicineTimeName());
+        String[] timeValues = pModel.getMedicineTimeValue().split(Constants.DELIMITER__DATA);
+        this.mAdapter.addItems(timeValues);
     }
 
     public void buttonAddTimeValueClick() {
@@ -103,16 +116,16 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
                 String timeValue = String.format(Constants.FORMAT__TIME_VALUE, pHourOfDay)
                         + Constants.DELIMITER__TIME
                         + String.format(Constants.FORMAT__TIME_VALUE, pMinute);
-                ScreenMedicineTimeAdd.this.mAdapter.addItem(timeValue);
+                ScreenMedicineTimeEdit.this.mAdapter.addItem(timeValue);
             }
         });
     }
 
-    public void buttonAddClick() {
+    public void buttonEditClick() {
         String medicineTimeName = this.mTxtMedicineTimeName.getText().toString().trim();
         List<String> timeValues = this.mAdapter.getData();
         String medicineTimeValue = TextUtils.join(Constants.DELIMITER__DATA, timeValues);
-        this.mPresenter.insert(medicineTimeName, medicineTimeValue);
+        this.mPresenter.edit(this.mRowId, medicineTimeName, medicineTimeValue);
     }
 
     public void buttonBackClick() {

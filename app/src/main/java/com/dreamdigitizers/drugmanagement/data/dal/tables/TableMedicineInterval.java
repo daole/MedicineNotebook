@@ -15,7 +15,7 @@ public class TableMedicineInterval extends Table {
     public static final int COLUMN_INDEX__INTERVAL_VALUE = 2;
 
     private static String CREATE_STATEMENT = "CREATE TABLE `" + TableMedicineInterval.TABLE_NAME + "` ("
-            + "`" + TableMedicineInterval.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+            + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
             + "`" + TableMedicineInterval.COLUMN_NAME__INTERVAL_NAME + "` TEXT NOT NULL,"
             + "`" + TableMedicineInterval.COLUMN_NAME__INTERVAL_VALUE + "` INTEGER NOT NULL UNIQUE"
             + ");";
@@ -25,7 +25,7 @@ public class TableMedicineInterval extends Table {
     public static List<String> getColumns() {
         List<String> columns = new ArrayList<String>();
 
-        columns.add(TableMedicineInterval.COLUMN_NAME__ID);
+        columns.add(Table.COLUMN_NAME__ID);
         columns.add(TableMedicineInterval.COLUMN_NAME__INTERVAL_NAME);
         columns.add(TableMedicineInterval.COLUMN_NAME__INTERVAL_VALUE);
 

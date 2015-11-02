@@ -2,6 +2,7 @@ package com.dreamdigitizers.drugmanagement.data.models;
 
 import android.database.Cursor;
 
+import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class MedicineCategory extends Model {
         List<MedicineCategory> list = new ArrayList<>();
         if (pCursor != null && pCursor.moveToFirst()) {
             do {
-                long rowId = pCursor.getLong(TableMedicineCategory.COLUMN_INDEX__ID);
+                long rowId = pCursor.getLong(Table.COLUMN_INDEX__ID);
                 String medicineCategoryName = pCursor.getString(TableMedicineCategory.COLUMN_INDEX__MEDICINE_CATEGORY_NAME);
                 String medicineCategoryNote = pCursor.getString(TableMedicineCategory.COLUMN_INDEX__MEDICINE_CATEGORY_NOTE);
 

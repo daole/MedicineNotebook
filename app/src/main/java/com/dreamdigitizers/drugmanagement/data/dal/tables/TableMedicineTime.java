@@ -15,7 +15,7 @@ public class TableMedicineTime extends Table {
     public static final int COLUMN_INDEX__MEDICINE_TIME_VALUE = 2;
 
     private static String CREATE_STATEMENT = "CREATE TABLE `" + TableMedicineTime.TABLE_NAME + "` ("
-            + "`" + TableMedicineTime.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+            + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
             + "`" + TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_NAME + "` TEXT NOT NULL,"
             + "`" + TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_VALUE + "` TEXT NOT NULL UNIQUE"
             + ");";
@@ -25,7 +25,7 @@ public class TableMedicineTime extends Table {
     public static List<String> getColumns() {
         List<String> columns = new ArrayList<String>();
 
-        columns.add(TableMedicineTime.COLUMN_NAME__ID);
+        columns.add(Table.COLUMN_NAME__ID);
         columns.add(TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_NAME);
         columns.add(TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_VALUE);
 

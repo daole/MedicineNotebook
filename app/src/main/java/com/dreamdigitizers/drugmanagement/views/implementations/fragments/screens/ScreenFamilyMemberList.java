@@ -22,7 +22,7 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
     private ListView mListView;
     private TextView mLblEmpty;
 
-    private IPresenterFamilyMemberList mPresenterFamilyMemberList;
+    private IPresenterFamilyMemberList mPresenter;
 
     @Override
     public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
@@ -73,7 +73,7 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
             }
         });
 
-        this.mPresenterFamilyMemberList = (IPresenterFamilyMemberList)PresenterFactory.createPresenter(IPresenterFamilyMemberList.class, this);
+        this.mPresenter = (IPresenterFamilyMemberList)PresenterFactory.createPresenter(IPresenterFamilyMemberList.class, this);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
     }
 
     private void optionDeleteSelected() {
-        this.mPresenterFamilyMemberList.delete();
+        this.mPresenter.delete();
     }
 
     private void listItemClick(long pRowId) {
@@ -110,7 +110,7 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
 
     private void goToEditScreen(long pRowId) {
         Bundle bundle = new Bundle();
-        bundle.putLong(ScreenFamilyMemberEdit.BUNDLE_KEY__ROW_ID, pRowId);
+        bundle.putLong(Screen.BUNDLE_KEY__ROW_ID, pRowId);
         Screen screen = new ScreenFamilyMemberEdit();
         screen.setArguments(bundle);
         this.mIScreenActionsListener.onChangeScreen(screen);

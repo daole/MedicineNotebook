@@ -17,7 +17,7 @@ public class TableTakenMedicine extends Table {
     public static final int COLUMN_INDEX__DOSE = 3;
 
     private static String CREATE_STATEMENT = "CREATE TABLE `" + TableTakenMedicine.TABLE_NAME + "` ("
-            + "`" + TableTakenMedicine.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+            + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
             + "`" + TableTakenMedicine.COLUMN_NAME__MEDICINE_TIME_SETTING_ID + "` INTEGER NOT NULL,"
             + "`" + TableTakenMedicine.COLUMN_NAME__MEDICINE_ID + "` INTEGER NOT NULL,"
             + "`" + TableTakenMedicine.COLUMN_NAME__DOSE + "` TEXT NOT NULL,"
@@ -29,7 +29,7 @@ public class TableTakenMedicine extends Table {
     public static List<String> getColumns() {
         List<String> columns = new ArrayList<String>();
 
-        columns.add(TableTakenMedicine.COLUMN_NAME__ID);
+        columns.add(Table.COLUMN_NAME__ID);
         columns.add(TableTakenMedicine.COLUMN_NAME__MEDICINE_TIME_SETTING_ID);
         columns.add(TableTakenMedicine.COLUMN_NAME__MEDICINE_ID);
         columns.add(TableTakenMedicine.COLUMN_NAME__DOSE);

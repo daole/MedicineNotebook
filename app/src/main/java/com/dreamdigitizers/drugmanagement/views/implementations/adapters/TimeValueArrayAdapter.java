@@ -78,12 +78,24 @@ public class TimeValueArrayAdapter extends BaseAdapter {
         return this.mData;
     }
 
-    public void addItem(String pObject) {
-        if(!this.mData.contains(pObject)) {
-            this.mData.add(pObject);
+    public void addItem(String pItem) {
+        if(!this.mData.contains(pItem)) {
+            this.mData.add(pItem);
             Collections.sort(this.mData);
         }
         this.notifyDataSetChanged();
+    }
+
+    public void addItems(String[] pItems) {
+        if (pItems != null && pItems.length > 0) {
+            for (String item : pItems) {
+                if(!this.mData.contains(item)) {
+                    this.mData.add(item);
+                }
+            }
+            Collections.sort(this.mData);
+            this.notifyDataSetChanged();
+        }
     }
 
     public void removeItem(int pPosition) {

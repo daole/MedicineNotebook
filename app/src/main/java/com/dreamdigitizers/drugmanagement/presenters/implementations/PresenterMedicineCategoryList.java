@@ -17,6 +17,7 @@ import android.widget.CompoundButton;
 
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
+import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryList;
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
@@ -26,14 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
-    private IViewMedicineCategoryList mViewMedicineCategoryList;
-    private SimpleCursorAdapter mSimpleCursorAdapter;
+    private IViewMedicineCategoryList mView;
+    private SimpleCursorAdapter mAdapter;
     private List<Integer> mSelectedPositions;
     private List<Long> mSelectedRowIds;
 
     public PresenterMedicineCategoryList(IViewMedicineCategoryList pViewMedicineCategoryList) {
-        this.mViewMedicineCategoryList = pViewMedicineCategoryList;
-        this.mViewMedicineCategoryList.getViewLoaderManager().initLoader(0, null, this);
+        this.mView = pViewMedicineCategoryList;
+        this.mView.getViewLoaderManager().initLoader(0, null, this);
         this.mSelectedPositions = new ArrayList<>();
         this.mSelectedRowIds = new ArrayList<>();
         this.createAdapter();
@@ -42,7 +43,7 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
     @Override
     public void delete() {
         if(this.mSelectedRowIds.isEmpty()) {
-            this.mViewMedicineCategoryList.showError(R.string.error__no_data_selected);
+            this.mView.showError(R.string.error__no_data_selected);
             return;
         }
 
@@ -56,14 +57,14 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
             @Override
             public void onPositiveButtonClick(Activity pActivity, String pTitle, String pMessage, boolean pIsTwoButton, String pPositiveButtonText, String pNegativeButtonText) {
                 try {
-                    PresenterMedicineCategoryList.this.mViewMedicineCategoryList.getViewContext().getContentResolver().applyBatch(MedicineContentProvider.AUTHORITY, operations);
+                    PresenterMedicineCategoryList.this.mView.getViewContext().getContentResolver().applyBatch(MedicineContentProvider.AUTHORITY, operations);
                     PresenterMedicineCategoryList.this.mSelectedPositions.clear();
                     PresenterMedicineCategoryList.this.mSelectedRowIds.clear();
-                    PresenterMedicineCategoryList.this.mViewMedicineCategoryList.showMessage(R.string.message__delete_successful);
+                    PresenterMedicineCategoryList.this.mView.showMessage(R.string.message__delete_successful);
                 } catch (RemoteException e) {
-                    PresenterMedicineCategoryList.this.mViewMedicineCategoryList.showError(R.string.error__unknown_error);
+                    PresenterMedicineCategoryList.this.mView.showError(R.string.error__unknown_error);
                 } catch (OperationApplicationException e) {
-                    PresenterMedicineCategoryList.this.mViewMedicineCategoryList.showError(R.string.error__unknown_error);
+                    PresenterMedicineCategoryList.this.mView.showError(R.string.error__unknown_error);
                 }
             }
 
@@ -72,38 +73,38 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
 
             }
         };
-        this.mViewMedicineCategoryList.showConfirmation(R.string.confirmation__delete_data, listener);
+        this.mView.showConfirmation(R.string.confirmation__delete_data, listener);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int pId, Bundle pArgs) {
         String[] projection = new String[0];
         projection = TableMedicineCategory.getColumns().toArray(projection);
-        CursorLoader cursorLoader = new CursorLoader(this.mViewMedicineCategoryList.getViewContext(),
+        CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
                 MedicineContentProvider.CONTENT_URI__MEDICINE_CATEGORY, projection, null, null, null);
         return cursorLoader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> pLoader, Cursor pData) {
-        this.mSimpleCursorAdapter.swapCursor(pData);
+        this.mAdapter.swapCursor(pData);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> pLoader) {
-        this.mSimpleCursorAdapter.swapCursor(null);
+        this.mAdapter.swapCursor(null);
     }
 
     private void createAdapter() {
-        String[] from = new String[] {TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME, TableMedicineCategory.COLUMN_NAME__ID};
+        String[] from = new String[] {TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME, Table.COLUMN_NAME__ID};
         int[] to = new int[] {R.id.lblMedicineCategoryName, R.id.chkSelect};
-        this.mSimpleCursorAdapter = new SimpleCursorAdapter(this.mViewMedicineCategoryList.getViewContext(),
+        this.mAdapter = new SimpleCursorAdapter(this.mView.getViewContext(),
                 R.layout.part__medicine_category, null, from, to, 0);
-        this.mSimpleCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+        this.mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View pView, Cursor pCursor, int pColumnIndex) {
-                if(pView.getId() == R.id.chkSelect) {
-                    CheckBox checkBox = (CheckBox)pView;
+                if (pView.getId() == R.id.chkSelect) {
+                    CheckBox checkBox = (CheckBox) pView;
                     final int position = pCursor.getPosition();
                     final long rowId = pCursor.getLong(TableMedicineCategory.COLUMN_INDEX__ID);
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -113,7 +114,7 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
                         }
                     });
 
-                    if(PresenterMedicineCategoryList.this.mSelectedPositions.contains(position)) {
+                    if (PresenterMedicineCategoryList.this.mSelectedPositions.contains(position)) {
                         checkBox.setChecked(true);
                     } else {
                         checkBox.setChecked(false);
@@ -123,7 +124,7 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
                 return false;
             }
         });
-        this.mViewMedicineCategoryList.setAdapter(this.mSimpleCursorAdapter);
+        this.mView.setAdapter(this.mAdapter);
     }
 
     private void check(Integer pPosition, Long pRowId, boolean pIsChecked) {

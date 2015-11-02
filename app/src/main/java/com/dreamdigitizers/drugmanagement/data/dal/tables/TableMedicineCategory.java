@@ -15,7 +15,7 @@ public class TableMedicineCategory extends Table {
     public static final int COLUMN_INDEX__MEDICINE_CATEGORY_NOTE = 2;
 
     private static String CREATE_STATEMENT = "CREATE TABLE `" + TableMedicineCategory.TABLE_NAME + "` ("
-            + "`" + TableMedicineCategory.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+            + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
             + "`" + TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME + "` TEXT NOT NULL UNIQUE,"
             + "`" + TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NOTE + "` TEXT NOT NULL"
             + ");";
@@ -25,7 +25,7 @@ public class TableMedicineCategory extends Table {
     public static List<String> getColumns() {
         List<String> columns = new ArrayList<String>();
 
-        columns.add(TableMedicineCategory.COLUMN_NAME__ID);
+        columns.add(Table.COLUMN_NAME__ID);
         columns.add(TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME);
         columns.add(TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NOTE);
 

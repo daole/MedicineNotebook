@@ -39,7 +39,7 @@
     <string name="btn__no">No</string>
 
     <string name="message__insert_successful">Data has been saved.</string>
-    <string name="message__edit_successful">Data has been updated.</string>
+    <string name="message__edit_successful">Data has been edited.</string>
     <string name="message__delete_successful">Data has been deleted.</string>
 
     <string name="confirmation__delete_data">Are you sure you want to delete the selected data?.</string>

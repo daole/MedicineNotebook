@@ -22,7 +22,7 @@ public class ScreenMedicineCategoryList extends Screen implements IViewMedicineC
     private ListView mListView;
     private TextView mLblEmpty;
 
-    private IPresenterMedicineCategoryList mPresenterMedicineCategoryList;
+    private IPresenterMedicineCategoryList mPresenter;
 
     @Override
     public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
@@ -73,7 +73,7 @@ public class ScreenMedicineCategoryList extends Screen implements IViewMedicineC
             }
         });
 
-        this.mPresenterMedicineCategoryList = (IPresenterMedicineCategoryList) PresenterFactory.createPresenter(IPresenterMedicineCategoryList.class, this);
+        this.mPresenter = (IPresenterMedicineCategoryList) PresenterFactory.createPresenter(IPresenterMedicineCategoryList.class, this);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class ScreenMedicineCategoryList extends Screen implements IViewMedicineC
     }
 
     private void optionDeleteSelected() {
-        this.mPresenterMedicineCategoryList.delete();
+        this.mPresenter.delete();
     }
 
     private void listItemClick(long pRowId) {
@@ -110,7 +110,7 @@ public class ScreenMedicineCategoryList extends Screen implements IViewMedicineC
 
     private void goToEditScreen(long pRowId) {
         Bundle bundle = new Bundle();
-        bundle.putLong(ScreenMedicineCategoryEdit.BUNDLE_KEY__ROW_ID, pRowId);
+        bundle.putLong(Screen.BUNDLE_KEY__ROW_ID, pRowId);
         Screen screen = new ScreenMedicineCategoryEdit();
         screen.setArguments(bundle);
         this.mIScreenActionsListener.onChangeScreen(screen);

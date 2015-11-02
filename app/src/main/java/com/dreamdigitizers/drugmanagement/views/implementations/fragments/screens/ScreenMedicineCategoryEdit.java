@@ -17,11 +17,12 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryEdit;
 
 public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineCategoryEdit {
-    private IPresenterMedicineCategoryEdit mPresenterMedicineCategoryEdit;
     private EditText mTxtMedicineCategoryName;
     private EditText mTxtMedicineCategoryNote;
     private Button mBtnEdit;
     private Button mBtnBack;
+
+    private IPresenterMedicineCategoryEdit mPresenter;
 
     private long mRowId;
 
@@ -38,18 +39,18 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
         this.mBtnEdit = (Button)pView.findViewById(R.id.btnEdit);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
 
-        this.mRowId = this.getArguments().getLong(ScreenMedicineCategoryEdit.BUNDLE_KEY__ROW_ID);
+        this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
     }
 
     @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
-        pOutState.putLong(ScreenMedicineCategoryEdit.BUNDLE_KEY__ROW_ID, this.mRowId);
+        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
     }
 
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        this.mRowId = pSavedInstanceState.getLong(ScreenMedicineCategoryEdit.BUNDLE_KEY__ROW_ID);
+        this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
     }
 
     @Override
@@ -78,8 +79,8 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
             }
         });
 
-        this.mPresenterMedicineCategoryEdit = (IPresenterMedicineCategoryEdit)PresenterFactory.createPresenter(IPresenterMedicineCategoryEdit.class, this);
-        this.mPresenterMedicineCategoryEdit.select(this.mRowId);
+        this.mPresenter = (IPresenterMedicineCategoryEdit)PresenterFactory.createPresenter(IPresenterMedicineCategoryEdit.class, this);
+        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -102,7 +103,7 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
     public void buttonEditClick() {
         String medicineCategoryName = this.mTxtMedicineCategoryName.getText().toString().trim();
         String medicineCategoryNote = this.mTxtMedicineCategoryNote.getText().toString().trim();
-        this.mPresenterMedicineCategoryEdit.edit(this.mRowId, medicineCategoryName, medicineCategoryNote);
+        this.mPresenter.edit(this.mRowId, medicineCategoryName, medicineCategoryNote);
     }
 
     public void buttonBackClick() {

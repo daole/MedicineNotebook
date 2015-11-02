@@ -12,33 +12,33 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyM
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberAdd;
 
 class PresenterFamilyMemberAdd implements IPresenterFamilyMemberAdd {
-    private IViewFamilyMemberAdd mViewFamilyMemberAdd;
+    private IViewFamilyMemberAdd mView;
 
     public PresenterFamilyMemberAdd(IViewFamilyMemberAdd pViewFamilyMemberAdd) {
-        this.mViewFamilyMemberAdd = pViewFamilyMemberAdd;
+        this.mView = pViewFamilyMemberAdd;
     }
 
     @Override
     public void insert(String pFamilyMemberName) {
         int result = this.checkInputData(pFamilyMemberName);
         if(result != 0) {
-            this.mViewFamilyMemberAdd.showError(result);
+            this.mView.showError(result);
             return;
         }
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME, pFamilyMemberName);
 
-        Uri uri = this.mViewFamilyMemberAdd.getViewContext().getContentResolver().insert(
+        Uri uri = this.mView.getViewContext().getContentResolver().insert(
                 MedicineContentProvider.CONTENT_URI__FAMILY_MEMBER, contentValues);
         long newId = Long.parseLong(uri.getLastPathSegment());
         if(newId == DatabaseHelper.DB_ERROR_CODE__CONSTRAINT) {
-            this.mViewFamilyMemberAdd.showError(R.string.error__duplicated_data);
+            this.mView.showError(R.string.error__duplicated_data);
         } else if(newId == DatabaseHelper.DB_ERROR_CODE__OTHER) {
-            this.mViewFamilyMemberAdd.showError(R.string.error__unknown_error);
+            this.mView.showError(R.string.error__unknown_error);
         } else {
-            this.mViewFamilyMemberAdd.clearInput();
-            this.mViewFamilyMemberAdd.showMessage(R.string.message__insert_successful);
+            this.mView.clearInput();
+            this.mView.showMessage(R.string.message__insert_successful);
         }
     }
 

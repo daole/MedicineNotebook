@@ -13,7 +13,7 @@ public class TableFamilyMember extends Table {
     public static final int COLUMN_INDEX__FAMILY_MEMBER_NAME = 1;
 
     private static String CREATE_STATEMENT = "CREATE TABLE `" + TableFamilyMember.TABLE_NAME + "` ("
-        + "`" + TableFamilyMember.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+        + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
         + "`" + TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME + "` TEXT NOT NULL UNIQUE"
         + ");";
 
@@ -22,7 +22,7 @@ public class TableFamilyMember extends Table {
     public static List<String> getColumns() {
         List<String> columns = new ArrayList<String>();
 
-        columns.add(TableFamilyMember.COLUMN_NAME__ID);
+        columns.add(Table.COLUMN_NAME__ID);
         columns.add(TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME);
 
         return columns;

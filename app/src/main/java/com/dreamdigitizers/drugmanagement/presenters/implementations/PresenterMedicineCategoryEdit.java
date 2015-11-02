@@ -17,10 +17,10 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryE
 import java.util.List;
 
 class PresenterMedicineCategoryEdit implements IPresenterMedicineCategoryEdit {
-    private IViewMedicineCategoryEdit mViewMedicineCategoryEdit;
+    private IViewMedicineCategoryEdit mView;
 
     public PresenterMedicineCategoryEdit(IViewMedicineCategoryEdit pViewMedicineCategoryEdit) {
-        this.mViewMedicineCategoryEdit = pViewMedicineCategoryEdit;
+        this.mView = pViewMedicineCategoryEdit;
     }
 
     @Override
@@ -29,12 +29,12 @@ class PresenterMedicineCategoryEdit implements IPresenterMedicineCategoryEdit {
         projection = TableMedicineCategory.getColumns().toArray(projection);
         Uri uri = MedicineContentProvider.CONTENT_URI__MEDICINE_CATEGORY;
         uri = ContentUris.withAppendedId(uri, pRowId);
-        Cursor cursor = this.mViewMedicineCategoryEdit.getViewContext().getContentResolver().query(uri, projection, null, null, null);
+        Cursor cursor = this.mView.getViewContext().getContentResolver().query(uri, projection, null, null, null);
         if (cursor != null) {
             List<MedicineCategory> list = MedicineCategory.fetchData(cursor);
             if(list.size() > 0) {
                 MedicineCategory model = list.get(0);
-                this.mViewMedicineCategoryEdit.bindData(model);
+                this.mView.bindData(model);
             }
             cursor.close();
         }
@@ -44,7 +44,7 @@ class PresenterMedicineCategoryEdit implements IPresenterMedicineCategoryEdit {
     public void edit(long pRowId, String pMedicineCategoryName, String pMedicineCategoryNote) {
         int result = this.checkInputData(pMedicineCategoryName);
         if(result != 0) {
-            this.mViewMedicineCategoryEdit.showError(result);
+            this.mView.showError(result);
             return;
         }
 
@@ -54,14 +54,14 @@ class PresenterMedicineCategoryEdit implements IPresenterMedicineCategoryEdit {
 
         Uri uri = MedicineContentProvider.CONTENT_URI__MEDICINE_CATEGORY;
         uri = ContentUris.withAppendedId(uri, pRowId);
-        int affectedRows = this.mViewMedicineCategoryEdit.getViewContext().getContentResolver().update(
+        int affectedRows = this.mView.getViewContext().getContentResolver().update(
                 uri, contentValues, null, null);
         if(affectedRows == DatabaseHelper.DB_ERROR_CODE__CONSTRAINT) {
-            this.mViewMedicineCategoryEdit.showError(R.string.error__duplicated_data);
+            this.mView.showError(R.string.error__duplicated_data);
         } else if(affectedRows == DatabaseHelper.DB_ERROR_CODE__OTHER) {
-            this.mViewMedicineCategoryEdit.showError(R.string.error__unknown_error);
+            this.mView.showError(R.string.error__unknown_error);
         } else {
-            this.mViewMedicineCategoryEdit.showMessage(R.string.message__insert_successful);
+            this.mView.showMessage(R.string.message__edit_successful);
         }
     }
 

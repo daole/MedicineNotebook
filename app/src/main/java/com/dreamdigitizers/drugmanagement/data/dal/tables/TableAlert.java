@@ -25,7 +25,7 @@ public class TableAlert extends Table {
     public static final int COLUMN_INDEX__IS_DONE = 7;
 
     private static String CREATE_STATEMENT = "CREATE TABLE `" + TableAlert.TABLE_NAME + "` ("
-        + "`" + TableAlert.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+        + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
         + "`" + TableAlert.COLUMN_NAME__MEDICINE_TIME_SETTING_ID + "` INTEGER NOT NULL,"
         + "`" + TableAlert.COLUMN_NAME__ALERT_YEAR + "` INTEGER NOT NULL,"
         + "`" + TableAlert.COLUMN_NAME__ALERT_MONTH + "` INTEGER NOT NULL,"
@@ -40,7 +40,7 @@ public class TableAlert extends Table {
     public static List<String> getColumns() {
         List<String> columns = new ArrayList<String>();
 
-        columns.add(TableAlert.COLUMN_NAME__ID);
+        columns.add(Table.COLUMN_NAME__ID);
         columns.add(TableAlert.COLUMN_NAME__MEDICINE_TIME_SETTING_ID);
         columns.add(TableAlert.COLUMN_NAME__ALERT_YEAR);
         columns.add(TableAlert.COLUMN_NAME__ALERT_MONTH);

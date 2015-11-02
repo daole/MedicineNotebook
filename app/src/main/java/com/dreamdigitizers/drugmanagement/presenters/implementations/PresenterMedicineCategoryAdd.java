@@ -12,17 +12,17 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryAdd;
 
 class PresenterMedicineCategoryAdd implements IPresenterMedicineCategoryAdd {
-    private IViewMedicineCategoryAdd mViewMedicineCategoryAdd;
+    private IViewMedicineCategoryAdd mView;
 
     public PresenterMedicineCategoryAdd(IViewMedicineCategoryAdd pViewMedicineCategoryAdd) {
-        this.mViewMedicineCategoryAdd = pViewMedicineCategoryAdd;
+        this.mView = pViewMedicineCategoryAdd;
     }
 
     @Override
     public void insert(String pMedicineCategoryName, String pMedicineCategoryNote) {
         int result = this.checkInputData(pMedicineCategoryName);
         if(result != 0) {
-            this.mViewMedicineCategoryAdd.showError(result);
+            this.mView.showError(result);
             return;
         }
 
@@ -32,16 +32,16 @@ class PresenterMedicineCategoryAdd implements IPresenterMedicineCategoryAdd {
             contentValues.put(TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NOTE, pMedicineCategoryNote);
         }
 
-        Uri uri = this.mViewMedicineCategoryAdd.getViewContext().getContentResolver().insert(
+        Uri uri = this.mView.getViewContext().getContentResolver().insert(
                 MedicineContentProvider.CONTENT_URI__MEDICINE_CATEGORY, contentValues);
         long newId = Long.parseLong(uri.getLastPathSegment());
         if(newId == DatabaseHelper.DB_ERROR_CODE__CONSTRAINT) {
-            this.mViewMedicineCategoryAdd.showError(R.string.error__duplicated_data);
+            this.mView.showError(R.string.error__duplicated_data);
         } else if(newId == DatabaseHelper.DB_ERROR_CODE__OTHER) {
-            this.mViewMedicineCategoryAdd.showError(R.string.error__unknown_error);
+            this.mView.showError(R.string.error__unknown_error);
         } else {
-            this.mViewMedicineCategoryAdd.clearInput();
-            this.mViewMedicineCategoryAdd.showMessage(R.string.message__insert_successful);
+            this.mView.clearInput();
+            this.mView.showMessage(R.string.message__insert_successful);
         }
     }
 

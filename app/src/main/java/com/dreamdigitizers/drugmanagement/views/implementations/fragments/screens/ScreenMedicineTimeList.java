@@ -22,7 +22,7 @@ public class ScreenMedicineTimeList extends Screen implements IViewMedicineTimeL
     private ListView mListView;
     private TextView mLblEmpty;
 
-    private IPresenterMedicineTimeList mPresenterMedicineTimeList;
+    private IPresenterMedicineTimeList mPresenter;
 
     @Override
     public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
@@ -73,7 +73,7 @@ public class ScreenMedicineTimeList extends Screen implements IViewMedicineTimeL
             }
         });
 
-        this.mPresenterMedicineTimeList = (IPresenterMedicineTimeList)PresenterFactory.createPresenter(IPresenterMedicineTimeList.class, this);
+        this.mPresenter = (IPresenterMedicineTimeList)PresenterFactory.createPresenter(IPresenterMedicineTimeList.class, this);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class ScreenMedicineTimeList extends Screen implements IViewMedicineTimeL
     }
 
     private void optionDeleteSelected() {
-        this.mPresenterMedicineTimeList.delete();
+        this.mPresenter.delete();
     }
 
     private void listItemClick(long pRowId) {
@@ -109,6 +109,10 @@ public class ScreenMedicineTimeList extends Screen implements IViewMedicineTimeL
     }
 
     private void goToEditScreen(long pRowId) {
-
+        Bundle bundle = new Bundle();
+        bundle.putLong(Screen.BUNDLE_KEY__ROW_ID, pRowId);
+        Screen screen = new ScreenMedicineTimeEdit();
+        screen.setArguments(bundle);
+        this.mIScreenActionsListener.onChangeScreen(screen);
     }
 }

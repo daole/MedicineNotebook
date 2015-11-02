@@ -16,11 +16,12 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryAdd;
 
 public class ScreenMedicineCategoryAdd extends Screen implements IViewMedicineCategoryAdd {
-    private IPresenterMedicineCategoryAdd mPresenterMedicineCategoryAdd;
     private EditText mTxtMedicineCategoryName;
     private EditText mTxtMedicineCategoryNote;
     private Button mBtnAdd;
     private Button mBtnBack;
+
+    private IPresenterMedicineCategoryAdd mPresenter;
 
     @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
@@ -67,7 +68,7 @@ public class ScreenMedicineCategoryAdd extends Screen implements IViewMedicineCa
             }
         });
 
-        this.mPresenterMedicineCategoryAdd = (IPresenterMedicineCategoryAdd)PresenterFactory.createPresenter(IPresenterMedicineCategoryAdd.class, this);
+        this.mPresenter = (IPresenterMedicineCategoryAdd)PresenterFactory.createPresenter(IPresenterMedicineCategoryAdd.class, this);
     }
 
     @Override
@@ -90,7 +91,7 @@ public class ScreenMedicineCategoryAdd extends Screen implements IViewMedicineCa
     public void buttonAddClick() {
         String medicineCategoryName = this.mTxtMedicineCategoryName.getText().toString().trim();
         String medicineCategoryNote = this.mTxtMedicineCategoryNote.getText().toString().trim();
-        this.mPresenterMedicineCategoryAdd.insert(medicineCategoryName, medicineCategoryNote);
+        this.mPresenter.insert(medicineCategoryName, medicineCategoryNote);
     }
 
     public void buttonBackClick() {

@@ -17,10 +17,11 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyM
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberEdit;
 
 public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberEdit {
-    private IPresenterFamilyMemberEdit mPresenterFamilyMemberEdit;
     private EditText mTxtFamilyMemberName;
     private Button mBtnEdit;
     private Button mBtnBack;
+
+    private IPresenterFamilyMemberEdit mPresenter;
 
     private long mRowId;
 
@@ -36,18 +37,18 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
         this.mBtnEdit = (Button)pView.findViewById(R.id.btnEdit);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
 
-        this.mRowId = this.getArguments().getLong(ScreenFamilyMemberEdit.BUNDLE_KEY__ROW_ID);
+        this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
     }
 
     @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
-        pOutState.putLong(ScreenFamilyMemberEdit.BUNDLE_KEY__ROW_ID, this.mRowId);
+        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
     }
 
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        this.mRowId = pSavedInstanceState.getLong(ScreenFamilyMemberEdit.BUNDLE_KEY__ROW_ID);
+        this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
     }
 
     @Override
@@ -76,8 +77,8 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
             }
         });
 
-        this.mPresenterFamilyMemberEdit = (IPresenterFamilyMemberEdit)PresenterFactory.createPresenter(IPresenterFamilyMemberEdit.class, this);
-        this.mPresenterFamilyMemberEdit.select(this.mRowId);
+        this.mPresenter = (IPresenterFamilyMemberEdit)PresenterFactory.createPresenter(IPresenterFamilyMemberEdit.class, this);
+        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -98,7 +99,7 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
 
     public void buttonEditClick() {
         String familyMemberName = this.mTxtFamilyMemberName.getText().toString().trim();
-        this.mPresenterFamilyMemberEdit.edit(this.mRowId, familyMemberName);
+        this.mPresenter.edit(this.mRowId, familyMemberName);
     }
 
     public void buttonBackClick() {

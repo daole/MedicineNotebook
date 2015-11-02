@@ -2,6 +2,7 @@ package com.dreamdigitizers.drugmanagement.data.models;
 
 import android.database.Cursor;
 
+import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableFamilyMember;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class FamilyMember extends Model {
         List<FamilyMember> list = new ArrayList<>();
         if (pCursor != null && pCursor.moveToFirst()) {
             do {
-                long rowId = pCursor.getLong(TableFamilyMember.COLUMN_INDEX__ID);
+                long rowId = pCursor.getLong(Table.COLUMN_INDEX__ID);
                 String familyMemberName = pCursor.getString(TableFamilyMember.COLUMN_INDEX__FAMILY_MEMBER_NAME);
 
                 FamilyMember model = new FamilyMember();
