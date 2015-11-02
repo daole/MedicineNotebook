@@ -12,39 +12,39 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/lblMedicineCategoryName"
+            android:id="@+id/lblMedicineIntervalName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/lbl__medicine_category_name"/>
+            android:text="@string/lbl__medicine_interval_name"/>
 
         <EditText
-            android:id="@+id/txtMedicineCategoryName"
+            android:id="@+id/txtMedicineIntervalName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/lblMedicineCategoryName"
-            android:layout_toRightOf="@id/lblMedicineCategoryName"
+            android:layout_alignBottom="@id/lblMedicineIntervalName"
+            android:layout_toRightOf="@id/lblMedicineIntervalName"
             android:inputType="text"
-            android:hint="@string/hint__medicine_category_name"/>
+            android:hint="@string/hint__medicine_interval_name"/>
 
         <TextView
-            android:id="@+id/lblMedicineCategoryNote"
+            android:id="@+id/lblMedicineIntervalValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lblMedicineCategoryName"
+            android:layout_below="@+id/lblMedicineIntervalName"
             android:layout_marginTop="20dp"
             android:padding="10dp"
-            android:text="@string/lbl__note"/>
+            android:text="@string/lbl__medicine_interval_value"/>
 
         <EditText
-            android:id="@+id/txtMedicineCategoryNote"
+            android:id="@+id/txtMedicineIntervalValue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/txtMedicineCategoryName"
-            android:layout_alignTop="@id/lblMedicineCategoryNote"
-            android:layout_toRightOf="@id/lblMedicineCategoryNote"
-            android:inputType="textMultiLine"
-            android:hint="@string/hint__medicine_category_note"/>
+            android:layout_alignLeft="@+id/txtMedicineIntervalName"
+            android:layout_alignBottom="@id/lblMedicineIntervalValue"
+            android:layout_toRightOf="@id/lblMedicineIntervalValue"
+            android:inputType="number"
+            android:hint="@string/hint__medicine_interval_value"/>
 
     </RelativeLayout>
 

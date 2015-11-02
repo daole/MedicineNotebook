@@ -19,8 +19,8 @@ import java.util.List;
 class PresenterMedicineCategoryEdit implements IPresenterMedicineCategoryEdit {
     private IViewMedicineCategoryEdit mView;
 
-    public PresenterMedicineCategoryEdit(IViewMedicineCategoryEdit pViewMedicineCategoryEdit) {
-        this.mView = pViewMedicineCategoryEdit;
+    public PresenterMedicineCategoryEdit(IViewMedicineCategoryEdit pView) {
+        this.mView = pView;
     }
 
     @Override

@@ -19,8 +19,8 @@ import java.util.List;
 class PresenterFamilyMemberEdit implements IPresenterFamilyMemberEdit {
     private IViewFamilyMemberEdit mView;
 
-    public PresenterFamilyMemberEdit(IViewFamilyMemberEdit pViewFamilyMemberEdit) {
-        this.mView = pViewFamilyMemberEdit;
+    public PresenterFamilyMemberEdit(IViewFamilyMemberEdit pView) {
+        this.mView = pView;
     }
 
     @Override

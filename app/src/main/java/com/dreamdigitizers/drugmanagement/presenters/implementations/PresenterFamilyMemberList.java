@@ -32,8 +32,8 @@ class PresenterFamilyMemberList implements IPresenterFamilyMemberList {
     private List<Integer> mSelectedPositions;
     private List<Long> mSelectedRowIds;
 
-    public PresenterFamilyMemberList(IViewFamilyMemberList pViewFamilyMemberList) {
-        this.mView = pViewFamilyMemberList;
+    public PresenterFamilyMemberList(IViewFamilyMemberList pView) {
+        this.mView = pView;
         this.mView.getViewLoaderManager().initLoader(0, null, this);
         this.mSelectedPositions = new ArrayList<>();
         this.mSelectedRowIds = new ArrayList<>();
@@ -106,7 +106,7 @@ class PresenterFamilyMemberList implements IPresenterFamilyMemberList {
                 if (pView.getId() == R.id.chkSelect) {
                     CheckBox checkBox = (CheckBox) pView;
                     final int position = pCursor.getPosition();
-                    final long rowId = pCursor.getLong(TableFamilyMember.COLUMN_INDEX__ID);
+                    final long rowId = pCursor.getLong(Table.COLUMN_INDEX__ID);
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton pButtonView, boolean pIsChecked) {

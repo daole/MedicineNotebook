@@ -14,8 +14,8 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryA
 class PresenterMedicineCategoryAdd implements IPresenterMedicineCategoryAdd {
     private IViewMedicineCategoryAdd mView;
 
-    public PresenterMedicineCategoryAdd(IViewMedicineCategoryAdd pViewMedicineCategoryAdd) {
-        this.mView = pViewMedicineCategoryAdd;
+    public PresenterMedicineCategoryAdd(IViewMedicineCategoryAdd pView) {
+        this.mView = pView;
     }
 
     @Override

@@ -14,8 +14,8 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberAdd;
 class PresenterFamilyMemberAdd implements IPresenterFamilyMemberAdd {
     private IViewFamilyMemberAdd mView;
 
-    public PresenterFamilyMemberAdd(IViewFamilyMemberAdd pViewFamilyMemberAdd) {
-        this.mView = pViewFamilyMemberAdd;
+    public PresenterFamilyMemberAdd(IViewFamilyMemberAdd pView) {
+        this.mView = pView;
     }
 
     @Override

@@ -32,8 +32,8 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
     private List<Integer> mSelectedPositions;
     private List<Long> mSelectedRowIds;
 
-    public PresenterMedicineCategoryList(IViewMedicineCategoryList pViewMedicineCategoryList) {
-        this.mView = pViewMedicineCategoryList;
+    public PresenterMedicineCategoryList(IViewMedicineCategoryList pView) {
+        this.mView = pView;
         this.mView.getViewLoaderManager().initLoader(0, null, this);
         this.mSelectedPositions = new ArrayList<>();
         this.mSelectedRowIds = new ArrayList<>();
@@ -106,7 +106,7 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
                 if (pView.getId() == R.id.chkSelect) {
                     CheckBox checkBox = (CheckBox) pView;
                     final int position = pCursor.getPosition();
-                    final long rowId = pCursor.getLong(TableMedicineCategory.COLUMN_INDEX__ID);
+                    final long rowId = pCursor.getLong(Table.COLUMN_INDEX__ID);
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton pButtonView, boolean pIsChecked) {

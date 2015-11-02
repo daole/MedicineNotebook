@@ -7,6 +7,9 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyM
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryAdd;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryEdit;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryList;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineIntervalAdd;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineIntervalEdit;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineIntervalList;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeAdd;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeEdit;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeList;
@@ -17,6 +20,9 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberList;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryAdd;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryEdit;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryList;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineIntervalAdd;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineIntervalEdit;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineIntervalList;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeAdd;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeEdit;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeList;
@@ -32,6 +38,7 @@ public class PresenterFactory {
         if(pClass == IPresenterFamilyMemberEdit.class) {
             return new PresenterFamilyMemberEdit((IViewFamilyMemberEdit)pView);
         }
+
         if(pClass == IPresenterMedicineCategoryList.class) {
             return new PresenterMedicineCategoryList((IViewMedicineCategoryList)pView);
         }
@@ -41,6 +48,7 @@ public class PresenterFactory {
         if(pClass == IPresenterMedicineCategoryEdit.class) {
             return new PresenterMedicineCategoryEdit((IViewMedicineCategoryEdit)pView);
         }
+
         if(pClass == IPresenterMedicineTimeList.class) {
             return new PresenterMedicineTimeList((IViewMedicineTimeList)pView);
         }
@@ -49,6 +57,16 @@ public class PresenterFactory {
         }
         if(pClass == IPresenterMedicineTimeEdit.class) {
             return new PresenterMedicineTimeEdit((IViewMedicineTimeEdit)pView);
+        }
+
+        if(pClass == IPresenterMedicineIntervalList.class) {
+            return new PresenterMedicineIntervalList((IViewMedicineIntervalList)pView);
+        }
+        if(pClass == IPresenterMedicineIntervalAdd.class) {
+            return new PresenterMedicineIntervalAdd((IViewMedicineIntervalAdd)pView);
+        }
+        if(pClass == IPresenterMedicineIntervalEdit.class) {
+            return new PresenterMedicineIntervalEdit((IViewMedicineIntervalEdit)pView);
         }
         return null;
     }

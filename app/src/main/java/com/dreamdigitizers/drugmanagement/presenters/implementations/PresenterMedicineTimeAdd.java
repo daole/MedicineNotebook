@@ -14,8 +14,8 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeAdd;
 class PresenterMedicineTimeAdd implements IPresenterMedicineTimeAdd {
     private IViewMedicineTimeAdd mView;
 
-    public PresenterMedicineTimeAdd(IViewMedicineTimeAdd pViewMedicineTimeAdd) {
-        this.mView = pViewMedicineTimeAdd;
+    public PresenterMedicineTimeAdd(IViewMedicineTimeAdd pView) {
+        this.mView = pView;
     }
 
     @Override
