@@ -1,6 +1,9 @@
 package com.dreamdigitizers.drugmanagement.data.dal.tables;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.dreamdigitizers.drugmanagement.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +15,14 @@ public class TableFamilyMember extends Table {
 
     public static final int COLUMN_INDEX__FAMILY_MEMBER_NAME = 1;
 
-    private static String CREATE_STATEMENT = "CREATE TABLE `" + TableFamilyMember.TABLE_NAME + "` ("
+    private static final String STATEMENT__CREATE = "CREATE TABLE `" + TableFamilyMember.TABLE_NAME + "` ("
         + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
         + "`" + TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME + "` TEXT NOT NULL UNIQUE"
         + ");";
 
-    private static String UPDATE_STATEMENT = "";
+    private static final String STATEMENT__UPDATE = "";
+
+    private static final String STATEMENT__INSERT = "INSERT INTO `" + TableFamilyMember.TABLE_NAME + "` VALUES(%d, '%s')";
 
     public static List<String> getColumns() {
         List<String> columns = new ArrayList<String>();
@@ -28,11 +33,19 @@ public class TableFamilyMember extends Table {
         return columns;
     }
 
-    public static void onCreate(SQLiteDatabase pSQLiteDatabase) {
-        pSQLiteDatabase.execSQL(TableFamilyMember.CREATE_STATEMENT);
+    public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
+        pSQLiteDatabase.execSQL(TableFamilyMember.STATEMENT__CREATE);
+        TableFamilyMember.insertSampleData(pContext, pSQLiteDatabase);
     }
 
-    public static void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+    public static void onUpgrade(Context pContext, SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
+    }
+
+    private static void insertSampleData(Context pContext, SQLiteDatabase pSQLiteDatabase) {
+        String[] names = pContext.getResources().getStringArray(R.array.family_member_names);
+        for(int i = 0; i < names.length; i++) {
+            pSQLiteDatabase.execSQL(String.format(TableFamilyMember.STATEMENT__INSERT, i + 1, names[i]));
+        }
     }
 }

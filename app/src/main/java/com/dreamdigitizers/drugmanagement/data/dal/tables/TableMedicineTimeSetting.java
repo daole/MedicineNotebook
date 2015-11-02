@@ -1,5 +1,6 @@
 package com.dreamdigitizers.drugmanagement.data.dal.tables;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class TableMedicineTimeSetting extends Table {
     public static final int COLUMN_INDEX__IS_ALERT = 7;
     public static final int COLUMN_INDEX__NOTE = 8;
 
-    private static String CREATE_STATEMENT = "CREATE TABLE `" + TableMedicineTimeSetting.TABLE_NAME + "` ("
+    private static final String STATEMENT__CREATE = "CREATE TABLE `" + TableMedicineTimeSetting.TABLE_NAME + "` ("
             + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
             + "`" + TableMedicineTimeSetting.COLUMN_NAME__FAMILY_MEMBER_ID + "` INTEGER NOT NULL,"
             + "`" + TableMedicineTimeSetting.COLUMN_NAME__MEDICINE_TIME_ID + "` INTEGER NOT NULL,"
@@ -38,7 +39,7 @@ public class TableMedicineTimeSetting extends Table {
             + "`" + TableMedicineTimeSetting.COLUMN_NAME__NOTE + "` TEXT"
             + ");";
 
-    private static String UPDATE_STATEMENT = "";
+    private static final String STATEMENT__UPDATE = "";
 
     public static List<String> getColumns() {
         List<String> columns = new ArrayList<String>();
@@ -56,11 +57,11 @@ public class TableMedicineTimeSetting extends Table {
         return columns;
     }
 
-    public static void onCreate(SQLiteDatabase pSQLiteDatabase) {
-        pSQLiteDatabase.execSQL(TableMedicineTimeSetting.CREATE_STATEMENT);
+    public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
+        pSQLiteDatabase.execSQL(TableMedicineTimeSetting.STATEMENT__CREATE);
     }
 
-    public static void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+    public static void onUpgrade(Context pContext, SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
     }
 }

@@ -17,32 +17,35 @@ class MySQLiteOpenHelper extends SQLiteOpenHelper {
 	private static final String DB__NAME = "drug_management.db";
 	private static final int DB__VERSION = 1;
 
+	private Context mContext;
+
 	public MySQLiteOpenHelper(Context pContext) {
 		super(pContext, MySQLiteOpenHelper.DB__NAME, null, MySQLiteOpenHelper.DB__VERSION);
+		this.mContext = pContext;
 		//pContext.deleteDatabase(MySQLiteOpenHelper.DB__NAME);
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase pSQLiteDatabase) {
-		TableAlert.onCreate(pSQLiteDatabase);
-		TableFamilyMember.onCreate(pSQLiteDatabase);
-		TableMedicine.onCreate(pSQLiteDatabase);
-		TableMedicineCategory.onCreate(pSQLiteDatabase);
-		TableMedicineInterval.onCreate(pSQLiteDatabase);
-		TableMedicineTime.onCreate(pSQLiteDatabase);
-		TableMedicineTimeSetting.onCreate(pSQLiteDatabase);
-		TableTakenMedicine.onCreate(pSQLiteDatabase);
+		TableAlert.onCreate(this.mContext, pSQLiteDatabase);
+		TableFamilyMember.onCreate(this.mContext, pSQLiteDatabase);
+		TableMedicine.onCreate(this.mContext, pSQLiteDatabase);
+		TableMedicineCategory.onCreate(this.mContext, pSQLiteDatabase);
+		TableMedicineInterval.onCreate(this.mContext, pSQLiteDatabase);
+		TableMedicineTime.onCreate(this.mContext, pSQLiteDatabase);
+		TableMedicineTimeSetting.onCreate(this.mContext, pSQLiteDatabase);
+		TableTakenMedicine.onCreate(this.mContext, pSQLiteDatabase);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
-		TableAlert.onUpgrade(pSQLiteDatabase, pOldVersion, pNewVersion);
-		TableFamilyMember.onUpgrade(pSQLiteDatabase, pOldVersion, pNewVersion);
-		TableMedicine.onUpgrade(pSQLiteDatabase, pOldVersion, pNewVersion);
-		TableMedicineCategory.onUpgrade(pSQLiteDatabase, pOldVersion, pNewVersion);
-		TableMedicineInterval.onUpgrade(pSQLiteDatabase, pOldVersion, pNewVersion);
-		TableMedicineTime.onUpgrade(pSQLiteDatabase, pOldVersion, pNewVersion);
-		TableMedicineTimeSetting.onUpgrade(pSQLiteDatabase, pOldVersion, pNewVersion);
-		TableTakenMedicine.onUpgrade(pSQLiteDatabase, pOldVersion, pNewVersion);
+		TableAlert.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
+		TableFamilyMember.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
+		TableMedicine.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
+		TableMedicineCategory.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
+		TableMedicineInterval.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
+		TableMedicineTime.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
+		TableMedicineTimeSetting.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
+		TableTakenMedicine.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
 	}
 }

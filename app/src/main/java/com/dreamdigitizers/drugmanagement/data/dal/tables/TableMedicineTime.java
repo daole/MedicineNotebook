@@ -1,6 +1,9 @@
 package com.dreamdigitizers.drugmanagement.data.dal.tables;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.dreamdigitizers.drugmanagement.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +17,15 @@ public class TableMedicineTime extends Table {
     public static final int COLUMN_INDEX__MEDICINE_TIME_NAME = 1;
     public static final int COLUMN_INDEX__MEDICINE_TIME_VALUE = 2;
 
-    private static String CREATE_STATEMENT = "CREATE TABLE `" + TableMedicineTime.TABLE_NAME + "` ("
+    private static final String STATEMENT__CREATE = "CREATE TABLE `" + TableMedicineTime.TABLE_NAME + "` ("
             + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
             + "`" + TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_NAME + "` TEXT NOT NULL,"
             + "`" + TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_VALUE + "` TEXT NOT NULL UNIQUE"
             + ");";
 
-    private static String UPDATE_STATEMENT = "";
+    private static final String STATEMENT__UPDATE = "";
+
+    private static final String STATEMENT__INSERT = "INSERT INTO `" + TableMedicineTime.TABLE_NAME + "` VALUES(%d, '%s', '%s')";
 
     public static List<String> getColumns() {
         List<String> columns = new ArrayList<String>();
@@ -32,11 +37,20 @@ public class TableMedicineTime extends Table {
         return columns;
     }
 
-    public static void onCreate(SQLiteDatabase pSQLiteDatabase) {
-        pSQLiteDatabase.execSQL(TableMedicineTime.CREATE_STATEMENT);
+    public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
+        pSQLiteDatabase.execSQL(TableMedicineTime.STATEMENT__CREATE);
+        TableMedicineTime.insertSampleData(pContext, pSQLiteDatabase);
     }
 
-    public static void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+    public static void onUpgrade(Context pContext, SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
+    }
+
+    private static void insertSampleData(Context pContext, SQLiteDatabase pSQLiteDatabase) {
+        String[] names = pContext.getResources().getStringArray(R.array.medicine_time_names);
+        String[] values = pContext.getResources().getStringArray(R.array.medicine_time_values);
+        for(int i = 0; i < names.length; i++) {
+            pSQLiteDatabase.execSQL(String.format(TableMedicineTime.STATEMENT__INSERT, i + 1, names[i], values[i]));
+        }
     }
 }

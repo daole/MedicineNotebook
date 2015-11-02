@@ -1,5 +1,6 @@
 package com.dreamdigitizers.drugmanagement.data.dal.tables;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class TableAlert extends Table {
     public static final int COLUMN_INDEX__ALERT_MINUTE = 6;
     public static final int COLUMN_INDEX__IS_DONE = 7;
 
-    private static String CREATE_STATEMENT = "CREATE TABLE `" + TableAlert.TABLE_NAME + "` ("
+    private static final String STATEMENT__CREATE = "CREATE TABLE `" + TableAlert.TABLE_NAME + "` ("
         + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
         + "`" + TableAlert.COLUMN_NAME__MEDICINE_TIME_SETTING_ID + "` INTEGER NOT NULL,"
         + "`" + TableAlert.COLUMN_NAME__ALERT_YEAR + "` INTEGER NOT NULL,"
@@ -35,7 +36,7 @@ public class TableAlert extends Table {
         + "`" + TableAlert.COLUMN_NAME__IS_DONE + "` INTEGER NOT NULL DEFAULT '0'"
         + ");";
 
-    private static String UPDATE_STATEMENT = "";
+    private static final String STATEMENT__UPDATE = "";
 
     public static List<String> getColumns() {
         List<String> columns = new ArrayList<String>();
@@ -52,11 +53,11 @@ public class TableAlert extends Table {
         return columns;
     }
 
-    public static void onCreate(SQLiteDatabase pSQLiteDatabase) {
-        pSQLiteDatabase.execSQL(TableAlert.CREATE_STATEMENT);
+    public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
+        pSQLiteDatabase.execSQL(TableAlert.STATEMENT__CREATE);
     }
 
-    public static void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+    public static void onUpgrade(Context pContext, SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
     }
 }

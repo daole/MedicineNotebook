@@ -1,5 +1,6 @@
 package com.dreamdigitizers.drugmanagement.data.dal.tables;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class TableTakenMedicine extends Table {
     public static final int COLUMN_INDEX__MEDICINE_ID = 2;
     public static final int COLUMN_INDEX__DOSE = 3;
 
-    private static String CREATE_STATEMENT = "CREATE TABLE `" + TableTakenMedicine.TABLE_NAME + "` ("
+    private static final String STATEMENT__CREATE = "CREATE TABLE `" + TableTakenMedicine.TABLE_NAME + "` ("
             + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
             + "`" + TableTakenMedicine.COLUMN_NAME__MEDICINE_TIME_SETTING_ID + "` INTEGER NOT NULL,"
             + "`" + TableTakenMedicine.COLUMN_NAME__MEDICINE_ID + "` INTEGER NOT NULL,"
@@ -24,7 +25,7 @@ public class TableTakenMedicine extends Table {
             + "UNIQUE (`" + TableTakenMedicine.COLUMN_NAME__MEDICINE_TIME_SETTING_ID + "`, `" + TableTakenMedicine.COLUMN_NAME__MEDICINE_ID + "`)"
             + ");";
 
-    private static String UPDATE_STATEMENT = "";
+    private static final String STATEMENT__UPDATE = "";
 
     public static List<String> getColumns() {
         List<String> columns = new ArrayList<String>();
@@ -37,11 +38,11 @@ public class TableTakenMedicine extends Table {
         return columns;
     }
 
-    public static void onCreate(SQLiteDatabase pSQLiteDatabase) {
-        pSQLiteDatabase.execSQL(TableTakenMedicine.CREATE_STATEMENT);
+    public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
+        pSQLiteDatabase.execSQL(TableTakenMedicine.STATEMENT__CREATE);
     }
 
-    public static void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+    public static void onUpgrade(Context pContext, SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
     }
 }

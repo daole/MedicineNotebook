@@ -1,5 +1,6 @@
 package com.dreamdigitizers.drugmanagement.data.dal.tables;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class TableMedicine extends Table {
     public static final int COLUMN_INDEX__MEDICINE_IMAGE_PATH = 3;
     public static final int COLUMN_INDEX__MEDICINE_NOTE = 4;
 
-    private static String CREATE_STATEMENT = "CREATE TABLE `" + TableMedicine.TABLE_NAME + "` ("
+    private static final String STATEMENT__CREATE = "CREATE TABLE `" + TableMedicine.TABLE_NAME + "` ("
             + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
             + "`" + TableMedicine.COLUMN_NAME__MEDICINE_CATEGORY_ID + "` INTEGER,"
             + "`" + TableMedicine.COLUMN_NAME__MEDICINE_NAME + "` TEXT NOT NULL UNIQUE,"
@@ -26,7 +27,7 @@ public class TableMedicine extends Table {
             + "`" + TableMedicine.COLUMN_NAME__MEDICINE_NOTE + "` TEXT"
             + ");";
 
-    private static String UPDATE_STATEMENT = "";
+    private static final String STATEMENT__UPDATE = "";
 
     public static List<String> getColumns() {
         List<String> columns = new ArrayList<String>();
@@ -40,11 +41,11 @@ public class TableMedicine extends Table {
         return columns;
     }
 
-    public static void onCreate(SQLiteDatabase pSQLiteDatabase) {
-        pSQLiteDatabase.execSQL(TableMedicine.CREATE_STATEMENT);
+    public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
+        pSQLiteDatabase.execSQL(TableMedicine.STATEMENT__CREATE);
     }
 
-    public static void onUpgrade(SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
+    public static void onUpgrade(Context pContext, SQLiteDatabase pSQLiteDatabase, int pOldVersion, int pNewVersion) {
 
     }
 }

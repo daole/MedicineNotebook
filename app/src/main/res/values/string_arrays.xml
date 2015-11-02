@@ -20,6 +20,11 @@
         <item >Otolaryngology</item>
         <item >Internal Medicines</item>
     </string-array>
+    <string-array name="medicine_category_notes">
+        <item >They are used to treat psychosomatic disorders.</item>
+        <item >They are used to treat diseases and disorders of the ear, nose, throat, and related structures of the head and neck.</item>
+        <item >They are used to treat adult diseases.</item>
+    </string-array>
 
     <string-array name="medicine_time_names">
         <item >Before breakfast</item>
@@ -34,6 +39,7 @@
         <item >Dinner</item>
         <item >After dinner</item>
         <item >Night</item>
+        <item >Breakfast, Lunch, Dinner</item>
     </string-array>
     <string-array name="medicine_time_values">
         <item >07:30</item>
@@ -48,6 +54,7 @@
         <item >18:00</item>
         <item >18:30</item>
         <item >22:00</item>
+        <item >08:00, 12:00, 18:00</item>
     </string-array>
 
     <string-array name="medicine_interval_names">
