@@ -81,6 +81,12 @@ public class ScreenMedicineCategoryAdd extends Screen implements IViewMedicineCa
         return true;
     }
 
+    @Override
+    public void clearInput() {
+        this.mTxtMedicineCategoryName.setText("");
+        this.mTxtMedicineCategoryNote.setText("");
+    }
+
     public void buttonAddClick() {
         String medicineCategoryName = this.mTxtMedicineCategoryName.getText().toString().trim();
         String medicineCategoryNote = this.mTxtMedicineCategoryNote.getText().toString().trim();

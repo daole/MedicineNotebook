@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
@@ -18,8 +19,10 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryList;
 
 public class ScreenMedicineCategoryList extends Screen implements IViewMedicineCategoryList {
-    private IPresenterMedicineCategoryList mPresenterMedicineCategoryList;
     private ListView mListView;
+    private TextView mLblEmpty;
+
+    private IPresenterMedicineCategoryList mPresenterMedicineCategoryList;
 
     @Override
     public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
@@ -52,14 +55,7 @@ public class ScreenMedicineCategoryList extends Screen implements IViewMedicineC
     @Override
     protected void retrieveScreenItems(View pView) {
         this.mListView = (ListView)pView.findViewById(R.id.lstMedicineCategories);
-        View lblEmpty = pView.findViewById(R.id.lblEmpty);
-        this.mListView.setEmptyView(lblEmpty);
-        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
-                ScreenMedicineCategoryList.this.listItemClick(pRowId);
-            }
-        });
+        this.mLblEmpty = (TextView)pView.findViewById(R.id.lblEmpty);
     }
 
     @Override
@@ -69,6 +65,14 @@ public class ScreenMedicineCategoryList extends Screen implements IViewMedicineC
 
     @Override
     protected void mapInformationToScreenItems() {
+        this.mListView.setEmptyView(this.mLblEmpty);
+        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
+                ScreenMedicineCategoryList.this.listItemClick(pRowId);
+            }
+        });
+
         this.mPresenterMedicineCategoryList = (IPresenterMedicineCategoryList) PresenterFactory.createPresenter(IPresenterMedicineCategoryList.class, this);
     }
 

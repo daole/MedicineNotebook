@@ -91,6 +91,11 @@ public class TimeValueArrayAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
+    public void clearItem() {
+        this.mData.clear();
+        this.notifyDataSetChanged();
+    }
+
     private void onButtonDeleteClick(int pPosition) {
         TimeValueArrayAdapter.this.removeItem(pPosition);
     }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
@@ -18,8 +19,10 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyM
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberList;
 
 public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberList {
-    private IPresenterFamilyMemberList mPresenterFamilyMemberList;
     private ListView mListView;
+    private TextView mLblEmpty;
+
+    private IPresenterFamilyMemberList mPresenterFamilyMemberList;
 
     @Override
     public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
@@ -52,14 +55,7 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
     @Override
     protected void retrieveScreenItems(View pView) {
         this.mListView = (ListView)pView.findViewById(R.id.lstFamilyMembers);
-        View lblEmpty = pView.findViewById(R.id.lblEmpty);
-        this.mListView.setEmptyView(lblEmpty);
-        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
-                ScreenFamilyMemberList.this.listItemClick(pRowId);
-            }
-        });
+        this.mLblEmpty = (TextView)pView.findViewById(R.id.lblEmpty);
     }
 
     @Override
@@ -69,6 +65,14 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
 
     @Override
     protected void mapInformationToScreenItems() {
+        this.mListView.setEmptyView(this.mLblEmpty);
+        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
+                ScreenFamilyMemberList.this.listItemClick(pRowId);
+            }
+        });
+
         this.mPresenterFamilyMemberList = (IPresenterFamilyMemberList)PresenterFactory.createPresenter(IPresenterFamilyMemberList.class, this);
     }
 

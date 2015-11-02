@@ -40,6 +40,7 @@ class PresenterMedicineCategoryAdd implements IPresenterMedicineCategoryAdd {
         } else if(newId == DatabaseHelper.DB_ERROR_CODE__OTHER) {
             this.mViewMedicineCategoryAdd.showError(R.string.error__unknown_error);
         } else {
+            this.mViewMedicineCategoryAdd.clearInput();
             this.mViewMedicineCategoryAdd.showMessage(R.string.message__insert_successful);
         }
     }

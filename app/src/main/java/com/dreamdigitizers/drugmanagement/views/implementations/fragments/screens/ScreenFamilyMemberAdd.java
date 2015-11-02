@@ -79,6 +79,11 @@ public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAd
         return true;
     }
 
+    @Override
+    public void clearInput() {
+        this.mTxtFamilyMemberName.setText("");
+    }
+
     public void buttonAddClick() {
         String familyMemberName = this.mTxtFamilyMemberName.getText().toString().trim();
         this.mPresenterFamilyMemberAdd.insert(familyMemberName);

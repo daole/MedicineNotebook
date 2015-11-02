@@ -1,5 +1,5 @@
 package com.dreamdigitizers.drugmanagement.views.abstracts;
 
-public interface IViewFamilyMemberAdd extends IView {
+public interface IViewFamilyMemberAdd extends IViewAdd {
 
 }

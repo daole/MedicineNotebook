@@ -17,7 +17,6 @@ import android.widget.CompoundButton;
 
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
-import com.dreamdigitizers.drugmanagement.data.dal.tables.TableFamilyMember;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryList;
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
@@ -73,7 +72,7 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
 
             }
         };
-        this.mViewMedicineCategoryList.showConfirmation(R.string.confirmation__delete_successful, listener);
+        this.mViewMedicineCategoryList.showConfirmation(R.string.confirmation__delete_data, listener);
     }
 
     @Override
@@ -106,7 +105,7 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
                 if(pView.getId() == R.id.chkSelect) {
                     CheckBox checkBox = (CheckBox)pView;
                     final int position = pCursor.getPosition();
-                    final long rowId = pCursor.getLong(TableFamilyMember.COLUMN_INDEX__ID);
+                    final long rowId = pCursor.getLong(TableMedicineCategory.COLUMN_INDEX__ID);
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton pButtonView, boolean pIsChecked) {

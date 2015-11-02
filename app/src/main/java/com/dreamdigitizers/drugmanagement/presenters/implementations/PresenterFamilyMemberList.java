@@ -72,7 +72,7 @@ class PresenterFamilyMemberList implements IPresenterFamilyMemberList {
 
             }
         };
-        this.mViewFamilyMemberList.showConfirmation(R.string.confirmation__delete_successful, listener);
+        this.mViewFamilyMemberList.showConfirmation(R.string.confirmation__delete_data, listener);
     }
 
     @Override

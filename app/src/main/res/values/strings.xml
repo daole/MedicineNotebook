@@ -42,7 +42,7 @@
     <string name="message__edit_successful">Data has been updated.</string>
     <string name="message__delete_successful">Data has been deleted.</string>
 
-    <string name="confirmation__delete_successful">Are you sure you want to delete the selected data?.</string>
+    <string name="confirmation__delete_data">Are you sure you want to delete the selected data?.</string>
 
     <string name="error__blank_family_member_name">Please input your family member.</string>
     <string name="error__blank_medicine_category_name">Please input medicine category.</string>

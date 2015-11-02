@@ -2,7 +2,7 @@ package com.dreamdigitizers.drugmanagement;
 
 public class Constants {
     public static final String DELIMITER__TIME = ":";
-    public static final String DELIMITER__DATA = ",";
+    public static final String DELIMITER__DATA = ", ";
 
     public static final String FORMAT__TIME_VALUE = "%02d";
 

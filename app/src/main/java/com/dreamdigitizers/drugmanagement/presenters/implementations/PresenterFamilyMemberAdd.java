@@ -37,6 +37,7 @@ class PresenterFamilyMemberAdd implements IPresenterFamilyMemberAdd {
         } else if(newId == DatabaseHelper.DB_ERROR_CODE__OTHER) {
             this.mViewFamilyMemberAdd.showError(R.string.error__unknown_error);
         } else {
+            this.mViewFamilyMemberAdd.clearInput();
             this.mViewFamilyMemberAdd.showMessage(R.string.message__insert_successful);
         }
     }

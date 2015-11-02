@@ -83,6 +83,18 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
         return R.string.title__screen_medicine_time_add;
     }
 
+    @Override
+    public boolean onBackPressed() {
+        this.mIScreenActionsListener.onBack();
+        return true;
+    }
+
+    @Override
+    public void clearInput() {
+        this.mTxtMedicineTimeName.setText("");
+        this.mTimeValueArrayAdapter.clearItem();
+    }
+
     public void buttonAddTimeValueClick() {
         DialogUtils.displayTimePickerDialog(this.getActivity(), true, new DialogUtils.IOnTimeSetListener() {
             @Override

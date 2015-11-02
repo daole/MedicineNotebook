@@ -38,6 +38,7 @@ class PresenterMedicineTimeAdd implements IPresenterMedicineTimeAdd {
         } else if(newId == DatabaseHelper.DB_ERROR_CODE__OTHER) {
             this.mViewMedicineTimeAdd.showError(R.string.error__unknown_error);
         } else {
+            this.mViewMedicineTimeAdd.clearInput();
             this.mViewMedicineTimeAdd.showMessage(R.string.message__insert_successful);
         }
     }
