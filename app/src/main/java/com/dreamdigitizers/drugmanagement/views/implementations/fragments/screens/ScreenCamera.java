@@ -70,7 +70,6 @@ public class ScreenCamera extends Screen {
         private View mCameraView;
         private List<Camera.Size> mSupportedPreviewSizes;
 
-
         public CameraPreview(Context pContext, Camera pCamera, View pCameraView) {
             super(pContext);
 
