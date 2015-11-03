@@ -60,37 +60,50 @@ public class ScreenCamera extends Screen {
     }
 
     @SuppressWarnings("deprecation")
+    private Camera getCameraInstance() {
+        Camera camera = null;
+        try {
+            camera = Camera.open();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return camera;
+    }
+
+    @SuppressWarnings("deprecation")
     private static class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
         private static final double ASPECT_TOLERANCE = 0.1;
 
-        private Camera mCamera;
-        private Camera.Size mPreviewSize;
-        private SurfaceHolder mSurfaceHolder;
         private Context mContext;
+        private Camera mCamera;
         private View mCameraView;
-        private List<Camera.Size> mSupportedPreviewSizes;
+        private SurfaceHolder mSurfaceHolder;
+        private Camera.Size mPreviewSize;
 
         public CameraPreview(Context pContext, Camera pCamera, View pCameraView) {
             super(pContext);
 
-            this.mCameraView = pCameraView;
             this.mContext = pContext;
+            this.mCamera = pCamera;
+            this.mCameraView = pCameraView;
             this.mSurfaceHolder = this.getHolder();
             this.mSurfaceHolder.addCallback(this);
             this.mSurfaceHolder.setKeepScreenOn(true);
 
-            this.setCamera(pCamera);
+            this.requestLayout();
         }
 
         @Override
         protected void onMeasure(int pWidthMeasureSpec, int pHeightMeasureSpec) {
             int width = this.resolveSize(this.getSuggestedMinimumWidth(), pWidthMeasureSpec);
             int height = this.resolveSize(this.getSuggestedMinimumHeight(), pHeightMeasureSpec);
-            this.setMeasuredDimension(width, height);
 
-            if (this.mSupportedPreviewSizes != null){
-                this.mPreviewSize = this.getOptimalPreviewSize(this.mSupportedPreviewSizes, width, height);
+            List<Camera.Size> supportedPreviewSizes = this.mCamera.getParameters().getSupportedPreviewSizes();
+            if (supportedPreviewSizes != null){
+                this.mPreviewSize = this.getOptimalPreviewSize(supportedPreviewSizes, width, height);
             }
+
+            this.setMeasuredDimension(width, height);
         }
 
         @Override
@@ -102,7 +115,7 @@ public class ScreenCamera extends Screen {
                 int previewWidth = width;
                 int previewHeight = height;
 
-                if (this.mPreviewSize != null){
+                if (this.mPreviewSize != null) {
                     Display display = ((WindowManager)this.mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 
                     switch (display.getRotation()) {
@@ -134,23 +147,21 @@ public class ScreenCamera extends Screen {
 
         @Override
         public void surfaceCreated(SurfaceHolder pSurfaceHolder) {
-            try {
-                this.mCamera.setPreviewDisplay(pSurfaceHolder);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            this.startCameraPreview();
         }
 
         @Override
         public void surfaceDestroyed(SurfaceHolder pSurfaceHolder) {
-            if (this.mCamera != null){
-                this.mCamera.stopPreview();
-            }
+            this.stopCameraPreview();
         }
 
         @Override
         public void surfaceChanged(SurfaceHolder pSurfaceHolder, int pFormat, int pWidth, int pHeight) {
-            if (mSurfaceHolder.getSurface() == null){
+            this.refreshCamera();
+        }
+
+        private void refreshCamera() {
+            if (this.mSurfaceHolder.getSurface() == null){
                 return;
             }
 
@@ -166,31 +177,14 @@ public class ScreenCamera extends Screen {
                 parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 
                 if(this.mPreviewSize != null) {
-                    Camera.Size previewSize = this.mPreviewSize;
-                    parameters.setPreviewSize(previewSize.width, previewSize.height);
+                    parameters.setPreviewSize(this.mPreviewSize.width, this.mPreviewSize.height);
                 }
 
                 this.mCamera.setParameters(parameters);
-                this.mCamera.startPreview();
+                this.startCameraPreview();
             } catch (Exception e){
                 e.printStackTrace();
             }
-        }
-
-        public void startCameraPreview() {
-            try {
-                this.mCamera.setPreviewDisplay(this.mSurfaceHolder);
-                this.mCamera.startPreview();
-            } catch(IOException e){
-                e.printStackTrace();
-            }
-        }
-
-        private void setCamera(Camera pCamera) {
-            this.mCamera = pCamera;
-            this.mSupportedPreviewSizes = mCamera.getParameters().getSupportedPreviewSizes();
-
-            this.requestLayout();
         }
 
         private Camera.Size getOptimalPreviewSize(List<Camera.Size> pSizes, int pWidth, int pHeight) {
@@ -228,6 +222,19 @@ public class ScreenCamera extends Screen {
             }
 
             return optimalSize;
+        }
+
+        private void startCameraPreview() {
+            try {
+                this.mCamera.setPreviewDisplay(this.mSurfaceHolder);
+                this.mCamera.startPreview();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private void stopCameraPreview() {
+            this.mCamera.stopPreview();
         }
     }
 }
