@@ -5,5 +5,5 @@ import android.widget.ListAdapter;
 
 public interface IViewList extends IView {
     LoaderManager getViewLoaderManager();
-    void setAdapter(ListAdapter pListAdapter);
+    void setAdapter(ListAdapter pAdapter);
 }

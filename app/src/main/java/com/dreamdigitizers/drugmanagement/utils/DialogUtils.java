@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.view.View;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -92,7 +93,7 @@ public class DialogUtils {
 		DialogUtils.displayDialog(pActivity, pTitle, pMessage, false, pButtonText, null, dialogButtonClickListener);
 	}
 
-	public static void displayTimePickerDialog(final Activity pActivity, final boolean pIs24HourView, final IOnTimeSetListener pListener) {
+	public static void displayTimePickerDialog(final Activity pActivity, final String pCancelButtonText, final boolean pIs24HourView, final IOnTimePickerDialogEventListener pListener) {
 		if(DialogUtils.timePickerDialog == null) {
 			Calendar calendar = Calendar.getInstance();
 			DialogUtils.timePickerDialog = new TimePickerDialog(pActivity,
@@ -100,7 +101,7 @@ public class DialogUtils {
 						@Override
 						public void onTimeSet(TimePicker pView, int pHourOfDay, int pMinute) {
 							if(pListener != null) {
-								pListener.onTimeSet(pHourOfDay, pMinute, pActivity, pIs24HourView);
+								pListener.onTimeSet(pHourOfDay, pMinute, pActivity, pCancelButtonText, pIs24HourView);
 							}
 							DialogUtils.closeTimePickerDialog();
 						}
@@ -108,6 +109,15 @@ public class DialogUtils {
 					calendar.get(Calendar.HOUR_OF_DAY),
 					calendar.get(Calendar.MINUTE),
 					pIs24HourView);
+			DialogUtils.timePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, pCancelButtonText, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface pDialog, int pWhich) {
+					if (pListener != null) {
+						pListener.onCancel(pActivity, pCancelButtonText, pIs24HourView);
+					}
+					DialogUtils.closeTimePickerDialog();
+				}
+			});
 			DialogUtils.timePickerDialog.show();
 		}
 	}
@@ -185,8 +195,9 @@ public class DialogUtils {
 								   final String pNegativeButtonText);
 	}
 
-	public interface IOnTimeSetListener {
-		void onTimeSet(final int pHourOfDay, final int pMinute, final Activity pActivity, final boolean pIs24HourView);
+	public interface IOnTimePickerDialogEventListener {
+		void onTimeSet(final int pHourOfDay, final int pMinute, final Activity pActivity, final String pCancelButtonText, final boolean pIs24HourView);
+		void onCancel(final Activity pActivity, final String pCancelButtonText, final boolean pIs24HourView);
 	}
 
 	public interface IOnProgressDialogCancelButtonClickListener{

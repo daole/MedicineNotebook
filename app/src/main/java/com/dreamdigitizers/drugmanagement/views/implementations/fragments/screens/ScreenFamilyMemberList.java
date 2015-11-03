@@ -87,8 +87,8 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
     }
 
     @Override
-    public void setAdapter(ListAdapter pListAdapter) {
-        this.mListView.setAdapter(pListAdapter);
+    public void setAdapter(ListAdapter pAdapter) {
+        this.mListView.setAdapter(pAdapter);
     }
 
     private void optionAddSelected() {

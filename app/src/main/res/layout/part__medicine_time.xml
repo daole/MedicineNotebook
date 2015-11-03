@@ -15,14 +15,14 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/chkSelect"
+        android:layout_toLeftOf="@+id/chkSelect"
         android:layout_marginRight="10dp"
         android:gravity="end"
         android:singleLine="true"
         android:ellipsize="middle"/>
 
     <CheckBox
-        android:id="@+id/chkSelect"
+        android:id="@id/chkSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

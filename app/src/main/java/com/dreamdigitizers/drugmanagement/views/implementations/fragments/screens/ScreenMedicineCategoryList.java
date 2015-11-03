@@ -73,7 +73,7 @@ public class ScreenMedicineCategoryList extends Screen implements IViewMedicineC
             }
         });
 
-        this.mPresenter = (IPresenterMedicineCategoryList) PresenterFactory.createPresenter(IPresenterMedicineCategoryList.class, this);
+        this.mPresenter = (IPresenterMedicineCategoryList)PresenterFactory.createPresenter(IPresenterMedicineCategoryList.class, this);
     }
 
     @Override
@@ -87,8 +87,8 @@ public class ScreenMedicineCategoryList extends Screen implements IViewMedicineC
     }
 
     @Override
-    public void setAdapter(ListAdapter pListAdapter) {
-        this.mListView.setAdapter(pListAdapter);
+    public void setAdapter(ListAdapter pAdapter) {
+        this.mListView.setAdapter(pAdapter);
     }
 
     private void optionAddSelected() {

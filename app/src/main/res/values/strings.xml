@@ -16,6 +16,9 @@
     <string name="title__screen_medicine_time_list">Time</string>
     <string name="title__screen_medicine_time_add">Add Time</string>
     <string name="title__screen_medicine_time_edit">Edit Time</string>
+    <string name="title__screen_medicine_interval_list">Intervals</string>
+    <string name="title__screen_medicine_interval_add">Add Interval</string>
+    <string name="title__screen_medicine_interval_edit">Edit Interval</string>
 
     <string name="menu_item__add">Add</string>
     <string name="menu_item__delete">Delete</string>
@@ -43,6 +46,7 @@
     <string name="btn__back">Back</string>
     <string name="btn__ok">OK</string>
     <string name="btn__no">No</string>
+    <string name="btn__cancel">Cancel</string>
 
     <string name="message__insert_successful">Data has been saved.</string>
     <string name="message__edit_successful">Data has been edited.</string>

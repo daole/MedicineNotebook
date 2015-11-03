@@ -2,7 +2,6 @@ package com.dreamdigitizers.drugmanagement.views.implementations.fragments.scree
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,22 +96,26 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
     }
 
     public void buttonAddTimeValueClick() {
-        DialogUtils.displayTimePickerDialog(this.getActivity(), true, new DialogUtils.IOnTimeSetListener() {
+        DialogUtils.displayTimePickerDialog(this.getActivity(), this.getString(R.string.btn__cancel), true, new DialogUtils.IOnTimePickerDialogEventListener() {
             @Override
-            public void onTimeSet(int pHourOfDay, int pMinute, Activity pActivity, boolean pIs24HourView) {
+            public void onTimeSet(int pHourOfDay, int pMinute, Activity pActivity, String pCancelButtonText, boolean pIs24HourView) {
                 String timeValue = String.format(Constants.FORMAT__TIME_VALUE, pHourOfDay)
                         + Constants.DELIMITER__TIME
                         + String.format(Constants.FORMAT__TIME_VALUE, pMinute);
                 ScreenMedicineTimeAdd.this.mAdapter.addItem(timeValue);
+            }
+
+            @Override
+            public void onCancel(Activity pActivity, String pCancelButtonText, boolean pIs24HourView) {
+
             }
         });
     }
 
     public void buttonAddClick() {
         String medicineTimeName = this.mTxtMedicineTimeName.getText().toString().trim();
-        List<String> timeValues = this.mAdapter.getData();
-        String medicineTimeValue = TextUtils.join(Constants.DELIMITER__DATA, timeValues);
-        this.mPresenter.insert(medicineTimeName, medicineTimeValue);
+        List<String> medicineTimeValues = this.mAdapter.getData();
+        this.mPresenter.insert(medicineTimeName, medicineTimeValues);
     }
 
     public void buttonBackClick() {

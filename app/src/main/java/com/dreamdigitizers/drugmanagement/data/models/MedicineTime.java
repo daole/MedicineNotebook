@@ -2,6 +2,7 @@ package com.dreamdigitizers.drugmanagement.data.models;
 
 import android.database.Cursor;
 
+import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTime;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class MedicineTime extends Model {
     private String mMedicineTimeName;
-    private String mMedicineTimeValue;
+    private String[] mMedicineTimeValues;
 
     public String getMedicineTimeName() {
         return this.mMedicineTimeName;
@@ -20,12 +21,12 @@ public class MedicineTime extends Model {
         this.mMedicineTimeName = pMedicineTimeName;
     }
 
-    public String getMedicineTimeValue() {
-        return this.mMedicineTimeValue;
+    public String[] getMedicineTimeValues() {
+        return this.mMedicineTimeValues;
     }
 
-    public void setMedicineTimeValue(String pMedicineTimeValue) {
-        this.mMedicineTimeValue = pMedicineTimeValue;
+    public void setMedicineTimeValues(String[] pMedicineTimeValue) {
+        this.mMedicineTimeValues = pMedicineTimeValue;
     }
 
     public static List<MedicineTime> fetchData(Cursor pCursor) {
@@ -35,11 +36,12 @@ public class MedicineTime extends Model {
                 long rowId = pCursor.getLong(Table.COLUMN_INDEX__ID);
                 String medicineTimeName = pCursor.getString(TableMedicineTime.COLUMN_INDEX__MEDICINE_TIME_NAME);
                 String medicineTimeValue = pCursor.getString(TableMedicineTime.COLUMN_INDEX__MEDICINE_TIME_VALUE);
+                String[] medicineTimeValues = medicineTimeValue.split(Constants.DELIMITER__DATA);
 
                 MedicineTime model = new MedicineTime();
                 model.setId(rowId);
                 model.setMedicineTimeName(medicineTimeName);
-                model.setMedicineTimeValue(medicineTimeValue);
+                model.setMedicineTimeValues(medicineTimeValues);
 
                 list.add(model);
             } while (pCursor.moveToNext());

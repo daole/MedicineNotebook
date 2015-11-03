@@ -87,8 +87,8 @@ public class ScreenMedicineTimeList extends Screen implements IViewMedicineTimeL
     }
 
     @Override
-    public void setAdapter(ListAdapter pListAdapter) {
-        this.mListView.setAdapter(pListAdapter);
+    public void setAdapter(ListAdapter pAdapter) {
+        this.mListView.setAdapter(pAdapter);
     }
 
     private void optionAddSelected() {

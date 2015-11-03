@@ -15,23 +15,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/lblDay"
+        android:layout_toLeftOf="@+id/lblDay"
         android:gravity="end"
         android:singleLine="true"/>
 
     <TextView
-        android:id="@+id/lblDay"
+        android:id="@id/lblDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/chkSelect"
+        android:layout_toLeftOf="@+id/chkSelect"
         android:layout_marginRight="10dp"
         android:gravity="end"
         android:singleLine="true"
         android:text="@string/lbl__day"/>
 
     <CheckBox
-        android:id="@+id/chkSelect"
+        android:id="@id/chkSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
