@@ -14,6 +14,7 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
@@ -103,6 +104,12 @@ class PresenterMedicineIntervalList implements IPresenterMedicineIntervalList {
         this.mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View pView, Cursor pCursor, int pColumnIndex) {
+                if(pView.getId() == R.id.lblMedicineIntervalValue) {
+                    int medicineIntervalValue = pCursor.getInt(TableMedicineInterval.COLUMN_INDEX__MEDICINE_INTERVAL_VALUE);
+                    TextView textView = (TextView)pView;
+                    textView.setText(PresenterMedicineIntervalList.this.mView.getViewContext().getResources().getQuantityString(R.plurals.lbl__day, medicineIntervalValue, medicineIntervalValue));
+                    return true;
+                }
                 if (pView.getId() == R.id.chkSelect) {
                     CheckBox checkBox = (CheckBox) pView;
                     final int position = pCursor.getPosition();

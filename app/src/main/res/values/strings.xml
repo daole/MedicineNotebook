@@ -30,7 +30,6 @@
     <string name="lbl__medicine_interval_name">Medicine Interval:</string>
     <string name="lbl__medicine_interval_value">Interval Value:</string>
     <string name="lbl__note">Note:</string>
-    <string name="lbl__day">Day(s)</string>
     <string name="lbl__empty">There is no data to show.</string>
 
     <string name="hint__family_member_name">Mom</string>
@@ -69,4 +68,9 @@
     <string name="desc__menu_item_icon">Menu item icon</string>
     <string name="desc__navigation_drawer_open">Open navigation drawer</string>
     <string name="desc__navigation_drawer_close">Close navigation drawer</string>
+
+    <plurals name="lbl__day">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
 </resources>
