@@ -26,6 +26,7 @@ public class MainActivity extends MyActivity implements INavigationDrawerItemSel
     @Override
     protected void onCreate(Bundle pSavedInstanceState) {
         super.onCreate(pSavedInstanceState);
+
         this.setContentView(R.layout.activity__main);
 
         this.mNavigationDrawerFragment = (NavigationDrawerFragment)this.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);

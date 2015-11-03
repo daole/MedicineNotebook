@@ -144,7 +144,6 @@ public class NavigationDrawerFragment extends Fragment {
      * @param pDrawerLayout The DrawerLayout containing this fragment's UI.
      */
     public void setUp(int pIconsResourceId, int pTitlesResourceId, int pFragmentContainerViewId, DrawerLayout pDrawerLayout) {
-
         this.mDrawerListView.setAdapter(new NavigationDrawerListAdapter(this.getContext(), pIconsResourceId, pTitlesResourceId));
         this.setItemChecked(this.mCurrentSelectedPosition);
 

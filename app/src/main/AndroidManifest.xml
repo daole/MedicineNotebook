@@ -18,6 +18,15 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".views.implementations.activities.CameraActivity"
+            android:theme="@style/FullScreenTheme">
+            <intent-filter>
+                <action android:name="net.care.apple.mm.CameraActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <provider
             android:name=".data.MedicineContentProvider"
             android:authorities="com.dreamdigitizers.drugmanagement.contentprovider">
