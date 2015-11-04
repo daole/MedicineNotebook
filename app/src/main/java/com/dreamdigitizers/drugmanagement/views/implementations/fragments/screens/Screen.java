@@ -12,7 +12,7 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IView;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.MyFragment;
 
 public abstract class Screen extends MyFragment implements IView {
-	public static final String BUNDLE_KEY__ROW_ID = "row_id";
+	protected static final String BUNDLE_KEY__ROW_ID = "row_id";
 
 	private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IOnScreenActionsListener.";
 

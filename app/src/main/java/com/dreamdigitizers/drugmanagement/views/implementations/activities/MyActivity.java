@@ -1,5 +1,6 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.activities;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
@@ -8,6 +9,9 @@ import com.dreamdigitizers.drugmanagement.views.implementations.fragments.MyFrag
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.Screen;
 
 public class MyActivity extends AppCompatActivity implements MyFragment.IBeingCoveredChecker, Screen.IOnScreenActionsListener {
+    protected static final String BUNDLE_KEY__DUMP = "dump";
+    protected static final String BUNDLE_VALUE__DUMP = "dump";
+
     protected Screen mCurrentScreen;
 
     @Override
@@ -20,6 +24,12 @@ public class MyActivity extends AppCompatActivity implements MyFragment.IBeingCo
         }
 
         this.back();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle pOutState) {
+        super.onSaveInstanceState(pOutState);
+        pOutState.putString(MyActivity.BUNDLE_KEY__DUMP, MyActivity.BUNDLE_VALUE__DUMP);
     }
 
     @Override

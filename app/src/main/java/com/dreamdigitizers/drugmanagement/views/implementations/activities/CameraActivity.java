@@ -12,22 +12,10 @@ public class CameraActivity extends MyActivity {
         super.onCreate(pSavedInstanceState);
 
         this.setContentView(R.layout.activity__camera);
-        this.setStartScreen();
-    }
-
-    /*
-    @Override
-    public void onConfigurationChanged(Configuration pNewConfig) {
-        super.onConfigurationChanged(pNewConfig);
-
-        if (pNewConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-
-        }
-        if (pNewConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-
+        if(pSavedInstanceState == null) {
+            this.setStartScreen();
         }
     }
-    */
 
     private void setStartScreen() {
         ScreenCamera screen = new ScreenCamera();
