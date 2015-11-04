@@ -1,5 +1,6 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.activities;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.dreamdigitizers.drugmanagement.R;
@@ -13,6 +14,20 @@ public class CameraActivity extends MyActivity {
         this.setContentView(R.layout.activity__camera);
         this.setStartScreen();
     }
+
+    /*
+    @Override
+    public void onConfigurationChanged(Configuration pNewConfig) {
+        super.onConfigurationChanged(pNewConfig);
+
+        if (pNewConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+
+        }
+        if (pNewConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+        }
+    }
+    */
 
     private void setStartScreen() {
         ScreenCamera screen = new ScreenCamera();

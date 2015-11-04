@@ -16,18 +16,24 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterCamera;
+import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
+import com.dreamdigitizers.drugmanagement.utils.SoundUtils;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewCamera;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class ScreenCamera extends Screen {
+public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterCallback, Camera.PictureCallback {
     private FrameLayout mFrmCameraPreview;
     private Button mBtnCapture;
     private TextView mLblNoCamera;
     private CameraPreviewView mCameraPreviewView;
 
     private Camera mCamera;
+    private IPresenterCamera mPresenter;
 
     @Override
     public void onDestroy() {
@@ -70,6 +76,8 @@ public class ScreenCamera extends Screen {
                 ScreenCamera.this.buttonCaptureClick();
             }
         });
+
+        this.mPresenter = (IPresenterCamera)PresenterFactory.createPresenter(IPresenterCamera.class, this);
     }
 
     @Override
@@ -77,8 +85,25 @@ public class ScreenCamera extends Screen {
         return 0;
     }
 
-    private void buttonCaptureClick() {
+    @Override
+    public void onImageSaved(File pFile) {
 
+    }
+
+    @Override
+    public void onShutter() {
+        //SoundUtils.playCameraShutterSound(this.getContext());
+    }
+
+    @Override
+    public void onPictureTaken(byte[] pData, Camera pCamera) {
+        this.mPresenter.saveImage(pData);
+    }
+
+    private void buttonCaptureClick() {
+        if(this.mCamera != null) {
+            this.mCamera.takePicture(this, null, this);
+        }
     }
 
     private Camera getCameraInstance() {
@@ -103,7 +128,6 @@ public class ScreenCamera extends Screen {
         }
     }
 
-    @SuppressWarnings("deprecation")
     private static class CameraPreviewView extends SurfaceView implements SurfaceHolder.Callback {
         private static final double ASPECT_TOLERANCE = 0.1;
 

@@ -62,9 +62,11 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
                     PresenterMedicineCategoryList.this.mSelectedRowIds.clear();
                     PresenterMedicineCategoryList.this.mView.showMessage(R.string.message__delete_successful);
                 } catch (RemoteException e) {
-                    PresenterMedicineCategoryList.this.mView.showError(R.string.error__unknown_error);
+                    e.printStackTrace();
+                    PresenterMedicineCategoryList.this.mView.showError(R.string.error__db_unknown_error);
                 } catch (OperationApplicationException e) {
-                    PresenterMedicineCategoryList.this.mView.showError(R.string.error__unknown_error);
+                    e.printStackTrace();
+                    PresenterMedicineCategoryList.this.mView.showError(R.string.error__db_unknown_error);
                 }
             }
 

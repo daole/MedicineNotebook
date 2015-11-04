@@ -1,10 +1,15 @@
 package com.dreamdigitizers.drugmanagement;
 
 public class Constants {
+    public static final String EXTENSION__JPG = ".jpg";
+
+    public static final String FOLDER__IMAGE = "Drug Management";
+
     public static final String DELIMITER__TIME = ":";
     public static final String DELIMITER__DATA = ", ";
 
     public static final String FORMAT__TIME = "HH:mm";
+    public static final String FORMAT__DATE_TIME_STRING = "yyyyMMdd_HHmmss";
     public static final String FORMAT__TIME_VALUE = "%02d";
 
     public static final int NAVIGATION_DRAWER_ITEM_ID__SCHEDULE = 0;

@@ -63,9 +63,11 @@ class PresenterMedicineIntervalList implements IPresenterMedicineIntervalList {
                     PresenterMedicineIntervalList.this.mSelectedRowIds.clear();
                     PresenterMedicineIntervalList.this.mView.showMessage(R.string.message__delete_successful);
                 } catch (RemoteException e) {
-                    PresenterMedicineIntervalList.this.mView.showError(R.string.error__unknown_error);
+                    e.printStackTrace();
+                    PresenterMedicineIntervalList.this.mView.showError(R.string.error__db_unknown_error);
                 } catch (OperationApplicationException e) {
-                    PresenterMedicineIntervalList.this.mView.showError(R.string.error__unknown_error);
+                    e.printStackTrace();
+                    PresenterMedicineIntervalList.this.mView.showError(R.string.error__db_unknown_error);
                 }
             }
 

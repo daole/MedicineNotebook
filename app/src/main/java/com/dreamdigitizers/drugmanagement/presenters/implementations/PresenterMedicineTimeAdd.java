@@ -43,7 +43,7 @@ class PresenterMedicineTimeAdd implements IPresenterMedicineTimeAdd {
         if(newId == DatabaseHelper.DB_ERROR_CODE__CONSTRAINT) {
             this.mView.showError(R.string.error__duplicated_data);
         } else if(newId == DatabaseHelper.DB_ERROR_CODE__OTHER) {
-            this.mView.showError(R.string.error__unknown_error);
+            this.mView.showError(R.string.error__db_unknown_error);
         } else {
             this.mView.clearInput();
             this.mView.showMessage(R.string.message__insert_successful);

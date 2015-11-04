@@ -62,9 +62,11 @@ class PresenterMedicineTimeList implements IPresenterMedicineTimeList {
                     PresenterMedicineTimeList.this.mSelectedRowIds.clear();
                     PresenterMedicineTimeList.this.mView.showMessage(R.string.message__delete_successful);
                 } catch (RemoteException e) {
-                    PresenterMedicineTimeList.this.mView.showError(R.string.error__unknown_error);
+                    e.printStackTrace();
+                    PresenterMedicineTimeList.this.mView.showError(R.string.error__db_unknown_error);
                 } catch (OperationApplicationException e) {
-                    PresenterMedicineTimeList.this.mView.showError(R.string.error__unknown_error);
+                    e.printStackTrace();
+                    PresenterMedicineTimeList.this.mView.showError(R.string.error__db_unknown_error);
                 }
             }
 
