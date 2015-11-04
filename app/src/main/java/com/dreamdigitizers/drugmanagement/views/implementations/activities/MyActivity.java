@@ -6,7 +6,36 @@ import android.support.v7.app.AppCompatActivity;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.Screen;
 
-public class MyActivity  extends AppCompatActivity {
+public class MyActivity extends AppCompatActivity implements Screen.IOnScreenActionsListener {
+    protected Screen mCurrentScreen;
+
+    @Override
+    public void onBackPressed() {
+        if(this.mCurrentScreen != null) {
+            boolean isHandled = this.mCurrentScreen.onBackPressed();
+            if(isHandled) {
+                return;
+            }
+        }
+
+        this.back();
+    }
+
+    @Override
+    public void onSetCurrentScreen(Screen pCurrentScreen) {
+        this.mCurrentScreen = pCurrentScreen;
+    }
+
+    @Override
+    public void onChangeScreen(Screen pScreen) {
+        this.changeScreen(pScreen);
+    }
+
+    @Override
+    public void onBack() {
+        this.back();
+    }
+
     public void changeScreen(Screen pScreen) {
         this.changeScreen(pScreen, true, true);
     }

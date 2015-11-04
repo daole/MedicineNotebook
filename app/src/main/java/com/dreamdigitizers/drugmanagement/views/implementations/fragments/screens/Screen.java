@@ -20,15 +20,15 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IView;
 public abstract class Screen extends Fragment implements IView {
 	public static final String BUNDLE_KEY__ROW_ID = "row_id";
 
-	private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IScreenActionsListener.";
+	private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IOnScreenActionsListener.";
 
-	protected IScreenActionsListener mIScreenActionsListener;
+	protected IOnScreenActionsListener mIScreenActionsListener;
 
 	@Override
 	public void onAttach(Context pContext) {
 		super.onAttach(pContext);
 		try {
-			this.mIScreenActionsListener = (IScreenActionsListener)pContext;
+			this.mIScreenActionsListener = (IOnScreenActionsListener)pContext;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(Screen.ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE);
 		}
@@ -140,7 +140,7 @@ public abstract class Screen extends Fragment implements IView {
 	protected abstract void mapInformationToScreenItems();
 	protected abstract int getTitle();
 
-	public interface IScreenActionsListener {
+	public interface IOnScreenActionsListener {
 		void onSetCurrentScreen(Screen pCurrentScreen);
 		void onChangeScreen(Screen pScreen);
 		void onBack();

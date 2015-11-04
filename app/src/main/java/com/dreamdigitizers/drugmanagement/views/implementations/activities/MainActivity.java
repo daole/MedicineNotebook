@@ -11,7 +11,6 @@ import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.NavigationDrawerFragment;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.NavigationDrawerFragment.INavigationDrawerItemSelectListener;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.Screen;
-import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.Screen.IScreenActionsListener;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenFamilyMemberList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenMedicineCategoryList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenMedicineIntervalList;
@@ -19,8 +18,7 @@ import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screen
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenMedicineTimeList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenSchedule;
 
-public class MainActivity extends MyActivity implements INavigationDrawerItemSelectListener, IScreenActionsListener {
-    private Screen mCurrentScreen;
+public class MainActivity extends MyActivity implements INavigationDrawerItemSelectListener {
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
     @Override
@@ -63,7 +61,7 @@ public class MainActivity extends MyActivity implements INavigationDrawerItemSel
     public void onBackPressed() {
         if(this.mNavigationDrawerFragment.isDrawerOpen()){
             this.mNavigationDrawerFragment.closeDrawer();
-        }else {
+        } else {
             if(this.mCurrentScreen != null) {
                 boolean isHandled = this.mCurrentScreen.onBackPressed();
                 if(isHandled) {
@@ -124,21 +122,6 @@ public class MainActivity extends MyActivity implements INavigationDrawerItemSel
         if(screen != null) {
             this.changeScreen(screen);
         }
-    }
-
-    @Override
-    public void onSetCurrentScreen(Screen pCurrentScreen) {
-        this.mCurrentScreen = pCurrentScreen;
-    }
-
-    @Override
-    public void onChangeScreen(Screen pScreen) {
-        this.changeScreen(pScreen);
-    }
-
-    @Override
-    public void onBack() {
-        this.back();
     }
 
     public void restoreActionBar() {

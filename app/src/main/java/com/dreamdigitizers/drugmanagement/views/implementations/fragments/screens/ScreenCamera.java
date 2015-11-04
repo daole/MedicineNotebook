@@ -13,15 +13,21 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
 
 import java.io.IOException;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class ScreenCamera extends Screen {
     private FrameLayout mFrmCameraPreview;
     private Button mBtnCapture;
+    private TextView mLblNoCamera;
+    private CameraPreviewView mCameraPreviewView;
+
+    private Camera mCamera;
 
     @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
@@ -33,6 +39,15 @@ public class ScreenCamera extends Screen {
     protected void retrieveScreenItems(View pView) {
         this.mFrmCameraPreview = (FrameLayout)pView.findViewById(R.id.frmCameraPreview);
         this.mBtnCapture = (Button)pView.findViewById(R.id.btnCapture);
+        this.mLblNoCamera = (TextView)pView.findViewById(R.id.lblNoCamera);
+        this.mCamera = this.getCameraInstance();
+        if (this.mCamera != null) {
+            this.mCameraPreviewView = new CameraPreviewView(this.getContext(), this.mCamera, pView);
+            this.mFrmCameraPreview.addView(this.mCameraPreviewView);
+        } else {
+            this.mBtnCapture.setVisibility(View.GONE);
+            this.mLblNoCamera.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -55,11 +70,17 @@ public class ScreenCamera extends Screen {
         return 0;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        this.releaseCameraAndPreviewView();
+    }
+
     private void buttonCaptureClick() {
 
     }
 
-    @SuppressWarnings("deprecation")
     private Camera getCameraInstance() {
         Camera camera = null;
         try {
@@ -70,8 +91,20 @@ public class ScreenCamera extends Screen {
         return camera;
     }
 
+    private void releaseCameraAndPreviewView() {
+        if (this.mCamera != null) {
+            this.mCamera.stopPreview();
+            this.mCamera.release();
+            this.mCamera = null;
+        }
+
+        if(this.mCameraPreviewView != null){
+            this.mCameraPreviewView.destroyDrawingCache();
+        }
+    }
+
     @SuppressWarnings("deprecation")
-    private static class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
+    private static class CameraPreviewView extends SurfaceView implements SurfaceHolder.Callback {
         private static final double ASPECT_TOLERANCE = 0.1;
 
         private Context mContext;
@@ -80,7 +113,7 @@ public class ScreenCamera extends Screen {
         private SurfaceHolder mSurfaceHolder;
         private Camera.Size mPreviewSize;
 
-        public CameraPreview(Context pContext, Camera pCamera, View pCameraView) {
+        public CameraPreviewView(Context pContext, Camera pCamera, View pCameraView) {
             super(pContext);
 
             this.mContext = pContext;
@@ -199,7 +232,7 @@ public class ScreenCamera extends Screen {
 
             for (Camera.Size size : pSizes){
                 double ratio = (double)size.width / size.height;
-                if (Math.abs(ratio - targetRatio) > CameraPreview.ASPECT_TOLERANCE) {
+                if (Math.abs(ratio - targetRatio) > CameraPreviewView.ASPECT_TOLERANCE) {
                     continue;
                 }
 

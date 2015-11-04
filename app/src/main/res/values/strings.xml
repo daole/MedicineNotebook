@@ -31,6 +31,7 @@
     <string name="lbl__medicine_interval_value">Interval Value:</string>
     <string name="lbl__note">Note:</string>
     <string name="lbl__empty">There is no data to show.</string>
+    <string name="lbl__no_camera">Could not access the camera in your device.</string>
 
     <string name="hint__family_member_name">Mom</string>
     <string name="hint__medicine_category_name">Psychosomatic</string>
