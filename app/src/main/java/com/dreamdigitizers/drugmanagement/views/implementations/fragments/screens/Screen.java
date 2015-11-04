@@ -16,14 +16,14 @@ public abstract class Screen extends MyFragment implements IView {
 
 	private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IOnScreenActionsListener.";
 
-	protected IOnScreenActionsListener mIScreenActionsListener;
+	protected IOnScreenActionsListener mScreenActionsListener;
 
 	@Override
 	public void onAttach(Context pContext) {
 		super.onAttach(pContext);
 
 		try {
-			this.mIScreenActionsListener = (IOnScreenActionsListener)pContext;
+			this.mScreenActionsListener = (IOnScreenActionsListener)pContext;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(Screen.ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE);
 		}
@@ -33,7 +33,7 @@ public abstract class Screen extends MyFragment implements IView {
 	public void onResume() {
 		super.onResume();
 
-		this.mIScreenActionsListener.onSetCurrentScreen(this);
+		this.mScreenActionsListener.onSetCurrentScreen(this);
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public abstract class Screen extends MyFragment implements IView {
 	public void onDetach() {
 		super.onDetach();
 
-		this.mIScreenActionsListener = null;
+		this.mScreenActionsListener = null;
 	}
 
 	@Override

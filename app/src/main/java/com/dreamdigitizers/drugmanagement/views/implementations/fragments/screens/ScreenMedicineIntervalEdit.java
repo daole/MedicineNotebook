@@ -34,7 +34,7 @@ public class ScreenMedicineIntervalEdit extends Screen implements IViewMedicineI
 
     @Override
     public boolean onBackPressed() {
-        this.mIScreenActionsListener.onBack();
+        this.mScreenActionsListener.onBack();
         return true;
     }
 
@@ -107,6 +107,6 @@ public class ScreenMedicineIntervalEdit extends Screen implements IViewMedicineI
     }
 
     public void buttonBackClick() {
-        this.mIScreenActionsListener.onBack();
+        this.mScreenActionsListener.onBack();
     }
 }

@@ -25,7 +25,7 @@ public class ScreenMedicineCategoryAdd extends Screen implements IViewMedicineCa
 
     @Override
     public boolean onBackPressed() {
-        this.mIScreenActionsListener.onBack();
+        this.mScreenActionsListener.onBack();
         return true;
     }
 
@@ -95,6 +95,6 @@ public class ScreenMedicineCategoryAdd extends Screen implements IViewMedicineCa
     }
 
     public void buttonBackClick() {
-        this.mIScreenActionsListener.onBack();
+        this.mScreenActionsListener.onBack();
     }
 }

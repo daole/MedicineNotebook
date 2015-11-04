@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 
 import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.views.implementations.fragments.MyFragment;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.NavigationDrawerFragment;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.NavigationDrawerFragment.INavigationDrawerItemSelectListener;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.Screen;
@@ -78,6 +79,11 @@ public class MainActivity extends MyActivity implements INavigationDrawerItemSel
             this.mNavigationDrawerFragment.setItemChecked(Constants.NAVIGATION_DRAWER_ITEM_ID__SCHEDULE);
             this.changeScreen(new ScreenSchedule());
         }
+    }
+
+    @Override
+    public boolean isBeingCovered(MyFragment pFragment) {
+        return this.mNavigationDrawerFragment.isDrawerOpen() && !(pFragment instanceof NavigationDrawerFragment);
     }
 
     @Override

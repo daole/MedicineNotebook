@@ -25,8 +25,7 @@ public class ScreenMedicineIntervalList extends Screen implements IViewMedicineI
     private IPresenterMedicineIntervalList mPresenter;
 
     @Override
-    public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
-        super.onCreateOptionsMenu(pMenu, pInflater);
+    public void createOptionsMenu(Menu pMenu, MenuInflater pInflater) {
         pInflater.inflate(R.menu.menu__add_delete, pMenu);
     }
 
@@ -105,7 +104,7 @@ public class ScreenMedicineIntervalList extends Screen implements IViewMedicineI
 
     private void goToAddScreen() {
         Screen screen = new ScreenMedicineIntervalAdd();
-        this.mIScreenActionsListener.onChangeScreen(screen);
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 
     private void goToEditScreen(long pRowId) {
@@ -113,6 +112,6 @@ public class ScreenMedicineIntervalList extends Screen implements IViewMedicineI
         bundle.putLong(Screen.BUNDLE_KEY__ROW_ID, pRowId);
         Screen screen = new ScreenMedicineIntervalEdit();
         screen.setArguments(bundle);
-        this.mIScreenActionsListener.onChangeScreen(screen);
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 }

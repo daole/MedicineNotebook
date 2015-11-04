@@ -15,8 +15,7 @@ public class ScreenMedicineList extends Screen {
     private ListView mListView;
 
     @Override
-    public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
-        super.onCreateOptionsMenu(pMenu, pInflater);
+    public void createOptionsMenu(Menu pMenu, MenuInflater pInflater) {
         pInflater.inflate(R.menu.menu__add_delete, pMenu);
     }
 

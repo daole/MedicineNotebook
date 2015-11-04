@@ -31,7 +31,7 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
 
     @Override
     public boolean onBackPressed() {
-        this.mIScreenActionsListener.onBack();
+        this.mScreenActionsListener.onBack();
         return true;
     }
 
@@ -119,6 +119,6 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
     }
 
     public void buttonBackClick() {
-        this.mIScreenActionsListener.onBack();
+        this.mScreenActionsListener.onBack();
     }
 }

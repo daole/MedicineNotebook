@@ -4,9 +4,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.views.implementations.fragments.MyFragment;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.Screen;
 
-public class MyActivity extends AppCompatActivity implements Screen.IOnScreenActionsListener {
+public class MyActivity extends AppCompatActivity implements MyFragment.IBeingCoveredChecker, Screen.IOnScreenActionsListener {
     protected Screen mCurrentScreen;
 
     @Override
@@ -19,6 +20,11 @@ public class MyActivity extends AppCompatActivity implements Screen.IOnScreenAct
         }
 
         this.back();
+    }
+
+    @Override
+    public boolean isBeingCovered(MyFragment pFragment) {
+        return false;
     }
 
     @Override

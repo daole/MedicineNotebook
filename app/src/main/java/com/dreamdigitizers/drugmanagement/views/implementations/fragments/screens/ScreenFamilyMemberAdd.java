@@ -24,7 +24,7 @@ public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAd
 
     @Override
     public boolean onBackPressed() {
-        this.mIScreenActionsListener.onBack();
+        this.mScreenActionsListener.onBack();
         return true;
     }
 
@@ -91,6 +91,6 @@ public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAd
     }
 
     public void buttonBackClick() {
-        this.mIScreenActionsListener.onBack();
+        this.mScreenActionsListener.onBack();
     }
 }

@@ -25,8 +25,7 @@ public class ScreenMedicineCategoryList extends Screen implements IViewMedicineC
     private IPresenterMedicineCategoryList mPresenter;
 
     @Override
-    public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
-        super.onCreateOptionsMenu(pMenu, pInflater);
+    public void createOptionsMenu(Menu pMenu, MenuInflater pInflater) {
         pInflater.inflate(R.menu.menu__add_delete, pMenu);
     }
 
@@ -105,7 +104,7 @@ public class ScreenMedicineCategoryList extends Screen implements IViewMedicineC
 
     private void goToAddScreen() {
         Screen screen = new ScreenMedicineCategoryAdd();
-        this.mIScreenActionsListener.onChangeScreen(screen);
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 
     private void goToEditScreen(long pRowId) {
@@ -113,6 +112,6 @@ public class ScreenMedicineCategoryList extends Screen implements IViewMedicineC
         bundle.putLong(Screen.BUNDLE_KEY__ROW_ID, pRowId);
         Screen screen = new ScreenMedicineCategoryEdit();
         screen.setArguments(bundle);
-        this.mIScreenActionsListener.onChangeScreen(screen);
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 }

@@ -25,8 +25,7 @@ public class ScreenMedicineTimeList extends Screen implements IViewMedicineTimeL
     private IPresenterMedicineTimeList mPresenter;
 
     @Override
-    public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
-        super.onCreateOptionsMenu(pMenu, pInflater);
+    public void createOptionsMenu(Menu pMenu, MenuInflater pInflater) {
         pInflater.inflate(R.menu.menu__add_delete, pMenu);
     }
 
@@ -105,7 +104,7 @@ public class ScreenMedicineTimeList extends Screen implements IViewMedicineTimeL
 
     private void goToAddScreen() {
         Screen screen = new ScreenMedicineTimeAdd();
-        this.mIScreenActionsListener.onChangeScreen(screen);
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 
     private void goToEditScreen(long pRowId) {
@@ -113,6 +112,6 @@ public class ScreenMedicineTimeList extends Screen implements IViewMedicineTimeL
         bundle.putLong(Screen.BUNDLE_KEY__ROW_ID, pRowId);
         Screen screen = new ScreenMedicineTimeEdit();
         screen.setArguments(bundle);
-        this.mIScreenActionsListener.onChangeScreen(screen);
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 }

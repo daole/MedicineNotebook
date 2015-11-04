@@ -90,15 +90,6 @@ public class NavigationDrawerFragment extends MyFragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
-        // If the drawer is open, show the global app actions in the action bar. See also
-        // showGlobalContextActionBar, which controls the top-left area of the action bar.
-        if (this.mDrawerLayout != null && this.isDrawerOpen()) {
-            super.onCreateOptionsMenu(pMenu, pInflater);
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem pItem) {
         if (this.mDrawerToggle.onOptionsItemSelected(pItem)) {
             return true;
