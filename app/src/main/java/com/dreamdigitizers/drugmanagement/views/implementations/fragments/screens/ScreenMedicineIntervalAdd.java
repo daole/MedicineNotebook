@@ -24,6 +24,12 @@ public class ScreenMedicineIntervalAdd extends Screen implements IViewMedicineIn
     private IPresenterMedicineIntervalAdd mPresenter;
 
     @Override
+    public boolean onBackPressed() {
+        this.mIScreenActionsListener.onBack();
+        return true;
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__medicine_interval_add, pContainer, false);
         return rootView;
@@ -74,12 +80,6 @@ public class ScreenMedicineIntervalAdd extends Screen implements IViewMedicineIn
     @Override
     protected int getTitle() {
         return R.string.title__screen_medicine_interval_add;
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        this.mIScreenActionsListener.onBack();
-        return true;
     }
 
     @Override

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -29,7 +28,7 @@ import com.dreamdigitizers.drugmanagement.R;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends MyFragment {
     private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement INavigationDrawerItemSelectListener.";
 
     /**
@@ -58,38 +57,9 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle pSavedInstanceState) {
-        super.onCreate(pSavedInstanceState);
-
-        if (pSavedInstanceState != null) {
-            this.mCurrentSelectedPosition = pSavedInstanceState.getInt(NavigationDrawerFragment.BUNDLE_KEY__STATE_SELECTED_POSITION);
-        }
-    }
-
-    @Override
-    public void onActivityCreated(Bundle pSavedInstanceState) {
-        super.onActivityCreated(pSavedInstanceState);
-
-        // Indicate that this fragment would like to influence the set of actions in the action bar.
-        this.setHasOptionsMenu(true);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer, Bundle pSavedInstanceState) {
-        this.mDrawerListView = (ListView)pInflater.inflate(R.layout.fragment__navigation_drawer, pContainer, false);
-        this.mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView pParent, View pView, int pPosition, long pId) {
-                NavigationDrawerFragment.this.selectItem(pPosition);
-            }
-        });
-
-        return this.mDrawerListView;
-    }
-
-    @Override
     public void onAttach(Context pContext) {
         super.onAttach(pContext);
+
         try {
             this.mINavigationDrawerItemSelectListener = (INavigationDrawerItemSelectListener)pContext;
         } catch (ClassCastException e) {
@@ -100,12 +70,14 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+
         this.mINavigationDrawerItemSelectListener = null;
     }
 
     @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
+
         pOutState.putInt(NavigationDrawerFragment.BUNDLE_KEY__STATE_SELECTED_POSITION, this.mCurrentSelectedPosition);
     }
 
@@ -122,10 +94,8 @@ public class NavigationDrawerFragment extends Fragment {
         // If the drawer is open, show the global app actions in the action bar. See also
         // showGlobalContextActionBar, which controls the top-left area of the action bar.
         if (this.mDrawerLayout != null && this.isDrawerOpen()) {
-            this.showGlobalContextActionBar();
+            super.onCreateOptionsMenu(pMenu, pInflater);
         }
-
-        super.onCreateOptionsMenu(pMenu, pInflater);
     }
 
     @Override
@@ -137,6 +107,39 @@ public class NavigationDrawerFragment extends Fragment {
         return super.onOptionsItemSelected(pItem);
     }
 
+    @Override
+    protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
+        this.mDrawerListView = (ListView)pInflater.inflate(R.layout.fragment__navigation_drawer, pContainer, false);
+        return this.mDrawerListView;
+    }
+
+    @Override
+    protected void retrieveScreenItems(View pView) {
+
+    }
+
+    @Override
+    protected void recoverInstanceState(Bundle pSavedInstanceState) {
+        if (pSavedInstanceState != null) {
+            this.mCurrentSelectedPosition = pSavedInstanceState.getInt(NavigationDrawerFragment.BUNDLE_KEY__STATE_SELECTED_POSITION);
+        }
+    }
+
+    @Override
+    protected void mapInformationToScreenItems() {
+        this.mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView pParent, View pView, int pPosition, long pId) {
+                NavigationDrawerFragment.this.selectItem(pPosition);
+            }
+        });
+    }
+
+    @Override
+    protected int getTitle() {
+        return R.string.title__menu;
+    }
+
     /**
      * Users of this fragment must call this method to set up the navigation drawer interactions.
      *
@@ -144,6 +147,7 @@ public class NavigationDrawerFragment extends Fragment {
      * @param pDrawerLayout The DrawerLayout containing this fragment's UI.
      */
     public void setUp(int pIconsResourceId, int pTitlesResourceId, int pFragmentContainerViewId, DrawerLayout pDrawerLayout) {
+        // set up the drawer's list view with items and click listener
         this.mDrawerListView.setAdapter(new NavigationDrawerListAdapter(this.getContext(), pIconsResourceId, pTitlesResourceId));
         this.setItemChecked(this.mCurrentSelectedPosition);
 
@@ -155,7 +159,6 @@ public class NavigationDrawerFragment extends Fragment {
 
         // set a custom shadow that overlays the menu__main content when the drawer opens
         this.mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
 
         ActionBar actionBar = this.getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -224,20 +227,6 @@ public class NavigationDrawerFragment extends Fragment {
         if (this.mINavigationDrawerItemSelectListener != null) {
             this.mINavigationDrawerItemSelectListener.onNavigationDrawerItemSelected(pPosition);
         }
-    }
-
-    /**
-     * Per the navigation drawer design guidelines, updates the action bar to show the global app
-     * 'context', rather than just what's in the current screen.
-     */
-    private void showGlobalContextActionBar() {
-        ActionBar actionBar = this.getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(R.string.title__menu);
-    }
-
-    private ActionBar getActionBar() {
-        return ((AppCompatActivity)this.getActivity()).getSupportActionBar();
     }
 
     public static class NavigationDrawerListAdapter extends BaseAdapter {

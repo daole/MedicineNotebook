@@ -122,6 +122,19 @@ public class MedicineContentProvider extends ContentProvider {
     private DatabaseHelper mDatabaseHelper;
 
     @Override
+    public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> pOperations) throws OperationApplicationException {
+        this.mDatabaseHelper.beginTransaction();
+        try {
+            ContentProviderResult[] results = super.applyBatch(pOperations);
+            this.mDatabaseHelper.commitTransaction();
+            return results;
+        } catch (OperationApplicationException e){
+            this.mDatabaseHelper.rollbackTransaction();
+            throw e;
+        }
+    }
+
+    @Override
     public boolean onCreate() {
         this.mDatabaseHelper = new DatabaseHelper(this.getContext());
         return true;
@@ -484,18 +497,5 @@ public class MedicineContentProvider extends ContentProvider {
         }
 
         return affectedRows;
-    }
-
-    @Override
-    public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> pOperations) throws OperationApplicationException {
-        this.mDatabaseHelper.beginTransaction();
-        try {
-            ContentProviderResult[] results = super.applyBatch(pOperations);
-            this.mDatabaseHelper.commitTransaction();
-            return results;
-        } catch (OperationApplicationException e){
-            this.mDatabaseHelper.rollbackTransaction();
-            throw e;
-        }
     }
 }

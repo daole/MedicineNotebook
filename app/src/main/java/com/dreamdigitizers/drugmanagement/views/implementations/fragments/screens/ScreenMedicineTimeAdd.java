@@ -30,6 +30,12 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
     private IPresenterMedicineTimeAdd mPresenter;
 
     @Override
+    public boolean onBackPressed() {
+        this.mIScreenActionsListener.onBack();
+        return true;
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__medicine_time_add, pContainer, false);
         return rootView;
@@ -81,12 +87,6 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
     @Override
     protected int getTitle() {
         return R.string.title__screen_medicine_time_add;
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        this.mIScreenActionsListener.onBack();
-        return true;
     }
 
     @Override

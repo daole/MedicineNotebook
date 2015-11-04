@@ -30,6 +30,13 @@ public class ScreenCamera extends Screen {
     private Camera mCamera;
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        this.releaseCameraAndPreviewView();
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__camera, pContainer, false);
         return rootView;
@@ -68,13 +75,6 @@ public class ScreenCamera extends Screen {
     @Override
     protected int getTitle() {
         return 0;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        this.releaseCameraAndPreviewView();
     }
 
     private void buttonCaptureClick() {

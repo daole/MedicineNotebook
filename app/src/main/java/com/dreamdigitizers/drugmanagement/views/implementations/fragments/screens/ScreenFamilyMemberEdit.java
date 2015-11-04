@@ -26,6 +26,18 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
     private long mRowId;
 
     @Override
+    public boolean onBackPressed() {
+        this.mIScreenActionsListener.onBack();
+        return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle pOutState) {
+        super.onSaveInstanceState(pOutState);
+        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__family_member_edit, pContainer, false);
         return rootView;
@@ -38,12 +50,6 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
 
         this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle pOutState) {
-        super.onSaveInstanceState(pOutState);
-        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
     }
 
     @Override
@@ -84,12 +90,6 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
     @Override
     protected int getTitle() {
         return R.string.title__screen_family_member_edit;
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        this.mIScreenActionsListener.onBack();
-        return true;
     }
 
     @Override

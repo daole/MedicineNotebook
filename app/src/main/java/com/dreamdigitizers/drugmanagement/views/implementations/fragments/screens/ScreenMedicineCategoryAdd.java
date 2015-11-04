@@ -24,6 +24,12 @@ public class ScreenMedicineCategoryAdd extends Screen implements IViewMedicineCa
     private IPresenterMedicineCategoryAdd mPresenter;
 
     @Override
+    public boolean onBackPressed() {
+        this.mIScreenActionsListener.onBack();
+        return true;
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__medicine_category_add, pContainer, false);
         return rootView;
@@ -74,12 +80,6 @@ public class ScreenMedicineCategoryAdd extends Screen implements IViewMedicineCa
     @Override
     protected int getTitle() {
         return R.string.title__screen_medicine_category_add;
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        this.mIScreenActionsListener.onBack();
-        return true;
     }
 
     @Override

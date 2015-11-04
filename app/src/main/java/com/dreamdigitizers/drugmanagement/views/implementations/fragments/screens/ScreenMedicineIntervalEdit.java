@@ -27,6 +27,18 @@ public class ScreenMedicineIntervalEdit extends Screen implements IViewMedicineI
     private long mRowId;
 
     @Override
+    public void onSaveInstanceState(Bundle pOutState) {
+        super.onSaveInstanceState(pOutState);
+        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        this.mIScreenActionsListener.onBack();
+        return true;
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__medicine_interval_edit, pContainer, false);
         return rootView;
@@ -40,12 +52,6 @@ public class ScreenMedicineIntervalEdit extends Screen implements IViewMedicineI
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
 
         this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle pOutState) {
-        super.onSaveInstanceState(pOutState);
-        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
     }
 
     @Override
@@ -86,12 +92,6 @@ public class ScreenMedicineIntervalEdit extends Screen implements IViewMedicineI
     @Override
     protected int getTitle() {
         return R.string.title__screen_medicine_category_edit;
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        this.mIScreenActionsListener.onBack();
-        return true;
     }
 
     @Override

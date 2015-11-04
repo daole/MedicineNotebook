@@ -23,6 +23,12 @@ public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAd
     private IPresenterFamilyMemberAdd mPresenter;
 
     @Override
+    public boolean onBackPressed() {
+        this.mIScreenActionsListener.onBack();
+        return true;
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__family_member_add, pContainer, false);
         return rootView;
@@ -72,12 +78,6 @@ public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAd
     @Override
     protected int getTitle() {
         return R.string.title__screen_family_member_add;
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        this.mIScreenActionsListener.onBack();
-        return true;
     }
 
     @Override

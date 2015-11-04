@@ -33,6 +33,18 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
     private long mRowId;
 
     @Override
+    public boolean onBackPressed() {
+        this.mIScreenActionsListener.onBack();
+        return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle pOutState) {
+        super.onSaveInstanceState(pOutState);
+        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__medicine_time_edit, pContainer, false);
         return rootView;
@@ -47,12 +59,6 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
 
         this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle pOutState) {
-        super.onSaveInstanceState(pOutState);
-        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
     }
 
     @Override
@@ -95,11 +101,7 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
         return R.string.title__screen_medicine_time_edit;
     }
 
-    @Override
-    public boolean onBackPressed() {
-        this.mIScreenActionsListener.onBack();
-        return true;
-    }
+
 
     @Override
     public void bindData(MedicineTime pModel) {

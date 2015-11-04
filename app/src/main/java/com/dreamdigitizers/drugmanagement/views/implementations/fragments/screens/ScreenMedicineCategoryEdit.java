@@ -27,6 +27,18 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
     private long mRowId;
 
     @Override
+    public boolean onBackPressed() {
+        this.mIScreenActionsListener.onBack();
+        return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle pOutState) {
+        super.onSaveInstanceState(pOutState);
+        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__medicine_category_edit, pContainer, false);
         return rootView;
@@ -40,12 +52,6 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
 
         this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle pOutState) {
-        super.onSaveInstanceState(pOutState);
-        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
     }
 
     @Override
@@ -86,12 +92,6 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
     @Override
     protected int getTitle() {
         return R.string.title__screen_medicine_category_edit;
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        this.mIScreenActionsListener.onBack();
-        return true;
     }
 
     @Override
