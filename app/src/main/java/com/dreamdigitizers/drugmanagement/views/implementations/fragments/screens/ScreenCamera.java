@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterCamera;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
@@ -92,7 +93,12 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
 
     @Override
     public void onPictureTaken(byte[] pData, Camera pCamera) {
-        this.mPresenter.saveImage(pData);
+        Bundle bundle = new Bundle();
+        bundle.putByteArray(Constants.BUNDLE_KEY__CAPTURED_PICTURE_DATA, pData);
+        Screen screen = new ScreenCapturedPicturePreview();
+        screen.setArguments(bundle);
+        this.mScreenActionsListener.onChangeScreen(screen);
+        //this.mPresenter.saveImage(pData);
     }
 
     private void buttonCaptureClick() {

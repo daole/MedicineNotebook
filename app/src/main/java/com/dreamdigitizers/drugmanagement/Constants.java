@@ -12,6 +12,8 @@ public class Constants {
     public static final String FORMAT__DATE_TIME_STRING = "yyyyMMdd_HHmmss";
     public static final String FORMAT__TIME_VALUE = "%02d";
 
+    public static final String BUNDLE_KEY__CAPTURED_PICTURE_DATA = "captured_picture";
+
     public static final int NAVIGATION_DRAWER_ITEM_ID__SCHEDULE = 0;
     public static final int NAVIGATION_DRAWER_ITEM_ID__FAMILY = 1;
     public static final int NAVIGATION_DRAWER_ITEM_ID__MEDICINES = 2;

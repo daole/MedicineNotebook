@@ -40,7 +40,7 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
 
     @Override
     protected void retrieveArguments(Bundle pArguments) {
-        this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
+        this.mRowId = pArguments.getLong(Screen.BUNDLE_KEY__ROW_ID);
     }
 
     @Override

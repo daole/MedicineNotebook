@@ -7,12 +7,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
 
 public class ScreenCapturedPicturePreview extends Screen {
     private ImageView mImgCapturedPicture;
     private Button mBtnOK;
     private Button mBtnBack;
+
+    private byte[] mCapturedImageData;
+
+    @Override
+    protected void retrieveArguments(Bundle pArguments) {
+        this.mCapturedImageData = pArguments.getByteArray(Constants.BUNDLE_KEY__CAPTURED_PICTURE_DATA);
+    }
 
     @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
