@@ -51,11 +51,6 @@ public abstract class FragmentBase extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
     final public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
         if(!this.mBeingCoveredChecker.isBeingCovered(this)) {
             this.createOptionsMenu(pMenu, pInflater);

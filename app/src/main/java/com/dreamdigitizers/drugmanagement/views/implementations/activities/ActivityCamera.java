@@ -1,5 +1,6 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.activities;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.dreamdigitizers.drugmanagement.R;

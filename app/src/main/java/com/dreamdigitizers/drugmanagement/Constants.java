@@ -14,6 +14,13 @@ public class Constants {
 
     public static final String BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH = "captured_picture";
 
+    public static final int ORIENTATION_THRESHOLD = 45;
+    public static final int ORIENTATION__ORIENTATION_UNDEFINED = -1;
+    public static final int ORIENTATION__PORTRAIT = 0;
+    public static final int ORIENTATION__REVERSED_LANDSCAPE = 90;
+    public static final int ORIENTATION__REVERSED_PORTRAIT = 180;
+    public static final int ORIENTATION__LANDSCAPE = 270;
+
     public static final int NAVIGATION_DRAWER_ITEM_ID__SCHEDULE = 0;
     public static final int NAVIGATION_DRAWER_ITEM_ID__FAMILY = 1;
     public static final int NAVIGATION_DRAWER_ITEM_ID__MEDICINES = 2;
