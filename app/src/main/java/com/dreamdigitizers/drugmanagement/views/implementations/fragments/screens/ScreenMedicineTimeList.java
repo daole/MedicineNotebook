@@ -58,7 +58,7 @@ public class ScreenMedicineTimeList extends Screen implements IViewMedicineTimeL
     }
 
     @Override
-    protected void mapInformationToScreenItems() {
+    protected void mapInformationToScreenItems(View pView) {
         this.mListView.setEmptyView(this.mLblEmpty);
         this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -103,10 +103,10 @@ public class ScreenMedicineTimeList extends Screen implements IViewMedicineTimeL
     }
 
     private void goToEditScreen(long pRowId) {
-        Bundle bundle = new Bundle();
-        bundle.putLong(Screen.BUNDLE_KEY__ROW_ID, pRowId);
+        Bundle arguments = new Bundle();
+        arguments.putLong(Screen.BUNDLE_KEY__ROW_ID, pRowId);
         Screen screen = new ScreenMedicineTimeEdit();
-        screen.setArguments(bundle);
+        screen.setArguments(arguments);
         this.mScreenActionsListener.onChangeScreen(screen);
     }
 }

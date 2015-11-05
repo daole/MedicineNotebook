@@ -9,9 +9,9 @@ import android.widget.Toast;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IView;
-import com.dreamdigitizers.drugmanagement.views.implementations.fragments.MyFragment;
+import com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentBase;
 
-public abstract class Screen extends MyFragment implements IView {
+public abstract class Screen extends FragmentBase implements IView {
 	protected static final String BUNDLE_KEY__ROW_ID = "row_id";
 
 	private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IOnScreenActionsListener.";
@@ -98,6 +98,10 @@ public abstract class Screen extends MyFragment implements IView {
 		
 		pParent.removeViewAt(pPosition);
 		pParent.addView(pChild, pPosition);
+	}
+
+	protected int getCurrentOrientation() {
+		return this.getResources().getConfiguration().orientation;
 	}
 
 	public interface IOnScreenActionsListener {

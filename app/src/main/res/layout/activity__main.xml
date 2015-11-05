@@ -4,7 +4,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dreamdigitizers.drugmanagement.views.implementations.activities.MainActivity">
+    tools:context="com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityMain">
 
     <FrameLayout
         android:id="@+id/container"
@@ -16,7 +16,7 @@
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:name="com.dreamdigitizers.drugmanagement.views.implementations.fragments.NavigationDrawerFragment"
+        android:name="com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentNavigationDrawer"
         tools:layout="@layout/fragment__navigation_drawer"/>
 
 </android.support.v4.widget.DrawerLayout>

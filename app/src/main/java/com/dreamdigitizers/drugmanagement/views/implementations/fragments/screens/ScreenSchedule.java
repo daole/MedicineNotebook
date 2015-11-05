@@ -1,7 +1,6 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,7 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.dreamdigitizers.drugmanagement.R;
-import com.dreamdigitizers.drugmanagement.views.implementations.activities.CameraActivity;
+import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityCamera;
 
 public class ScreenSchedule extends Screen {
     private ListView mListView;
@@ -50,14 +49,14 @@ public class ScreenSchedule extends Screen {
         btnTakeCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ScreenSchedule.this.getContext(), CameraActivity.class);
+                Intent intent = new Intent(ScreenSchedule.this.getContext(), ActivityCamera.class);
                 ScreenSchedule.this.startActivity(intent);
             }
         });
     }
 
     @Override
-    protected void mapInformationToScreenItems() {
+    protected void mapInformationToScreenItems(View pView) {
 
     }
 

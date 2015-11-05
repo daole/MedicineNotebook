@@ -42,7 +42,7 @@ public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAd
     }
 
     @Override
-    protected void mapInformationToScreenItems() {
+    protected void mapInformationToScreenItems(View pView) {
         this.mTxtFamilyMemberName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView pTextView, int pActionId, KeyEvent pEvent) {

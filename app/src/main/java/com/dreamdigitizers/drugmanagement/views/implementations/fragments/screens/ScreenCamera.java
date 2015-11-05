@@ -3,7 +3,6 @@ package com.dreamdigitizers.drugmanagement.views.implementations.fragments.scree
 import android.content.Context;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -54,9 +53,11 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
         this.mFrmCameraPreview = (FrameLayout)pView.findViewById(R.id.frmCameraPreview);
         this.mBtnCapture = (Button)pView.findViewById(R.id.btnCapture);
         this.mLblNoCamera = (TextView)pView.findViewById(R.id.lblNoCamera);
-        this.mCamera = this.getCameraInstance();
+        if(this.mCamera == null) {
+            this.mCamera = this.getCameraInstance();
+        }
         if (this.mCamera != null) {
-            this.mCameraPreviewView = new CameraPreviewView(this.getContext(), this.mCamera, pView);
+            this.mCameraPreviewView = new CameraPreviewView(this.getContext(), this.mCamera, 0);
             this.mFrmCameraPreview.addView(this.mCameraPreviewView);
         } else {
             this.mBtnCapture.setVisibility(View.GONE);
@@ -65,7 +66,7 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
     }
 
     @Override
-    protected void mapInformationToScreenItems() {
+    protected void mapInformationToScreenItems(View pView) {
         this.mBtnCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View pView) {
@@ -83,22 +84,22 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
 
     @Override
     public void onImageSaved(File pFile) {
-
+        Bundle arguments = new Bundle();
+        arguments.putString(Constants.BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH, pFile.getAbsolutePath());
+        Screen screen = new ScreenCapturedPicturePreview();
+        screen.setArguments(arguments);
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 
     @Override
     public void onShutter() {
-        //SoundUtils.playCameraShutterSound(this.getContext());
+        SoundUtils.playCameraShutterSound(this.getContext());
     }
 
     @Override
     public void onPictureTaken(byte[] pData, Camera pCamera) {
-        Bundle bundle = new Bundle();
-        bundle.putByteArray(Constants.BUNDLE_KEY__CAPTURED_PICTURE_DATA, pData);
-        Screen screen = new ScreenCapturedPicturePreview();
-        screen.setArguments(bundle);
-        this.mScreenActionsListener.onChangeScreen(screen);
-        //this.mPresenter.saveImage(pData);
+        int orientation = this.mCameraPreviewView.getCameraDisplayOrientation();
+        this.mPresenter.saveImage(pData, orientation);
     }
 
     private void buttonCaptureClick() {
@@ -134,19 +135,20 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
 
         private Context mContext;
         private Camera mCamera;
-        private View mCameraView;
         private SurfaceHolder mSurfaceHolder;
         private Camera.Size mPreviewSize;
+        private Camera.Size mPictureSize;
+        private int mCameraId;
 
-        public CameraPreviewView(Context pContext, Camera pCamera, View pCameraView) {
+        public CameraPreviewView(Context pContext, Camera pCamera, int pCameraId) {
             super(pContext);
 
             this.mContext = pContext;
             this.mCamera = pCamera;
-            this.mCameraView = pCameraView;
             this.mSurfaceHolder = this.getHolder();
             this.mSurfaceHolder.addCallback(this);
             this.mSurfaceHolder.setKeepScreenOn(true);
+            this.mCameraId = pCameraId;
 
             this.requestLayout();
         }
@@ -157,50 +159,16 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
             int height = this.resolveSize(this.getSuggestedMinimumHeight(), pHeightMeasureSpec);
 
             List<Camera.Size> supportedPreviewSizes = this.mCamera.getParameters().getSupportedPreviewSizes();
+            List<Camera.Size> supportedPictureSizes = this.mCamera.getParameters().getSupportedPictureSizes();
             if (supportedPreviewSizes != null){
-                this.mPreviewSize = this.getOptimalPreviewSize(supportedPreviewSizes, width, height);
+                this.mPreviewSize = this.getOptimalSize(supportedPreviewSizes, width, height);
+            }
+
+            if (supportedPictureSizes != null){
+                this.mPictureSize = this.getOptimalSize(supportedPictureSizes, width, height);
             }
 
             this.setMeasuredDimension(width, height);
-        }
-
-        @Override
-        protected void onLayout(boolean pIsChanged, int pLeft, int pTop, int pRight, int pBottom) {
-            if (pIsChanged) {
-                int width = pRight - pLeft;
-                int height = pBottom - pTop;
-
-                int previewWidth = width;
-                int previewHeight = height;
-
-                if (this.mPreviewSize != null) {
-                    Display display = ((WindowManager)this.mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-
-                    switch (display.getRotation()) {
-                        case Surface.ROTATION_0:
-                            previewWidth = this.mPreviewSize.height;
-                            previewHeight = this.mPreviewSize.width;
-                            this.mCamera.setDisplayOrientation(90);
-                            break;
-                        case Surface.ROTATION_90:
-                            previewWidth = this.mPreviewSize.width;
-                            previewHeight = this.mPreviewSize.height;
-                            break;
-                        case Surface.ROTATION_180:
-                            previewWidth = this.mPreviewSize.height;
-                            previewHeight = this.mPreviewSize.width;
-                            break;
-                        case Surface.ROTATION_270:
-                            previewWidth = this.mPreviewSize.width;
-                            previewHeight = this.mPreviewSize.height;
-                            this.mCamera.setDisplayOrientation(180);
-                            break;
-                    }
-                }
-
-                int scaledChildHeight = previewHeight * width / previewWidth;
-                this.mCameraView.layout(0, height - scaledChildHeight, width, height);
-            }
         }
 
         @Override
@@ -238,6 +206,14 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
                     parameters.setPreviewSize(this.mPreviewSize.width, this.mPreviewSize.height);
                 }
 
+                if(this.mPictureSize != null) {
+                    parameters.setPictureSize(this.mPictureSize.width, this.mPictureSize.height);
+                }
+
+                int orientation = this.getCameraDisplayOrientation();
+                parameters.setRotation(orientation);
+
+                this.mCamera.setDisplayOrientation(orientation);
                 this.mCamera.setParameters(parameters);
                 this.startCameraPreview();
             } catch (Exception e){
@@ -245,7 +221,7 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
             }
         }
 
-        private Camera.Size getOptimalPreviewSize(List<Camera.Size> pSizes, int pWidth, int pHeight) {
+        private Camera.Size getOptimalSize(List<Camera.Size> pSizes, int pWidth, int pHeight) {
             if (pSizes == null) {
                 return null;
             }
@@ -280,6 +256,40 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
             }
 
             return optimalSize;
+        }
+
+        public int getCameraDisplayOrientation() {
+            Camera.CameraInfo info = new Camera.CameraInfo();
+            Camera.getCameraInfo(this.mCameraId, info);
+
+            int rotation = ((WindowManager)this.mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
+            int degrees = 0;
+            switch(rotation) {
+                case Surface.ROTATION_0:
+                    degrees = 0;
+                    break;
+                case Surface.ROTATION_90:
+                    degrees = 90;
+                    break;
+                case Surface.ROTATION_180:
+                    degrees = 180;
+                    break;
+                case Surface.ROTATION_270:
+                    degrees = 270;
+                    break;
+                default:
+                    break;
+            }
+
+            int result;
+            if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                result = (info.orientation + degrees) % 360;
+                result = (360 - result) % 360;
+            } else {
+                result = (info.orientation - degrees + 360) % 360;
+            }
+
+            return result;
         }
 
         private void startCameraPreview() {

@@ -51,7 +51,7 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
     }
 
     @Override
-    protected void mapInformationToScreenItems() {
+    protected void mapInformationToScreenItems(View pView) {
         this.mAdapter = new TimeValueArrayAdapter(this.getContext(), R.layout.part__medicine_time_value);
         this.mListView.setAdapter(this.mAdapter);
 

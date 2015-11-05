@@ -45,7 +45,7 @@ public class ScreenMedicineList extends Screen {
     }
 
     @Override
-    protected void mapInformationToScreenItems() {
+    protected void mapInformationToScreenItems(View pView) {
 
     }
 

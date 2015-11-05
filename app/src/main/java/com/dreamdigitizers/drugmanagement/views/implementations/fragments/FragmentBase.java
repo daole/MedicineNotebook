@@ -11,7 +11,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class MyFragment extends Fragment {
+public abstract class FragmentBase extends Fragment {
     private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IBeingCoveredChecker.";
 
     protected IBeingCoveredChecker mBeingCoveredChecker;
@@ -23,7 +23,7 @@ public abstract class MyFragment extends Fragment {
         try {
             this.mBeingCoveredChecker = (IBeingCoveredChecker)pContext;
         } catch (ClassCastException e) {
-            throw new ClassCastException(MyFragment.ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE);
+            throw new ClassCastException(FragmentBase.ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE);
         }
     }
 
@@ -45,7 +45,7 @@ public abstract class MyFragment extends Fragment {
     public View onCreateView(LayoutInflater pInflater, ViewGroup pContainer, Bundle pSavedInstanceState) {
         View view = this.loadView(pInflater, pContainer);
         this.retrieveScreenItems(view);
-        this.mapInformationToScreenItems();
+        this.mapInformationToScreenItems(view);
         this.setHasOptionsMenu(true);
         return view;
     }
@@ -87,10 +87,10 @@ public abstract class MyFragment extends Fragment {
 
     protected abstract View loadView(LayoutInflater pInflater, ViewGroup pContainer);
     protected abstract void retrieveScreenItems(View pView);
-    protected abstract void mapInformationToScreenItems();
+    protected abstract void mapInformationToScreenItems(View pView);
     protected abstract int getTitle();
 
     public interface IBeingCoveredChecker {
-        boolean isBeingCovered(MyFragment pFragment);
+        boolean isBeingCovered(FragmentBase pFragment);
     }
 }

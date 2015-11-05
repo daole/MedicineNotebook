@@ -2,7 +2,6 @@ package com.dreamdigitizers.drugmanagement.views.implementations.fragments;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -10,8 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +25,7 @@ import com.dreamdigitizers.drugmanagement.R;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends MyFragment {
+public class FragmentNavigationDrawer extends FragmentBase {
     private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement INavigationDrawerItemSelectListener.";
 
     /**
@@ -52,7 +49,7 @@ public class NavigationDrawerFragment extends MyFragment {
 
     private int mCurrentSelectedPosition;
 
-    public NavigationDrawerFragment() {
+    public FragmentNavigationDrawer() {
         this.mCurrentSelectedPosition = 0;
     }
 
@@ -63,7 +60,7 @@ public class NavigationDrawerFragment extends MyFragment {
         try {
             this.mINavigationDrawerItemSelectListener = (INavigationDrawerItemSelectListener)pContext;
         } catch (ClassCastException e) {
-            throw new ClassCastException(NavigationDrawerFragment.ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE);
+            throw new ClassCastException(FragmentNavigationDrawer.ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE);
         }
     }
 
@@ -78,7 +75,7 @@ public class NavigationDrawerFragment extends MyFragment {
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
 
-        pOutState.putInt(NavigationDrawerFragment.BUNDLE_KEY__STATE_SELECTED_POSITION, this.mCurrentSelectedPosition);
+        pOutState.putInt(FragmentNavigationDrawer.BUNDLE_KEY__STATE_SELECTED_POSITION, this.mCurrentSelectedPosition);
     }
 
     @Override
@@ -112,16 +109,16 @@ public class NavigationDrawerFragment extends MyFragment {
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
         if (pSavedInstanceState != null) {
-            this.mCurrentSelectedPosition = pSavedInstanceState.getInt(NavigationDrawerFragment.BUNDLE_KEY__STATE_SELECTED_POSITION);
+            this.mCurrentSelectedPosition = pSavedInstanceState.getInt(FragmentNavigationDrawer.BUNDLE_KEY__STATE_SELECTED_POSITION);
         }
     }
 
     @Override
-    protected void mapInformationToScreenItems() {
+    protected void mapInformationToScreenItems(View pView) {
         this.mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView pParent, View pView, int pPosition, long pId) {
-                NavigationDrawerFragment.this.selectItem(pPosition);
+                FragmentNavigationDrawer.this.selectItem(pPosition);
             }
         });
     }
@@ -166,21 +163,21 @@ public class NavigationDrawerFragment extends MyFragment {
             @Override
             public void onDrawerOpened(View pDrawerView) {
                 super.onDrawerOpened(pDrawerView);
-                if (!NavigationDrawerFragment.this.isAdded()) {
+                if (!FragmentNavigationDrawer.this.isAdded()) {
                     return;
                 }
 
-                NavigationDrawerFragment.this.getActivity().supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                FragmentNavigationDrawer.this.getActivity().supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
 
             @Override
             public void onDrawerClosed(View pDrawerView) {
                 super.onDrawerClosed(pDrawerView);
-                if (!NavigationDrawerFragment.this.isAdded()) {
+                if (!FragmentNavigationDrawer.this.isAdded()) {
                     return;
                 }
 
-                NavigationDrawerFragment.this.getActivity().supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                FragmentNavigationDrawer.this.getActivity().supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
         };
 
@@ -188,7 +185,7 @@ public class NavigationDrawerFragment extends MyFragment {
         this.mDrawerLayout.post(new Runnable() {
             @Override
             public void run() {
-                NavigationDrawerFragment.this.mDrawerToggle.syncState();
+                FragmentNavigationDrawer.this.mDrawerToggle.syncState();
             }
         });
 

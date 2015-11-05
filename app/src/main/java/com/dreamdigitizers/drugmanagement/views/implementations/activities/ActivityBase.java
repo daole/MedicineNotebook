@@ -5,14 +5,35 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.dreamdigitizers.drugmanagement.R;
-import com.dreamdigitizers.drugmanagement.views.implementations.fragments.MyFragment;
+import com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentBase;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.Screen;
 
-public class MyActivity extends AppCompatActivity implements MyFragment.IBeingCoveredChecker, Screen.IOnScreenActionsListener {
+public class ActivityBase extends AppCompatActivity implements FragmentBase.IBeingCoveredChecker, Screen.IOnScreenActionsListener {
     protected static final String BUNDLE_KEY__DUMP = "dump";
     protected static final String BUNDLE_VALUE__DUMP = "dump";
 
     protected Screen mCurrentScreen;
+    protected boolean mIsRecreated;
+
+    @Override
+    protected void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+
+        if(pSavedInstanceState != null) {
+            this.recoverInstanceState(pSavedInstanceState);
+        }
+
+        Bundle extras = this.getIntent().getExtras();
+        if(extras != null) {
+            this.handleExtras(extras);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle pOutState) {
+        super.onSaveInstanceState(pOutState);
+        pOutState.putString(ActivityBase.BUNDLE_KEY__DUMP, ActivityBase.BUNDLE_VALUE__DUMP);
+    }
 
     @Override
     public void onBackPressed() {
@@ -27,13 +48,7 @@ public class MyActivity extends AppCompatActivity implements MyFragment.IBeingCo
     }
 
     @Override
-    public void onSaveInstanceState(Bundle pOutState) {
-        super.onSaveInstanceState(pOutState);
-        pOutState.putString(MyActivity.BUNDLE_KEY__DUMP, MyActivity.BUNDLE_VALUE__DUMP);
-    }
-
-    @Override
-    public boolean isBeingCovered(MyFragment pFragment) {
+    public boolean isBeingCovered(FragmentBase pFragment) {
         return false;
     }
 
@@ -101,5 +116,13 @@ public class MyActivity extends AppCompatActivity implements MyFragment.IBeingCo
         if (!result) {
             this.finish();
         }
+    }
+
+    protected void recoverInstanceState(Bundle pSavedInstanceState) {
+        this.mIsRecreated = true;
+    }
+
+    protected void handleExtras(Bundle pExtras) {
+
     }
 }

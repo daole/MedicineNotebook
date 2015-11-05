@@ -63,7 +63,7 @@ public class ScreenMedicineIntervalEdit extends Screen implements IViewMedicineI
     }
 
     @Override
-    protected void mapInformationToScreenItems() {
+    protected void mapInformationToScreenItems(View pView) {
         this.mTxtMedicineIntervalValue.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView pTextView, int pActionId, KeyEvent pEvent) {

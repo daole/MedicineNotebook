@@ -8,9 +8,9 @@ import android.support.v4.widget.DrawerLayout;
 
 import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
-import com.dreamdigitizers.drugmanagement.views.implementations.fragments.MyFragment;
-import com.dreamdigitizers.drugmanagement.views.implementations.fragments.NavigationDrawerFragment;
-import com.dreamdigitizers.drugmanagement.views.implementations.fragments.NavigationDrawerFragment.INavigationDrawerItemSelectListener;
+import com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentBase;
+import com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentNavigationDrawer;
+import com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentNavigationDrawer.INavigationDrawerItemSelectListener;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.Screen;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenFamilyMemberList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenMedicineCategoryList;
@@ -19,18 +19,15 @@ import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screen
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenMedicineTimeList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenSchedule;
 
-public class MainActivity extends MyActivity implements INavigationDrawerItemSelectListener {
-    private NavigationDrawerFragment mNavigationDrawerFragment;
+public class ActivityMain extends ActivityBase implements INavigationDrawerItemSelectListener {
+    private FragmentNavigationDrawer mNavigationDrawerFragment;
 
     @Override
     protected void onCreate(Bundle pSavedInstanceState) {
         super.onCreate(pSavedInstanceState);
 
         this.setContentView(R.layout.activity__main);
-
-        this.mNavigationDrawerFragment = (NavigationDrawerFragment)this.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-
-        // Set up the drawer.
+        this.mNavigationDrawerFragment = (FragmentNavigationDrawer)this.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         this.mNavigationDrawerFragment.setUp(R.array.navigation_drawer_icons, R.array.navigation_drawer_titles, R.id.navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_layout));
     }
 
@@ -82,8 +79,8 @@ public class MainActivity extends MyActivity implements INavigationDrawerItemSel
     }
 
     @Override
-    public boolean isBeingCovered(MyFragment pFragment) {
-        return this.mNavigationDrawerFragment.isDrawerOpen() && !(pFragment instanceof NavigationDrawerFragment);
+    public boolean isBeingCovered(FragmentBase pFragment) {
+        return this.mNavigationDrawerFragment.isDrawerOpen() && !(pFragment instanceof FragmentNavigationDrawer);
     }
 
     @Override

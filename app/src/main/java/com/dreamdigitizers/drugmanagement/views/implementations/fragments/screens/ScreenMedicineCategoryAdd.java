@@ -44,7 +44,7 @@ public class ScreenMedicineCategoryAdd extends Screen implements IViewMedicineCa
     }
 
     @Override
-    protected void mapInformationToScreenItems() {
+    protected void mapInformationToScreenItems(View pView) {
         this.mTxtMedicineCategoryNote.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView pTextView, int pActionId, KeyEvent pEvent) {
