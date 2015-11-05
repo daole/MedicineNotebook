@@ -31,10 +31,21 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
         return true;
     }
 
+
     @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
         pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
+    }
+
+    @Override
+    protected void retrieveArguments(Bundle pArguments) {
+        this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
+    }
+
+    @Override
+    protected void recoverInstanceState(Bundle pSavedInstanceState) {
+        this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
     }
 
     @Override
@@ -48,13 +59,6 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
         this.mTxtFamilyMemberName = (EditText)pView.findViewById(R.id.txtFamilyMemberName);
         this.mBtnEdit = (Button)pView.findViewById(R.id.btnEdit);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
-
-        this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
-    }
-
-    @Override
-    protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
     }
 
     @Override

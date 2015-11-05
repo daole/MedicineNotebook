@@ -44,11 +44,6 @@ public class ScreenMedicineCategoryAdd extends Screen implements IViewMedicineCa
     }
 
     @Override
-    protected void recoverInstanceState(Bundle pSavedInstanceState) {
-
-    }
-
-    @Override
     protected void mapInformationToScreenItems() {
         this.mTxtMedicineCategoryNote.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

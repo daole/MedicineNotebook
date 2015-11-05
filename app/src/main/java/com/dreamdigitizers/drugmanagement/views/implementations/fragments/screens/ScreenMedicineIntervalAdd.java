@@ -44,11 +44,6 @@ public class ScreenMedicineIntervalAdd extends Screen implements IViewMedicineIn
     }
 
     @Override
-    protected void recoverInstanceState(Bundle pSavedInstanceState) {
-
-    }
-
-    @Override
     protected void mapInformationToScreenItems() {
         this.mTxtMedicineIntervalValue.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

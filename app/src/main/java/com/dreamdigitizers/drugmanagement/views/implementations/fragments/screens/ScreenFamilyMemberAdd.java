@@ -42,11 +42,6 @@ public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAd
     }
 
     @Override
-    protected void recoverInstanceState(Bundle pSavedInstanceState) {
-
-    }
-
-    @Override
     protected void mapInformationToScreenItems() {
         this.mTxtFamilyMemberName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

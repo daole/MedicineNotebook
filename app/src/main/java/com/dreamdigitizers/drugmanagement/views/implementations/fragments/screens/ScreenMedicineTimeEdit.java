@@ -45,6 +45,16 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
     }
 
     @Override
+    protected void retrieveArguments(Bundle pArguments) {
+        this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
+    }
+
+    @Override
+    protected void recoverInstanceState(Bundle pSavedInstanceState) {
+        this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__medicine_time_edit, pContainer, false);
         return rootView;
@@ -57,13 +67,6 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
         this.mBtnAddTimeValue = (Button)pView.findViewById(R.id.btnAddTimeValue);
         this.mBtnEdit = (Button)pView.findViewById(R.id.btnEdit);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
-
-        this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
-    }
-
-    @Override
-    protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @SuppressWarnings("deprecation")
-public class PresenterCamera implements IPresenterCamera {
+class PresenterCamera implements IPresenterCamera {
     private IViewCamera mView;
 
     public PresenterCamera(IViewCamera pView) {

@@ -57,11 +57,6 @@ public class ScreenSchedule extends Screen {
     }
 
     @Override
-    protected void recoverInstanceState(Bundle pSavedInstanceState) {
-
-    }
-
-    @Override
     protected void mapInformationToScreenItems() {
 
     }

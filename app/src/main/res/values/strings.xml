@@ -65,11 +65,13 @@
     <string name="error__invalid_medicine_interval_value">Please enter positive number for interval value.</string>
     <string name="error__duplicated_data">Same data already exists.</string>
     <string name="error__no_data_selected">You have not selected anything.</string>
-    <string name="error__unknown_error">An error has occurred. The operation could not be completed.</string>
+    <string name="error__db_unknown_error">An error has occurred. The operation could not be completed.</string>
+    <string name="error__image_save_failed">An error has occurred. The picture could not be saved.</string>
 
     <string name="desc__menu_item_icon">Menu item icon</string>
     <string name="desc__navigation_drawer_open">Open navigation drawer</string>
     <string name="desc__navigation_drawer_close">Close navigation drawer</string>
+    <string name="desc__captured_picture">Captured picture</string>
 
     <plurals name="lbl__day">
         <item quantity="one">%d day</item>

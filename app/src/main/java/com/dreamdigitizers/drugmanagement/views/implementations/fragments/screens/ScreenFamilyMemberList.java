@@ -58,11 +58,6 @@ public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberL
     }
 
     @Override
-    protected void recoverInstanceState(Bundle pSavedInstanceState) {
-
-    }
-
-    @Override
     protected void mapInformationToScreenItems() {
         this.mListView.setEmptyView(this.mLblEmpty);
         this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

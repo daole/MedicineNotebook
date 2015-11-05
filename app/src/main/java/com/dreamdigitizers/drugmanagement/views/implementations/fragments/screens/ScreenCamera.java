@@ -64,11 +64,6 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
     }
 
     @Override
-    protected void recoverInstanceState(Bundle pSavedInstanceState) {
-
-    }
-
-    @Override
     protected void mapInformationToScreenItems() {
         this.mBtnCapture.setOnClickListener(new View.OnClickListener() {
             @Override

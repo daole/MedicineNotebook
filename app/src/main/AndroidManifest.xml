@@ -7,6 +7,7 @@
     <uses-feature android:glEsVersion="0x00020000"/>
 
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".MyApplication"
@@ -26,7 +27,8 @@
 
         <activity
             android:name=".views.implementations.activities.CameraActivity"
-            android:theme="@style/FullScreenTheme">
+            android:theme="@style/FullScreenTheme"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="net.care.apple.mm.CameraActivity" />
                 <category android:name="android.intent.category.DEFAULT" />

@@ -45,11 +45,6 @@ public class ScreenMedicineList extends Screen {
     }
 
     @Override
-    protected void recoverInstanceState(Bundle pSavedInstanceState) {
-
-    }
-
-    @Override
     protected void mapInformationToScreenItems() {
 
     }

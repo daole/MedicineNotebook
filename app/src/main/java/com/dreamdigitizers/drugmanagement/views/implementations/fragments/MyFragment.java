@@ -31,6 +31,11 @@ public abstract class MyFragment extends Fragment {
     public void onCreate(Bundle pSavedInstanceState) {
         super.onCreate(pSavedInstanceState);
 
+        Bundle arguments = this.getArguments();
+        if(arguments != null) {
+            this.retrieveArguments(arguments);
+        }
+
         if(pSavedInstanceState != null) {
             this.recoverInstanceState(pSavedInstanceState);
         }
@@ -64,17 +69,24 @@ public abstract class MyFragment extends Fragment {
         return false;
     }
 
-    protected void createOptionsMenu(Menu pMenu, MenuInflater pInflater) {
-
-    }
-
     protected ActionBar getActionBar() {
         return ((AppCompatActivity)this.getActivity()).getSupportActionBar();
     }
 
+    protected void createOptionsMenu(Menu pMenu, MenuInflater pInflater) {
+
+    }
+
+    protected void retrieveArguments(Bundle pArguments) {
+
+    }
+
+    protected void recoverInstanceState(Bundle pSavedInstanceState) {
+
+    }
+
     protected abstract View loadView(LayoutInflater pInflater, ViewGroup pContainer);
     protected abstract void retrieveScreenItems(View pView);
-    protected abstract void recoverInstanceState(Bundle pSavedInstanceState);
     protected abstract void mapInformationToScreenItems();
     protected abstract int getTitle();
 

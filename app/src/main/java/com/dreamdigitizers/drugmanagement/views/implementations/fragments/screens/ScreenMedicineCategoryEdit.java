@@ -39,6 +39,16 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
     }
 
     @Override
+    protected void retrieveArguments(Bundle pArguments) {
+        this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
+    }
+
+    @Override
+    protected void recoverInstanceState(Bundle pSavedInstanceState) {
+        this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__medicine_category_edit, pContainer, false);
         return rootView;
@@ -50,13 +60,6 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
         this.mTxtMedicineCategoryNote = (EditText)pView.findViewById(R.id.txtMedicineCategoryNote);
         this.mBtnEdit = (Button)pView.findViewById(R.id.btnEdit);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
-
-        this.mRowId = this.getArguments().getLong(Screen.BUNDLE_KEY__ROW_ID);
-    }
-
-    @Override
-    protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
     }
 
     @Override
