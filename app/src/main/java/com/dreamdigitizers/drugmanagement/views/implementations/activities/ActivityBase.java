@@ -1,5 +1,6 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -60,6 +61,12 @@ public class ActivityBase extends AppCompatActivity implements FragmentBase.IBei
     @Override
     public void onChangeScreen(Screen pScreen) {
         this.changeScreen(pScreen);
+    }
+
+    @Override
+    public void returnActivityResult(int pResultCode, Intent pData) {
+        this.setResult(pResultCode, pData);
+        this.finish();
     }
 
     @Override

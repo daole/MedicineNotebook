@@ -31,7 +31,6 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
         return true;
     }
 
-
     @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);

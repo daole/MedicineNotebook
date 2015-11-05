@@ -26,6 +26,16 @@ public class FileUtils {
         return false;
     }
 
+    public static boolean deleteFile(String pFilePath) {
+        boolean result = true;
+        File file = new File(pFilePath);
+        if(file.exists()) {
+            result = file.delete();
+        }
+
+        return result;
+    }
+
     public static File getOutputMediaFile(String pFolderName, String pFileName) {
         if(!FileUtils.isExternalStorageWritable()) {
             return null;

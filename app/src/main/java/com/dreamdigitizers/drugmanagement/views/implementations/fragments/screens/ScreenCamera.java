@@ -35,14 +35,15 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
 
     private Camera mCamera;
     private OrientationEventListener mOrientationEventListener;
-    private IPresenterCamera mPresenter;
     private int mOrientation;
+
+    private IPresenterCamera mPresenter;
 
     @Override
     public void onResume() {
         super.onResume();
 
-        this.mOrientation = Constants.ORIENTATION__ORIENTATION_UNDEFINED;
+        this.mOrientation = Constants.ORIENTATION__UNDEFINED;
         this.mOrientationEventListener.enable();
 
         if(this.mCamera == null) {

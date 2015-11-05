@@ -1,6 +1,7 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -107,6 +108,7 @@ public abstract class Screen extends FragmentBase implements IView {
 	public interface IOnScreenActionsListener {
 		void onSetCurrentScreen(Screen pCurrentScreen);
 		void onChangeScreen(Screen pScreen);
+		void returnActivityResult(int pResultCode, Intent pData);
 		void onBack();
 	}
 }

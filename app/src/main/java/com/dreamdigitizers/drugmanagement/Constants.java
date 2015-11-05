@@ -15,7 +15,7 @@ public class Constants {
     public static final String BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH = "captured_picture";
 
     public static final int ORIENTATION_THRESHOLD = 45;
-    public static final int ORIENTATION__ORIENTATION_UNDEFINED = -1;
+    public static final int ORIENTATION__UNDEFINED = -1;
     public static final int ORIENTATION__PORTRAIT = 0;
     public static final int ORIENTATION__REVERSED_LANDSCAPE = 90;
     public static final int ORIENTATION__REVERSED_PORTRAIT = 180;

@@ -1,5 +1,7 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +12,34 @@ import android.widget.ImageView;
 
 import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterCapturedPicturePreview;
+import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.utils.FileUtils;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewCapturedPicturePreview;
 
-public class ScreenCapturedPicturePreview extends Screen {
+public class ScreenCapturedPicturePreview extends Screen implements IViewCapturedPicturePreview {
     private ImageView mImgCapturedPicture;
     private Button mBtnOK;
     private Button mBtnBack;
 
     private String mCapturedPictureFilePath;
 
+    private IPresenterCapturedPicturePreview mPresenter;
+
+    @Override
+    public void onSaveInstanceState(Bundle pOutState) {
+        super.onSaveInstanceState(pOutState);
+        pOutState.putString(Constants.BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH, this.mCapturedPictureFilePath);
+    }
+
     @Override
     protected void retrieveArguments(Bundle pArguments) {
         this.mCapturedPictureFilePath = pArguments.getString(Constants.BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH);
+    }
+
+    @Override
+    protected void recoverInstanceState(Bundle pSavedInstanceState) {
+        this.mCapturedPictureFilePath = pSavedInstanceState.getString(Constants.BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH);
     }
 
     @Override
@@ -65,6 +83,8 @@ public class ScreenCapturedPicturePreview extends Screen {
                 ScreenCapturedPicturePreview.this.buttonBackClick();
             }
         });
+
+        this.mPresenter = (IPresenterCapturedPicturePreview) PresenterFactory.createPresenter(IPresenterCapturedPicturePreview.class, this);
     }
 
     @Override
@@ -73,10 +93,13 @@ public class ScreenCapturedPicturePreview extends Screen {
     }
 
     public void buttonOKClick() {
-
+        Intent data = new Intent();
+        data.putExtra(Constants.BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH, this.mCapturedPictureFilePath);
+        this.mScreenActionsListener.returnActivityResult(Activity.RESULT_OK, data);
     }
 
     public void buttonBackClick() {
+        this.mPresenter.deleteFile(this.mCapturedPictureFilePath);
         this.mScreenActionsListener.onBack();
     }
 }
