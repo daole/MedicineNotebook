@@ -6,21 +6,25 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterCapture
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyMemberAdd;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyMemberEdit;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyMemberList;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineAdd;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryAdd;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryEdit;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryList;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineIntervalAdd;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineIntervalEdit;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineIntervalList;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineList;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeAdd;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeEdit;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeList;
+import com.dreamdigitizers.drugmanagement.views.IViewMedicineList;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IView;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewCamera;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewCapturedPicturePreview;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberAdd;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberEdit;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberList;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineAdd;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryAdd;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryEdit;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryList;
@@ -48,6 +52,13 @@ public class PresenterFactory {
         }
         if(pClass == IPresenterFamilyMemberEdit.class) {
             return new PresenterFamilyMemberEdit((IViewFamilyMemberEdit)pView);
+        }
+
+        if(pClass == IPresenterMedicineList.class) {
+            return new PresenterMedicineList((IViewMedicineList)pView);
+        }
+        if(pClass == IPresenterMedicineAdd.class) {
+            return new PresenterMedicineAdd((IViewMedicineAdd)pView);
         }
 
         if(pClass == IPresenterMedicineCategoryList.class) {

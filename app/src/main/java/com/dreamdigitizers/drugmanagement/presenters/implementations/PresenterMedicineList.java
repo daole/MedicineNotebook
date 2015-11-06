@@ -14,26 +14,26 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
-import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineInterval;
-import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineIntervalList;
+import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicine;
+import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineList;
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
-import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineIntervalList;
+import com.dreamdigitizers.drugmanagement.views.IViewMedicineList;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class PresenterMedicineIntervalList implements IPresenterMedicineIntervalList {
-    private IViewMedicineIntervalList mView;
+class PresenterMedicineList implements IPresenterMedicineList {
+    private IViewMedicineList mView;
     private SimpleCursorAdapter mAdapter;
     private List<Integer> mSelectedPositions;
     private List<Long> mSelectedRowIds;
 
-    public PresenterMedicineIntervalList(IViewMedicineIntervalList pView) {
+    public PresenterMedicineList(IViewMedicineList pView) {
         this.mView = pView;
         this.mView.getViewLoaderManager().initLoader(0, null, this);
         this.mSelectedPositions = new ArrayList<>();
@@ -48,7 +48,7 @@ class PresenterMedicineIntervalList implements IPresenterMedicineIntervalList {
             return;
         }
 
-        Uri uri = MedicineContentProvider.CONTENT_URI__MEDICINE_INTERVAL;
+        Uri uri = MedicineContentProvider.CONTENT_URI__MEDICINE;
         final ArrayList<ContentProviderOperation> operations = new ArrayList<>();
         for(long rowId : this.mSelectedRowIds) {
             operations.add(ContentProviderOperation.newDelete(ContentUris.withAppendedId(uri, rowId)).build());
@@ -58,16 +58,16 @@ class PresenterMedicineIntervalList implements IPresenterMedicineIntervalList {
             @Override
             public void onPositiveButtonClick(Activity pActivity, String pTitle, String pMessage, boolean pIsTwoButton, String pPositiveButtonText, String pNegativeButtonText) {
                 try {
-                    PresenterMedicineIntervalList.this.mView.getViewContext().getContentResolver().applyBatch(MedicineContentProvider.AUTHORITY, operations);
-                    PresenterMedicineIntervalList.this.mSelectedPositions.clear();
-                    PresenterMedicineIntervalList.this.mSelectedRowIds.clear();
-                    PresenterMedicineIntervalList.this.mView.showMessage(R.string.message__delete_successful);
+                    PresenterMedicineList.this.mView.getViewContext().getContentResolver().applyBatch(MedicineContentProvider.AUTHORITY, operations);
+                    PresenterMedicineList.this.mSelectedPositions.clear();
+                    PresenterMedicineList.this.mSelectedRowIds.clear();
+                    PresenterMedicineList.this.mView.showMessage(R.string.message__delete_successful);
                 } catch (RemoteException e) {
                     e.printStackTrace();
-                    PresenterMedicineIntervalList.this.mView.showError(R.string.error__db_unknown_error);
+                    PresenterMedicineList.this.mView.showError(R.string.error__db_unknown_error);
                 } catch (OperationApplicationException e) {
                     e.printStackTrace();
-                    PresenterMedicineIntervalList.this.mView.showError(R.string.error__db_unknown_error);
+                    PresenterMedicineList.this.mView.showError(R.string.error__db_unknown_error);
                 }
             }
 
@@ -82,9 +82,9 @@ class PresenterMedicineIntervalList implements IPresenterMedicineIntervalList {
     @Override
     public Loader<Cursor> onCreateLoader(int pId, Bundle pArgs) {
         String[] projection = new String[0];
-        projection = TableMedicineInterval.getColumns().toArray(projection);
+        projection = TableMedicineCategory.getColumns().toArray(projection);
         CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
-                MedicineContentProvider.CONTENT_URI__MEDICINE_INTERVAL, projection, null, null, null);
+                MedicineContentProvider.CONTENT_URI__MEDICINE, projection, null, null, null);
         return cursorLoader;
     }
 
@@ -99,19 +99,13 @@ class PresenterMedicineIntervalList implements IPresenterMedicineIntervalList {
     }
 
     private void createAdapter() {
-        String[] from = new String[] {TableMedicineInterval.COLUMN_NAME__MEDICINE_INTERVAL_NAME, TableMedicineInterval.COLUMN_NAME__MEDICINE_INTERVAL_VALUE, Table.COLUMN_NAME__ID};
-        int[] to = new int[] {R.id.lblMedicineIntervalName, R.id.lblMedicineIntervalValue, R.id.chkSelect};
+        String[] from = new String[] {TableMedicine.COLUMN_NAME__MEDICINE_NAME, Table.COLUMN_NAME__ID};
+        int[] to = new int[] {R.id.lblMedicineName, R.id.chkSelect};
         this.mAdapter = new SimpleCursorAdapter(this.mView.getViewContext(),
-                R.layout.part__medicine_interval, null, from, to, 0);
+                R.layout.part__medicine, null, from, to, 0);
         this.mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View pView, Cursor pCursor, int pColumnIndex) {
-                if(pView.getId() == R.id.lblMedicineIntervalValue) {
-                    int medicineIntervalValue = pCursor.getInt(TableMedicineInterval.COLUMN_INDEX__MEDICINE_INTERVAL_VALUE);
-                    TextView textView = (TextView)pView;
-                    textView.setText(PresenterMedicineIntervalList.this.mView.getViewContext().getResources().getQuantityString(R.plurals.lbl__day, medicineIntervalValue, medicineIntervalValue));
-                    return true;
-                }
                 if (pView.getId() == R.id.chkSelect) {
                     CheckBox checkBox = (CheckBox)pView;
                     final int position = pCursor.getPosition();
@@ -119,11 +113,11 @@ class PresenterMedicineIntervalList implements IPresenterMedicineIntervalList {
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton pButtonView, boolean pIsChecked) {
-                            PresenterMedicineIntervalList.this.check(position, rowId, pIsChecked);
+                            PresenterMedicineList.this.check(position, rowId, pIsChecked);
                         }
                     });
 
-                    if (PresenterMedicineIntervalList.this.mSelectedPositions.contains(position)) {
+                    if (PresenterMedicineList.this.mSelectedPositions.contains(position)) {
                         checkBox.setChecked(true);
                     } else {
                         checkBox.setChecked(false);

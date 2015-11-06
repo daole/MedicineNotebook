@@ -24,18 +24,22 @@
     <string name="menu_item__delete">Delete</string>
 
     <string name="lbl__family_member_name">Family Member:</string>
-    <string name="lbl__medicine_category_name">Medicine Category:</string>
-    <string name="lbl__medicine_time_name">Medicine Time:</string>
-    <string name="lbl__medicine_time_value">Time Value:</string>
-    <string name="lbl__medicine_interval_name">Medicine Interval:</string>
-    <string name="lbl__medicine_interval_value">Interval Value:</string>
+    <string name="lbl__medicine_name">Medicine:</string>
+    <string name="lbl__medicine_category_name">Category:</string>
+    <string name="lbl__medicine_time_name">Time:</string>
+    <string name="lbl__medicine_time_value">Value:</string>
+    <string name="lbl__medicine_interval_name">Interval:</string>
+    <string name="lbl__medicine_interval_value">Value:</string>
+    <string name="lbl__picture">Picture:</string>
     <string name="lbl__note">Note:</string>
     <string name="lbl__empty">There is no data to show.</string>
     <string name="lbl__no_camera">Could not access the camera in your device.</string>
 
     <string name="hint__family_member_name">Mom</string>
+    <string name="hint__medicine_name">Panadol</string>
+    <string name="hint__medicine_note">Note about the medicine.</string>
     <string name="hint__medicine_category_name">Psychosomatic</string>
-    <string name="hint__medicine_category_note">Note about the category.</string>
+    <string name="hint__medicine_category_note">Note about the medicine category.</string>
     <string name="hint__medicine_time_name">Breakfast</string>
     <string name="hint__medicine_interval_name">Everyday</string>
     <string name="hint__medicine_interval_value">1</string>
@@ -43,11 +47,11 @@
     <string name="btn__add">Add</string>
     <string name="btn__edit">Edit</string>
     <string name="btn__delete">Delete</string>
+    <string name="btn__capture">Capture</string>
     <string name="btn__back">Back</string>
     <string name="btn__ok">OK</string>
     <string name="btn__no">No</string>
     <string name="btn__cancel">Cancel</string>
-    <string name="btn__capture">Capture</string>
 
     <string name="message__insert_successful">Data has been saved.</string>
     <string name="message__edit_successful">Data has been edited.</string>
@@ -72,6 +76,7 @@
     <string name="desc__navigation_drawer_open">Open navigation drawer</string>
     <string name="desc__navigation_drawer_close">Close navigation drawer</string>
     <string name="desc__captured_picture">Captured picture</string>
+    <string name="desc__medicine_picture">Medicine picture</string>
 
     <plurals name="lbl__day">
         <item quantity="one">%d day</item>

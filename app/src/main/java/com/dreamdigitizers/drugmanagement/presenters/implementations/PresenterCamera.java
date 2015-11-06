@@ -66,9 +66,6 @@ class PresenterCamera implements IPresenterCamera {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             this.mView.showError(R.string.error__image_save_failed);
-        } catch (IOException e) {
-            e.printStackTrace();
-            this.mView.showError(R.string.error__image_save_failed);
         } finally {
             if(fos != null) {
                 try {

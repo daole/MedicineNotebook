@@ -106,7 +106,7 @@ class PresenterFamilyMemberList implements IPresenterFamilyMemberList {
             @Override
             public boolean setViewValue(View pView, Cursor pCursor, int pColumnIndex) {
                 if (pView.getId() == R.id.chkSelect) {
-                    CheckBox checkBox = (CheckBox) pView;
+                    CheckBox checkBox = (CheckBox)pView;
                     final int position = pCursor.getPosition();
                     final long rowId = pCursor.getLong(Table.COLUMN_INDEX__ID);
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

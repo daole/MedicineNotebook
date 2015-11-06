@@ -31,7 +31,7 @@
             android:id="@+id/lblMedicineCategoryNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lblMedicineCategoryName"
+            android:layout_below="@id/lblMedicineCategoryName"
             android:layout_marginTop="20dp"
             android:padding="10dp"
             android:text="@string/lbl__note"/>
@@ -40,7 +40,7 @@
             android:id="@+id/txtMedicineCategoryNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/txtMedicineCategoryName"
+            android:layout_alignLeft="@id/txtMedicineCategoryName"
             android:layout_alignTop="@id/lblMedicineCategoryNote"
             android:layout_toRightOf="@id/lblMedicineCategoryNote"
             android:inputType="textMultiLine"
