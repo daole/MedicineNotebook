@@ -19,10 +19,9 @@ import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicine;
-import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineList;
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
-import com.dreamdigitizers.drugmanagement.views.IViewMedicineList;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +81,7 @@ class PresenterMedicineList implements IPresenterMedicineList {
     @Override
     public Loader<Cursor> onCreateLoader(int pId, Bundle pArgs) {
         String[] projection = new String[0];
-        projection = TableMedicineCategory.getColumns().toArray(projection);
+        projection = TableMedicine.getColumns().toArray(projection);
         CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
                 MedicineContentProvider.CONTENT_URI__MEDICINE, projection, null, null, null);
         return cursorLoader;

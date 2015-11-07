@@ -17,7 +17,7 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeAdd;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeEdit;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeList;
-import com.dreamdigitizers.drugmanagement.views.IViewMedicineList;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineList;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IView;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewCamera;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewCapturedPicturePreview;

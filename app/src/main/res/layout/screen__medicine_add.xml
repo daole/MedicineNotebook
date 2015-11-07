@@ -1,118 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal|center_vertical"
-    android:padding="20dp">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal|center_vertical"
+        android:padding="20dp">
 
-        <TextView
-            android:id="@+id/lblMedicineName"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/lbl__medicine_name"/>
+            android:gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/txtMedicineName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/lblMedicineName"
-            android:layout_toRightOf="@id/lblMedicineName"
-            android:inputType="text"
-            android:hint="@string/hint__medicine_name"/>
+            <TextView
+                android:id="@+id/lblMedicineName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/lbl__medicine_name"/>
 
-        <TextView
-            android:id="@+id/lblMedicineCategoryName"
+            <EditText
+                android:id="@+id/txtMedicineName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/lblMedicineName"
+                android:layout_toRightOf="@id/lblMedicineName"
+                android:inputType="text"
+                android:hint="@string/hint__medicine_name"/>
+
+            <TextView
+                android:id="@+id/lblMedicineCategoryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblMedicineName"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:text="@string/lbl__medicine_category_name"/>
+
+            <Spinner
+                android:id="@+id/selMedicineCategories"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/txtMedicineName"
+                android:layout_alignBaseline="@id/lblMedicineCategoryName"
+                android:layout_toRightOf="@id/lblMedicineCategoryName"/>
+
+            <TextView
+                android:id="@+id/lblMedicinePicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblMedicineCategoryName"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:text="@string/lbl__note"/>
+
+            <Button
+                android:id="@+id/btnCapture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/txtMedicineName"
+                android:layout_alignTop="@id/lblMedicinePicture"
+                android:layout_toRightOf="@id/lblMedicinePicture"
+                android:minWidth="100dp"
+                android:text="@string/btn__capture"/>
+
+            <ImageView
+                android:id="@+id/imgMedicinePicture"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_alignLeft="@id/txtMedicineName"
+                android:layout_below="@id/btnCapture"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/desc__medicine_picture"/>
+
+            <TextView
+                android:id="@+id/lblMedicineNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgMedicinePicture"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:text="@string/lbl__note"/>
+
+            <EditText
+                android:id="@+id/txtMedicineNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/txtMedicineName"
+                android:layout_alignTop="@id/lblMedicineNote"
+                android:layout_toRightOf="@id/lblMedicineNote"
+                android:inputType="textMultiLine"
+                android:hint="@string/hint__medicine_note"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lblMedicineName"
-            android:layout_marginTop="20dp"
-            android:padding="10dp"
-            android:text="@string/lbl__medicine_category_name"/>
+            android:layout_height="wrap_content">
 
-        <Spinner
-            android:id="@+id/selMedicineCategories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/txtMedicineName"
-            android:layout_alignTop="@id/lblMedicineCategoryName"
-            android:layout_toRightOf="@id/lblMedicineCategoryName"/>
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:minWidth="100dp"
+                android:text="@string/btn__back"/>
 
-        <TextView
-            android:id="@+id/lblMedicinePicture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lblMedicineCategoryName"
-            android:layout_marginTop="20dp"
-            android:padding="10dp"
-            android:text="@string/lbl__note"/>
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/btnBack"
+                android:minWidth="100dp"
+                android:text="@string/btn__add"/>
 
-        <Button
-            android:id="@+id/btnCapture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/txtMedicineName"
-            android:layout_alignTop="@id/lblMedicinePicture"
-            android:layout_toRightOf="@id/lblMedicinePicture"
-            android:minWidth="100dp"
-            android:text="@string/btn__capture"/>
+        </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/imgMedicinePicture"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_alignLeft="@id/txtMedicineName"
-            android:layout_below="@id/btnCapture"
-            android:layout_marginTop="10dp"
-            android:contentDescription="@string/desc__medicine_picture"/>
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/lblMedicineNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imgMedicinePicture"
-            android:layout_marginTop="20dp"
-            android:padding="10dp"
-            android:text="@string/lbl__note"/>
-
-        <EditText
-            android:id="@+id/txtMedicineNote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/txtMedicineName"
-            android:layout_alignTop="@id/lblMedicineNote"
-            android:layout_toRightOf="@id/lblMedicineNote"
-            android:inputType="textMultiLine"
-            android:hint="@string/hint__medicine_note"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:minWidth="100dp"
-            android:text="@string/btn__back"/>
-
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnBack"
-            android:minWidth="100dp"
-            android:text="@string/btn__add"/>
-
-    </RelativeLayout>
-
-</LinearLayout>
+</ScrollView>

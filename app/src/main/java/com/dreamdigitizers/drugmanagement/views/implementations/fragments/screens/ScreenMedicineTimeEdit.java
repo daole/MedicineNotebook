@@ -34,7 +34,7 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
 
     @Override
     public boolean onBackPressed() {
-        this.mScreenActionsListener.onBack();
+        this.buttonBackClick();
         return true;
     }
 
@@ -104,15 +104,13 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
         return R.string.title__screen_medicine_time_edit;
     }
 
-
-
     @Override
     public void bindData(MedicineTime pModel) {
         this.mTxtMedicineTimeName.setText(pModel.getMedicineTimeName());
         this.mAdapter.addItems(pModel.getMedicineTimeValues());
     }
 
-    public void buttonAddTimeValueClick() {
+    private void buttonAddTimeValueClick() {
         DialogUtils.displayTimePickerDialog(this.getActivity(), this.getString(R.string.btn__cancel), true, new DialogUtils.IOnTimePickerDialogEventListener() {
             @Override
             public void onTimeSet(int pHourOfDay, int pMinute, Activity pActivity, String pCancelButtonText, boolean pIs24HourView) {
@@ -129,13 +127,13 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
         });
     }
 
-    public void buttonEditClick() {
+    private void buttonEditClick() {
         String medicineTimeName = this.mTxtMedicineTimeName.getText().toString().trim();
         List<String> medicineTimeValues = this.mAdapter.getData();
         this.mPresenter.edit(this.mRowId, medicineTimeName, medicineTimeValues);
     }
 
-    public void buttonBackClick() {
+    private void buttonBackClick() {
         this.mScreenActionsListener.onBack();
     }
 }

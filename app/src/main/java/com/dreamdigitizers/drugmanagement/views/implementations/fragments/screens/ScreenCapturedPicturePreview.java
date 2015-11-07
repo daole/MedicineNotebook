@@ -14,7 +14,6 @@ import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterCapturedPicturePreview;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
-import com.dreamdigitizers.drugmanagement.utils.FileUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewCapturedPicturePreview;
 
 public class ScreenCapturedPicturePreview extends Screen implements IViewCapturedPicturePreview {
@@ -25,6 +24,12 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
     private String mCapturedPictureFilePath;
 
     private IPresenterCapturedPicturePreview mPresenter;
+
+    @Override
+    public boolean onBackPressed() {
+        this.buttonBackClick();
+        return true;
+    }
 
     @Override
     public void onSaveInstanceState(Bundle pOutState) {
@@ -61,11 +66,7 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
             @SuppressWarnings("deprecation")
             @Override
             public void onGlobalLayout() {
-                ScreenCapturedPicturePreview.this.mImgCapturedPicture.setImageBitmap(
-                        FileUtils.decodeSampledBitmapFromFile(
-                                ScreenCapturedPicturePreview.this.mCapturedPictureFilePath,
-                                ScreenCapturedPicturePreview.this.mImgCapturedPicture.getWidth(),
-                                ScreenCapturedPicturePreview.this.mImgCapturedPicture.getHeight()));
+                ScreenCapturedPicturePreview.this.loadCapturedPicture();
                 ScreenCapturedPicturePreview.this.getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         });
@@ -92,14 +93,22 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
         return 0;
     }
 
-    public void buttonOKClick() {
+    private void buttonOKClick() {
         Intent data = new Intent();
         data.putExtra(Constants.BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH, this.mCapturedPictureFilePath);
         this.mScreenActionsListener.returnActivityResult(Activity.RESULT_OK, data);
     }
 
-    public void buttonBackClick() {
-        this.mPresenter.deleteFile(this.mCapturedPictureFilePath);
+    private void buttonBackClick() {
+        this.mPresenter.deleteImage(this.mCapturedPictureFilePath);
         this.mScreenActionsListener.onBack();
+    }
+
+    private void loadCapturedPicture() {
+        this.mImgCapturedPicture.setImageBitmap(
+                this.mPresenter.loadImage(
+                        this.mCapturedPictureFilePath,
+                        this.mImgCapturedPicture.getWidth(),
+                        this.mImgCapturedPicture.getHeight()));
     }
 }

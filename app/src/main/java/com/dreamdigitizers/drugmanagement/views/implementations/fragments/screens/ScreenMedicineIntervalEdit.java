@@ -28,7 +28,7 @@ public class ScreenMedicineIntervalEdit extends Screen implements IViewMedicineI
 
     @Override
     public boolean onBackPressed() {
-        this.mScreenActionsListener.onBack();
+        this.buttonBackClick();
         return true;
     }
 
@@ -103,13 +103,13 @@ public class ScreenMedicineIntervalEdit extends Screen implements IViewMedicineI
         this.mTxtMedicineIntervalValue.setText(Integer.toString(pModel.getMedicineIntervalValue()));
     }
 
-    public void buttonEditClick() {
+    private void buttonEditClick() {
         String medicineCategoryName = this.mTxtMedicineIntervalName.getText().toString().trim();
         String medicineCategoryNote = this.mTxtMedicineIntervalValue.getText().toString().trim();
         this.mPresenter.edit(this.mRowId, medicineCategoryName, medicineCategoryNote);
     }
 
-    public void buttonBackClick() {
+    private void buttonBackClick() {
         this.mScreenActionsListener.onBack();
     }
 }

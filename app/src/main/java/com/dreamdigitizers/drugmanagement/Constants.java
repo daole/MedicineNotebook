@@ -14,6 +14,10 @@ public class Constants {
 
     public static final String BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH = "captured_picture";
 
+    public static final int ROW_ID__NO_SELECT = 0;
+
+    public static final int REQUEST_CODE__CAMERA = 0;
+
     public static final int ORIENTATION_THRESHOLD = 45;
     public static final int ORIENTATION__UNDEFINED = -1;
     public static final int ORIENTATION__PORTRAIT = 0;

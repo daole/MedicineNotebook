@@ -1,4 +1,4 @@
-package com.dreamdigitizers.drugmanagement.views;
+package com.dreamdigitizers.drugmanagement.views.abstracts;
 
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewList;
 

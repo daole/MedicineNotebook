@@ -27,7 +27,7 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
 
     @Override
     public boolean onBackPressed() {
-        this.mScreenActionsListener.onBack();
+        this.buttonBackClick();
         return true;
     }
 
@@ -100,12 +100,12 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
         this.mTxtFamilyMemberName.setText(pModel.getFamilyMemberName());
     }
 
-    public void buttonEditClick() {
+    private void buttonEditClick() {
         String familyMemberName = this.mTxtFamilyMemberName.getText().toString().trim();
         this.mPresenter.edit(this.mRowId, familyMemberName);
     }
 
-    public void buttonBackClick() {
+    private void buttonBackClick() {
         this.mScreenActionsListener.onBack();
     }
 }

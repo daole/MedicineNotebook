@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineList;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
-import com.dreamdigitizers.drugmanagement.views.IViewMedicineList;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineList;
 
 public class ScreenMedicineList extends Screen implements IViewMedicineList {
     private ListView mListView;

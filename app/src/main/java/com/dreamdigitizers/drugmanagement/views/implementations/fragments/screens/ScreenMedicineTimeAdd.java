@@ -31,7 +31,7 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
 
     @Override
     public boolean onBackPressed() {
-        this.mScreenActionsListener.onBack();
+        this.buttonBackClick();
         return true;
     }
 
@@ -90,7 +90,7 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
         this.mAdapter.clearItem();
     }
 
-    public void buttonAddTimeValueClick() {
+    private void buttonAddTimeValueClick() {
         DialogUtils.displayTimePickerDialog(this.getActivity(), this.getString(R.string.btn__cancel), true, new DialogUtils.IOnTimePickerDialogEventListener() {
             @Override
             public void onTimeSet(int pHourOfDay, int pMinute, Activity pActivity, String pCancelButtonText, boolean pIs24HourView) {
@@ -107,13 +107,13 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
         });
     }
 
-    public void buttonAddClick() {
+    private void buttonAddClick() {
         String medicineTimeName = this.mTxtMedicineTimeName.getText().toString().trim();
         List<String> medicineTimeValues = this.mAdapter.getData();
         this.mPresenter.insert(medicineTimeName, medicineTimeValues);
     }
 
-    public void buttonBackClick() {
+    private void buttonBackClick() {
         this.mScreenActionsListener.onBack();
     }
 }

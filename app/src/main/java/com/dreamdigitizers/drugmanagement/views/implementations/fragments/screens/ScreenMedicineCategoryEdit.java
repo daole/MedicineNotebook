@@ -28,7 +28,7 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
 
     @Override
     public boolean onBackPressed() {
-        this.mScreenActionsListener.onBack();
+        this.buttonBackClick();
         return true;
     }
 
@@ -103,13 +103,13 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
         this.mTxtMedicineCategoryNote.setText(pModel.getMedicineCategoryNote());
     }
 
-    public void buttonEditClick() {
+    private void buttonEditClick() {
         String medicineCategoryName = this.mTxtMedicineCategoryName.getText().toString().trim();
         String medicineCategoryNote = this.mTxtMedicineCategoryNote.getText().toString().trim();
         this.mPresenter.edit(this.mRowId, medicineCategoryName, medicineCategoryNote);
     }
 
-    public void buttonBackClick() {
+    private void buttonBackClick() {
         this.mScreenActionsListener.onBack();
     }
 }
