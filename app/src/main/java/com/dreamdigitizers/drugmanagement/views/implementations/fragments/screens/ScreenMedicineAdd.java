@@ -2,6 +2,7 @@ package com.dreamdigitizers.drugmanagement.views.implementations.fragments.scree
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,9 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineAdd;
 import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityCamera;
 
 public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
+    private static final String BUNDLE_KEY__MEDICINE_CATEGORY_ID = "category_id";
+    private static final String BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH = "medicine_picture";
+
     private EditText mTxtMedicineName;
     private Spinner mSelMedicineCategories;
     private Button mBtnCapture;
@@ -41,6 +45,19 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle pOutState) {
+        super.onSaveInstanceState(pOutState);
+        pOutState.putLong(ScreenMedicineAdd.BUNDLE_KEY__MEDICINE_CATEGORY_ID, this.mMedicineCategoryId);
+        pOutState.putString(ScreenMedicineAdd.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH, this.mMedicinePictureFilePath);
+    }
+
+    @Override
+    protected void recoverInstanceState(Bundle pSavedInstanceState) {
+        this.mMedicineCategoryId = pSavedInstanceState.getLong(ScreenMedicineAdd.BUNDLE_KEY__MEDICINE_CATEGORY_ID);
+        this.mMedicinePictureFilePath = pSavedInstanceState.getString(ScreenMedicineAdd.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH);
+    }
+
+    @Override
     public void onActivityResult (int pRequestCode, int pResultCode, Intent pData) {
         if(pRequestCode == Constants.REQUEST_CODE__CAMERA) {
             if(pResultCode == Activity.RESULT_OK) {
@@ -48,6 +65,14 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
                 this.mMedicinePictureFilePath = pData.getExtras().getString(Constants.BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH);
                 this.loadMedicinePicture();
             }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(!this.mIsRecoverable) {
+            this.mPresenter.deleteImage(this.mMedicinePictureFilePath);
         }
     }
 
@@ -113,7 +138,10 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
 
     @Override
     public void clearInput() {
-
+        this.mTxtMedicineName.setText("");
+        this.mImgMedicinePicture.setImageBitmap(null);
+        this.mSelMedicineCategories.setSelection(0);
+        this.mTxtMedicineNote.setText("");
     }
 
     @Override
@@ -136,7 +164,9 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
     }
 
     private void buttonAddClick() {
-
+        String medicineName = this.mTxtMedicineName.getText().toString().trim();
+        String medicineNote = this.mTxtMedicineNote.getText().toString().trim();
+        this.mPresenter.insert(medicineName, this.mMedicineCategoryId, this.mMedicinePictureFilePath, medicineNote);
     }
 
     private void buttonBackClick() {

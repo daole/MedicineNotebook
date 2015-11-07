@@ -20,6 +20,7 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
     private ImageView mImgCapturedPicture;
     private Button mBtnOK;
     private Button mBtnBack;
+    private View mCovBottom;
 
     private String mCapturedPictureFilePath;
 
@@ -48,6 +49,14 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(!this.mIsRecoverable) {
+            this.mPresenter.deleteImage(this.mCapturedPictureFilePath);
+        }
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__captured_picture_preview, pContainer, false);
         return rootView;
@@ -58,6 +67,7 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
         this.mImgCapturedPicture = (ImageView)pView.findViewById(R.id.imgCapturedPicture);
         this.mBtnOK = (Button)pView.findViewById(R.id.btnOK);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
+        this.mCovBottom = pView.findViewById(R.id.covBottom);
     }
 
     @Override
@@ -67,6 +77,7 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
             @Override
             public void onGlobalLayout() {
                 ScreenCapturedPicturePreview.this.loadCapturedPicture();
+                ScreenCapturedPicturePreview.this.resizeCoverBottom();
                 ScreenCapturedPicturePreview.this.getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         });
@@ -110,5 +121,13 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
                         this.mCapturedPictureFilePath,
                         this.mImgCapturedPicture.getWidth(),
                         this.mImgCapturedPicture.getHeight()));
+    }
+
+    private void resizeCoverBottom() {
+        int coverHeight = (this.getView().getHeight() - this.getView().getWidth()) / 2;
+
+        ViewGroup.LayoutParams params = this.mCovBottom.getLayoutParams();
+        params.height = coverHeight;
+        this.mCovBottom.setLayoutParams(params);
     }
 }

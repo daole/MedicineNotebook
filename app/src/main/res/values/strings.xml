@@ -61,6 +61,7 @@
     <string name="confirmation__delete_data">Are you sure you want to delete the selected data?.</string>
 
     <string name="error__blank_family_member_name">Please enter your family member.</string>
+    <string name="error__blank_medicine_name">Please enter medicine.</string>
     <string name="error__blank_medicine_category_name">Please enter medicine category.</string>
     <string name="error__blank_medicine_time_name">Please enter medicine time.</string>
     <string name="error__blank_medicine_time_value">Please enter time value.</string>

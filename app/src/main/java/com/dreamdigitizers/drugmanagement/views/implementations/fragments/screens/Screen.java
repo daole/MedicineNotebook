@@ -2,6 +2,7 @@ package com.dreamdigitizers.drugmanagement.views.implementations.fragments.scree
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -17,7 +18,14 @@ public abstract class Screen extends FragmentBase implements IView {
 
 	private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IOnScreenActionsListener.";
 
+	protected boolean mIsRecoverable;
+
 	protected IOnScreenActionsListener mScreenActionsListener;
+
+	public void onSaveInstanceState(Bundle pOutState) {
+		super.onSaveInstanceState(pOutState);
+		this.mIsRecoverable = true;
+	}
 
 	@Override
 	public void onAttach(Context pContext) {

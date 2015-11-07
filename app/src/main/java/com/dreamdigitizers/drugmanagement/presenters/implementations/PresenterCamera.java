@@ -46,9 +46,7 @@ class PresenterCamera implements IPresenterCamera {
             Bitmap bitmap = BitmapFactory.decodeByteArray(pData, 0, pData.length, options);
 
             Bitmap rotatedBitmap = bitmap;
-            if(pDegrees > 0) {
-                rotatedBitmap = this.rotate(bitmap, pDegrees);
-            }
+            rotatedBitmap = this.rotateAndCropBitmap(bitmap, pDegrees);
 
             boolean result = rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 
@@ -77,9 +75,15 @@ class PresenterCamera implements IPresenterCamera {
         }
     }
 
-    private Bitmap rotate(Bitmap pBitmap, int pDegrees) {
+    private Bitmap rotateAndCropBitmap(Bitmap pBitmap, int pDegrees) {
         Matrix matrix = new Matrix();
         matrix.postRotate(pDegrees);
-        return Bitmap.createBitmap(pBitmap, 0, 0, pBitmap.getWidth(), pBitmap.getHeight(), matrix, true);
+        int width = pBitmap.getWidth();
+        int height = pBitmap.getHeight();
+        if (width >= height) {
+            return Bitmap.createBitmap(pBitmap, (width - height) / 2, 0, pBitmap.getHeight(), pBitmap.getHeight(), matrix, true);
+        } else {
+            return Bitmap.createBitmap(pBitmap, 0, (height - width) / 2, pBitmap.getWidth(), pBitmap.getWidth(), matrix, true);
+        }
     }
 }

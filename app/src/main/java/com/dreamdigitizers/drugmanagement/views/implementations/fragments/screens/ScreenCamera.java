@@ -11,6 +11,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -31,6 +32,8 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
     private FrameLayout mFrmCameraPreview;
     private Button mBtnCapture;
     private TextView mLblNoCamera;
+    private View mCovTop;
+    private View mCovBottom;
     private CameraPreviewView mCameraPreviewView;
 
     private Camera mCamera;
@@ -80,6 +83,8 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
         this.mFrmCameraPreview = (FrameLayout)pView.findViewById(R.id.frmCameraPreview);
         this.mBtnCapture = (Button)pView.findViewById(R.id.btnCapture);
         this.mLblNoCamera = (TextView)pView.findViewById(R.id.lblNoCamera);
+        this.mCovTop = pView.findViewById(R.id.covTop);
+        this.mCovBottom = pView.findViewById(R.id.covBottom);
     }
 
     @Override
@@ -91,6 +96,15 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
             @Override
             public void onClick(View pView) {
                 ScreenCamera.this.buttonCaptureClick();
+            }
+        });
+
+        pView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onGlobalLayout() {
+                ScreenCamera.this.cropCameraPreview();
+                ScreenCamera.this.getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         });
 
@@ -194,6 +208,18 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
         }
 
         return  degrees;
+    }
+
+    private void cropCameraPreview() {
+        int coverHeight = (this.getView().getHeight() - this.getView().getWidth()) / 2;
+
+        ViewGroup.LayoutParams params = this.mCovTop.getLayoutParams();
+        params.height = coverHeight;
+        this.mCovTop.setLayoutParams(params);
+
+        params = this.mCovBottom.getLayoutParams();
+        params.height = coverHeight;
+        this.mCovBottom.setLayoutParams(params);
     }
 
     private static class CameraPreviewView extends SurfaceView implements SurfaceHolder.Callback {

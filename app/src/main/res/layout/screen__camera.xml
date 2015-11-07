@@ -8,16 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <Button
-        android:id="@+id/btnCapture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:minWidth="100dp"
-        android:text="@string/btn__capture"/>
-
     <TextView
         android:id="@+id/lblNoCamera"
         android:layout_width="wrap_content"
@@ -25,5 +15,31 @@
         android:layout_centerInParent="true"
         android:visibility="gone"
         android:text="@string/lbl__no_camera"/>
+
+    <RelativeLayout
+        android:id="@+id/covTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#ff000000">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/covBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ff000000">
+
+        <Button
+            android:id="@+id/btnCapture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:minWidth="100dp"
+            android:text="@string/btn__capture"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>
