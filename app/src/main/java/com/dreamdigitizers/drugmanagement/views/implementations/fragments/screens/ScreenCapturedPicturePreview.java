@@ -52,7 +52,7 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
     public void onDestroy() {
         super.onDestroy();
         if(!this.mIsRecoverable) {
-            this.mPresenter.deleteImage(this.mCapturedPictureFilePath);
+            this.deleteCapturedPicture();
         }
     }
 
@@ -105,14 +105,19 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
     }
 
     private void buttonOKClick() {
+        this.mIsRecoverable = true;
         Intent data = new Intent();
         data.putExtra(Constants.BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH, this.mCapturedPictureFilePath);
         this.mScreenActionsListener.returnActivityResult(Activity.RESULT_OK, data);
     }
 
     private void buttonBackClick() {
-        this.mPresenter.deleteImage(this.mCapturedPictureFilePath);
+        this.deleteCapturedPicture();
         this.mScreenActionsListener.onBack();
+    }
+
+    private void deleteCapturedPicture() {
+        this.mPresenter.deleteImage(this.mCapturedPictureFilePath);
     }
 
     private void loadCapturedPicture() {

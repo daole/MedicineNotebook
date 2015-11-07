@@ -105,8 +105,8 @@ public class ScreenMedicineList extends Screen implements IViewMedicineList {
     private void goToEditScreen(long pRowId) {
         Bundle arguments = new Bundle();
         arguments.putLong(Screen.BUNDLE_KEY__ROW_ID, pRowId);
-        //Screen screen = new ScreenMedicineCategoryEdit();
-        //screen.setArguments(arguments);
-        //this.mScreenActionsListener.onChangeScreen(screen);
+        Screen screen = new ScreenMedicineEdit();
+        screen.setArguments(arguments);
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 }
