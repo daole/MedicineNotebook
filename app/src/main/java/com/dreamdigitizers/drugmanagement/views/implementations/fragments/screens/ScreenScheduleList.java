@@ -1,6 +1,5 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.view.LayoutInflater;
@@ -10,15 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
-import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityCamera;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleList;
 
-public class ScreenSchedule extends Screen {
+public class ScreenScheduleList extends Screen implements IViewScheduleList {
     private ListView mListView;
     private TextView mLblEmpty;
 
@@ -56,7 +54,7 @@ public class ScreenSchedule extends Screen {
         this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
-                ScreenSchedule.this.listItemClick(pRowId);
+                ScreenScheduleList.this.listItemClick(pRowId);
             }
         });
     }
@@ -68,7 +66,7 @@ public class ScreenSchedule extends Screen {
 
     @Override
     protected int getTitle() {
-        return R.string.title__screen_schedule;
+        return R.string.title__screen_schedule_list;
     }
 
     //@Override
@@ -94,8 +92,8 @@ public class ScreenSchedule extends Screen {
     }
 
     private void goToAddScreen() {
-        //Screen screen = new ScreenMedicineAdd();
-        //this.mScreenActionsListener.onChangeScreen(screen);
+        Screen screen = new ScreenScheduleAdd();
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 
     private void goToEditScreen(long pRowId) {

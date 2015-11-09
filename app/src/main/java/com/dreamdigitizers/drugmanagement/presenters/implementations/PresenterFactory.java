@@ -18,6 +18,8 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeAdd;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeEdit;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeList;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleAdd;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleList;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineEdit;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineList;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IView;
@@ -36,6 +38,8 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineIntervalL
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeAdd;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeEdit;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeList;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleAdd;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleList;
 
 public class PresenterFactory {
     public static IPresenter createPresenter(Class pClass, IView pView) {
@@ -44,6 +48,13 @@ public class PresenterFactory {
         }
         if(pClass == IPresenterCapturedPicturePreview.class) {
             return new PresenterCapturedPicturePreview((IViewCapturedPicturePreview)pView);
+        }
+
+        if(pClass == IPresenterScheduleList.class) {
+            return new PresenterScheduleList((IViewScheduleList)pView);
+        }
+        if(pClass == IPresenterScheduleAdd.class) {
+            return new PresenterScheduleAdd((IViewScheduleAdd)pView);
         }
 
         if(pClass == IPresenterFamilyMemberList.class) {

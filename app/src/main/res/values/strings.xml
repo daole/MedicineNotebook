@@ -3,7 +3,8 @@
     <string name="title__menu">Menu</string>
     <string name="title__dialog">Message</string>
     <string name="title__error_dialog">Error</string>
-    <string name="title__screen_schedule">Schedule</string>
+    <string name="title__screen_schedule_list">Schedule</string>
+    <string name="title__screen_schedule_add">Add Schedule</string>
     <string name="title__screen_family_member_list">Family Members</string>
     <string name="title__screen_family_member_add">Add Family Member</string>
     <string name="title__screen_family_member_edit">Edit Family Member</string>
@@ -48,6 +49,7 @@
     <string name="btn__add">Add</string>
     <string name="btn__edit">Edit</string>
     <string name="btn__delete">Delete</string>
+    <string name="btn__select">Select</string>
     <string name="btn__capture">Capture</string>
     <string name="btn__back">Back</string>
     <string name="btn__ok">OK</string>

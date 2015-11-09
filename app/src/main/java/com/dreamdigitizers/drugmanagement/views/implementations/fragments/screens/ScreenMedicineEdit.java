@@ -184,10 +184,7 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
 
     @Override
     public void onDataEdited() {
-        if(!this.mMedicinePictureFilePath.equals(this.mOldMedicinePictureFilePath)) {
-            this.mPresenter.deleteImage(this.mOldMedicinePictureFilePath);
-            this.mOldMedicinePictureFilePath = this.mMedicinePictureFilePath;
-        }
+        this.deleteOldMedicinePicture();
     }
 
     private void buttonCaptureClick() {
@@ -218,6 +215,13 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
                 this.mSelMedicineCategories.setSelection(i);
                 break;
             }
+        }
+    }
+
+    private void deleteOldMedicinePicture() {
+        if(!this.mMedicinePictureFilePath.equals(this.mOldMedicinePictureFilePath)) {
+            this.mPresenter.deleteImage(this.mOldMedicinePictureFilePath);
+            this.mOldMedicinePictureFilePath = this.mMedicinePictureFilePath;
         }
     }
 

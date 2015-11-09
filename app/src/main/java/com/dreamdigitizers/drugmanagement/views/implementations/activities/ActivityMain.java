@@ -17,7 +17,7 @@ import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screen
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenMedicineIntervalList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenMedicineList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenMedicineTimeList;
-import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenSchedule;
+import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenScheduleList;
 
 public class ActivityMain extends ActivityBase implements INavigationDrawerItemSelectListener {
     private FragmentNavigationDrawer mNavigationDrawerFragment;
@@ -74,7 +74,7 @@ public class ActivityMain extends ActivityBase implements INavigationDrawerItemS
             }
 
             this.mNavigationDrawerFragment.setItemChecked(Constants.NAVIGATION_DRAWER_ITEM_ID__SCHEDULE);
-            this.changeScreen(new ScreenSchedule());
+            this.changeScreen(new ScreenScheduleList());
         }
     }
 
@@ -89,8 +89,8 @@ public class ActivityMain extends ActivityBase implements INavigationDrawerItemS
         Screen screen = null;
         switch (pPosition) {
             case Constants.NAVIGATION_DRAWER_ITEM_ID__SCHEDULE:
-                if(!(this.mCurrentScreen instanceof ScreenSchedule)) {
-                    screen = new ScreenSchedule();
+                if(!(this.mCurrentScreen instanceof ScreenScheduleList)) {
+                    screen = new ScreenScheduleList();
                 }
                 break;
             case Constants.NAVIGATION_DRAWER_ITEM_ID__FAMILY:
