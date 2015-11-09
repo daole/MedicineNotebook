@@ -4,38 +4,240 @@
     android:layout_height="match_parent"
     android:padding="10dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/lblFamilyMember"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
-            android:text="@string/lbl__family_member_name"/>
-
-        <TextView
-            android:id="@+id/lblFamilyMemberName"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/btnSelectFamily"
-            android:layout_toRightOf="@id/lblFamilyMember"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"/>
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@id/btnSelectFamily"
+            <TextView
+                android:id="@+id/lblFamilyMember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="@string/lbl__family_member_name"/>
+
+            <Spinner
+                android:id="@+id/selFamilyMembers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/btnSelectFamilyMember"
+                android:layout_toRightOf="@id/lblFamilyMember"/>
+
+            <Button
+                android:id="@id/btnSelectFamilyMember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:minWidth="100dp"
+                android:text="@string/btn__select"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblMedicine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="@string/lbl__medicine_name"/>
+
+            <Button
+                android:id="@+id/btnSelectMedicine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblMedicine"
+                android:minWidth="100dp"
+                android:text="@string/btn__select"/>
+
+            <ListView
+                android:id="@+id/lstMedicines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/btnSelectMedicine"
+                android:layout_toRightOf="@id/lblMedicine"
+                android:layout_alignTop="@id/lblMedicine"/>
+
+            <!--
+            <Button
+                android:id="@id/btnSelectMedicine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/lblMedicine"
+                android:minWidth="100dp"
+                android:text="@string/btn__select"/>-->
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblMedicineTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="@string/lbl__medicine_time_name"/>
+
+            <Spinner
+                android:id="@+id/selMedicineTimes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/btnSelectMedicineTime"
+                android:layout_toRightOf="@id/lblMedicineTime"/>
+
+            <Button
+                android:id="@id/btnSelectMedicineTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:minWidth="100dp"
+                android:text="@string/btn__select"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblMedicineInterval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="@string/lbl__medicine_interval_name"/>
+
+            <Spinner
+                android:id="@+id/selMedicineTimeIntervals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/btnSelectMedicineInterval"
+                android:layout_toRightOf="@id/lblMedicineInterval"/>
+
+            <Button
+                android:id="@id/btnSelectMedicineInterval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:minWidth="100dp"
+                android:text="@string/btn__select"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:text="@string/lbl__alarm"/>
+
+            <Switch
+                android:id="@+id/swiAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:minWidth="100dp"
+                android:text=""
+                android:textOn="@string/lbl__on"
+                android:textOff="@string/lbl__off"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblAlarmTimes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/lbl__alarm_times"/>
+
+            <EditText
+                android:id="@+id/txtAlarmTimes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:minWidth="100dp"
+                android:maxLength="2"
+                android:gravity="right"
+                android:textAlignment="gravity"
+                android:inputType="number"
+                android:hint="@string/hint__alarm_times"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblScheduleNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/lbl__note"/>
+
+            <EditText
+                android:id="@+id/txtScheduleNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/lblScheduleNote"
+                android:layout_alignTop="@id/lblScheduleNote"
+                android:inputType="textMultiLine"
+                android:hint="@string/hint__schedule_note"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:minWidth="100dp"
-            android:text="@string/btn__select"/>
+            android:layout_gravity="center_horizontal">
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:minWidth="100dp"
+                android:text="@string/btn__back"/>
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/btnBack"
+                android:minWidth="100dp"
+                android:text="@string/btn__add"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </ScrollView>

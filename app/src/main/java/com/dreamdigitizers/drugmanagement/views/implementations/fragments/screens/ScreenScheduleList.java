@@ -43,7 +43,7 @@ public class ScreenScheduleList extends Screen implements IViewScheduleList {
 
     @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
-        View rootView = pInflater.inflate(R.layout.screen__schedule, pContainer, false);
+        View rootView = pInflater.inflate(R.layout.screen__schedule_list, pContainer, false);
         return rootView;
     }
 

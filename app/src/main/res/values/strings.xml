@@ -24,7 +24,7 @@
     <string name="menu_item__add">Add</string>
     <string name="menu_item__delete">Delete</string>
 
-    <string name="lbl__family_member_name">Family Member:</string>
+    <string name="lbl__family_member_name">Family:</string>
     <string name="lbl__medicine_name">Medicine:</string>
     <string name="lbl__medicine_category_name">Category:</string>
     <string name="lbl__medicine_time_name">Time:</string>
@@ -33,9 +33,13 @@
     <string name="lbl__medicine_interval_value">Value:</string>
     <string name="lbl__picture">Picture:</string>
     <string name="lbl__note">Note:</string>
+    <string name="lbl__alarm">Alarm:</string>
+    <string name="lbl__alarm_times">Alarm Times:</string>
+    <string name="lbl__select">Select</string>
+    <string name="lbl__on">On</string>
+    <string name="lbl__off">Off</string>
     <string name="lbl__empty">There is no data to show.</string>
     <string name="lbl__no_camera">Could not access the camera in your device.</string>
-    <string name="lbl__select">Select</string>
 
     <string name="hint__family_member_name">Mom</string>
     <string name="hint__medicine_name">Panadol</string>
@@ -45,6 +49,8 @@
     <string name="hint__medicine_time_name">Breakfast</string>
     <string name="hint__medicine_interval_name">Everyday</string>
     <string name="hint__medicine_interval_value">1</string>
+    <string name="hint__alarm_times">1</string>
+    <string name="hint__schedule_note">Note about the schedule.</string>
 
     <string name="btn__add">Add</string>
     <string name="btn__edit">Edit</string>
