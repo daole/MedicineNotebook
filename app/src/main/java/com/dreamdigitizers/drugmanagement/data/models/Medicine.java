@@ -50,19 +50,7 @@ public class Medicine extends Model {
         List<Medicine> list = new ArrayList<>();
         if (pCursor != null && pCursor.moveToFirst()) {
             do {
-                long rowId = pCursor.getLong(Table.COLUMN_INDEX__ID);
-                String medicineName = pCursor.getString(TableMedicine.COLUMN_INDEX__MEDICINE_NAME);
-                long medicineCategoryId = pCursor.getLong(TableMedicine.COLUMN_INDEX__MEDICINE_CATEGORY_ID);
-                String medicineImagePath = pCursor.getString(TableMedicine.COLUMN_INDEX__MEDICINE_IMAGE_PATH);
-                String medicineNote = pCursor.getString(TableMedicine.COLUMN_INDEX__MEDICINE_NOTE);
-
-                Medicine model = new Medicine();
-                model.setId(rowId);
-                model.setMedicineName(medicineName);
-                model.setMedicineCategoryId(medicineCategoryId);
-                model.setMedicineImagePath(medicineImagePath);
-                model.setMedicineNote(medicineNote);
-
+                Medicine model = Medicine.fetchDataAtCurrentPosition(pCursor);
                 list.add(model);
             } while (pCursor.moveToNext());
         }
@@ -71,23 +59,23 @@ public class Medicine extends Model {
     }
 
     public static Medicine fetchDataAtCurrentPosition(Cursor pCursor) {
-        Medicine medicine = null;
+        Medicine model = null;
 
         if(pCursor != null) {
-            long id = pCursor.getLong((Table.COLUMN_INDEX__ID));
+            long rowId = pCursor.getLong((Table.COLUMN_INDEX__ID));
             long medicineCategoryId = pCursor.getLong(TableMedicine.COLUMN_INDEX__MEDICINE_CATEGORY_ID);
             String medicineName = pCursor.getString(TableMedicine.COLUMN_INDEX__MEDICINE_NAME);
             String medicineImagePath = pCursor.getString(TableMedicine.COLUMN_INDEX__MEDICINE_IMAGE_PATH);
             String medicineNote = pCursor.getString(TableMedicine.COLUMN_INDEX__MEDICINE_NOTE);
 
-            medicine = new Medicine();
-            medicine.setId(id);
-            medicine.setMedicineCategoryId(medicineCategoryId);
-            medicine.setMedicineName(medicineName);
-            medicine.setMedicineImagePath(medicineImagePath);
-            medicine.setMedicineNote(medicineNote);
+            model = new Medicine();
+            model.setRowId(rowId);
+            model.setMedicineCategoryId(medicineCategoryId);
+            model.setMedicineName(medicineName);
+            model.setMedicineImagePath(medicineImagePath);
+            model.setMedicineNote(medicineNote);
         }
 
-        return  medicine;
+        return  model;
     }
 }

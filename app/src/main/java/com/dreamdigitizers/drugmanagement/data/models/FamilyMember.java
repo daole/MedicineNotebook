@@ -23,17 +23,26 @@ public class FamilyMember extends Model {
         List<FamilyMember> list = new ArrayList<>();
         if (pCursor != null && pCursor.moveToFirst()) {
             do {
-                long rowId = pCursor.getLong(Table.COLUMN_INDEX__ID);
-                String familyMemberName = pCursor.getString(TableFamilyMember.COLUMN_INDEX__FAMILY_MEMBER_NAME);
-
-                FamilyMember model = new FamilyMember();
-                model.setId(rowId);
-                model.setFamilyMemberName(familyMemberName);
-
+                FamilyMember model = FamilyMember.fetchDataAtCurrentPosition(pCursor);
                 list.add(model);
             } while (pCursor.moveToNext());
         }
 
         return list;
+    }
+
+    public static FamilyMember fetchDataAtCurrentPosition(Cursor pCursor) {
+        FamilyMember model = null;
+
+        if(pCursor != null) {
+            long rowId = pCursor.getLong((Table.COLUMN_INDEX__ID));
+            String familyMemberName = pCursor.getString(TableFamilyMember.COLUMN_INDEX__FAMILY_MEMBER_NAME);
+
+            model = new FamilyMember();
+            model.setRowId(rowId);
+            model.setFamilyMemberName(familyMemberName);
+        }
+
+        return  model;
     }
 }

@@ -33,20 +33,29 @@ public class MedicineTime extends Model {
         List<MedicineTime> list = new ArrayList<>();
         if (pCursor != null && pCursor.moveToFirst()) {
             do {
-                long rowId = pCursor.getLong(Table.COLUMN_INDEX__ID);
-                String medicineTimeName = pCursor.getString(TableMedicineTime.COLUMN_INDEX__MEDICINE_TIME_NAME);
-                String medicineTimeValue = pCursor.getString(TableMedicineTime.COLUMN_INDEX__MEDICINE_TIME_VALUE);
-                String[] medicineTimeValues = medicineTimeValue.split(Constants.DELIMITER__DATA);
-
-                MedicineTime model = new MedicineTime();
-                model.setId(rowId);
-                model.setMedicineTimeName(medicineTimeName);
-                model.setMedicineTimeValues(medicineTimeValues);
-
+                MedicineTime model = MedicineTime.fetchDataAtCurrentPosition(pCursor);
                 list.add(model);
             } while (pCursor.moveToNext());
         }
 
         return list;
+    }
+
+    public static MedicineTime fetchDataAtCurrentPosition(Cursor pCursor) {
+        MedicineTime model = null;
+
+        if(pCursor != null) {
+            long rowId = pCursor.getLong((Table.COLUMN_INDEX__ID));
+            String medicineTimeName = pCursor.getString(TableMedicineTime.COLUMN_INDEX__MEDICINE_TIME_NAME);
+            String medicineTimeValue = pCursor.getString(TableMedicineTime.COLUMN_INDEX__MEDICINE_TIME_VALUE);
+            String[] medicineTimeValues = medicineTimeValue.split(Constants.DELIMITER__DATA);
+
+            model = new MedicineTime();
+            model.setRowId(rowId);
+            model.setMedicineTimeName(medicineTimeName);
+            model.setMedicineTimeValues(medicineTimeValues);
+        }
+
+        return  model;
     }
 }

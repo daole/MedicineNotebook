@@ -35,6 +35,7 @@
     <string name="lbl__picture">Picture:</string>
     <string name="lbl__note">Note:</string>
     <string name="lbl__dose">Dose:</string>
+    <string name="lbl__start_date">Start Date:</string>
     <string name="lbl__alarm">Alarm:</string>
     <string name="lbl__alarm_times">Alarm Times:</string>
     <string name="lbl__select">Select</string>
@@ -80,8 +81,13 @@
     <string name="error__blank_medicine_interval_name">Please enter medicine interval.</string>
     <string name="error__blank_medicine_interval_value">Please enter interval value.</string>
     <string name="error__invalid_medicine_interval_value">Please enter positive number for interval value.</string>
+    <string name="error__blank_family_member">Please select family member.</string>
     <string name="error__blank_medicine">Please select medicine.</string>
     <string name="error__blank_dose">Please enter dose.</string>
+    <string name="error__invalid_start_date">Please enter valid date for start date.</string>
+    <string name="error__blank_medicine_time">Please select time.</string>
+    <string name="error__blank_medicine_interval">Please select interval.</string>
+    <string name="error__invalid_alarm_times">Please enter positive number for alarm times.</string>
     <string name="error__duplicated_data">Same data already exists.</string>
     <string name="error__no_data_selected">You have not selected anything.</string>
     <string name="error__db_unknown_error">An error has occurred. The operation could not be completed.</string>

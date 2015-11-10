@@ -3,13 +3,13 @@ package com.dreamdigitizers.drugmanagement.data.models;
 import java.io.Serializable;
 
 public class Model implements Serializable {
-    private long _id;
+    private long mRowId;
 
-    public long getId() {
-        return this._id;
+    public long getRowId() {
+        return this.mRowId;
     }
 
-    public void setId(long pId) {
-        this._id = pId;
+    public void setRowId(long pRowId) {
+        this.mRowId = pRowId;
     }
 }

@@ -102,7 +102,6 @@ public class DialogMedicineSelect extends DialogBase implements IViewMedicineSel
     private void selectMedicine(int pPosition, long pRowId) {
         if(pRowId > 0) {
             Cursor cursor = (Cursor)this.mSelMedicines.getItemAtPosition(pPosition);
-
             this.mMedicine = Medicine.fetchDataAtCurrentPosition(cursor);
         } else {
             this.mMedicine = null;

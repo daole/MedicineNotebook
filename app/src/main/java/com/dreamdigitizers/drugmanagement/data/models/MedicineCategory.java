@@ -32,19 +32,28 @@ public class MedicineCategory extends Model {
         List<MedicineCategory> list = new ArrayList<>();
         if (pCursor != null && pCursor.moveToFirst()) {
             do {
-                long rowId = pCursor.getLong(Table.COLUMN_INDEX__ID);
-                String medicineCategoryName = pCursor.getString(TableMedicineCategory.COLUMN_INDEX__MEDICINE_CATEGORY_NAME);
-                String medicineCategoryNote = pCursor.getString(TableMedicineCategory.COLUMN_INDEX__MEDICINE_CATEGORY_NOTE);
-
-                MedicineCategory model = new MedicineCategory();
-                model.setId(rowId);
-                model.setMedicineCategoryName(medicineCategoryName);
-                model.setMedicineCategoryNote(medicineCategoryNote);
-
+                MedicineCategory model = MedicineCategory.fetchDataAtCurrentPosition(pCursor);
                 list.add(model);
             } while (pCursor.moveToNext());
         }
 
         return list;
+    }
+
+    public static MedicineCategory fetchDataAtCurrentPosition(Cursor pCursor) {
+        MedicineCategory model = null;
+
+        if(pCursor != null) {
+            long rowId = pCursor.getLong((Table.COLUMN_INDEX__ID));
+            String medicineCategoryName = pCursor.getString(TableMedicineCategory.COLUMN_INDEX__MEDICINE_CATEGORY_NAME);
+            String medicineCategoryNote = pCursor.getString(TableMedicineCategory.COLUMN_INDEX__MEDICINE_CATEGORY_NOTE);
+
+            model = new MedicineCategory();
+            model.setRowId(rowId);
+            model.setMedicineCategoryName(medicineCategoryName);
+            model.setMedicineCategoryNote(medicineCategoryNote);
+        }
+
+        return  model;
     }
 }

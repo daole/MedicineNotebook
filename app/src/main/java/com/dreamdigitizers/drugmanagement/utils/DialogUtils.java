@@ -2,16 +2,20 @@ package com.dreamdigitizers.drugmanagement.utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
 
 public class DialogUtils {
 	public static final int MAX_INDETERMINATE = 100;
+
+	private static DatePickerDialog datePickerDialog;
 	private static TimePickerDialog timePickerDialog;
 	private static ProgressDialog progressDialog;
 	
@@ -91,6 +95,42 @@ public class DialogUtils {
 			}
 		};
 		DialogUtils.displayDialog(pActivity, pTitle, pMessage, false, pButtonText, null, dialogButtonClickListener);
+	}
+
+	public static void displayDatePickerDialog(final Activity pActivity, final String pCancelButtonText, final IOnDatePickerDialogEventListener pListener) {
+		if(DialogUtils.datePickerDialog == null) {
+			Calendar calendar = Calendar.getInstance();
+			DialogUtils.datePickerDialog = new DatePickerDialog(pActivity,
+					new DatePickerDialog.OnDateSetListener() {
+						@Override
+						public void onDateSet(DatePicker pView, int pYear, int pMonthOfYear, int pDayOfMonth) {
+							if(pListener != null) {
+								pListener.onDateSet(pYear, pMonthOfYear, pDayOfMonth, pActivity, pCancelButtonText);
+							}
+							DialogUtils.closeDatePickerDialog();
+						}
+					},
+					calendar.get(Calendar.YEAR),
+					calendar.get(Calendar.MONTH),
+					calendar.get(Calendar.DATE));
+			DialogUtils.datePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, pCancelButtonText, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface pDialog, int pWhich) {
+					if (pListener != null) {
+						pListener.onCancel(pActivity, pCancelButtonText);
+					}
+					DialogUtils.closeDatePickerDialog();
+				}
+			});
+			DialogUtils.datePickerDialog.show();
+		}
+	}
+
+	public static void closeDatePickerDialog() {
+		if(DialogUtils.datePickerDialog != null) {
+			DialogUtils.datePickerDialog.dismiss();
+			DialogUtils.datePickerDialog = null;
+		}
 	}
 
 	public static void displayTimePickerDialog(final Activity pActivity, final String pCancelButtonText, final boolean pIs24HourView, final IOnTimePickerDialogEventListener pListener) {
@@ -193,6 +233,11 @@ public class DialogUtils {
 								   final boolean pIsTwoButton,
 								   final String pPositiveButtonText,
 								   final String pNegativeButtonText);
+	}
+
+	public interface IOnDatePickerDialogEventListener {
+		void onDateSet(final int pYear, final int pMonthOfYear, final int pDayOfMonth, final Activity pActivity, final String pCancelButtonText);
+		void onCancel(final Activity pActivity, final String pCancelButtonText);
 	}
 
 	public interface IOnTimePickerDialogEventListener {

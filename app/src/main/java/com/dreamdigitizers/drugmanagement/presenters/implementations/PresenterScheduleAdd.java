@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.SimpleCursorAdapter;
 
 import com.dreamdigitizers.drugmanagement.Constants;
@@ -16,8 +17,14 @@ import com.dreamdigitizers.drugmanagement.data.dal.tables.TableFamilyMember;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineInterval;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTime;
+import com.dreamdigitizers.drugmanagement.data.models.FamilyMember;
+import com.dreamdigitizers.drugmanagement.data.models.MedicineInterval;
+import com.dreamdigitizers.drugmanagement.data.models.MedicineTime;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleAdd;
+import com.dreamdigitizers.drugmanagement.utils.StringUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleAdd;
+
+import java.text.DateFormat;
 
 class PresenterScheduleAdd implements IPresenterScheduleAdd {
     private static final int LOADER_ID__FAMILY_MEMBER = 0;
@@ -41,6 +48,28 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         //this.createMedicineAdapter();
         this.createMedicineTimeAdapter();
         this.createMedicineIntervalAdapter();
+    }
+
+    @Override
+    public void insert(FamilyMember pFamilyMember,
+                       ArrayMap pTakenMedicines,
+                       String pStartDate,
+                       MedicineTime pMedicineTime,
+                       MedicineInterval pMedicineInterval,
+                       boolean pIsAlarm,
+                       String pAlarmTimes,
+                       String pScheduleNote) {
+        int result = this.checkInputData(pFamilyMember,
+                pTakenMedicines,
+                pStartDate,
+                pMedicineTime,
+                pMedicineInterval,
+                pIsAlarm,
+                pAlarmTimes);
+        if(result != 0) {
+            this.mView.showError(result);
+            return;
+        }
     }
 
     @Override
@@ -184,7 +213,32 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         this.mView.setMedicineIntervalAdapter(this.mMedicineIntervalAdapter);
     }
 
-    private int checkInputData() {
+    private int checkInputData(FamilyMember pFamilyMember,
+                               ArrayMap pTakenMedicines,
+                               String pStartDate,
+                               MedicineTime pMedicineTime,
+                               MedicineInterval pMedicineInterval,
+                               boolean pIsAlarm,
+                               String pAlarmTimes) {
+        if(pFamilyMember == null) {
+            return R.string.error__blank_family_member;
+        }
+        if(pTakenMedicines == null || pTakenMedicines.size() <= 0) {
+            return R.string.error__blank_medicine;
+        }
+        DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this.mView.getViewContext());
+        if(!StringUtils.isTime(pStartDate, dateFormat)) {
+            return R.string.error__invalid_start_date;
+        }
+        if(pMedicineTime == null) {
+            return R.string.error__blank_medicine_time;
+        }
+        if(pMedicineInterval == null) {
+            return R.string.error__blank_medicine_interval;
+        }
+        if(pIsAlarm && !StringUtils.isInteger(pAlarmTimes)) {
+            return R.string.error__invalid_alarm_times;
+        }
         return 0;
     }
 }
