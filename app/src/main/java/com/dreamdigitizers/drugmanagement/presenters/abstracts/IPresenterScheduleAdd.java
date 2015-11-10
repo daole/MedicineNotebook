@@ -1,5 +1,8 @@
 package com.dreamdigitizers.drugmanagement.presenters.abstracts;
 
-public interface IPresenterScheduleAdd extends IPresenter {
+import android.database.Cursor;
+import android.support.v4.app.LoaderManager;
+
+public interface IPresenterScheduleAdd extends IPresenter, LoaderManager.LoaderCallbacks<Cursor> {
 
 }
