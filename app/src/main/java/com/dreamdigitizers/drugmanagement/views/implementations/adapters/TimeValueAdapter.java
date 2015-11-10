@@ -15,22 +15,20 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class TimeValueArrayAdapter extends BaseAdapter {
+public class TimeValueAdapter extends BaseAdapter {
     private Context mContext;
-    private int mLayoutResourceId;
     private List<String> mData;
 
-    public TimeValueArrayAdapter(Context pContext, int pLayoutResourceId) {
-        this(pContext, pLayoutResourceId, new ArrayList<String>());
+    public TimeValueAdapter(Context pContext) {
+        this(pContext, new ArrayList<String>());
     }
 
-    public TimeValueArrayAdapter(Context pContext, int pLayoutResourceId, String[] pData) {
-        this(pContext, pLayoutResourceId, Arrays.asList(pData));
+    public TimeValueAdapter(Context pContext, String[] pData) {
+        this(pContext, Arrays.asList(pData));
     }
 
-    public TimeValueArrayAdapter(Context pContext, int pLayoutResourceId, List<String> pData) {
+    public TimeValueAdapter(Context pContext, List<String> pData) {
         this.mContext = pContext;
-        this.mLayoutResourceId = pLayoutResourceId;
         this.mData = pData;
     }
 
@@ -67,7 +65,7 @@ public class TimeValueArrayAdapter extends BaseAdapter {
         viewHolder.mBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View pView) {
-                TimeValueArrayAdapter.this.onButtonDeleteClick(pPosition);
+                TimeValueAdapter.this.onButtonDeleteClick(pPosition);
             }
         });
 
@@ -109,7 +107,7 @@ public class TimeValueArrayAdapter extends BaseAdapter {
     }
 
     private void onButtonDeleteClick(int pPosition) {
-        TimeValueArrayAdapter.this.removeItem(pPosition);
+        this.removeItem(pPosition);
     }
 
     private static class ViewHolder {

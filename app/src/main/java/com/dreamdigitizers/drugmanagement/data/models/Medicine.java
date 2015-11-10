@@ -69,4 +69,25 @@ public class Medicine extends Model {
 
         return list;
     }
+
+    public static Medicine fetchDataAtCurrentPosition(Cursor pCursor) {
+        Medicine medicine = null;
+
+        if(pCursor != null) {
+            long id = pCursor.getLong((Table.COLUMN_INDEX__ID));
+            long medicineCategoryId = pCursor.getLong(TableMedicine.COLUMN_INDEX__MEDICINE_CATEGORY_ID);
+            String medicineName = pCursor.getString(TableMedicine.COLUMN_INDEX__MEDICINE_NAME);
+            String medicineImagePath = pCursor.getString(TableMedicine.COLUMN_INDEX__MEDICINE_IMAGE_PATH);
+            String medicineNote = pCursor.getString(TableMedicine.COLUMN_INDEX__MEDICINE_NOTE);
+
+            medicine = new Medicine();
+            medicine.setId(id);
+            medicine.setMedicineCategoryId(medicineCategoryId);
+            medicine.setMedicineName(medicineName);
+            medicine.setMedicineImagePath(medicineImagePath);
+            medicine.setMedicineNote(medicineNote);
+        }
+
+        return  medicine;
+    }
 }

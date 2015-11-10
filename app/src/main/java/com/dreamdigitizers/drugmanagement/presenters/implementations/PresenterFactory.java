@@ -15,6 +15,7 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineIntervalEdit;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineIntervalList;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineList;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineSelect;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeAdd;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeEdit;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeList;
@@ -35,6 +36,7 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryL
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineIntervalAdd;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineIntervalEdit;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineIntervalList;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineSelect;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeAdd;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeEdit;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeList;
@@ -67,6 +69,9 @@ public class PresenterFactory {
             return new PresenterFamilyMemberEdit((IViewFamilyMemberEdit)pView);
         }
 
+        if(pClass == IPresenterMedicineSelect.class) {
+            return new PresenterMedicineSelect((IViewMedicineSelect)pView);
+        }
         if(pClass == IPresenterMedicineList.class) {
             return new PresenterMedicineList((IViewMedicineList)pView);
         }

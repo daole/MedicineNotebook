@@ -1,6 +1,7 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens;
 
 import android.support.v4.app.LoaderManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +15,18 @@ import android.widget.SpinnerAdapter;
 import android.widget.Switch;
 
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.data.models.Medicine;
+import com.dreamdigitizers.drugmanagement.data.models.TakenMedicine;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleAdd;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleAdd;
+import com.dreamdigitizers.drugmanagement.views.implementations.adapters.TakenMedicineAdapter;
+import com.dreamdigitizers.drugmanagement.views.implementations.dialogs.DialogMedicineSelect;
 
 public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     private Spinner mSelFamilyMembers;
     private Button mBtnSelectMedicine;
-    private ListView mLstMedicines;
+    private ListView mListView;
     private Spinner mSelMedicineTimes;
     private Spinner mSelMedicineIntervals;
     private Switch mSwiAlarm;
@@ -31,7 +36,8 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     private Button mBtnAdd;
 
     private IPresenterScheduleAdd mPresenter;
-    private SpinnerAdapter mMedicineAdapter;
+    //private SpinnerAdapter mMedicineAdapter;
+    private TakenMedicineAdapter mAdapter;
 
     private long mFamilyMemberId;
     private long mMedicineTimeId;
@@ -48,7 +54,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     protected void retrieveScreenItems(View pView) {
         this.mSelFamilyMembers = (Spinner)pView.findViewById(R.id.selFamilyMembers);
         this.mBtnSelectMedicine = (Button)pView.findViewById(R.id.btnSelectMedicine);
-        this.mLstMedicines = (ListView)pView.findViewById(R.id.lstMedicines);
+        this.mListView = (ListView)pView.findViewById(R.id.lstMedicines);
         this.mSelMedicineTimes = (Spinner)pView.findViewById(R.id.selMedicineTimes);
         this.mSelMedicineIntervals = (Spinner)pView.findViewById(R.id.selMedicineTimeIntervals);
         this.mSwiAlarm = (Switch)pView.findViewById(R.id.swiAlarm);
@@ -60,6 +66,9 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
+        this.mAdapter = new TakenMedicineAdapter(this.getContext());
+        this.mListView.setAdapter(this.mAdapter);
+
         this.mSelFamilyMembers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
@@ -147,10 +156,12 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
         this.mSelFamilyMembers.setAdapter(pAdapter);
     }
 
+    /*
     @Override
     public void setMedicineAdapter(SpinnerAdapter pAdapter) {
         this.mMedicineAdapter = pAdapter;
     }
+    */
 
     @Override
     public void setMedicineTimeAdapter(SpinnerAdapter pAdapter) {
@@ -175,7 +186,23 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     }
 
     private void buttonSelectMedicineClick() {
+        DialogMedicineSelect dialog = new DialogMedicineSelect((AppCompatActivity) this.getActivity(),
+                new DialogMedicineSelect.IOnDialogButtonClickListener() {
+                    @Override
+                    public void onMedicineSelect(Medicine pMedicine, String pDose) {
+                        TakenMedicine takenMedicine = new TakenMedicine();
+                        takenMedicine.setMedicineId(pMedicine.getId());
+                        takenMedicine.setMedicineName(pMedicine.getMedicineName());
+                        takenMedicine.setDose(pDose);
+                        ScreenScheduleAdd.this.mAdapter.addItem(takenMedicine);
+                    }
 
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+        dialog.show();
     }
 
     private void changeAlarmSetting(boolean pIsChecked) {

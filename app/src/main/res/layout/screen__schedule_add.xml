@@ -14,7 +14,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/lblFamilyMember"
+                android:id="@+id/lblFamilyMemberName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -28,7 +28,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/btnSelectFamilyMember"
-                android:layout_toRightOf="@id/lblFamilyMember"/>
+                android:layout_toRightOf="@id/lblFamilyMemberName"/>
 
             <Button
                 android:id="@id/btnSelectFamilyMember"
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/lblMedicine"
+                android:id="@+id/lblMedicineName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -55,18 +55,18 @@
                 android:id="@+id/btnSelectMedicine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lblMedicine"
+                android:layout_below="@id/lblMedicineName"
                 android:minWidth="100dp"
                 android:text="@string/btn__select"/>
 
             <ListView
                 android:id="@+id/lstMedicines"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/btnSelectMedicine"
-                android:layout_toRightOf="@id/lblMedicine"
-                android:layout_alignTop="@id/lblMedicine"/>
+                android:layout_toRightOf="@id/lblMedicineName"
+                android:layout_alignTop="@id/lblMedicineName"/>
 
             <!--
             <Button
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/lblMedicineTime"
+                android:id="@+id/lblMedicineTimeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -99,7 +99,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/btnSelectMedicineTime"
-                android:layout_toRightOf="@id/lblMedicineTime"/>
+                android:layout_toRightOf="@id/lblMedicineTimeName"/>
 
             <Button
                 android:id="@id/btnSelectMedicineTime"
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/lblMedicineInterval"
+                android:id="@+id/lblMedicineIntervalName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -130,7 +130,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/btnSelectMedicineInterval"
-                android:layout_toRightOf="@id/lblMedicineInterval"/>
+                android:layout_toRightOf="@id/lblMedicineIntervalName"/>
 
             <Button
                 android:id="@id/btnSelectMedicineInterval"

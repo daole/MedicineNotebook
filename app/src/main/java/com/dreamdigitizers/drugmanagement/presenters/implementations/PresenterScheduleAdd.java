@@ -21,9 +21,9 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleAdd;
 
 class PresenterScheduleAdd implements IPresenterScheduleAdd {
     private static final int LOADER_ID__FAMILY_MEMBER = 0;
-    private static final int LOADER_ID__MEDICINE = 1;
-    private static final int LOADER_ID__MEDICINE_TIME = 2;
-    private static final int LOADER_ID__MEDICINE_INTERVAL = 3;
+    //private static final int LOADER_ID__MEDICINE = 1;
+    private static final int LOADER_ID__MEDICINE_TIME = 1;
+    private static final int LOADER_ID__MEDICINE_INTERVAL = 2;
 
     private IViewScheduleAdd mView;
     private SimpleCursorAdapter mFamilyMemberAdapter;
@@ -34,11 +34,11 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
     public PresenterScheduleAdd(IViewScheduleAdd pView) {
         this.mView = pView;
         this.mView.getViewLoaderManager().initLoader(PresenterScheduleAdd.LOADER_ID__FAMILY_MEMBER, null, this);
-        this.mView.getViewLoaderManager().initLoader(PresenterScheduleAdd.LOADER_ID__MEDICINE, null, this);
+        //this.mView.getViewLoaderManager().initLoader(PresenterScheduleAdd.LOADER_ID__MEDICINE, null, this);
         this.mView.getViewLoaderManager().initLoader(PresenterScheduleAdd.LOADER_ID__MEDICINE_TIME, null, this);
         this.mView.getViewLoaderManager().initLoader(PresenterScheduleAdd.LOADER_ID__MEDICINE_INTERVAL, null, this);
         this.createFamilyMemberAdapter();
-        this.createMedicineAdapter();
+        //this.createMedicineAdapter();
         this.createMedicineTimeAdapter();
         this.createMedicineIntervalAdapter();
     }
@@ -54,10 +54,12 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                 projection = TableFamilyMember.getColumns().toArray(projection);
                 contentUri = MedicineContentProvider.CONTENT_URI__FAMILY_MEMBER;
                 break;
+            /*
             case PresenterScheduleAdd.LOADER_ID__MEDICINE:
                 projection = TableMedicine.getColumns().toArray(projection);
                 contentUri = MedicineContentProvider.CONTENT_URI__MEDICINE;
                 break;
+            */
             case PresenterScheduleAdd.LOADER_ID__MEDICINE_TIME:
                 projection = TableMedicineTime.getColumns().toArray(projection);
                 contentUri = MedicineContentProvider.CONTENT_URI__MEDICINE_TIME;
@@ -89,12 +91,14 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                 extras.addRow(new Object[]{Constants.ROW_ID__NO_SELECT, this.mView.getViewContext().getString(R.string.lbl__select)});
                 adapter = this.mFamilyMemberAdapter;
                 break;
+            /*
             case PresenterScheduleAdd.LOADER_ID__MEDICINE:
                 projection = TableMedicine.getColumns().toArray(projection);
                 extras = new MatrixCursor(projection);
                 extras.addRow(new Object[] {Constants.ROW_ID__NO_SELECT, this.mView.getViewContext().getString(R.string.lbl__select), "", ""});
                 adapter = this.mMedicineAdapter;
                 break;
+            */
             case PresenterScheduleAdd.LOADER_ID__MEDICINE_TIME:
                 projection = TableMedicineTime.getColumns().toArray(projection);
                 extras = new MatrixCursor(projection);
@@ -124,9 +128,11 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
             case PresenterScheduleAdd.LOADER_ID__FAMILY_MEMBER:
                 adapter = this.mFamilyMemberAdapter;
                 break;
+            /*
             case PresenterScheduleAdd.LOADER_ID__MEDICINE:
                 adapter = this.mMedicineAdapter;
                 break;
+            */
             case PresenterScheduleAdd.LOADER_ID__MEDICINE_TIME:
                 adapter = this.mMedicineTimeAdapter;
                 break;
@@ -149,6 +155,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         this.mView.setFamilyMemberAdapter(this.mFamilyMemberAdapter);
     }
 
+    /*
     private void createMedicineAdapter() {
         String[] from = new String[] {TableMedicine.COLUMN_NAME__MEDICINE_NAME};
         int[] to = new int[] {android.R.id.text1};
@@ -157,6 +164,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         this.mMedicineAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.mView.setMedicineAdapter(this.mMedicineAdapter);
     }
+    */
 
     private void createMedicineTimeAdapter() {
         String[] from = new String[] {TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_NAME};

@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Model implements Serializable {
     private long _id;
 
-    public long get_id() {
+    public long getId() {
         return this._id;
     }
 

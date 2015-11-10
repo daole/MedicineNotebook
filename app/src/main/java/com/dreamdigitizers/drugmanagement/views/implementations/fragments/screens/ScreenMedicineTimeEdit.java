@@ -16,7 +16,7 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeEdit;
-import com.dreamdigitizers.drugmanagement.views.implementations.adapters.TimeValueArrayAdapter;
+import com.dreamdigitizers.drugmanagement.views.implementations.adapters.TimeValueAdapter;
 
 import java.util.List;
 
@@ -26,7 +26,8 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
     private Button mBtnAddTimeValue;
     private Button mBtnEdit;
     private Button mBtnBack;
-    private TimeValueArrayAdapter mAdapter;
+
+    private TimeValueAdapter mAdapter;
 
     private IPresenterMedicineTimeEdit mPresenter;
 
@@ -71,7 +72,7 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
-        this.mAdapter = new TimeValueArrayAdapter(this.getContext(), R.layout.part__medicine_time_value);
+        this.mAdapter = new TimeValueAdapter(this.getContext());
         this.mListView.setAdapter(this.mAdapter);
 
         this.mBtnAddTimeValue.setOnClickListener(new View.OnClickListener() {

@@ -2,7 +2,8 @@
     <string name="title__app_name">Drug Management</string>
     <string name="title__menu">Menu</string>
     <string name="title__dialog">Message</string>
-    <string name="title__error_dialog">Error</string>
+    <string name="title__dialog_error">Error</string>
+    <string name="title__dialog_medicine_select">Select Medicine</string>
     <string name="title__screen_schedule_list">Schedule</string>
     <string name="title__screen_schedule_add">Add Schedule</string>
     <string name="title__screen_family_member_list">Family Members</string>
@@ -33,6 +34,7 @@
     <string name="lbl__medicine_interval_value">Value:</string>
     <string name="lbl__picture">Picture:</string>
     <string name="lbl__note">Note:</string>
+    <string name="lbl__dose">Dose:</string>
     <string name="lbl__alarm">Alarm:</string>
     <string name="lbl__alarm_times">Alarm Times:</string>
     <string name="lbl__select">Select</string>
@@ -51,6 +53,7 @@
     <string name="hint__medicine_interval_value">1</string>
     <string name="hint__alarm_times">1</string>
     <string name="hint__schedule_note">Note about the schedule.</string>
+    <string name="hint__dose">1 tablet</string>
 
     <string name="btn__add">Add</string>
     <string name="btn__edit">Edit</string>
@@ -77,6 +80,8 @@
     <string name="error__blank_medicine_interval_name">Please enter medicine interval.</string>
     <string name="error__blank_medicine_interval_value">Please enter interval value.</string>
     <string name="error__invalid_medicine_interval_value">Please enter positive number for interval value.</string>
+    <string name="error__blank_medicine">Please select medicine.</string>
+    <string name="error__blank_dose">Please enter dose.</string>
     <string name="error__duplicated_data">Same data already exists.</string>
     <string name="error__no_data_selected">You have not selected anything.</string>
     <string name="error__db_unknown_error">An error has occurred. The operation could not be completed.</string>
