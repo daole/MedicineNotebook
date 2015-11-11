@@ -7,8 +7,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
-import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 import com.dreamdigitizers.drugmanagement.data.models.MedicineCategory;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryEdit;
@@ -27,7 +27,7 @@ class PresenterMedicineCategoryEdit implements IPresenterMedicineCategoryEdit {
     public  void select(long pRowId) {
         String[] projection = new String[0];
         projection = TableMedicineCategory.getColumns().toArray(projection);
-        Uri uri = MedicineContentProvider.CONTENT_URI__MEDICINE_CATEGORY;
+        Uri uri = ContentProviderMedicine.CONTENT_URI__MEDICINE_CATEGORY;
         uri = ContentUris.withAppendedId(uri, pRowId);
         Cursor cursor = this.mView.getViewContext().getContentResolver().query(uri, projection, null, null, null);
         if (cursor != null) {
@@ -52,14 +52,14 @@ class PresenterMedicineCategoryEdit implements IPresenterMedicineCategoryEdit {
         contentValues.put(TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME, pMedicineCategoryName);
         contentValues.put(TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NOTE, pMedicineCategoryNote);
 
-        Uri uri = MedicineContentProvider.CONTENT_URI__MEDICINE_CATEGORY;
+        Uri uri = ContentProviderMedicine.CONTENT_URI__MEDICINE_CATEGORY;
         uri = ContentUris.withAppendedId(uri, pRowId);
         int affectedRows = this.mView.getViewContext().getContentResolver().update(
                 uri, contentValues, null, null);
         if(affectedRows == DatabaseHelper.DB_ERROR_CODE__CONSTRAINT) {
             this.mView.showError(R.string.error__duplicated_data);
         } else if(affectedRows == DatabaseHelper.DB_ERROR_CODE__OTHER) {
-            this.mView.showError(R.string.error__db_unknown_error);
+            this.mView.showError(R.string.error__unknown_error);
         } else {
             this.mView.showMessage(R.string.message__edit_successful);
         }

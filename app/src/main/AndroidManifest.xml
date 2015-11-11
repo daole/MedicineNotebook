@@ -36,9 +36,15 @@
         </activity>
 
         <provider
-            android:name=".data.MedicineContentProvider"
+            android:name=".data.ContentProviderMedicine"
             android:authorities="com.dreamdigitizers.drugmanagement.contentprovider">
         </provider>
+
+        <receiver android:name=".views.implementations.receivers.ReceiverBoot" android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

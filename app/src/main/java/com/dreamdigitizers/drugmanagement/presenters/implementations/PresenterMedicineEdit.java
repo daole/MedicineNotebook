@@ -15,8 +15,8 @@ import android.text.TextUtils;
 
 import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
-import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 import com.dreamdigitizers.drugmanagement.data.models.Medicine;
@@ -55,7 +55,7 @@ class PresenterMedicineEdit implements IPresenterMedicineEdit {
     public  void select(long pRowId) {
         String[] projection = new String[0];
         projection = TableMedicine.getColumns().toArray(projection);
-        Uri uri = MedicineContentProvider.CONTENT_URI__MEDICINE;
+        Uri uri = ContentProviderMedicine.CONTENT_URI__MEDICINE;
         uri = ContentUris.withAppendedId(uri, pRowId);
         Cursor cursor = this.mView.getViewContext().getContentResolver().query(uri, projection, null, null, null);
         if (cursor != null) {
@@ -85,14 +85,14 @@ class PresenterMedicineEdit implements IPresenterMedicineEdit {
         contentValues.put(TableMedicine.COLUMN_NAME__MEDICINE_IMAGE_PATH, pMedicineImagePath);
         contentValues.put(TableMedicine.COLUMN_NAME__MEDICINE_NOTE, pMedicineNote);
 
-        Uri uri = MedicineContentProvider.CONTENT_URI__MEDICINE;
+        Uri uri = ContentProviderMedicine.CONTENT_URI__MEDICINE;
         uri = ContentUris.withAppendedId(uri, pRowId);
         int affectedRows = this.mView.getViewContext().getContentResolver().update(
                 uri, contentValues, null, null);
         if(affectedRows == DatabaseHelper.DB_ERROR_CODE__CONSTRAINT) {
             this.mView.showError(R.string.error__duplicated_data);
         } else if(affectedRows == DatabaseHelper.DB_ERROR_CODE__OTHER) {
-            this.mView.showError(R.string.error__db_unknown_error);
+            this.mView.showError(R.string.error__unknown_error);
         } else {
             this.mView.showMessage(R.string.message__edit_successful);
             this.mView.onDataEdited();
@@ -104,7 +104,7 @@ class PresenterMedicineEdit implements IPresenterMedicineEdit {
         String[] projection = new String[0];
         projection = TableMedicineCategory.getColumns().toArray(projection);
         CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
-                MedicineContentProvider.CONTENT_URI__MEDICINE_CATEGORY, projection, null, null, null);
+                ContentProviderMedicine.CONTENT_URI__MEDICINE_CATEGORY, projection, null, null, null);
         return cursorLoader;
     }
 

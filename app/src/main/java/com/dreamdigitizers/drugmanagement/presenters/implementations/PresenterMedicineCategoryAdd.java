@@ -5,8 +5,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
-import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryAdd;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryAdd;
@@ -33,12 +33,12 @@ class PresenterMedicineCategoryAdd implements IPresenterMedicineCategoryAdd {
         }
 
         Uri uri = this.mView.getViewContext().getContentResolver().insert(
-                MedicineContentProvider.CONTENT_URI__MEDICINE_CATEGORY, contentValues);
+                ContentProviderMedicine.CONTENT_URI__MEDICINE_CATEGORY, contentValues);
         long newId = Long.parseLong(uri.getLastPathSegment());
         if(newId == DatabaseHelper.DB_ERROR_CODE__CONSTRAINT) {
             this.mView.showError(R.string.error__duplicated_data);
         } else if(newId == DatabaseHelper.DB_ERROR_CODE__OTHER) {
-            this.mView.showError(R.string.error__db_unknown_error);
+            this.mView.showError(R.string.error__unknown_error);
         } else {
             this.mView.clearInput();
             this.mView.showMessage(R.string.message__insert_successful);

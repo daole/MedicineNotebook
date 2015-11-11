@@ -2,7 +2,7 @@ package com.dreamdigitizers.drugmanagement.data.models;
 
 import java.util.ArrayList;
 
-public class MedicineTimeSetting extends Model {
+public class Schedule extends Model {
     private FamilyMember mFamilyMember;
     private MedicineTime mTime;
     private MedicineInterval mInterval;

@@ -6,7 +6,7 @@ import android.text.TextUtils;
 
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
-import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
+import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableFamilyMember;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyMemberAdd;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberAdd;
@@ -30,12 +30,12 @@ class PresenterFamilyMemberAdd implements IPresenterFamilyMemberAdd {
         contentValues.put(TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME, pFamilyMemberName);
 
         Uri uri = this.mView.getViewContext().getContentResolver().insert(
-                MedicineContentProvider.CONTENT_URI__FAMILY_MEMBER, contentValues);
+                ContentProviderMedicine.CONTENT_URI__FAMILY_MEMBER, contentValues);
         long newId = Long.parseLong(uri.getLastPathSegment());
         if(newId == DatabaseHelper.DB_ERROR_CODE__CONSTRAINT) {
             this.mView.showError(R.string.error__duplicated_data);
         } else if(newId == DatabaseHelper.DB_ERROR_CODE__OTHER) {
-            this.mView.showError(R.string.error__db_unknown_error);
+            this.mView.showError(R.string.error__unknown_error);
         } else {
             this.mView.clearInput();
             this.mView.showMessage(R.string.message__insert_successful);

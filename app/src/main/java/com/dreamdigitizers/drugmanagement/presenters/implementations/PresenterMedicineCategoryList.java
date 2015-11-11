@@ -16,7 +16,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.dreamdigitizers.drugmanagement.R;
-import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
+import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryList;
@@ -47,7 +47,7 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
             return;
         }
 
-        Uri uri = MedicineContentProvider.CONTENT_URI__MEDICINE_CATEGORY;
+        Uri uri = ContentProviderMedicine.CONTENT_URI__MEDICINE_CATEGORY;
         final ArrayList<ContentProviderOperation> operations = new ArrayList<>();
         for(long rowId : this.mSelectedRowIds) {
             operations.add(ContentProviderOperation.newDelete(ContentUris.withAppendedId(uri, rowId)).build());
@@ -57,16 +57,16 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
             @Override
             public void onPositiveButtonClick(Activity pActivity, String pTitle, String pMessage, boolean pIsTwoButton, String pPositiveButtonText, String pNegativeButtonText) {
                 try {
-                    PresenterMedicineCategoryList.this.mView.getViewContext().getContentResolver().applyBatch(MedicineContentProvider.AUTHORITY, operations);
+                    PresenterMedicineCategoryList.this.mView.getViewContext().getContentResolver().applyBatch(ContentProviderMedicine.AUTHORITY, operations);
                     PresenterMedicineCategoryList.this.mSelectedPositions.clear();
                     PresenterMedicineCategoryList.this.mSelectedRowIds.clear();
                     PresenterMedicineCategoryList.this.mView.showMessage(R.string.message__delete_successful);
                 } catch (RemoteException e) {
                     e.printStackTrace();
-                    PresenterMedicineCategoryList.this.mView.showError(R.string.error__db_unknown_error);
+                    PresenterMedicineCategoryList.this.mView.showError(R.string.error__unknown_error);
                 } catch (OperationApplicationException e) {
                     e.printStackTrace();
-                    PresenterMedicineCategoryList.this.mView.showError(R.string.error__db_unknown_error);
+                    PresenterMedicineCategoryList.this.mView.showError(R.string.error__unknown_error);
                 }
             }
 
@@ -83,7 +83,7 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
         String[] projection = new String[0];
         projection = TableMedicineCategory.getColumns().toArray(projection);
         CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
-                MedicineContentProvider.CONTENT_URI__MEDICINE_CATEGORY, projection, null, null, null);
+                ContentProviderMedicine.CONTENT_URI__MEDICINE_CATEGORY, projection, null, null, null);
         return cursorLoader;
     }
 

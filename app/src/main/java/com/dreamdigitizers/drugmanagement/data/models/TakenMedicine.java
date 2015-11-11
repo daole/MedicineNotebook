@@ -1,17 +1,17 @@
 package com.dreamdigitizers.drugmanagement.data.models;
 
 public class TakenMedicine extends Model {
-    private long mMedicineTimeSettingId;
+    private long mScheduleId;
     private long mMedicineId;
     private String mMedicineName;
     private String mDose;
 
-    public long getMedicineTimeSettingId() {
-        return this.mMedicineTimeSettingId;
+    public long getScheduleId() {
+        return this.mScheduleId;
     }
 
-    public void setMedicineTimeSettingId(long pMedicineTimeSettingId) {
-        this.mMedicineTimeSettingId = pMedicineTimeSettingId;
+    public void setScheduleId(long pScheduleId) {
+        this.mScheduleId = pScheduleId;
     }
 
     public long getMedicineId() {

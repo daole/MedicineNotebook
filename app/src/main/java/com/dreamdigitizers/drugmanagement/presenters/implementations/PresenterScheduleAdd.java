@@ -1,10 +1,17 @@
 package com.dreamdigitizers.drugmanagement.presenters.implementations;
 
+import android.app.PendingIntent;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.MergeCursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.util.ArrayMap;
@@ -12,19 +19,30 @@ import android.support.v4.widget.SimpleCursorAdapter;
 
 import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
-import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
+import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
+import com.dreamdigitizers.drugmanagement.data.dal.tables.TableAlarm;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableFamilyMember;
-import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineInterval;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTime;
+import com.dreamdigitizers.drugmanagement.data.dal.tables.TableSchedule;
+import com.dreamdigitizers.drugmanagement.data.dal.tables.TableTakenMedicine;
 import com.dreamdigitizers.drugmanagement.data.models.FamilyMember;
 import com.dreamdigitizers.drugmanagement.data.models.MedicineInterval;
 import com.dreamdigitizers.drugmanagement.data.models.MedicineTime;
+import com.dreamdigitizers.drugmanagement.data.models.TakenMedicine;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleAdd;
+import com.dreamdigitizers.drugmanagement.utils.AlarmUtils;
 import com.dreamdigitizers.drugmanagement.utils.StringUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleAdd;
+import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityAlarm;
+import com.dreamdigitizers.drugmanagement.views.implementations.receivers.ReceiverBoot;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 class PresenterScheduleAdd implements IPresenterScheduleAdd {
     private static final int LOADER_ID__FAMILY_MEMBER = 0;
@@ -52,13 +70,13 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
 
     @Override
     public void insert(FamilyMember pFamilyMember,
-                       ArrayMap pTakenMedicines,
-                       String pStartDate,
-                       MedicineTime pMedicineTime,
-                       MedicineInterval pMedicineInterval,
-                       boolean pIsAlarm,
-                       String pAlarmTimes,
-                       String pScheduleNote) {
+                        ArrayMap<Long, TakenMedicine> pTakenMedicines,
+                        String pStartDate,
+                        MedicineTime pMedicineTime,
+                        MedicineInterval pMedicineInterval,
+                        boolean pIsAlarm,
+                        String pAlarmTimes,
+                        String pScheduleNote) {
         int result = this.checkInputData(pFamilyMember,
                 pTakenMedicines,
                 pStartDate,
@@ -70,6 +88,90 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
             this.mView.showError(result);
             return;
         }
+
+        ContentValues schedule = this.buildScheduleData(pFamilyMember,
+                pStartDate,
+                pMedicineTime,
+                pMedicineInterval,
+                pIsAlarm,
+                pAlarmTimes,
+                pScheduleNote);
+
+        List<ContentValues> takenMedicines = this.buildTakenMedicineData(pTakenMedicines);
+
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
+        operations.add(ContentProviderOperation.newInsert(ContentProviderMedicine.CONTENT_URI__SCHEDULE)
+                .withValues(schedule)
+                .build());
+
+        for(ContentValues takenMedicine : takenMedicines) {
+            operations.add(ContentProviderOperation.newInsert(ContentProviderMedicine.CONTENT_URI__TAKEN_MEDICINE)
+                    .withValueBackReference(TableTakenMedicine.COLUMN_NAME__SCHEDULE_ID, 0)
+                    .withValues(takenMedicine)
+                    .build());
+        }
+
+        List<ContentValues> alarms = null;
+        if(pIsAlarm) {
+            try {
+                alarms = this.buildAlarmData(pFamilyMember,
+                        pStartDate,
+                        pMedicineTime,
+                        pMedicineInterval,
+                        pAlarmTimes);
+
+                for(ContentValues alarm : alarms) {
+                    operations.add(ContentProviderOperation.newInsert(ContentProviderMedicine.CONTENT_URI__ALARM)
+                            .withValueBackReference(TableAlarm.COLUMN_NAME__SCHEDULE_ID, 0)
+                            .withValues(alarm)
+                            .build());
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+                this.mView.showError(R.string.error__unknown_error);
+                return;
+            }
+        }
+
+        ContentProviderResult[] results;
+        try {
+            results = this.mView.getViewContext().getContentResolver().applyBatch(ContentProviderMedicine.AUTHORITY, operations);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            this.mView.showError(R.string.error__unknown_error);
+            return;
+        } catch (OperationApplicationException e) {
+            e.printStackTrace();
+            this.mView.showError(R.string.error__unknown_error);
+            return;
+        }
+
+        if(pIsAlarm && alarms != null && alarms.size() > 0) {
+            AlarmUtils.enableBootReceiver(this.mView.getViewContext(), ReceiverBoot.class);
+
+            int alarmResultStartIndex = takenMedicines.size() + 1;
+            for (int i = alarmResultStartIndex; i < results.length; i++) {
+                ContentValues alarm = alarms.get(i - alarmResultStartIndex);
+                int year = alarm.getAsInteger(TableAlarm.COLUMN_NAME__ALARM_YEAR);
+                int month = alarm.getAsInteger(TableAlarm.COLUMN_NAME__ALARM_MONTH);
+                int date = alarm.getAsInteger(TableAlarm.COLUMN_NAME__ALARM_DATE);
+                int hour = alarm.getAsInteger(TableAlarm.COLUMN_NAME__ALARM_HOUR);
+                int minute = alarm.getAsInteger(TableAlarm.COLUMN_NAME__ALARM_MINUTE);
+                int rowId = Integer.parseInt(results[i].uri.getLastPathSegment());
+
+                Bundle extras = new Bundle();
+                extras.putInt(Constants.BUNDLE_KEY__ROW_ID, rowId);
+                PendingIntent pendingIntent = AlarmUtils.createPendingIntent(this.mView.getViewContext(),
+                        ActivityAlarm.class,
+                        rowId,
+                        Intent.FLAG_ACTIVITY_NEW_TASK,
+                        extras);
+
+                AlarmUtils.setAlarm(this.mView.getViewContext(), pendingIntent, year, month, date, hour, minute);
+            }
+        }
+
+        this.mView.showMessage(R.string.message__insert_successful);
     }
 
     @Override
@@ -81,20 +183,20 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         switch(pId) {
             case PresenterScheduleAdd.LOADER_ID__FAMILY_MEMBER:
                 projection = TableFamilyMember.getColumns().toArray(projection);
-                contentUri = MedicineContentProvider.CONTENT_URI__FAMILY_MEMBER;
+                contentUri = ContentProviderMedicine.CONTENT_URI__FAMILY_MEMBER;
                 break;
             /*
             case PresenterScheduleAdd.LOADER_ID__MEDICINE:
                 projection = TableMedicine.getColumns().toArray(projection);
-                contentUri = MedicineContentProvider.CONTENT_URI__MEDICINE;
+                contentUri = ContentProviderMedicine.CONTENT_URI__MEDICINE;
                 break;
             */
             case PresenterScheduleAdd.LOADER_ID__MEDICINE_TIME:
                 projection = TableMedicineTime.getColumns().toArray(projection);
-                contentUri = MedicineContentProvider.CONTENT_URI__MEDICINE_TIME;
+                contentUri = ContentProviderMedicine.CONTENT_URI__MEDICINE_TIME;
                 break;
             case PresenterScheduleAdd.LOADER_ID__MEDICINE_INTERVAL:
-                contentUri = MedicineContentProvider.CONTENT_URI__MEDICINE_INTERVAL;
+                contentUri = ContentProviderMedicine.CONTENT_URI__MEDICINE_INTERVAL;
                 projection = TableMedicineInterval.getColumns().toArray(projection);
                 break;
             default:
@@ -211,6 +313,96 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                 android.R.layout.simple_spinner_item, null, from, to, 0);
         this.mMedicineIntervalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.mView.setMedicineIntervalAdapter(this.mMedicineIntervalAdapter);
+    }
+
+    private ContentValues buildScheduleData(FamilyMember pFamilyMember,
+                                            String pStartDate,
+                                            MedicineTime pMedicineTime,
+                                            MedicineInterval pMedicineInterval,
+                                            boolean pIsAlarm,
+                                            String pAlarmTimes,
+                                            String pScheduleNote) {
+        long familyMemberId = pFamilyMember.getRowId();
+        long medicineTimeId = pMedicineTime.getRowId();
+        long medicineIntervalId = pMedicineInterval.getRowId();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TableSchedule.COLUMN_NAME__FAMILY_MEMBER_ID, familyMemberId);
+        contentValues.put(TableSchedule.COLUMN_NAME__MEDICINE_TIME_ID, medicineTimeId);
+        contentValues.put(TableSchedule.COLUMN_NAME__MEDICINE_INTERVAL_ID, medicineIntervalId);
+        contentValues.put(TableSchedule.COLUMN_NAME__START_DATE, pStartDate);
+        contentValues.put(TableSchedule.COLUMN_NAME__IS_ALARM, pIsAlarm);
+        contentValues.put(TableSchedule.COLUMN_NAME__ALARM_TIMES, pAlarmTimes);
+        contentValues.put(TableSchedule.COLUMN_NAME__SCHEDULE_NOTE, pScheduleNote);
+
+        return contentValues;
+    }
+
+    private List<ContentValues> buildTakenMedicineData(ArrayMap<Long, TakenMedicine> pTakenMedicines) {
+        List<ContentValues> takenMedicines = new ArrayList<>();
+        for(int i = 0; i < pTakenMedicines.size(); i++) {
+            TakenMedicine takenMedicine = pTakenMedicines.valueAt(i);
+            long medicineId = takenMedicine.getMedicineId();
+            String medicineName = takenMedicine.getMedicineName();
+            String dose = takenMedicine.getDose();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(TableTakenMedicine.COLUMN_NAME__MEDICINE_ID, medicineId);
+            contentValues.put(TableTakenMedicine.COLUMN_NAME__MEDICINE_NAME, medicineName);
+            contentValues.put(TableTakenMedicine.COLUMN_NAME__DOSE, dose);
+        }
+
+        return takenMedicines;
+    }
+
+    private List<ContentValues> buildAlarmData(FamilyMember pFamilyMember,
+                                String pStartDate,
+                                MedicineTime pMedicineTime,
+                                MedicineInterval pMedicineInterval,
+                                String pAlarmTimes) throws ParseException {
+
+        DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this.mView.getViewContext());
+        Date startDate = dateFormat.parse(pStartDate);
+
+        long familyMemberId = pFamilyMember.getRowId();
+        String familyMemberName = pFamilyMember.getFamilyMemberName();
+        int intervalValue = pMedicineInterval.getMedicineIntervalValue();
+        int alarmTimes = Integer.parseInt(pAlarmTimes);
+
+        String[] medicineTimeValues = pMedicineTime.getMedicineTimeValues();
+        int[] hours = new int[medicineTimeValues.length];
+        int[] minutes = new int[medicineTimeValues.length];
+        for(int i = 0; i < medicineTimeValues.length; i++) {
+            String[] medicineTime = medicineTimeValues[i].split(Constants.DELIMITER__TIME);
+            hours[i] = Integer.parseInt(medicineTime[0]);
+            minutes[i] = Integer.parseInt(medicineTime[1]);
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate);
+        List<ContentValues> alarms = new ArrayList<>();
+        for(int i = 0; i < alarmTimes; i++) {
+            if(i > 0) {
+                calendar.add(Calendar.DATE, intervalValue);
+            }
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int date = calendar.get(Calendar.DATE);
+            for(int j = 0; j < medicineTimeValues.length; j++) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(TableAlarm.COLUMN_NAME__ALARM_YEAR, year);
+                contentValues.put(TableAlarm.COLUMN_NAME__ALARM_MONTH, month);
+                contentValues.put(TableAlarm.COLUMN_NAME__ALARM_DATE, date);
+                contentValues.put(TableAlarm.COLUMN_NAME__ALARM_HOUR, hours[j]);
+                contentValues.put(TableAlarm.COLUMN_NAME__ALARM_MINUTE, minutes[j]);
+                contentValues.put(TableAlarm.COLUMN_NAME__FAMILY_MEMBER_ID, familyMemberId);
+                contentValues.put(TableAlarm.COLUMN_NAME__FAMILY_MEMBER_NAME, familyMemberName);
+
+                alarms.add(contentValues);
+            }
+        }
+
+        return alarms;
     }
 
     private int checkInputData(FamilyMember pFamilyMember,

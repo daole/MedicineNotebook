@@ -13,6 +13,7 @@ public class Constants {
     public static final String FORMAT__TIME_VALUE = "%02d";
 
     public static final String BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH = "captured_picture";
+    public static final String BUNDLE_KEY__ROW_ID = "row_id";
 
     public static final int ROW_ID__NO_SELECT = 0;
 

@@ -16,7 +16,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.dreamdigitizers.drugmanagement.R;
-import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
+import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicine;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineList;
@@ -47,7 +47,7 @@ class PresenterMedicineList implements IPresenterMedicineList {
             return;
         }
 
-        Uri uri = MedicineContentProvider.CONTENT_URI__MEDICINE;
+        Uri uri = ContentProviderMedicine.CONTENT_URI__MEDICINE;
         final ArrayList<ContentProviderOperation> operations = new ArrayList<>();
         for(long rowId : this.mSelectedRowIds) {
             operations.add(ContentProviderOperation.newDelete(ContentUris.withAppendedId(uri, rowId)).build());
@@ -57,16 +57,16 @@ class PresenterMedicineList implements IPresenterMedicineList {
             @Override
             public void onPositiveButtonClick(Activity pActivity, String pTitle, String pMessage, boolean pIsTwoButton, String pPositiveButtonText, String pNegativeButtonText) {
                 try {
-                    PresenterMedicineList.this.mView.getViewContext().getContentResolver().applyBatch(MedicineContentProvider.AUTHORITY, operations);
+                    PresenterMedicineList.this.mView.getViewContext().getContentResolver().applyBatch(ContentProviderMedicine.AUTHORITY, operations);
                     PresenterMedicineList.this.mSelectedPositions.clear();
                     PresenterMedicineList.this.mSelectedRowIds.clear();
                     PresenterMedicineList.this.mView.showMessage(R.string.message__delete_successful);
                 } catch (RemoteException e) {
                     e.printStackTrace();
-                    PresenterMedicineList.this.mView.showError(R.string.error__db_unknown_error);
+                    PresenterMedicineList.this.mView.showError(R.string.error__unknown_error);
                 } catch (OperationApplicationException e) {
                     e.printStackTrace();
-                    PresenterMedicineList.this.mView.showError(R.string.error__db_unknown_error);
+                    PresenterMedicineList.this.mView.showError(R.string.error__unknown_error);
                 }
             }
 
@@ -83,7 +83,7 @@ class PresenterMedicineList implements IPresenterMedicineList {
         String[] projection = new String[0];
         projection = TableMedicine.getColumns().toArray(projection);
         CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
-                MedicineContentProvider.CONTENT_URI__MEDICINE, projection, null, null, null);
+                ContentProviderMedicine.CONTENT_URI__MEDICINE, projection, null, null, null);
         return cursorLoader;
     }
 

@@ -17,7 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
-import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
+import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineInterval;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineIntervalList;
@@ -48,7 +48,7 @@ class PresenterMedicineIntervalList implements IPresenterMedicineIntervalList {
             return;
         }
 
-        Uri uri = MedicineContentProvider.CONTENT_URI__MEDICINE_INTERVAL;
+        Uri uri = ContentProviderMedicine.CONTENT_URI__MEDICINE_INTERVAL;
         final ArrayList<ContentProviderOperation> operations = new ArrayList<>();
         for(long rowId : this.mSelectedRowIds) {
             operations.add(ContentProviderOperation.newDelete(ContentUris.withAppendedId(uri, rowId)).build());
@@ -58,16 +58,16 @@ class PresenterMedicineIntervalList implements IPresenterMedicineIntervalList {
             @Override
             public void onPositiveButtonClick(Activity pActivity, String pTitle, String pMessage, boolean pIsTwoButton, String pPositiveButtonText, String pNegativeButtonText) {
                 try {
-                    PresenterMedicineIntervalList.this.mView.getViewContext().getContentResolver().applyBatch(MedicineContentProvider.AUTHORITY, operations);
+                    PresenterMedicineIntervalList.this.mView.getViewContext().getContentResolver().applyBatch(ContentProviderMedicine.AUTHORITY, operations);
                     PresenterMedicineIntervalList.this.mSelectedPositions.clear();
                     PresenterMedicineIntervalList.this.mSelectedRowIds.clear();
                     PresenterMedicineIntervalList.this.mView.showMessage(R.string.message__delete_successful);
                 } catch (RemoteException e) {
                     e.printStackTrace();
-                    PresenterMedicineIntervalList.this.mView.showError(R.string.error__db_unknown_error);
+                    PresenterMedicineIntervalList.this.mView.showError(R.string.error__unknown_error);
                 } catch (OperationApplicationException e) {
                     e.printStackTrace();
-                    PresenterMedicineIntervalList.this.mView.showError(R.string.error__db_unknown_error);
+                    PresenterMedicineIntervalList.this.mView.showError(R.string.error__unknown_error);
                 }
             }
 
@@ -84,7 +84,7 @@ class PresenterMedicineIntervalList implements IPresenterMedicineIntervalList {
         String[] projection = new String[0];
         projection = TableMedicineInterval.getColumns().toArray(projection);
         CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
-                MedicineContentProvider.CONTENT_URI__MEDICINE_INTERVAL, projection, null, null, null);
+                ContentProviderMedicine.CONTENT_URI__MEDICINE_INTERVAL, projection, null, null, null);
         return cursorLoader;
     }
 

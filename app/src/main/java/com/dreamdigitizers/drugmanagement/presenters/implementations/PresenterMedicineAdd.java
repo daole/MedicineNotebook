@@ -14,8 +14,8 @@ import android.text.TextUtils;
 
 import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
-import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineAdd;
@@ -65,12 +65,12 @@ class PresenterMedicineAdd implements IPresenterMedicineAdd {
         }
 
         Uri uri = this.mView.getViewContext().getContentResolver().insert(
-                MedicineContentProvider.CONTENT_URI__MEDICINE, contentValues);
+                ContentProviderMedicine.CONTENT_URI__MEDICINE, contentValues);
         long newId = Long.parseLong(uri.getLastPathSegment());
         if(newId == DatabaseHelper.DB_ERROR_CODE__CONSTRAINT) {
             this.mView.showError(R.string.error__duplicated_data);
         } else if(newId == DatabaseHelper.DB_ERROR_CODE__OTHER) {
-            this.mView.showError(R.string.error__db_unknown_error);
+            this.mView.showError(R.string.error__unknown_error);
         } else {
             this.mView.clearInput();
             this.mView.showMessage(R.string.message__insert_successful);
@@ -82,7 +82,7 @@ class PresenterMedicineAdd implements IPresenterMedicineAdd {
         String[] projection = new String[0];
         projection = TableMedicineCategory.getColumns().toArray(projection);
         CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
-                MedicineContentProvider.CONTENT_URI__MEDICINE_CATEGORY, projection, null, null, null);
+                ContentProviderMedicine.CONTENT_URI__MEDICINE_CATEGORY, projection, null, null, null);
         return cursorLoader;
     }
 

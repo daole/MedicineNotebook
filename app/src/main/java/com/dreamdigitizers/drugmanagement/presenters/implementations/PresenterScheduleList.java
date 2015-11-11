@@ -6,8 +6,8 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 
-import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
-import com.dreamdigitizers.drugmanagement.data.dal.tables.TableAlert;
+import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
+import com.dreamdigitizers.drugmanagement.data.dal.tables.TableAlarm;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleList;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleList;
 
@@ -23,9 +23,9 @@ class PresenterScheduleList implements IPresenterScheduleList {
     @Override
     public Loader<Cursor> onCreateLoader(int pId, Bundle pArgs) {
         String[] projection = new String[0];
-        projection = TableAlert.getColumns().toArray(projection);
+        projection = TableAlarm.getColumns().toArray(projection);
         CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
-                MedicineContentProvider.CONTENT_URI__MEDICINE_TIME_SETTING, projection, null, null, null);
+                ContentProviderMedicine.CONTENT_URI__SCHEDULE, projection, null, null, null);
         return cursorLoader;
     }
 

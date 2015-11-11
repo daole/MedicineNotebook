@@ -1,19 +1,19 @@
 package com.dreamdigitizers.drugmanagement.data.dal;
 
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
-import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTimeSetting;
+import com.dreamdigitizers.drugmanagement.data.dal.tables.TableSchedule;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class DaoMedicineTimeSetting extends Dao {
-    public DaoMedicineTimeSetting(DatabaseHelper pDatabaseHelper) {
+public class DaoSchedule extends Dao {
+    public DaoSchedule(DatabaseHelper pDatabaseHelper) {
         super(pDatabaseHelper);
     }
 
     @Override
     protected String getTableName() {
-        return TableMedicineTimeSetting.TABLE_NAME;
+        return TableSchedule.TABLE_NAME;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class DaoMedicineTimeSetting extends Dao {
         if(pProjection == null) {
             return false;
         }
-        List<String> columns = TableMedicineTimeSetting.getColumns();
+        List<String> columns = TableSchedule.getColumns();
         return columns.containsAll(Arrays.asList(pProjection));
     }
 }

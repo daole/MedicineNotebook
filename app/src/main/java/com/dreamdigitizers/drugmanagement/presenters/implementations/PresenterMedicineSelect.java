@@ -11,7 +11,7 @@ import android.text.TextUtils;
 
 import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
-import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
+import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicine;
 import com.dreamdigitizers.drugmanagement.data.models.Medicine;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineSelect;
@@ -32,7 +32,7 @@ class PresenterMedicineSelect implements IPresenterMedicineSelect {
         String[] projection = new String[0];
         projection = TableMedicine.getColumns().toArray(projection);
         CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
-                MedicineContentProvider.CONTENT_URI__MEDICINE, projection, null, null, null);
+                ContentProviderMedicine.CONTENT_URI__MEDICINE, projection, null, null, null);
         return cursorLoader;
     }
 

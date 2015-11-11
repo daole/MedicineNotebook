@@ -16,7 +16,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.dreamdigitizers.drugmanagement.R;
-import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
+import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableFamilyMember;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyMemberList;
@@ -47,7 +47,7 @@ class PresenterFamilyMemberList implements IPresenterFamilyMemberList {
             return;
         }
 
-        Uri uri = MedicineContentProvider.CONTENT_URI__FAMILY_MEMBER;
+        Uri uri = ContentProviderMedicine.CONTENT_URI__FAMILY_MEMBER;
         final ArrayList<ContentProviderOperation> operations = new ArrayList<>();
         for(long rowId : this.mSelectedRowIds) {
             operations.add(ContentProviderOperation.newDelete(ContentUris.withAppendedId(uri, rowId)).build());
@@ -57,16 +57,16 @@ class PresenterFamilyMemberList implements IPresenterFamilyMemberList {
             @Override
             public void onPositiveButtonClick(Activity pActivity, String pTitle, String pMessage, boolean pIsTwoButton, String pPositiveButtonText, String pNegativeButtonText) {
                 try {
-                    PresenterFamilyMemberList.this.mView.getViewContext().getContentResolver().applyBatch(MedicineContentProvider.AUTHORITY, operations);
+                    PresenterFamilyMemberList.this.mView.getViewContext().getContentResolver().applyBatch(ContentProviderMedicine.AUTHORITY, operations);
                     PresenterFamilyMemberList.this.mSelectedPositions.clear();
                     PresenterFamilyMemberList.this.mSelectedRowIds.clear();
                     PresenterFamilyMemberList.this.mView.showMessage(R.string.message__delete_successful);
                 } catch (RemoteException e) {
                     e.printStackTrace();
-                    PresenterFamilyMemberList.this.mView.showError(R.string.error__db_unknown_error);
+                    PresenterFamilyMemberList.this.mView.showError(R.string.error__unknown_error);
                 } catch (OperationApplicationException e) {
                     e.printStackTrace();
-                    PresenterFamilyMemberList.this.mView.showError(R.string.error__db_unknown_error);
+                    PresenterFamilyMemberList.this.mView.showError(R.string.error__unknown_error);
                 }
             }
 
@@ -83,7 +83,7 @@ class PresenterFamilyMemberList implements IPresenterFamilyMemberList {
         String[] projection = new String[0];
         projection = TableFamilyMember.getColumns().toArray(projection);
         CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
-                MedicineContentProvider.CONTENT_URI__FAMILY_MEMBER, projection, null, null, null);
+                ContentProviderMedicine.CONTENT_URI__FAMILY_MEMBER, projection, null, null, null);
         return cursorLoader;
     }
 

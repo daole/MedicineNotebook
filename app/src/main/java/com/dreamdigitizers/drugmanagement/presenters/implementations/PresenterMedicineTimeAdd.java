@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
-import com.dreamdigitizers.drugmanagement.data.MedicineContentProvider;
+import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTime;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeAdd;
 import com.dreamdigitizers.drugmanagement.utils.StringUtils;
@@ -38,12 +38,12 @@ class PresenterMedicineTimeAdd implements IPresenterMedicineTimeAdd {
         contentValues.put(TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_VALUE, medicineTimeValue);
 
         Uri uri = this.mView.getViewContext().getContentResolver().insert(
-                MedicineContentProvider.CONTENT_URI__MEDICINE_TIME, contentValues);
+                ContentProviderMedicine.CONTENT_URI__MEDICINE_TIME, contentValues);
         long newId = Long.parseLong(uri.getLastPathSegment());
         if(newId == DatabaseHelper.DB_ERROR_CODE__CONSTRAINT) {
             this.mView.showError(R.string.error__duplicated_data);
         } else if(newId == DatabaseHelper.DB_ERROR_CODE__OTHER) {
-            this.mView.showError(R.string.error__db_unknown_error);
+            this.mView.showError(R.string.error__unknown_error);
         } else {
             this.mView.clearInput();
             this.mView.showMessage(R.string.message__insert_successful);
