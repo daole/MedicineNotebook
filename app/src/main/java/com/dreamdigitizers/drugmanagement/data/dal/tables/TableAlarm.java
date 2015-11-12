@@ -39,50 +39,54 @@ public class TableAlarm extends Table {
     private static final String STATEMENT__UPDATE = "";
 
     public static List<String> getColumns() {
+        return TableAlarm.getColumns(false, true);
+    }
+
+    public static List<String> getColumns(boolean pIncludeTableName, boolean pIncludeIdColumn) {
         List<String> columns = new ArrayList<String>();
 
-        columns.add(Table.COLUMN_NAME__ID);
-        columns.add(TableAlarm.COLUMN_NAME__SCHEDULE_ID);
-        columns.add(TableAlarm.COLUMN_NAME__ALARM_YEAR);
-        columns.add(TableAlarm.COLUMN_NAME__ALARM_MONTH);
-        columns.add(TableAlarm.COLUMN_NAME__ALARM_DATE);
-        columns.add(TableAlarm.COLUMN_NAME__ALARM_HOUR);
-        columns.add(TableAlarm.COLUMN_NAME__ALARM_MINUTE);
-        columns.add(TableAlarm.COLUMN_NAME__IS_DONE);
+        String tableName = "";
+        if(pIncludeTableName) {
+            tableName = TableAlarm.TABLE_NAME + ".";
+        }
+
+        if(pIncludeIdColumn) {
+            columns.add(tableName + Table.COLUMN_NAME__ID);
+        }
+        columns.add(tableName + TableAlarm.COLUMN_NAME__SCHEDULE_ID);
+        columns.add(tableName + TableAlarm.COLUMN_NAME__ALARM_YEAR);
+        columns.add(tableName + TableAlarm.COLUMN_NAME__ALARM_MONTH);
+        columns.add(tableName + TableAlarm.COLUMN_NAME__ALARM_DATE);
+        columns.add(tableName + TableAlarm.COLUMN_NAME__ALARM_HOUR);
+        columns.add(tableName + TableAlarm.COLUMN_NAME__ALARM_MINUTE);
+        columns.add(tableName + TableAlarm.COLUMN_NAME__IS_DONE);
 
         return columns;
     }
 
     public static List<String> getColumnsForJoin() {
-        List<String> columns = TableAlarm.getColumns();
+        List<String> columns = TableAlarm.getColumns(true, true);
 
-        List<String> scheduleColumns = TableSchedule.getColumns();
-        scheduleColumns.remove(Table.COLUMN_NAME__ID);
+        List<String> scheduleColumns = TableSchedule.getColumns(true, false);
         columns.addAll(scheduleColumns);
 
-        List<String> takenMedicineColumns = TableTakenMedicine.getColumns();
-        takenMedicineColumns.remove(Table.COLUMN_NAME__ID);
+        List<String> takenMedicineColumns = TableTakenMedicine.getColumns(true, false);
         columns.add(TableTakenMedicine.COLUMN_NAME__ID);
         columns.addAll(takenMedicineColumns);
 
-        List<String> medicineColumns = TableMedicine.getColumns();
-        medicineColumns.remove(Table.COLUMN_NAME__ID);
+        List<String> medicineColumns = TableMedicine.getColumns(true, false);
         columns.addAll(medicineColumns);
 
-        List<String> medicineCategoryColumns = TableMedicineCategory.getColumns();
-        medicineCategoryColumns.remove(Table.COLUMN_NAME__ID);
+        List<String> medicineCategoryColumns = TableMedicineCategory.getColumns(true, false);
         columns.addAll(medicineCategoryColumns);
 
-        List<String> familyMemberColumns = TableFamilyMember.getColumns();
-        familyMemberColumns.remove(Table.COLUMN_NAME__ID);
+        List<String> familyMemberColumns = TableFamilyMember.getColumns(true, false);
         columns.addAll(familyMemberColumns);
 
-        List<String> medicineTimeColumns = TableMedicineTime.getColumns();
-        medicineTimeColumns.remove(Table.COLUMN_NAME__ID);
+        List<String> medicineTimeColumns = TableMedicineTime.getColumns(true, false);
         columns.addAll(medicineTimeColumns);
 
-        List<String> medicineIntervalColumns = TableMedicineInterval.getColumns();
-        medicineIntervalColumns.remove(Table.COLUMN_NAME__ID);
+        List<String> medicineIntervalColumns = TableMedicineInterval.getColumns(true, false);
         columns.addAll(medicineIntervalColumns);
 
         return  columns;

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class AlarmUtils {
@@ -30,8 +31,11 @@ public class AlarmUtils {
     public static void setAlarm(Context pContext, PendingIntent pPendingIntent, int pYear, int pMonth, int pDate, int pHour, int pMinute) {
         GregorianCalendar gregorianCalendar = new GregorianCalendar(pYear, pMonth, pDate, pHour, pMinute);
         long alarmTime = gregorianCalendar.getTimeInMillis();
-        AlarmManager alarmManager = (AlarmManager)pContext.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pPendingIntent);
+        long currentTime = System.currentTimeMillis();
+        if(alarmTime > currentTime) {
+            AlarmManager alarmManager = (AlarmManager) pContext.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pPendingIntent);
+        }
     }
 
     public static void enableBootReceiver(Context pContext, Class pReceiverClass) {

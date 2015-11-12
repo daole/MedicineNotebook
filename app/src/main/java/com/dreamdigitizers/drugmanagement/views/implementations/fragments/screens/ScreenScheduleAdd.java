@@ -54,7 +54,6 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     private FamilyMember mFamilyMember;
     private MedicineTime mMedicineTime;
     private MedicineInterval mMedicineInterval;
-    private boolean mIsAlarm;
 
     @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
@@ -195,7 +194,6 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     }
 
     private void changeAlarmSetting(boolean pIsChecked) {
-        this.mIsAlarm = pIsChecked;
         this.mTxtAlarmTimes.setEnabled(pIsChecked);
     }
 
@@ -265,7 +263,14 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     }
 
     private void buttonAddClick() {
-
+        this.mPresenter.insert(this.mFamilyMember,
+                this.mAdapter.getData(),
+                this.mLblStartDateValue.getText().toString().trim(),
+                this.mMedicineTime,
+                this.mMedicineInterval,
+                this.mSwiAlarm.isChecked(),
+                this.mTxtAlarmTimes.getText().toString().trim(),
+                this.mTxtScheduleNote.getText().toString().trim());
     }
 
     private void buttonBackClick() {

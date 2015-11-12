@@ -8,6 +8,7 @@
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:name=".MyApplication"
@@ -30,7 +31,17 @@
             android:theme="@style/FullScreenTheme"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="net.care.apple.mm.CameraActivity" />
+                <action android:name="com.dreamdigitizers.drugmanagement.views.implementations.activities.CameraActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".views.implementations.activities.ActivityAlarm"
+            android:theme="@style/FullScreenTheme"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityAlarm" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

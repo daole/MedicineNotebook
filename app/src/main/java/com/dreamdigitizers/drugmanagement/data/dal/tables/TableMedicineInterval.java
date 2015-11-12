@@ -28,11 +28,22 @@ public class TableMedicineInterval extends Table {
     private static final String STATEMENT__INSERT = "INSERT INTO `" + TableMedicineInterval.TABLE_NAME + "` VALUES(%d, '%s', '%s')";
 
     public static List<String> getColumns() {
+        return TableMedicineInterval.getColumns(false, true);
+    }
+
+    public static List<String> getColumns(boolean pIncludeTableName, boolean pIncludeIdColumn) {
         List<String> columns = new ArrayList<String>();
 
-        columns.add(Table.COLUMN_NAME__ID);
-        columns.add(TableMedicineInterval.COLUMN_NAME__MEDICINE_INTERVAL_NAME);
-        columns.add(TableMedicineInterval.COLUMN_NAME__MEDICINE_INTERVAL_VALUE);
+        String tableName = "";
+        if(pIncludeTableName) {
+            tableName = TableMedicineInterval.TABLE_NAME + ".";
+        }
+
+        if(pIncludeIdColumn) {
+            columns.add(tableName + Table.COLUMN_NAME__ID);
+        }
+        columns.add(tableName + TableMedicineInterval.COLUMN_NAME__MEDICINE_INTERVAL_NAME);
+        columns.add(tableName + TableMedicineInterval.COLUMN_NAME__MEDICINE_INTERVAL_VALUE);
 
         return columns;
     }

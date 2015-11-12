@@ -72,6 +72,7 @@ public class DatabaseHelper {
                 this.commitTransaction();
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             if(e instanceof SQLiteConstraintException) {
                 newID = DatabaseHelper.DB_ERROR_CODE__CONSTRAINT;
             } else {

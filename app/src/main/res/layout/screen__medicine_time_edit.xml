@@ -51,7 +51,8 @@
             android:layout_height="150dp"
             android:layout_alignLeft="@id/txtMedicineTimeName"
             android:layout_alignTop="@id/lblMedicineTimeValue"
-            android:layout_toRightOf="@id/lblMedicineTimeValue"/>
+            android:layout_toRightOf="@id/lblMedicineTimeValue"
+            android:scrollbars="vertical"/>
 
     </RelativeLayout>
 

@@ -12,7 +12,7 @@ public class DaoMedicineInterval extends Dao {
     }
 
     @Override
-    protected String getTableName() {
+    public String getTableName() {
         return TableMedicineInterval.TABLE_NAME;
     }
 

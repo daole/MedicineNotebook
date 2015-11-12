@@ -12,7 +12,7 @@ public class DaoSchedule extends Dao {
     }
 
     @Override
-    protected String getTableName() {
+    public String getTableName() {
         return TableSchedule.TABLE_NAME;
     }
 

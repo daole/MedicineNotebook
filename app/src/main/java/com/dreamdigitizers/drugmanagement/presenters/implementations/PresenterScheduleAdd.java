@@ -112,25 +112,23 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         }
 
         List<ContentValues> alarms = null;
-        if(pIsAlarm) {
-            try {
-                alarms = this.buildAlarmData(pFamilyMember,
-                        pStartDate,
-                        pMedicineTime,
-                        pMedicineInterval,
-                        pAlarmTimes);
+        try {
+            alarms = this.buildAlarmData(pFamilyMember,
+                    pStartDate,
+                    pMedicineTime,
+                    pMedicineInterval,
+                    pAlarmTimes);
 
-                for(ContentValues alarm : alarms) {
-                    operations.add(ContentProviderOperation.newInsert(ContentProviderMedicine.CONTENT_URI__ALARM)
-                            .withValueBackReference(TableAlarm.COLUMN_NAME__SCHEDULE_ID, 0)
-                            .withValues(alarm)
-                            .build());
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-                this.mView.showError(R.string.error__unknown_error);
-                return;
+            for(ContentValues alarm : alarms) {
+                operations.add(ContentProviderOperation.newInsert(ContentProviderMedicine.CONTENT_URI__ALARM)
+                        .withValueBackReference(TableAlarm.COLUMN_NAME__SCHEDULE_ID, 0)
+                        .withValues(alarm)
+                        .build());
             }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            this.mView.showError(R.string.error__unknown_error);
+            return;
         }
 
         ContentProviderResult[] results;
@@ -352,6 +350,8 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
             contentValues.put(TableTakenMedicine.COLUMN_NAME__MEDICINE_ID, medicineId);
             contentValues.put(TableTakenMedicine.COLUMN_NAME__FALLBACK_MEDICINE_NAME, fallbackMedicineName);
             contentValues.put(TableTakenMedicine.COLUMN_NAME__DOSE, dose);
+
+            takenMedicines.add(contentValues);
         }
 
         return takenMedicines;

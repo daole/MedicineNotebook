@@ -12,7 +12,7 @@ public class DaoFamilyMember extends Dao {
     }
 
     @Override
-    protected String getTableName() {
+    public String getTableName() {
         return TableFamilyMember.TABLE_NAME;
     }
 

@@ -28,11 +28,22 @@ public class TableMedicineCategory extends Table {
     private static final String STATEMENT__INSERT = "INSERT INTO `" + TableMedicineCategory.TABLE_NAME + "` VALUES(%d, '%s', '%s')";
 
     public static List<String> getColumns() {
+        return TableMedicineCategory.getColumns(false, true);
+    }
+
+    public static List<String> getColumns(boolean pIncludeTableName, boolean pIncludeIdColumn) {
         List<String> columns = new ArrayList<String>();
 
-        columns.add(Table.COLUMN_NAME__ID);
-        columns.add(TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME);
-        columns.add(TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NOTE);
+        String tableName = "";
+        if(pIncludeTableName) {
+            tableName = TableMedicineCategory.TABLE_NAME + ".";
+        }
+
+        if(pIncludeIdColumn) {
+            columns.add(tableName + Table.COLUMN_NAME__ID);
+        }
+        columns.add(tableName + TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME);
+        columns.add(tableName + TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NOTE);
 
         return columns;
     }

@@ -25,10 +25,21 @@ public class TableFamilyMember extends Table {
     private static final String STATEMENT__INSERT = "INSERT INTO `" + TableFamilyMember.TABLE_NAME + "` VALUES(%d, '%s')";
 
     public static List<String> getColumns() {
+        return TableFamilyMember.getColumns(false, true);
+    }
+
+    public static List<String> getColumns(boolean pIncludeTableName, boolean pIncludeIdColumn) {
         List<String> columns = new ArrayList<String>();
 
-        columns.add(Table.COLUMN_NAME__ID);
-        columns.add(TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME);
+        String tableName = "";
+        if(pIncludeTableName) {
+            tableName = TableFamilyMember.TABLE_NAME + ".";
+        }
+
+        if(pIncludeIdColumn) {
+            columns.add(tableName + Table.COLUMN_NAME__ID);
+        }
+        columns.add(tableName + TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME);
 
         return columns;
     }

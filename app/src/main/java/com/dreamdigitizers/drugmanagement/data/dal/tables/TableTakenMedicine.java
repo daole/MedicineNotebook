@@ -34,13 +34,24 @@ public class TableTakenMedicine extends Table {
     private static final String STATEMENT__UPDATE = "";
 
     public static List<String> getColumns() {
+        return TableTakenMedicine.getColumns(false, true);
+    }
+
+    public static List<String> getColumns(boolean pIncludeTableName, boolean pIncludeIdColumn) {
         List<String> columns = new ArrayList<String>();
 
-        columns.add(Table.COLUMN_NAME__ID);
-        columns.add(TableTakenMedicine.COLUMN_NAME__SCHEDULE_ID);
-        columns.add(TableTakenMedicine.COLUMN_NAME__MEDICINE_ID);
-        columns.add(TableTakenMedicine.COLUMN_NAME__FALLBACK_MEDICINE_NAME);
-        columns.add(TableTakenMedicine.COLUMN_NAME__DOSE);
+        String tableName = "";
+        if(pIncludeTableName) {
+            tableName = TableTakenMedicine.TABLE_NAME + ".";
+        }
+
+        if(pIncludeIdColumn) {
+            columns.add(tableName + Table.COLUMN_NAME__ID);
+        }
+        columns.add(tableName + TableTakenMedicine.COLUMN_NAME__SCHEDULE_ID);
+        columns.add(tableName + TableTakenMedicine.COLUMN_NAME__MEDICINE_ID);
+        columns.add(tableName + TableTakenMedicine.COLUMN_NAME__FALLBACK_MEDICINE_NAME);
+        columns.add(tableName + TableTakenMedicine.COLUMN_NAME__DOSE);
 
         return columns;
     }

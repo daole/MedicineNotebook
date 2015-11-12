@@ -278,7 +278,7 @@ public class ContentProviderMedicine extends ContentProvider {
                 } else {
                     pSelection += " and ";
                 }
-                pSelection += Table.COLUMN_NAME__ID + " = " + id;
+                pSelection += dao.getTableName() + "." + Table.COLUMN_NAME__ID + " = " + id;
             }
             cursor = dao.select(pProjection, pSelection, pSelectionArgs, null, null, pSortOrder);
             cursor.setNotificationUri(this.getContext().getContentResolver(), pUri);

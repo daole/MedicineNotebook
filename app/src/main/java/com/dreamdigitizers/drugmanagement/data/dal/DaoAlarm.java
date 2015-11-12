@@ -1,5 +1,7 @@
 package com.dreamdigitizers.drugmanagement.data.dal;
 
+import android.database.Cursor;
+
 import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableAlarm;
@@ -104,8 +106,15 @@ public class DaoAlarm extends Dao {
     }
 
     @Override
-    protected String getTableName() {
-        return DaoAlarm.JOIN_CLAUSE;
+    public Cursor select(String[] pProjection, String pWhereClause, String[] pWhereArgs, String pGroupBy, String pHaving, String pSortOrder, boolean pIsCloseOnEnd) {
+        this.mSQLiteQueryBuilder.setTables(DaoAlarm.JOIN_CLAUSE);
+        Cursor cursor = this.mDatabaseHelper.select(this.mSQLiteQueryBuilder, pProjection, pWhereClause, pWhereArgs, pGroupBy, pHaving, pSortOrder, null, false, pIsCloseOnEnd);
+        return  cursor;
+    }
+
+    @Override
+    public String getTableName() {
+        return TableAlarm.TABLE_NAME;
     }
 
     @Override
@@ -113,7 +122,7 @@ public class DaoAlarm extends Dao {
         if(pProjection == null) {
             return false;
         }
-        List<String> columns = TableAlarm.getColumns();
+        List<String> columns = TableAlarm.getColumnsForJoin();
         return columns.containsAll(Arrays.asList(pProjection));
     }
 }

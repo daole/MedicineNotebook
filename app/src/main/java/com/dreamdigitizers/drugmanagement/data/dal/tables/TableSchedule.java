@@ -45,18 +45,29 @@ public class TableSchedule extends Table {
     private static final String STATEMENT__UPDATE = "";
 
     public static List<String> getColumns() {
+        return TableSchedule.getColumns(false, true);
+    }
+
+    public static List<String> getColumns(boolean pIncludeTableName, boolean pIncludeIdColumn) {
         List<String> columns = new ArrayList<String>();
 
-        columns.add(Table.COLUMN_NAME__ID);
-        columns.add(TableSchedule.COLUMN_NAME__FAMILY_MEMBER_ID);
-        columns.add(TableSchedule.COLUMN_NAME__MEDICINE_TIME_ID);
-        columns.add(TableSchedule.COLUMN_NAME__MEDICINE_INTERVAL_ID);
-        columns.add(TableSchedule.COLUMN_NAME__FALLBACK_FAMILY_MEMBER_NAME);
-        columns.add(TableSchedule.COLUMN_NAME__START_DATE);
-        columns.add(TableSchedule.COLUMN_NAME__IS_ALARM);
-        columns.add(TableSchedule.COLUMN_NAME__ALARM_TIMES);
-        columns.add(TableSchedule.COLUMN_NAME__IMAGE_PATH);
-        columns.add(TableSchedule.COLUMN_NAME__SCHEDULE_NOTE);
+        String tableName = "";
+        if(pIncludeTableName) {
+            tableName = TableSchedule.TABLE_NAME + ".";
+        }
+
+        if(pIncludeIdColumn){
+            columns.add(tableName + Table.COLUMN_NAME__ID);
+        }
+        columns.add(tableName + TableSchedule.COLUMN_NAME__FAMILY_MEMBER_ID);
+        columns.add(tableName + TableSchedule.COLUMN_NAME__MEDICINE_TIME_ID);
+        columns.add(tableName + TableSchedule.COLUMN_NAME__MEDICINE_INTERVAL_ID);
+        columns.add(tableName + TableSchedule.COLUMN_NAME__FALLBACK_FAMILY_MEMBER_NAME);
+        columns.add(tableName + TableSchedule.COLUMN_NAME__START_DATE);
+        columns.add(tableName + TableSchedule.COLUMN_NAME__IS_ALARM);
+        columns.add(tableName + TableSchedule.COLUMN_NAME__ALARM_TIMES);
+        columns.add(tableName + TableSchedule.COLUMN_NAME__IMAGE_PATH);
+        columns.add(tableName + TableSchedule.COLUMN_NAME__SCHEDULE_NOTE);
 
         return columns;
     }

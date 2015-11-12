@@ -52,7 +52,6 @@ public abstract class Dao {
         return  cursor;
     }
 
+    public abstract String getTableName();
     public abstract boolean checkColumns(String[] pProjection);
-
-    protected abstract String getTableName();
 }

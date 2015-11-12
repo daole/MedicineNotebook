@@ -22,7 +22,7 @@ class MySQLiteOpenHelper extends SQLiteOpenHelper {
 	public MySQLiteOpenHelper(Context pContext) {
 		super(pContext, MySQLiteOpenHelper.DB__NAME, null, MySQLiteOpenHelper.DB__VERSION);
 		this.mContext = pContext;
-		pContext.deleteDatabase(MySQLiteOpenHelper.DB__NAME);
+		//pContext.deleteDatabase(MySQLiteOpenHelper.DB__NAME);
 	}
 
 	@Override
