@@ -16,7 +16,7 @@ public class SoundUtils {
         audioManager.playSoundEffect(AudioManager.FLAG_PLAY_SOUND);
     }
 
-    public static void playAlertSound(Context pContext) {
+    public static void playAlarmSound(Context pContext) {
         try {
             Uri uri = SoundUtils.getAlarmUri();
 

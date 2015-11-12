@@ -9,7 +9,7 @@ import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentBase;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.Screen;
 
-public class ActivityBase extends AppCompatActivity implements FragmentBase.IBeingCoveredChecker, Screen.IOnScreenActionsListener {
+public class ActivityBase extends AppCompatActivity implements FragmentBase.IStateChecker, Screen.IOnScreenActionsListener {
     protected static final String BUNDLE_KEY__DUMP = "dump";
     protected static final String BUNDLE_VALUE__DUMP = "dump";
 
@@ -46,6 +46,11 @@ public class ActivityBase extends AppCompatActivity implements FragmentBase.IBei
         }
 
         this.back();
+    }
+
+    @Override
+    public boolean isRecreated() {
+        return this.mIsRecreated;
     }
 
     @Override

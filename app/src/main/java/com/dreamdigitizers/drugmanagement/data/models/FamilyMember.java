@@ -32,11 +32,18 @@ public class FamilyMember extends Model {
     }
 
     public static FamilyMember fetchDataAtCurrentPosition(Cursor pCursor) {
+        return FamilyMember.fetchDataAtCurrentPosition(pCursor, 0);
+    }
+
+    public static FamilyMember fetchDataAtCurrentPosition(Cursor pCursor, long pRowId) {
         FamilyMember model = null;
 
         if(pCursor != null) {
-            long rowId = pCursor.getLong((Table.COLUMN_INDEX__ID));
-            String familyMemberName = pCursor.getString(TableFamilyMember.COLUMN_INDEX__FAMILY_MEMBER_NAME);
+            long rowId = pRowId;
+            if(rowId <= 0) {
+                rowId = pCursor.getLong(pCursor.getColumnIndex(Table.COLUMN_NAME__ID));
+            }
+            String familyMemberName = pCursor.getString(pCursor.getColumnIndex(TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME));
 
             model = new FamilyMember();
             model.setRowId(rowId);

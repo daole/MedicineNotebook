@@ -52,7 +52,7 @@ public class TakenMedicineAdapter extends BaseAdapter {
 
         TakenMedicine takenMedicine = this.mData.valueAt(pPosition);
         viewHolder = (ViewHolder)pConvertView.getTag();
-        viewHolder.mLblMedicineName.setText(takenMedicine.getMedicineName());
+        viewHolder.mLblMedicineName.setText(takenMedicine.getFallbackMedicineName());
         viewHolder.mLblDose.setText(takenMedicine.getDose());
         viewHolder.mBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override

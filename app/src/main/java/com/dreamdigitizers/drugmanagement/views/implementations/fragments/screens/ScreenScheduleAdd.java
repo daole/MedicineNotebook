@@ -233,7 +233,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
                     public void onMedicineSelect(Medicine pMedicine, String pDose) {
                         TakenMedicine takenMedicine = new TakenMedicine();
                         takenMedicine.setMedicineId(pMedicine.getRowId());
-                        takenMedicine.setMedicineName(pMedicine.getMedicineName());
+                        takenMedicine.setFallbackMedicineName(pMedicine.getMedicineName());
                         takenMedicine.setDose(pDose);
                         ScreenScheduleAdd.this.mAdapter.addItem(takenMedicine);
                     }

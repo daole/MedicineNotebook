@@ -107,7 +107,7 @@ class PresenterMedicineIntervalList implements IPresenterMedicineIntervalList {
             @Override
             public boolean setViewValue(View pView, Cursor pCursor, int pColumnIndex) {
                 if(pView.getId() == R.id.lblMedicineIntervalValue) {
-                    int medicineIntervalValue = pCursor.getInt(TableMedicineInterval.COLUMN_INDEX__MEDICINE_INTERVAL_VALUE);
+                    int medicineIntervalValue = pCursor.getInt(pCursor.getColumnIndex(TableMedicineInterval.COLUMN_NAME__MEDICINE_INTERVAL_VALUE));
                     TextView textView = (TextView)pView;
                     textView.setText(PresenterMedicineIntervalList.this.mView.getViewContext().getResources().getQuantityString(R.plurals.lbl__day, medicineIntervalValue, medicineIntervalValue));
                     return true;

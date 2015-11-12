@@ -41,12 +41,19 @@ public class MedicineCategory extends Model {
     }
 
     public static MedicineCategory fetchDataAtCurrentPosition(Cursor pCursor) {
+        return MedicineCategory.fetchDataAtCurrentPosition(pCursor, 0);
+    }
+
+    public static MedicineCategory fetchDataAtCurrentPosition(Cursor pCursor, long pRowId) {
         MedicineCategory model = null;
 
         if(pCursor != null) {
-            long rowId = pCursor.getLong((Table.COLUMN_INDEX__ID));
-            String medicineCategoryName = pCursor.getString(TableMedicineCategory.COLUMN_INDEX__MEDICINE_CATEGORY_NAME);
-            String medicineCategoryNote = pCursor.getString(TableMedicineCategory.COLUMN_INDEX__MEDICINE_CATEGORY_NOTE);
+            long rowId = pRowId;
+            if(rowId <= 0) {
+                rowId = pCursor.getLong(pCursor.getColumnIndex(Table.COLUMN_NAME__ID));
+            }
+            String medicineCategoryName = pCursor.getString(pCursor.getColumnIndex(TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME));
+            String medicineCategoryNote = pCursor.getString(pCursor.getColumnIndex(TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NOTE));
 
             model = new MedicineCategory();
             model.setRowId(rowId);

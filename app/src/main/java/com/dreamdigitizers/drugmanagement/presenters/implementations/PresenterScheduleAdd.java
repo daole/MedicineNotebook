@@ -157,13 +157,13 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                 int date = alarm.getAsInteger(TableAlarm.COLUMN_NAME__ALARM_DATE);
                 int hour = alarm.getAsInteger(TableAlarm.COLUMN_NAME__ALARM_HOUR);
                 int minute = alarm.getAsInteger(TableAlarm.COLUMN_NAME__ALARM_MINUTE);
-                int rowId = Integer.parseInt(results[i].uri.getLastPathSegment());
+                long rowId = Long.parseLong(results[i].uri.getLastPathSegment());
 
                 Bundle extras = new Bundle();
-                extras.putInt(Constants.BUNDLE_KEY__ROW_ID, rowId);
+                extras.putLong(Constants.BUNDLE_KEY__ROW_ID, rowId);
                 PendingIntent pendingIntent = AlarmUtils.createPendingIntent(this.mView.getViewContext(),
                         ActivityAlarm.class,
-                        rowId,
+                        (int)rowId,
                         Intent.FLAG_ACTIVITY_NEW_TASK,
                         extras);
 
@@ -288,7 +288,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
 
     /*
     private void createMedicineAdapter() {
-        String[] from = new String[] {TableMedicine.COLUMN_NAME__MEDICINE_NAME};
+        String[] from = new String[] {TableMedicine.COLUMN_NAME__FALLBACK_MEDICINE_NAME};
         int[] to = new int[] {android.R.id.text1};
         this.mMedicineAdapter = new SimpleCursorAdapter(this.mView.getViewContext(),
                 android.R.layout.simple_spinner_item, null, from, to, 0);
@@ -323,6 +323,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                                             String pAlarmTimes,
                                             String pScheduleNote) {
         long familyMemberId = pFamilyMember.getRowId();
+        String fallbackFamilyMemberName = pFamilyMember.getFamilyMemberName();
         long medicineTimeId = pMedicineTime.getRowId();
         long medicineIntervalId = pMedicineInterval.getRowId();
 
@@ -330,6 +331,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         contentValues.put(TableSchedule.COLUMN_NAME__FAMILY_MEMBER_ID, familyMemberId);
         contentValues.put(TableSchedule.COLUMN_NAME__MEDICINE_TIME_ID, medicineTimeId);
         contentValues.put(TableSchedule.COLUMN_NAME__MEDICINE_INTERVAL_ID, medicineIntervalId);
+        contentValues.put(TableSchedule.COLUMN_NAME__FALLBACK_FAMILY_MEMBER_NAME, fallbackFamilyMemberName);
         contentValues.put(TableSchedule.COLUMN_NAME__START_DATE, pStartDate);
         contentValues.put(TableSchedule.COLUMN_NAME__IS_ALARM, pIsAlarm);
         contentValues.put(TableSchedule.COLUMN_NAME__ALARM_TIMES, pAlarmTimes);
@@ -343,12 +345,12 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         for(int i = 0; i < pTakenMedicines.size(); i++) {
             TakenMedicine takenMedicine = pTakenMedicines.valueAt(i);
             long medicineId = takenMedicine.getMedicineId();
-            String medicineName = takenMedicine.getMedicineName();
+            String fallbackMedicineName = takenMedicine.getFallbackMedicineName();
             String dose = takenMedicine.getDose();
 
             ContentValues contentValues = new ContentValues();
             contentValues.put(TableTakenMedicine.COLUMN_NAME__MEDICINE_ID, medicineId);
-            contentValues.put(TableTakenMedicine.COLUMN_NAME__MEDICINE_NAME, medicineName);
+            contentValues.put(TableTakenMedicine.COLUMN_NAME__FALLBACK_MEDICINE_NAME, fallbackMedicineName);
             contentValues.put(TableTakenMedicine.COLUMN_NAME__DOSE, dose);
         }
 
@@ -364,8 +366,6 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this.mView.getViewContext());
         Date startDate = dateFormat.parse(pStartDate);
 
-        long familyMemberId = pFamilyMember.getRowId();
-        String familyMemberName = pFamilyMember.getFamilyMemberName();
         int intervalValue = pMedicineInterval.getMedicineIntervalValue();
         int alarmTimes = Integer.parseInt(pAlarmTimes);
 
@@ -395,8 +395,6 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                 contentValues.put(TableAlarm.COLUMN_NAME__ALARM_DATE, date);
                 contentValues.put(TableAlarm.COLUMN_NAME__ALARM_HOUR, hours[j]);
                 contentValues.put(TableAlarm.COLUMN_NAME__ALARM_MINUTE, minutes[j]);
-                contentValues.put(TableAlarm.COLUMN_NAME__FAMILY_MEMBER_ID, familyMemberId);
-                contentValues.put(TableAlarm.COLUMN_NAME__FAMILY_MEMBER_NAME, familyMemberName);
 
                 alarms.add(contentValues);
             }

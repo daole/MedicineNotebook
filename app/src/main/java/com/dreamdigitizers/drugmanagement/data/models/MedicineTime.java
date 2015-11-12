@@ -42,12 +42,19 @@ public class MedicineTime extends Model {
     }
 
     public static MedicineTime fetchDataAtCurrentPosition(Cursor pCursor) {
+        return MedicineTime.fetchDataAtCurrentPosition(pCursor, 0);
+    }
+
+    public static MedicineTime fetchDataAtCurrentPosition(Cursor pCursor, long pRowId) {
         MedicineTime model = null;
 
         if(pCursor != null) {
-            long rowId = pCursor.getLong((Table.COLUMN_INDEX__ID));
-            String medicineTimeName = pCursor.getString(TableMedicineTime.COLUMN_INDEX__MEDICINE_TIME_NAME);
-            String medicineTimeValue = pCursor.getString(TableMedicineTime.COLUMN_INDEX__MEDICINE_TIME_VALUE);
+            long rowId = pRowId;
+            if(rowId <= 0) {
+                rowId = pCursor.getLong(pCursor.getColumnIndex(Table.COLUMN_NAME__ID));
+            }
+            String medicineTimeName = pCursor.getString(pCursor.getColumnIndex(TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_NAME));
+            String medicineTimeValue = pCursor.getString(pCursor.getColumnIndex(TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_VALUE));
             String[] medicineTimeValues = medicineTimeValue.split(Constants.DELIMITER__DATA);
 
             model = new MedicineTime();

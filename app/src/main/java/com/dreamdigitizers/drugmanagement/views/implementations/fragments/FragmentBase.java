@@ -12,16 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public abstract class FragmentBase extends Fragment {
-    private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IBeingCoveredChecker.";
+    private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IStateChecker.";
 
-    protected IBeingCoveredChecker mBeingCoveredChecker;
+    protected IStateChecker mStateChecker;
 
     @Override
     public void onAttach(Context pContext) {
         super.onAttach(pContext);
 
         try {
-            this.mBeingCoveredChecker = (IBeingCoveredChecker)pContext;
+            this.mStateChecker = (IStateChecker)pContext;
         } catch (ClassCastException e) {
             throw new ClassCastException(FragmentBase.ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE);
         }
@@ -30,6 +30,11 @@ public abstract class FragmentBase extends Fragment {
     @Override
     public void onCreate(Bundle pSavedInstanceState) {
         super.onCreate(pSavedInstanceState);
+
+        Bundle extras = this.getActivity().getIntent().getExtras();
+        if(extras != null) {
+            this.handleExtras(extras);
+        }
 
         Bundle arguments = this.getArguments();
         if(arguments != null) {
@@ -52,7 +57,7 @@ public abstract class FragmentBase extends Fragment {
 
     @Override
     final public void onCreateOptionsMenu(Menu pMenu, MenuInflater pInflater) {
-        if(!this.mBeingCoveredChecker.isBeingCovered(this)) {
+        if(!this.mStateChecker.isBeingCovered(this)) {
             this.createOptionsMenu(pMenu, pInflater);
             ActionBar actionBar = this.getActionBar();
             actionBar.setDisplayShowTitleEnabled(true);
@@ -72,6 +77,10 @@ public abstract class FragmentBase extends Fragment {
 
     }
 
+    protected void handleExtras(Bundle pExtras) {
+
+    }
+
     protected void retrieveArguments(Bundle pArguments) {
 
     }
@@ -85,7 +94,8 @@ public abstract class FragmentBase extends Fragment {
     protected abstract void mapInformationToScreenItems(View pView);
     protected abstract int getTitle();
 
-    public interface IBeingCoveredChecker {
+    public interface IStateChecker {
+        boolean isRecreated();
         boolean isBeingCovered(FragmentBase pFragment);
     }
 }

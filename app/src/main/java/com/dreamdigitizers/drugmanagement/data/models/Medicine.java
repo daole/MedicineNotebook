@@ -59,14 +59,21 @@ public class Medicine extends Model {
     }
 
     public static Medicine fetchDataAtCurrentPosition(Cursor pCursor) {
+        return Medicine.fetchDataAtCurrentPosition(pCursor, 0);
+    }
+
+    public static Medicine fetchDataAtCurrentPosition(Cursor pCursor, long pRowId) {
         Medicine model = null;
 
         if(pCursor != null) {
-            long rowId = pCursor.getLong((Table.COLUMN_INDEX__ID));
-            long medicineCategoryId = pCursor.getLong(TableMedicine.COLUMN_INDEX__MEDICINE_CATEGORY_ID);
-            String medicineName = pCursor.getString(TableMedicine.COLUMN_INDEX__MEDICINE_NAME);
-            String medicineImagePath = pCursor.getString(TableMedicine.COLUMN_INDEX__MEDICINE_IMAGE_PATH);
-            String medicineNote = pCursor.getString(TableMedicine.COLUMN_INDEX__MEDICINE_NOTE);
+            long rowId = pRowId;
+            if(rowId <= 0) {
+                rowId = pCursor.getLong(pCursor.getColumnIndex(Table.COLUMN_NAME__ID));
+            }
+            long medicineCategoryId = pCursor.getLong(pCursor.getColumnIndex(TableMedicine.COLUMN_NAME__MEDICINE_CATEGORY_ID));
+            String medicineName = pCursor.getString(pCursor.getColumnIndex(TableMedicine.COLUMN_NAME__MEDICINE_NAME));
+            String medicineImagePath = pCursor.getString(pCursor.getColumnIndex(TableMedicine.COLUMN_NAME__MEDICINE_IMAGE_PATH));
+            String medicineNote = pCursor.getString(pCursor.getColumnIndex(TableMedicine.COLUMN_NAME__MEDICINE_NOTE));
 
             model = new Medicine();
             model.setRowId(rowId);

@@ -41,12 +41,19 @@ public class MedicineInterval extends Model {
     }
 
     public static MedicineInterval fetchDataAtCurrentPosition(Cursor pCursor) {
+        return MedicineInterval.fetchDataAtCurrentPosition(pCursor, 0);
+    }
+
+    public static MedicineInterval fetchDataAtCurrentPosition(Cursor pCursor, long pRowId) {
         MedicineInterval model = null;
 
         if(pCursor != null) {
-            long rowId = pCursor.getLong((Table.COLUMN_INDEX__ID));
-            String medicineIntervalName = pCursor.getString(TableMedicineInterval.COLUMN_INDEX__MEDICINE_INTERVAL_NAME);
-            int medicineIntervalValue = pCursor.getInt(TableMedicineInterval.COLUMN_INDEX__MEDICINE_INTERVAL_VALUE);
+            long rowId = pRowId;
+            if(rowId <= 0) {
+                rowId = pCursor.getLong(pCursor.getColumnIndex(Table.COLUMN_NAME__ID));
+            }
+            String medicineIntervalName = pCursor.getString(pCursor.getColumnIndex(TableMedicineInterval.COLUMN_NAME__MEDICINE_INTERVAL_NAME));
+            int medicineIntervalValue = pCursor.getInt(pCursor.getColumnIndex(TableMedicineInterval.COLUMN_NAME__MEDICINE_INTERVAL_VALUE));
 
             model = new MedicineInterval();
             model.setRowId(rowId);

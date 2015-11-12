@@ -1,6 +1,7 @@
 package com.dreamdigitizers.drugmanagement.presenters.implementations;
 
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenter;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterAlarm;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterCamera;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterCapturedPicturePreview;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyMemberAdd;
@@ -22,6 +23,7 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterAvailableAlarm;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleAdd;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleList;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewAlarm;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineEdit;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineList;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IView;
@@ -47,6 +49,9 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleList;
 
 public class PresenterFactory {
     public static IPresenter createPresenter(Class pClass, IView pView) {
+        if(pClass == IPresenterAlarm.class) {
+            return new PresenterAlarm((IViewAlarm)pView);
+        }
         if(pClass == IPresenterAvailableAlarm.class) {
             return new PresenterAvailableAlarm((IViewAvailableAlarm)pView);
         }
