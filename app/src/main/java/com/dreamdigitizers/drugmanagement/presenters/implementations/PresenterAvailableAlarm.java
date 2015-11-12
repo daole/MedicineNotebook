@@ -14,6 +14,7 @@ import com.dreamdigitizers.drugmanagement.utils.AlarmUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewAvailableAlarm;
 import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityAlarm;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class PresenterAvailableAlarm implements IPresenterAvailableAlarm {
@@ -27,7 +28,7 @@ class PresenterAvailableAlarm implements IPresenterAvailableAlarm {
 
     private List<Alarm> select() {
         String[] projection = new String[0];
-        projection = TableAlarm.getColumns().toArray(projection);
+        projection = TableAlarm.getColumns(true, true).toArray(projection);
         String selection = TableAlarm.COLUMN_NAME__IS_DONE + " = 0";
         Cursor cursor = this.mView.getViewContext().getContentResolver().query(ContentProviderMedicine.CONTENT_URI__ALARM, projection, selection, null, null);
         List<Alarm> alarms = Alarm.fetchData(cursor);
@@ -35,19 +36,25 @@ class PresenterAvailableAlarm implements IPresenterAvailableAlarm {
     }
 
     private void setAlarms(List<Alarm> pAlarms) {
+        List<Long> handleRowIds = new ArrayList<>();
         for(Alarm alarm : pAlarms) {
+            long rowId = alarm.getRowId();
+            if(handleRowIds.contains(rowId)) {
+                continue;
+            }
+
+            handleRowIds.add(rowId);
             int year = alarm.getAlarmYear();
             int month = alarm.getAlarmMonth();
             int date = alarm.getAlarmDate();
             int hour = alarm.getAlarmHour();
             int minute = alarm.getAlarmMinute();
-            int rowId = (int)alarm.getRowId();
 
             Bundle extras = new Bundle();
-            extras.putInt(Constants.BUNDLE_KEY__ROW_ID, rowId);
+            extras.putLong(Constants.BUNDLE_KEY__ROW_ID, rowId);
             PendingIntent pendingIntent = AlarmUtils.createPendingIntent(this.mView.getViewContext(),
                     ActivityAlarm.class,
-                    rowId,
+                    (int)rowId,
                     Intent.FLAG_ACTIVITY_NEW_TASK,
                     extras);
 

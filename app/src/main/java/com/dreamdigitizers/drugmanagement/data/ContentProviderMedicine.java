@@ -268,10 +268,12 @@ public class ContentProviderMedicine extends ContentProvider {
         }
 
         if(dao != null) {
+            /*
             boolean checkResult = dao.checkColumns(pProjection);
             if(!checkResult) {
                 throw new IllegalArgumentException(ContentProviderMedicine.ERROR_MESSAGE__UNKNOWN_COLUMNS);
             }
+            */
             if(id != null) {
                 if(StringUtils.isEmpty(pSelection)) {
                     pSelection = "";
