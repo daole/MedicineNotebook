@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
@@ -56,7 +56,7 @@ public class TimeValueAdapter extends BaseAdapter {
 
             viewHolder = new ViewHolder();
             viewHolder.mLblMedicineTimeValue = (TextView)pConvertView.findViewById(R.id.lblMedicineTimeValue);
-            viewHolder.mBtnDelete = (Button)pConvertView.findViewById(R.id.btnDelete);
+            viewHolder.mBtnDelete = (ImageButton)pConvertView.findViewById(R.id.btnDelete);
             pConvertView.setTag(viewHolder);
         }
 
@@ -112,6 +112,6 @@ public class TimeValueAdapter extends BaseAdapter {
 
     private static class ViewHolder {
         public TextView mLblMedicineTimeValue;
-        public Button mBtnDelete;
+        public ImageButton mBtnDelete;
     }
 }

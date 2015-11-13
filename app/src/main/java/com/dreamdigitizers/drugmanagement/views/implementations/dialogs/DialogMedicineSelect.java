@@ -3,34 +3,38 @@ package com.dreamdigitizers.drugmanagement.views.implementations.dialogs;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.support.v4.app.LoaderManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
 import com.dreamdigitizers.drugmanagement.R;
-import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicine;
 import com.dreamdigitizers.drugmanagement.data.models.Medicine;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineSelect;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineSelect;
+import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityBase;
+import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.Screen;
+import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenMedicineAdd;
 
 public class DialogMedicineSelect extends DialogBase implements IViewMedicineSelect, DialogInterface.OnDismissListener {
     private Spinner mSelMedicines;
+    private ImageButton mBtnAddMedicine;
     private EditText mTxtDose;
     private Button mBtnSelect;
     private Button mBtnCancel;
 
-    private IPresenterMedicineSelect mPresenter;
     private IOnDialogButtonClickListener mListener;
+    private IPresenterMedicineSelect mPresenter;
 
     private Medicine mMedicine;
 
-    public DialogMedicineSelect(AppCompatActivity pActivity, IOnDialogButtonClickListener pListener) {
+    public DialogMedicineSelect(ActivityBase pActivity, IOnDialogButtonClickListener pListener) {
         super(pActivity);
+
         this.mListener = pListener;
         this.setOnDismissListener(this);
     }
@@ -48,6 +52,7 @@ public class DialogMedicineSelect extends DialogBase implements IViewMedicineSel
     @Override
     protected void retrieveScreenItems() {
         this.mSelMedicines = (Spinner)this.findViewById(R.id.selMedicines);
+        this.mBtnAddMedicine = (ImageButton)this.findViewById(R.id.btnAddMedicine);
         this.mTxtDose = (EditText)this.findViewById(R.id.txtDose);
         this.mBtnSelect = (Button)this.findViewById(R.id.btnSelect);
         this.mBtnCancel = (Button)this.findViewById(R.id.btnCancel);
@@ -64,6 +69,13 @@ public class DialogMedicineSelect extends DialogBase implements IViewMedicineSel
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 DialogMedicineSelect.this.selectMedicine(0, 0);
+            }
+        });
+
+        this.mBtnAddMedicine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogMedicineSelect.this.buttonAddMedicineClick();
             }
         });
 
@@ -108,6 +120,11 @@ public class DialogMedicineSelect extends DialogBase implements IViewMedicineSel
         }
     }
 
+    private void buttonAddMedicineClick() {
+        this.goToMedicineAddScreen();
+        this.dismiss();
+    }
+
     private void buttonSelectClick() {
         String dose = this.mTxtDose.getText().toString().trim();
         boolean result = this.mPresenter.checkInputData(this.mMedicine, dose);
@@ -124,6 +141,11 @@ public class DialogMedicineSelect extends DialogBase implements IViewMedicineSel
         if(this.mListener != null) {
             this.mListener.onCancel();
         }
+    }
+
+    private void goToMedicineAddScreen() {
+        Screen screen = new ScreenMedicineAdd();
+        this.mActivity.onChangeScreen(screen);
     }
 
     public interface IOnDialogButtonClickListener {

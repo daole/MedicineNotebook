@@ -22,15 +22,15 @@
         <RelativeLayout
             style="@style/Row">
 
-            <TextView
-                android:id="@+id/lblMedicineCategoryName"
-                android:layout_marginTop="20dp"
-                style="@style/TextViewMedicineCategoryName"/>
-
             <Spinner
                 android:id="@+id/selMedicineCategories"
+                android:layout_toLeftOf="@+id/btnAddMedicineCategory"
                 android:layout_toRightOf="@id/lblMedicineCategoryName"
                 style="@style/Spinner"/>
+
+            <ImageButton
+                android:id="@id/btnAddMedicineCategory"
+                style="@style/ImageButtonAdd"/>
 
         </RelativeLayout>
 

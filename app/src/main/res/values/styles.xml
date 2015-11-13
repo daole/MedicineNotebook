@@ -22,6 +22,14 @@
         <item name="android:gravity">center_horizontal|center_vertical</item>
     </style>
 
+    <style name="RootVerticalCenterWithPadding" parent="RootVerticalCenter">
+        <item name="android:padding">@dimen/padding</item>
+    </style>
+
+    <style name="RootWithPadding" parent="Root">
+        <item name="android:padding">@dimen/padding</item>
+    </style>
+
     <style name="Cover">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -48,10 +56,44 @@
         <item name="android:gravity">center_horizontal|center_vertical</item>
     </style>
 
-    <style name="RowInputLabel">
+    <style name="RowNavigationDrawer" parent="Row">
+        <item name="android:background">@drawable/selector__navigation_drawer_item_background_color</item>
+    </style>
+
+    <style name="RowItem">
         <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="RowInputLabel" parent="RowItem">
         <item name="android:layout_marginRight">@dimen/row_items_gap</item>
         <item name="android:minWidth">@dimen/input_label_min_width</item>
+    </style>
+
+    <style name="RowBeginningItem" parent="RowItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="RowMiddleItem" parent="RowItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/row_items_gap</item>
+        <item name="android:layout_marginRight">@dimen/row_items_gap</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="RowMiddleItemAlignRight" parent="RowMiddleItem">
+        <item name="android:gravity">right</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:layout_marginRight">0dp</item>
+    </style>
+
+    <style name="RowLastItem" parent="RowMiddleItem">
+        <item name="android:gravity">right</item>
     </style>
 
     <style name="RowInputItem">
@@ -63,6 +105,13 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:scrollbars">vertical</item>
+    </style>
+
+    <style name="ListViewNavigationDrawer" parent="ListView">
+        <item name="android:choiceMode">singleChoice</item>
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">@dimen/navigation_drawer_divider_height</item>
+        <item name="android:background">#ffffffff</item>
     </style>
 
     <style name="ListViewInputItem" parent="ListView">
@@ -87,6 +136,23 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="TextViewNavigationItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@drawable/selector__navigation_drawer_title_color</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">?android:attr/listPreferredItemHeightSmall</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceListItemSmall</item>
+    </style>
+
+    <style name="TextViewNavigationCounter" parent="TextView">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:minHeight">?android:attr/listPreferredItemHeightSmall</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceListItemSmall</item>
+    </style>
+
     <style name="TextViewDayUnit" parent="TextView">
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:text">@string/lbl__day_unit</item>
@@ -103,6 +169,10 @@
 
     <style name="TextViewMedicineName" parent="TextViewInputLabel">
         <item name="android:text">@string/lbl__medicine_name</item>
+    </style>
+
+    <style name="TextViewDose" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__dose</item>
     </style>
 
     <style name="TextViewMedicineCategoryName" parent="TextViewInputLabel">
@@ -161,6 +231,10 @@
 
     <style name="EditTextMedicineName" parent="EditText">
         <item name="android:hint">@string/hint__medicine_name</item>
+    </style>
+
+    <style name="EditTextDose" parent="EditText">
+        <item name="android:hint">@string/hint__dose</item>
     </style>
 
     <style name="EditTextMedicineCategoryName" parent="EditText">
@@ -247,10 +321,53 @@
         <item name="android:src">@drawable/icon__no_photo</item>
     </style>
 
+    <style name="ImageViewNavigationDrawerIcon">
+        <item name="android:layout_width">@dimen/navigation_drawer_icon_width</item>
+        <item name="android:layout_height">@dimen/navigation_drawer_icon_height</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_marginRight">@dimen/row_items_gap</item>
+        <item name="android:contentDescription">@string/desc__menu_item_icon</item>
+    </style>
+
+    <style name="ImageViewInListView" parent="ImageView">
+        <item name="android:layout_width">@dimen/image_view_in_list_view_height</item>
+        <item name="android:layout_height">@dimen/image_view_in_list_view_height</item>
+    </style>
+
+    <style name="ImageViewInListViewMedicine" parent="ImageViewInListView">
+        <item name="android:contentDescription">@string/desc__medicine_picture</item>
+    </style>
+
     <style name="ImageViewMedicine" parent="ImageView">
         <item name="android:layout_width">@dimen/medicine_picture_width</item>
         <item name="android:layout_height">@dimen/medicine_picture_height</item>
         <item name="android:contentDescription">@string/desc__medicine_picture</item>
+    </style>
+
+    <style name="ImageButton">
+        <item name="android:layout_width">@dimen/image_button_add_width</item>
+        <item name="android:layout_height">@dimen/image_button_add_height</item>
+        <item name="android:layout_marginLeft">@dimen/row_items_gap</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="ImageButtonInListView" parent="ImageButton">
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+    </style>
+
+    <style name="ImageButtonAdd" parent="ImageButton">
+        <item name="android:src">@drawable/icon__add</item>
+        <item name="android:contentDescription">@string/desc__image_button_add</item>
+    </style>
+
+    <style name="ImageButtonDelete" parent="ImageButtonInListView">
+        <item name="android:src">@drawable/icon__delete</item>
+        <item name="android:contentDescription">@string/desc__image_button_delete</item>
     </style>
 
     <style name="Switch" parent="RowInputItem">
@@ -262,6 +379,25 @@
         <item name="android:textOn">@string/lbl__on</item>
         <item name="android:textOff">@string/lbl__off</item>
         <item name="android:minWidth">@dimen/switch_min_width</item>
+    </style>
+
+    <style name="CheckBox">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="CheckBoxInListView" parent="CheckBox">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+    </style>
+
+    <style name="NavigationDrawer">
+        <item name="android:layout_width">@dimen/navigation_drawer_width</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:name">com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentNavigationDrawer</item>
     </style>
 
 </resources>

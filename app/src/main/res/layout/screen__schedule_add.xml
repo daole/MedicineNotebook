@@ -20,10 +20,7 @@
 
             <ImageButton
                 android:id="@id/btnAddFamilyMember"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:minWidth="100dp"/>
+                style="@style/ImageButtonAdd"/>
 
         </RelativeLayout>
 
@@ -35,11 +32,6 @@
                 android:layout_centerVertical="false"
                 style="@style/TextViewMedicineName"/>
 
-            <Button
-                android:id="@+id/btnSelectMedicine"
-                android:layout_below="@id/lblMedicineName"
-                style="@style/ButtonSelect"/>
-
             <ListView
                 android:id="@+id/lstMedicines"
                 android:layout_toLeftOf="@+id/btnSelectMedicine"
@@ -47,15 +39,10 @@
                 android:layout_alignTop="@id/lblMedicineName"
                 style="@style/ListViewInputItem"/>
 
-            <!--
-            <Button
+            <ImageButton
                 android:id="@id/btnSelectMedicine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@id/lblMedicine"
-                android:minWidth="100dp"
-                android:text="@string/btn__select"/>-->
+                android:layout_alignTop="@id/lblMedicineName"
+                style="@style/ImageButtonAdd"/>
 
         </RelativeLayout>
 
@@ -72,10 +59,9 @@
                 android:layout_toRightOf="@id/lblStartDate"
                 style="@style/TextView"/>
 
-            <Button
+            <ImageButton
                 android:id="@id/btnSelectStartDate"
-                android:layout_alignParentRight="true"
-                style="@style/ButtonSelect"/>
+                style="@style/ImageButtonAdd"/>
 
         </RelativeLayout>
 
@@ -88,17 +74,13 @@
 
             <Spinner
                 android:id="@+id/selMedicineTimes"
-                android:layout_toLeftOf="@+id/btnSelectMedicineTime"
+                android:layout_toLeftOf="@+id/btnAddMedicineTime"
                 android:layout_toRightOf="@id/lblMedicineTimeName"
                 style="@style/Spinner"/>
 
-            <Button
-                android:id="@id/btnSelectMedicineTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:minWidth="100dp"
-                android:text="@string/btn__select"/>
+            <ImageButton
+                android:id="@id/btnAddMedicineTime"
+                style="@style/ImageButtonAdd"/>
 
         </RelativeLayout>
 
@@ -111,17 +93,13 @@
 
             <Spinner
                 android:id="@+id/selMedicineTimeIntervals"
-                android:layout_toLeftOf="@+id/btnSelectMedicineInterval"
+                android:layout_toLeftOf="@+id/btnAddMedicineInterval"
                 android:layout_toRightOf="@id/lblMedicineIntervalName"
                 style="@style/Spinner"/>
 
-            <Button
-                android:id="@id/btnSelectMedicineInterval"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:minWidth="100dp"
-                android:text="@string/btn__select"/>
+            <ImageButton
+                android:id="@id/btnAddMedicineInterval"
+                style="@style/ImageButtonAdd"/>
 
         </RelativeLayout>
 

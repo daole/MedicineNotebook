@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -27,6 +28,7 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
 
     private EditText mTxtMedicineName;
     private Spinner mSelMedicineCategories;
+    private ImageButton mBtnAddMedicineCategory;
     private ImageView mImgMedicinePicture;
     private EditText mTxtMedicineNote;
     private Button mBtnAdd;
@@ -85,6 +87,7 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
     protected void retrieveScreenItems(View pView) {
         this.mTxtMedicineName = (EditText)pView.findViewById(R.id.txtMedicineName);
         this.mSelMedicineCategories = (Spinner)pView.findViewById(R.id.selMedicineCategories);
+        this.mBtnAddMedicineCategory = (ImageButton)pView.findViewById(R.id.btnAddMedicineCategory);
         this.mImgMedicinePicture = (ImageView)pView.findViewById(R.id.imgMedicinePicture);
         this.mTxtMedicineNote = (EditText)pView.findViewById(R.id.txtMedicineNote);
         this.mBtnAdd = (Button)pView.findViewById(R.id.btnAdd);
@@ -102,6 +105,13 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 ScreenMedicineAdd.this.selectMedicineCategory(0);
+            }
+        });
+
+        this.mBtnAddMedicineCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ScreenMedicineAdd.this.buttonAddMedicineCategoryClick();
             }
         });
 
@@ -162,6 +172,10 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
         ScreenMedicineAdd.this.startActivityForResult(intent, Constants.REQUEST_CODE__CAMERA);
     }
 
+    private void buttonAddMedicineCategoryClick() {
+        this.goToMedicineCategoryAddScreen();
+    }
+
     private void buttonAddClick() {
         String medicineName = this.mTxtMedicineName.getText().toString().trim();
         String medicineNote = this.mTxtMedicineNote.getText().toString().trim();
@@ -183,5 +197,10 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
                         this.mMedicinePictureFilePath,
                         this.mImgMedicinePicture.getWidth(),
                         this.mImgMedicinePicture.getHeight()));
+    }
+
+    private void goToMedicineCategoryAddScreen() {
+        Screen screen = new ScreenMedicineCategoryAdd();
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 }

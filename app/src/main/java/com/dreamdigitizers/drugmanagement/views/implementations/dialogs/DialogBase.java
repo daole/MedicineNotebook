@@ -2,17 +2,17 @@ package com.dreamdigitizers.drugmanagement.views.implementations.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IView;
+import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityBase;
 
 public abstract class DialogBase extends Dialog implements IView {
-    protected AppCompatActivity mActivity;
+    protected ActivityBase mActivity;
 
-    public DialogBase(AppCompatActivity pActivity) {
+    public DialogBase(ActivityBase pActivity) {
         super(pActivity);
 
         this.mActivity = pActivity;

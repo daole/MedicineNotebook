@@ -3,7 +3,6 @@ package com.dreamdigitizers.drugmanagement.views.implementations.fragments.scree
 import android.app.Activity;
 import android.database.Cursor;
 import android.support.v4.app.LoaderManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -27,6 +27,7 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterSchedul
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleAdd;
+import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityBase;
 import com.dreamdigitizers.drugmanagement.views.implementations.adapters.TakenMedicineAdapter;
 import com.dreamdigitizers.drugmanagement.views.implementations.dialogs.DialogMedicineSelect;
 
@@ -35,12 +36,15 @@ import java.util.GregorianCalendar;
 
 public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     private Spinner mSelFamilyMembers;
-    private Button mBtnSelectMedicine;
+    private ImageButton mBtnAddFamilyMember;
     private ListView mListView;
+    private ImageButton mBtnSelectMedicine;
     private TextView mLblStartDateValue;
-    private Button mBtnSelectStartDate;
+    private ImageButton mBtnSelectStartDate;
     private Spinner mSelMedicineTimes;
+    private ImageButton mBtnAddMedicineTime;
     private Spinner mSelMedicineIntervals;
+    private ImageButton mBtnAddMedicineInterval;
     private Switch mSwiAlarm;
     private EditText mTxtAlarmTimes;
     private EditText mTxtScheduleNote;
@@ -64,12 +68,15 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     @Override
     protected void retrieveScreenItems(View pView) {
         this.mSelFamilyMembers = (Spinner)pView.findViewById(R.id.selFamilyMembers);
-        this.mBtnSelectMedicine = (Button)pView.findViewById(R.id.btnSelectMedicine);
+        this.mBtnAddFamilyMember = (ImageButton)pView.findViewById(R.id.btnAddFamilyMember);
+        this.mBtnSelectMedicine = (ImageButton)pView.findViewById(R.id.btnSelectMedicine);
         this.mListView = (ListView)pView.findViewById(R.id.lstMedicines);
         this.mLblStartDateValue = (TextView)pView.findViewById(R.id.lblStartDateValue);
-        this.mBtnSelectStartDate = (Button)pView.findViewById(R.id.btnSelectStartDate);
+        this.mBtnSelectStartDate = (ImageButton)pView.findViewById(R.id.btnSelectStartDate);
         this.mSelMedicineTimes = (Spinner)pView.findViewById(R.id.selMedicineTimes);
+        this.mBtnAddMedicineTime = (ImageButton)pView.findViewById(R.id.btnAddMedicineTime);
         this.mSelMedicineIntervals = (Spinner)pView.findViewById(R.id.selMedicineTimeIntervals);
+        this.mBtnAddMedicineInterval = (ImageButton)pView.findViewById(R.id.btnAddMedicineInterval);
         this.mSwiAlarm = (Switch)pView.findViewById(R.id.swiAlarm);
         this.mTxtAlarmTimes = (EditText)pView.findViewById(R.id.txtTimes);
         this.mTxtScheduleNote = (EditText)pView.findViewById(R.id.txtScheduleNote);
@@ -81,13 +88,6 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     protected void mapInformationToScreenItems(View pView) {
         this.mAdapter = new TakenMedicineAdapter(this.getContext());
         this.mListView.setAdapter(this.mAdapter);
-
-        this.mSwiAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton pButtonView, boolean pIsChecked) {
-                ScreenScheduleAdd.this.changeAlarmSetting(pIsChecked);
-            }
-        });
 
         this.mSelFamilyMembers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -125,6 +125,13 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
             }
         });
 
+        this.mBtnAddFamilyMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View pView) {
+                ScreenScheduleAdd.this.buttonAddFamilyMemberClick();
+            }
+        });
+
         this.mBtnSelectMedicine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View pView) {
@@ -136,6 +143,20 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
             @Override
             public void onClick(View v) {
                 ScreenScheduleAdd.this.buttonSelectStartDateClick();
+            }
+        });
+
+        this.mBtnAddMedicineTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View pView) {
+                ScreenScheduleAdd.this.buttonAddMedicineTimeClick();
+            }
+        });
+
+        this.mBtnAddMedicineInterval.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View pView) {
+                ScreenScheduleAdd.this.buttonAddMedicineIntervalClick();
             }
         });
 
@@ -171,11 +192,6 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
         this.mTxtScheduleNote.setText("");
         this.mAdapter.clearItem();
         this.mSwiAlarm.setChecked(true);
-
-        //this.mFamilyMember = null;
-        //this.mMedicineTime = null;
-        //this.mMedicineInterval = null;
-        //this.mTxtAlarmTimes.setEnabled(true);
     }
 
     @Override
@@ -205,10 +221,6 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
         this.mSelMedicineIntervals.setAdapter(pAdapter);
     }
 
-    private void changeAlarmSetting(boolean pIsChecked) {
-        this.mTxtAlarmTimes.setEnabled(pIsChecked);
-    }
-
     private void selectFamilyMember(int pPosition, long pRowId) {
         if(pRowId > 0) {
             Cursor cursor = (Cursor)this.mSelFamilyMembers.getItemAtPosition(pPosition);
@@ -236,8 +248,12 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
         }
     }
 
+    private void buttonAddFamilyMemberClick() {
+        this.goToFamilyMemberAddScreen();
+    }
+
     private void buttonSelectMedicineClick() {
-        DialogMedicineSelect dialog = new DialogMedicineSelect((AppCompatActivity) this.getActivity(),
+        DialogMedicineSelect dialog = new DialogMedicineSelect((ActivityBase)this.getActivity(),
                 new DialogMedicineSelect.IOnDialogButtonClickListener() {
                     @Override
                     public void onMedicineSelect(Medicine pMedicine, String pDose) {
@@ -274,6 +290,14 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
         });
     }
 
+    private void buttonAddMedicineTimeClick() {
+        this.goToMedicineTimeAddScreen();
+    }
+
+    private void buttonAddMedicineIntervalClick() {
+        this.goToMedicineIntervalAddScreen();
+    }
+
     private void buttonAddClick() {
         this.mPresenter.insert(this.mFamilyMember,
                 this.mAdapter.getData(),
@@ -287,5 +311,20 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
 
     private void buttonBackClick() {
         this.mScreenActionsListener.onBack();
+    }
+
+    private void goToFamilyMemberAddScreen() {
+        Screen screen = new ScreenFamilyMemberAdd();
+        this.mScreenActionsListener.onChangeScreen(screen);
+    }
+
+    private void goToMedicineTimeAddScreen() {
+        Screen screen = new ScreenMedicineTimeAdd();
+        this.mScreenActionsListener.onChangeScreen(screen);
+    }
+
+    private void goToMedicineIntervalAddScreen() {
+        Screen screen = new ScreenMedicineIntervalAdd();
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 }

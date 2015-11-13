@@ -52,7 +52,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
 
     private IViewScheduleAdd mView;
     private SimpleCursorAdapter mFamilyMemberAdapter;
-    private SimpleCursorAdapter mMedicineAdapter;
+    //private SimpleCursorAdapter mMedicineAdapter;
     private SimpleCursorAdapter mMedicineTimeAdapter;
     private SimpleCursorAdapter mMedicineIntervalAdapter;
 
@@ -82,7 +82,6 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                 pStartDate,
                 pMedicineTime,
                 pMedicineInterval,
-                pIsAlarm,
                 pAlarmTimes);
         if(result != 0) {
             this.mView.showError(result);
@@ -409,7 +408,6 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                                String pStartDate,
                                MedicineTime pMedicineTime,
                                MedicineInterval pMedicineInterval,
-                               boolean pIsAlarm,
                                String pAlarmTimes) {
         if(pFamilyMember == null) {
             return R.string.error__blank_family_member;
@@ -427,7 +425,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         if(pMedicineInterval == null) {
             return R.string.error__blank_medicine_interval;
         }
-        if(pIsAlarm && !StringUtils.isInteger(pAlarmTimes)) {
+        if(!StringUtils.isInteger(pAlarmTimes)) {
             return R.string.error__invalid_alarm_times;
         }
         return 0;

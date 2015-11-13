@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
@@ -46,7 +46,7 @@ public class TakenMedicineAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.mLblMedicineName = (TextView)pConvertView.findViewById(R.id.lblMedicineName);
             viewHolder.mLblDose = (TextView)pConvertView.findViewById(R.id.lblDose);
-            viewHolder.mBtnDelete = (Button)pConvertView.findViewById(R.id.btnDelete);
+            viewHolder.mBtnDelete = (ImageButton)pConvertView.findViewById(R.id.btnDelete);
             pConvertView.setTag(viewHolder);
         }
 
@@ -99,6 +99,6 @@ public class TakenMedicineAdapter extends BaseAdapter {
     private static class ViewHolder {
         public TextView mLblMedicineName;
         public TextView mLblDose;
-        public Button mBtnDelete;
+        public ImageButton mBtnDelete;
     }
 }
