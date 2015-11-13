@@ -49,7 +49,7 @@ public class ScreenScheduleList extends Screen implements IViewScheduleList {
 
     @Override
     protected void retrieveScreenItems(View pView) {
-        this.mListView = (ListView)pView.findViewById(R.id.schedule_list);
+        this.mListView = (ListView)pView.findViewById(R.id.lstSchedules);
         this.mLblEmpty = (TextView)pView.findViewById(R.id.lblEmpty);
         this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

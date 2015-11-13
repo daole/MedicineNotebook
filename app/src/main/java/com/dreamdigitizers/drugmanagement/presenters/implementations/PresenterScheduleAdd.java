@@ -169,6 +169,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
             }
         }
 
+        this.mView.clearInput();
         this.mView.showMessage(R.string.message__insert_successful);
     }
 

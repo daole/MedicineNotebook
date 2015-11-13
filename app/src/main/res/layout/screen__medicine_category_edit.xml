@@ -1,71 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal|center_vertical"
-    android:padding="20dp">
+    style="@style/RootVerticalCenter">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        style="@style/Row">
 
         <TextView
             android:id="@+id/lblMedicineCategoryName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/lbl__medicine_category_name"/>
+            style="@style/TextViewMedicineCategoryName"/>
 
         <EditText
             android:id="@+id/txtMedicineCategoryName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/lblMedicineCategoryName"
             android:layout_toRightOf="@id/lblMedicineCategoryName"
-            android:inputType="text"
-            android:hint="@string/hint__medicine_category_name"/>
-
-        <TextView
-            android:id="@+id/lblMedicineCategoryNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lblMedicineCategoryName"
-            android:layout_marginTop="20dp"
-            android:padding="10dp"
-            android:text="@string/lbl__note"/>
-
-        <EditText
-            android:id="@+id/txtMedicineCategoryNote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/txtMedicineCategoryName"
-            android:layout_alignTop="@id/lblMedicineCategoryNote"
-            android:layout_toRightOf="@id/lblMedicineCategoryNote"
-            android:inputType="textMultiLine" />
+            style="@style/EditTextMedicineCategoryName"/>
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        style="@style/Row">
+
+        <TextView
+            android:id="@+id/lblMedicineCategoryNote"
+            style="@style/TextViewNote"/>
+
+        <EditText
+            android:id="@+id/txtMedicineCategoryNote"
+            android:layout_toRightOf="@id/lblMedicineCategoryNote"
+            style="@style/EditTextMedicineCategoryNote"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/RowContentCenter">
 
         <Button
             android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:minWidth="100dp"
-            android:text="@string/btn__back"/>
+            style="@style/ButtonBack"/>
 
         <Button
             android:id="@+id/btnEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/btnBack"
-            android:minWidth="100dp"
-            android:text="@string/btn__edit"/>
+            style="@style/ButtonEdit"/>
 
     </RelativeLayout>
 

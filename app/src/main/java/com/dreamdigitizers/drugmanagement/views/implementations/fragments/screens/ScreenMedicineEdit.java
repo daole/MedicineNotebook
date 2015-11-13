@@ -32,7 +32,6 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
 
     private EditText mTxtMedicineName;
     private Spinner mSelMedicineCategories;
-    private Button mBtnCapture;
     private ImageView mImgMedicinePicture;
     private EditText mTxtMedicineNote;
     private Button mBtnEdit;
@@ -102,7 +101,6 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
     protected void retrieveScreenItems(View pView) {
         this.mTxtMedicineName = (EditText)pView.findViewById(R.id.txtMedicineName);
         this.mSelMedicineCategories = (Spinner)pView.findViewById(R.id.selMedicineCategories);
-        this.mBtnCapture = (Button)pView.findViewById(R.id.btnCapture);
         this.mImgMedicinePicture = (ImageView)pView.findViewById(R.id.imgMedicinePicture);
         this.mTxtMedicineNote = (EditText)pView.findViewById(R.id.txtMedicineNote);
         this.mBtnEdit = (Button)pView.findViewById(R.id.btnEdit);
@@ -132,10 +130,10 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
             }
         });
 
-        this.mBtnCapture.setOnClickListener(new View.OnClickListener() {
+        this.mImgMedicinePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View pView) {
-                ScreenMedicineEdit.this.buttonCaptureClick();
+                ScreenMedicineEdit.this.medicinePictureClick();
             }
         });
 
@@ -187,13 +185,13 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
         this.deleteOldMedicinePicture();
     }
 
-    private void buttonCaptureClick() {
-        Intent intent = new Intent(ScreenMedicineEdit.this.getContext(), ActivityCamera.class);
-        ScreenMedicineEdit.this.startActivityForResult(intent, Constants.REQUEST_CODE__CAMERA);
-    }
-
     private void selectMedicineCategory(long pRowId) {
         this.mMedicineCategoryId = pRowId;
+    }
+
+    private void medicinePictureClick() {
+        Intent intent = new Intent(ScreenMedicineEdit.this.getContext(), ActivityCamera.class);
+        ScreenMedicineEdit.this.startActivityForResult(intent, Constants.REQUEST_CODE__CAMERA);
     }
 
     private void buttonEditClick() {

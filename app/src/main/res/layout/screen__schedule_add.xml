@@ -1,73 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp">
+    style="@style/Root">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        style="@style/RootVertical">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/Row">
 
             <TextView
                 android:id="@+id/lblFamilyMemberName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:text="@string/lbl__family_member_name"/>
+                style="@style/TextViewFamilyMemberName"/>
 
             <Spinner
                 android:id="@+id/selFamilyMembers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/btnSelectFamilyMember"
-                android:layout_toRightOf="@id/lblFamilyMemberName"/>
+                android:layout_toLeftOf="@+id/btnAddFamilyMember"
+                android:layout_toRightOf="@id/lblFamilyMemberName"
+                style="@style/Spinner"/>
 
-            <Button
-                android:id="@id/btnSelectFamilyMember"
+            <ImageButton
+                android:id="@id/btnAddFamilyMember"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:minWidth="100dp"
-                android:text="@string/btn__select"/>
+                android:minWidth="100dp"/>
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/Row">
 
             <TextView
                 android:id="@+id/lblMedicineName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:text="@string/lbl__medicine_name"/>
+                android:layout_centerVertical="false"
+                style="@style/TextViewMedicineName"/>
 
             <Button
                 android:id="@+id/btnSelectMedicine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_below="@id/lblMedicineName"
-                android:minWidth="100dp"
-                android:text="@string/btn__select"/>
+                style="@style/ButtonSelect"/>
 
             <ListView
                 android:id="@+id/lstMedicines"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/btnSelectMedicine"
                 android:layout_toRightOf="@id/lblMedicineName"
                 android:layout_alignTop="@id/lblMedicineName"
-                android:scrollbars="vertical"/>
+                style="@style/ListViewInputItem"/>
 
             <!--
             <Button
@@ -82,56 +60,37 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/Row">
 
             <TextView
                 android:id="@+id/lblStartDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:text="@string/lbl__start_date"/>
+                style="@style/TextViewStartDate"/>
 
             <TextView
                 android:id="@+id/lblStartDateValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/btnSelectStartDate"
-                android:layout_toRightOf="@id/lblStartDate"/>
+                android:layout_toRightOf="@id/lblStartDate"
+                style="@style/TextView"/>
 
             <Button
                 android:id="@id/btnSelectStartDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:minWidth="100dp"
-                android:text="@string/btn__select"/>
+                style="@style/ButtonSelect"/>
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/Row">
 
             <TextView
                 android:id="@+id/lblMedicineTimeName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:text="@string/lbl__medicine_time_name"/>
+                style="@style/TextViewMedicineTimeName"/>
 
             <Spinner
                 android:id="@+id/selMedicineTimes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/btnSelectMedicineTime"
-                android:layout_toRightOf="@id/lblMedicineTimeName"/>
+                android:layout_toRightOf="@id/lblMedicineTimeName"
+                style="@style/Spinner"/>
 
             <Button
                 android:id="@id/btnSelectMedicineTime"
@@ -144,25 +103,17 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/Row">
 
             <TextView
                 android:id="@+id/lblMedicineIntervalName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:text="@string/lbl__medicine_interval_name"/>
+                style="@style/TextViewMedicineIntervalName"/>
 
             <Spinner
                 android:id="@+id/selMedicineTimeIntervals"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/btnSelectMedicineInterval"
-                android:layout_toRightOf="@id/lblMedicineIntervalName"/>
+                android:layout_toRightOf="@id/lblMedicineIntervalName"
+                style="@style/Spinner"/>
 
             <Button
                 android:id="@id/btnSelectMedicineInterval"
@@ -175,99 +126,57 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/Row">
 
             <TextView
                 android:id="@+id/lblAlarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:text="@string/lbl__alarm"/>
+                style="@style/TextViewAlarm"/>
 
             <Switch
                 android:id="@+id/swiAlarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_alignParentRight="true"
-                android:checked="true"
-                android:minWidth="100dp"
-                android:text=""
-                android:textOn="@string/lbl__on"
-                android:textOff="@string/lbl__off"/>
+                style="@style/Switch"/>
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/Row">
 
             <TextView
-                android:id="@+id/lblAlarmTimes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="@string/lbl__alarm_times"/>
+                android:id="@+id/lblTimes"
+                style="@style/TextViewTimes"/>
 
             <EditText
-                android:id="@+id/txtAlarmTimes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:minWidth="100dp"
-                android:maxLength="2"
-                android:gravity="right"
-                android:textAlignment="gravity"
-                android:inputType="number"
-                android:hint="@string/hint__alarm_times"/>
+                android:id="@+id/txtTimes"
+                android:layout_toRightOf="@id/lblTimes"
+                style="@style/EditTextTimes"/>
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            style="@style/Row">
 
             <TextView
                 android:id="@+id/lblScheduleNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="@string/lbl__note"/>
+                style="@style/TextViewNote"/>
 
             <EditText
                 android:id="@+id/txtScheduleNote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/lblScheduleNote"
-                android:layout_alignTop="@id/lblScheduleNote"
-                android:inputType="textMultiLine"
-                android:hint="@string/hint__schedule_note"/>
+                style="@style/EditTextScheduleNote"/>
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            style="@style/RowContentCenter">
 
             <Button
                 android:id="@+id/btnBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:minWidth="100dp"
-                android:text="@string/btn__back"/>
+                style="@style/ButtonBack"/>
 
             <Button
                 android:id="@+id/btnAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/btnBack"
-                android:minWidth="100dp"
-                android:text="@string/btn__add"/>
+                style="@style/ButtonAdd"/>
 
         </RelativeLayout>
 

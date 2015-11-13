@@ -37,12 +37,13 @@
     <string name="lbl__dose">Dose:</string>
     <string name="lbl__start_date">Start Date:</string>
     <string name="lbl__alarm">Alarm:</string>
-    <string name="lbl__alarm_times">Alarm Times:</string>
+    <string name="lbl__times">Alarm Times:</string>
     <string name="lbl__select">Select</string>
     <string name="lbl__on">On</string>
     <string name="lbl__off">Off</string>
     <string name="lbl__empty">There is no data to show.</string>
     <string name="lbl__no_camera">Could not access the camera in your device.</string>
+    <string name="lbl__day_unit">day(s)</string>
 
     <string name="hint__family_member_name">Mom</string>
     <string name="hint__medicine_name">Panadol</string>
@@ -52,7 +53,7 @@
     <string name="hint__medicine_time_name">Breakfast</string>
     <string name="hint__medicine_interval_name">Everyday</string>
     <string name="hint__medicine_interval_value">1</string>
-    <string name="hint__alarm_times">1</string>
+    <string name="hint__times">1</string>
     <string name="hint__schedule_note">Note about the schedule.</string>
     <string name="hint__dose">1 tablet</string>
 

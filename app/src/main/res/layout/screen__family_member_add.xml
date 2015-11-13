@@ -1,53 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal|center_vertical"
-    android:padding="20dp">
+    style="@style/RootVerticalCenter">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        style="@style/Row">
 
         <TextView
             android:id="@+id/lblFamilyMemberName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/lbl__family_member_name"/>
+            style="@style/TextViewFamilyMemberName"/>
 
         <EditText
             android:id="@+id/txtFamilyMemberName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/lblFamilyMemberName"
             android:layout_toRightOf="@id/lblFamilyMemberName"
-            android:inputType="text"
-            android:hint="@string/hint__family_member_name"/>
+            style="@style/EditTextFamilyMemberName"/>
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        style="@style/RowContentCenter">
 
         <Button
             android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:minWidth="100dp"
-            android:text="@string/btn__back"/>
+            style="@style/ButtonBack"/>
 
         <Button
             android:id="@+id/btnAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/btnBack"
-            android:minWidth="100dp"
-            android:text="@string/btn__add"/>
+            style="@style/ButtonAdd"/>
 
     </RelativeLayout>
 

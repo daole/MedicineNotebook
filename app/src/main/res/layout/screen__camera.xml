@@ -1,44 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/Root">
 
     <FrameLayout
         android:id="@+id/frmCameraPreview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        style="@style/Root"/>
 
     <TextView
         android:id="@+id/lblNoCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        android:text="@string/lbl__no_camera"/>
+        android:text="@string/lbl__no_camera"
+        style="@style/TextViewInputLabel"/>
 
     <RelativeLayout
         android:id="@+id/covTop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="#ff000000">
+        style="@style/CoverTop">
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/covBottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#ff000000">
+        style="@style/CoverBottom">
 
         <Button
             android:id="@+id/btnCapture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:minWidth="100dp"
-            android:text="@string/btn__capture"/>
+            style="@style/ButtonCapture"/>
 
     </RelativeLayout>
 

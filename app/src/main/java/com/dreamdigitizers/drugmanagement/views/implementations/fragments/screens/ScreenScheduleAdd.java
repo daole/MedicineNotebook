@@ -71,7 +71,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
         this.mSelMedicineTimes = (Spinner)pView.findViewById(R.id.selMedicineTimes);
         this.mSelMedicineIntervals = (Spinner)pView.findViewById(R.id.selMedicineTimeIntervals);
         this.mSwiAlarm = (Switch)pView.findViewById(R.id.swiAlarm);
-        this.mTxtAlarmTimes = (EditText)pView.findViewById(R.id.txtAlarmTimes);
+        this.mTxtAlarmTimes = (EditText)pView.findViewById(R.id.txtTimes);
         this.mTxtScheduleNote = (EditText)pView.findViewById(R.id.txtScheduleNote);
         this.mBtnAdd = (Button)pView.findViewById(R.id.btnAdd);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
@@ -163,7 +163,19 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
 
     @Override
     public void clearInput() {
+        this.mSelFamilyMembers.setSelection(0);
+        this.mSelMedicineTimes.setSelection(0);
+        this.mSelMedicineIntervals.setSelection(0);
+        this.mLblStartDateValue.setText("");
+        this.mTxtAlarmTimes.setText("");
+        this.mTxtScheduleNote.setText("");
+        this.mAdapter.clearItem();
+        this.mSwiAlarm.setChecked(true);
 
+        //this.mFamilyMember = null;
+        //this.mMedicineTime = null;
+        //this.mMedicineInterval = null;
+        //this.mTxtAlarmTimes.setEnabled(true);
     }
 
     @Override

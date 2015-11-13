@@ -8,4 +8,260 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+
+    <style name="Root">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="RootVertical" parent="Root">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="RootVerticalCenter" parent="RootVertical">
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+    </style>
+
+    <style name="Cover">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">#ff000000</item>
+    </style>
+
+    <style name="CoverTop" parent="Cover">
+        <item name="android:layout_alignParentTop">true</item>
+    </style>
+
+    <style name="CoverBottom" parent="Cover">
+        <item name="android:layout_alignParentBottom">true</item>
+    </style>
+
+    <style name="Row">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingTop">@dimen/row_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/row_vertical_padding</item>
+    </style>
+
+    <style name="RowContentCenter" parent="Row">
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+    </style>
+
+    <style name="RowInputLabel">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">@dimen/row_items_gap</item>
+        <item name="android:minWidth">@dimen/input_label_min_width</item>
+    </style>
+
+    <style name="RowInputItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ListView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
+    <style name="ListViewInputItem" parent="ListView">
+        <item name="android:layout_height">@dimen/list_view_input_item_height</item>
+    </style>
+
+    <style name="ListViewEmpty">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+        <item name="android:text">@string/lbl__empty</item>
+    </style>
+
+    <style name="TextViewTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/font_size_large</item>
+    </style>
+
+    <style name="TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TextViewDayUnit" parent="TextView">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:text">@string/lbl__day_unit</item>
+    </style>
+
+    <style name="TextViewInputLabel" parent="RowInputLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TextViewFamilyMemberName" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__family_member_name</item>
+    </style>
+
+    <style name="TextViewMedicineName" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__medicine_name</item>
+    </style>
+
+    <style name="TextViewMedicineCategoryName" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__medicine_category_name</item>
+    </style>
+
+    <style name="TextViewPicture" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__picture</item>
+    </style>
+
+    <style name="TextViewNote" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__note</item>
+    </style>
+
+    <style name="TextViewMedicineIntervalName" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__medicine_interval_name</item>
+    </style>
+
+    <style name="TextViewMedicineIntervalValue" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__medicine_interval_value</item>
+    </style>
+
+    <style name="TextViewMedicineTimeName" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__medicine_time_name</item>
+    </style>
+
+    <style name="TextViewMedicineTimeValue" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__medicine_time_value</item>
+    </style>
+
+    <style name="TextViewStartDate" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__start_date</item>
+    </style>
+
+    <style name="TextViewAlarm" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__alarm</item>
+    </style>
+
+    <style name="TextViewTimes" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__times</item>
+    </style>
+
+    <style name="EditText" parent="RowInputItem">
+        <item name="android:inputType">text</item>
+        <item name="android:maxLength">32</item>
+    </style>
+
+    <style name="EditTextMultipleLine" parent="EditText">
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:maxLength">256</item>
+    </style>
+
+    <style name="EditTextFamilyMemberName" parent="EditText">
+        <item name="android:hint">@string/hint__family_member_name</item>
+    </style>
+
+    <style name="EditTextMedicineName" parent="EditText">
+        <item name="android:hint">@string/hint__medicine_name</item>
+    </style>
+
+    <style name="EditTextMedicineCategoryName" parent="EditText">
+        <item name="android:hint">@string/hint__medicine_category_name</item>
+    </style>
+
+    <style name="EditTextMedicineIntervalName" parent="EditText">
+        <item name="android:hint">@string/hint__medicine_interval_name</item>
+    </style>
+
+    <style name="EditTextMedicineIntervalValue" parent="EditText">
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">2</item>
+        <item name="android:hint">@string/hint__medicine_interval_value</item>
+    </style>
+
+    <style name="EditTextTimes" parent="EditTextMedicineIntervalValue">
+        <item name="android:hint">@string/hint__times</item>
+    </style>
+
+    <style name="EditTextMedicineTimeName" parent="EditText">
+        <item name="android:hint">@string/hint__medicine_time_name</item>
+    </style>
+
+    <style name="EditTextMedicineNote" parent="EditTextMultipleLine">
+        <item name="android:hint">@string/hint__medicine_note</item>
+    </style>
+
+    <style name="EditTextMedicineCategoryNote" parent="EditTextMultipleLine">
+        <item name="android:hint">@string/hint__medicine_category_note</item>
+    </style>
+
+    <style name="EditTextScheduleNote" parent="EditTextMultipleLine">
+        <item name="android:hint">@string/hint__schedule_note</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">@dimen/button_min_width</item>
+    </style>
+
+    <style name="ButtonAdd" parent="Button">
+        <item name="android:text">@string/btn__add</item>
+    </style>
+
+    <style name="ButtonEdit" parent="Button">
+        <item name="android:text">@string/btn__edit</item>
+    </style>
+
+    <style name="ButtonDelete" parent="Button">
+        <item name="android:text">@string/btn__delete</item>
+    </style>
+
+    <style name="ButtonSelect" parent="Button">
+        <item name="android:text">@string/btn__select</item>
+    </style>
+
+    <style name="ButtonCapture" parent="Button">
+        <item name="android:text">@string/btn__capture</item>
+    </style>
+
+    <style name="ButtonBack" parent="Button">
+        <item name="android:text">@string/btn__back</item>
+    </style>
+
+    <style name="ButtonOK" parent="Button">
+        <item name="android:text">@string/btn__ok</item>
+    </style>
+
+    <style name="ButtonCancel" parent="Button">
+        <item name="android:text">@string/btn__cancel</item>
+    </style>
+
+    <style name="Spinner" parent="RowInputItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ImageView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:src">@drawable/icon__no_photo</item>
+    </style>
+
+    <style name="ImageViewMedicine" parent="ImageView">
+        <item name="android:layout_width">@dimen/medicine_picture_width</item>
+        <item name="android:layout_height">@dimen/medicine_picture_height</item>
+        <item name="android:contentDescription">@string/desc__medicine_picture</item>
+    </style>
+
+    <style name="Switch" parent="RowInputItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:checked">true</item>
+        <item name="android:text"></item>
+        <item name="android:textOn">@string/lbl__on</item>
+        <item name="android:textOff">@string/lbl__off</item>
+        <item name="android:minWidth">@dimen/switch_min_width</item>
+    </style>
+
 </resources>
