@@ -22,6 +22,11 @@
         <RelativeLayout
             style="@style/Row">
 
+            <TextView
+                android:id="@+id/lblMedicineCategoryName"
+                android:layout_marginTop="20dp"
+                style="@style/TextViewMedicineCategoryName"/>
+
             <Spinner
                 android:id="@+id/selMedicineCategories"
                 android:layout_toLeftOf="@+id/btnAddMedicineCategory"
