@@ -20,7 +20,7 @@ public class TableMedicineCategory extends Table {
     private static final String STATEMENT__CREATE = "CREATE TABLE `" + TableMedicineCategory.TABLE_NAME + "` ("
             + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
             + "`" + TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NAME + "` TEXT NOT NULL UNIQUE,"
-            + "`" + TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NOTE + "` TEXT NOT NULL"
+            + "`" + TableMedicineCategory.COLUMN_NAME__MEDICINE_CATEGORY_NOTE + "` TEXT"
             + ");";
 
     private static final String STATEMENT__UPDATE = "";

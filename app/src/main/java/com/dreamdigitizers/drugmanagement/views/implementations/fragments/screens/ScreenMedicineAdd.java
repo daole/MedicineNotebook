@@ -2,6 +2,7 @@ package com.dreamdigitizers.drugmanagement.views.implementations.fragments.scree
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.view.LayoutInflater;
@@ -147,7 +148,7 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
     @Override
     public void clearInput() {
         this.mTxtMedicineName.setText("");
-        this.mImgMedicinePicture.setImageBitmap(null);
+        this.mImgMedicinePicture.setImageBitmap(BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.icon__no_photo));
         this.mSelMedicineCategories.setSelection(0);
         this.mTxtMedicineNote.setText("");
         this.mMedicinePictureFilePath = null;

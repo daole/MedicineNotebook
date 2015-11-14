@@ -57,6 +57,7 @@
     </style>
 
     <style name="RowNavigationDrawer" parent="Row">
+        <item name="android:padding">@dimen/padding</item>
         <item name="android:background">@drawable/selector__navigation_drawer_item_background_color</item>
     </style>
 

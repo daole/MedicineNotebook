@@ -3,8 +3,10 @@ package com.dreamdigitizers.drugmanagement.views.implementations.fragments.scree
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -231,24 +233,25 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
     }
 
     private void deleteOldMedicinePicture() {
-        if(!this.mMedicinePictureFilePath.equals(this.mOldMedicinePictureFilePath)) {
+        if(!TextUtils.isEmpty(this.mMedicinePictureFilePath) && !this.mMedicinePictureFilePath.equals(this.mOldMedicinePictureFilePath)) {
             this.mPresenter.deleteImage(this.mOldMedicinePictureFilePath);
             this.mOldMedicinePictureFilePath = this.mMedicinePictureFilePath;
         }
     }
 
     private void deleteMedicinePicture() {
-        if(!this.mMedicinePictureFilePath.equals(this.mOldMedicinePictureFilePath)) {
+        if(!TextUtils.isEmpty(this.mMedicinePictureFilePath) && !this.mMedicinePictureFilePath.equals(this.mOldMedicinePictureFilePath)) {
             this.mPresenter.deleteImage(this.mMedicinePictureFilePath);
         }
     }
 
     private void loadMedicinePicture() {
-        this.mImgMedicinePicture.setImageBitmap(
-                this.mPresenter.loadImage(
-                        this.mMedicinePictureFilePath,
-                        this.mImgMedicinePicture.getWidth(),
-                        this.mImgMedicinePicture.getHeight()));
+        Bitmap bitmap = this.mPresenter.loadImage(this.mMedicinePictureFilePath,
+                this.mImgMedicinePicture.getWidth(),
+                this.mImgMedicinePicture.getHeight());
+        if(bitmap != null) {
+            this.mImgMedicinePicture.setImageBitmap(bitmap);
+        }
     }
 
     private void goToMedicineCategoryAddScreen() {
