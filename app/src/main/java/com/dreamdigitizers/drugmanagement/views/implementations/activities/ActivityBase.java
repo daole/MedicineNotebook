@@ -92,10 +92,12 @@ public class ActivityBase extends AppCompatActivity implements FragmentBase.ISta
             if (pScreen != null) {
                 String className = pScreen.getClass().getName();
 
-				boolean result = this.getSupportFragmentManager().popBackStackImmediate(className, 0);
-                if (result) {
-					return;
-				}
+                if(pScreen.shouldPopBackStack()) {
+                    boolean result = this.getSupportFragmentManager().popBackStackImmediate(className, 0);
+                    if (result) {
+                        return;
+                    }
+                }
 
                 FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
 

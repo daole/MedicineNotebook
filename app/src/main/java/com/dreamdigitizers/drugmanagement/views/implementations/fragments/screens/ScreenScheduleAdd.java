@@ -29,7 +29,7 @@ import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFa
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleAdd;
 import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityBase;
-import com.dreamdigitizers.drugmanagement.views.implementations.adapters.TakenMedicineAdapter;
+import com.dreamdigitizers.drugmanagement.views.implementations.adapters.AdapterTakenMedicine;
 import com.dreamdigitizers.drugmanagement.views.implementations.dialogs.DialogMedicineSelect;
 
 import java.text.DateFormat;
@@ -54,7 +54,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
 
     private IPresenterScheduleAdd mPresenter;
     //private SpinnerAdapter mMedicineAdapter;
-    private TakenMedicineAdapter mAdapter;
+    private AdapterTakenMedicine mAdapter;
 
     private FamilyMember mFamilyMember;
     private MedicineTime mMedicineTime;
@@ -65,7 +65,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     @Override
     public void onCreate(Bundle pSavedInstanceState) {
         super.onCreate(pSavedInstanceState);
-        this.mAdapter = new TakenMedicineAdapter(this.getContext());
+        this.mAdapter = new AdapterTakenMedicine(this.getContext());
         if(this.mAdapterData != null) {
             this.mAdapter.addItems(this.mAdapterData);
         }
@@ -110,6 +110,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
+        this.mAdapter.setListView(this.mListView);
         this.mListView.setAdapter(this.mAdapter);
 
         this.mSelFamilyMembers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -18,7 +18,7 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeList;
 
-public class ScreenMedicineTimeList extends Screen implements IViewMedicineTimeList {
+public class ScreenMedicineTimeList extends ScreenEntry implements IViewMedicineTimeList {
     private ListView mListView;
     private TextView mLblEmpty;
 

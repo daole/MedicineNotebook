@@ -34,13 +34,12 @@
 
             <ListView
                 android:id="@+id/lstMedicines"
-                android:layout_toLeftOf="@+id/btnSelectMedicine"
+                android:layout_below="@id/lblMedicineName"
                 android:layout_toRightOf="@id/lblMedicineName"
-                android:layout_alignTop="@id/lblMedicineName"
                 style="@style/ListViewInputItem"/>
 
             <ImageButton
-                android:id="@id/btnSelectMedicine"
+                android:id="@+id/btnSelectMedicine"
                 android:layout_alignTop="@id/lblMedicineName"
                 style="@style/ImageButtonAdd"/>
 

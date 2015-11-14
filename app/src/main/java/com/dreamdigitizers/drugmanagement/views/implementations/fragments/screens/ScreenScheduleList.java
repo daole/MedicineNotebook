@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleList;
 
-public class ScreenScheduleList extends Screen implements IViewScheduleList {
+public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList {
     private ListView mListView;
     private TextView mLblEmpty;
 

@@ -18,7 +18,7 @@ import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFa
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineCategoryList;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineCategoryList;
 
-public class ScreenMedicineCategoryList extends Screen implements IViewMedicineCategoryList {
+public class ScreenMedicineCategoryList extends ScreenEntry implements IViewMedicineCategoryList {
     private ListView mListView;
     private TextView mLblEmpty;
 

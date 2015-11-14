@@ -296,11 +296,11 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
     */
 
     private void createMedicineTimeAdapter() {
-        String[] from = new String[] {TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_NAME};
-        int[] to = new int[] {android.R.id.text1};
+        String[] from = new String[] {TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_NAME, TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_VALUE};
+        int[] to = new int[] {R.id.lblText1, R.id.lblText2};
         this.mMedicineTimeAdapter = new SimpleCursorAdapter(this.mView.getViewContext(),
-                android.R.layout.simple_spinner_item, null, from, to, 0);
-        this.mMedicineTimeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.part__spinner_2_text_views, null, from, to, 0);
+        this.mMedicineTimeAdapter.setDropDownViewResource(R.layout.part__spinner_2_text_views);
         this.mView.setMedicineTimeAdapter(this.mMedicineTimeAdapter);
     }
 

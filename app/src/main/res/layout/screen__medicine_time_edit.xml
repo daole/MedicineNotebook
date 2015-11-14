@@ -24,17 +24,16 @@
             android:layout_centerVertical="false"
             style="@style/TextViewMedicineTimeValue"/>
 
-        <Button
-            android:id="@+id/btnAddTimeValue"
-            android:layout_below="@id/lblMedicineTimeValue"
-            style="@style/ButtonAdd"/>
-
         <ListView
             android:id="@+id/lstMedicineTimeValues"
-            android:layout_height="150dp"
-            android:layout_alignTop="@id/lblMedicineTimeValue"
+            android:layout_below="@id/lblMedicineTimeValue"
             android:layout_toRightOf="@id/lblMedicineTimeValue"
-            style="@style/ListView"/>
+            style="@style/ListViewInputItem"/>
+
+        <ImageButton
+            android:id="@+id/btnAddTimeValue"
+            android:layout_alignTop="@id/lblMedicineTimeValue"
+            style="@style/ImageButtonAdd"/>
 
     </RelativeLayout>
 

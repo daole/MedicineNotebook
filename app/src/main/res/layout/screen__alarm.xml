@@ -32,7 +32,7 @@
 
         <ListView
             android:id="@+id/lstTakenMedicines"
-            style="@style/ListView"/>
+            style="@style/ListViewWrapContentHeight"/>
 
         <TextView
             android:id="@+id/lblEmpty"

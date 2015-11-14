@@ -87,6 +87,10 @@ public abstract class Screen extends FragmentBase implements IView {
 		String message = this.getString(pStringResourceId);
 		DialogUtils.displayErrorDialog(this.getActivity(), title, message, buttonText);
 	}
+
+	public boolean shouldPopBackStack() {
+		return false;
+	}
 	
 	protected void addChildToViewGroup(ViewGroup pParent, View pChild, int pPosition) {
 		if(pPosition >= 0) {

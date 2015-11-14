@@ -9,7 +9,7 @@
 
     <dimen name="font_size_large">30sp</dimen>
     <dimen name="padding">10dp</dimen>
-    <dimen name="row_vertical_padding">10dp</dimen>
+    <dimen name="margin">10dp</dimen>
     <dimen name="row_items_gap">10dp</dimen>
     <dimen name="medicine_picture_width">200dp</dimen>
     <dimen name="medicine_picture_height">200dp</dimen>
@@ -20,7 +20,6 @@
     <dimen name="input_label_min_width">100dp</dimen>
     <dimen name="button_min_width">100dp</dimen>
     <dimen name="switch_min_width">100dp</dimen>
-    <dimen name="list_view_input_item_height">200dp</dimen>
     <dimen name="navigation_drawer_divider_height">0dp</dimen>
     <dimen name="navigation_drawer_icon_width">25dp</dimen>
     <dimen name="navigation_drawer_icon_height">25dp</dimen>

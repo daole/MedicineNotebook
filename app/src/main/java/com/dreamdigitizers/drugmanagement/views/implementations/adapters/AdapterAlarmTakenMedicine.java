@@ -1,13 +1,12 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
@@ -15,12 +14,12 @@ import com.dreamdigitizers.drugmanagement.data.models.TakenMedicineExtended;
 
 import java.util.List;
 
-public class AlarmTakenMedicineAdapter extends BaseAdapter {
-    private Context mContext;
+public class AdapterAlarmTakenMedicine extends AdapterBase {
     private List<TakenMedicineExtended> mData;
 
-    public AlarmTakenMedicineAdapter(Context pContext, List<TakenMedicineExtended> pData) {
-        this.mContext = pContext;
+    public AdapterAlarmTakenMedicine(Context pContext, List<TakenMedicineExtended> pData) {
+        super(pContext);
+
         this.mData = pData;
     }
 
@@ -72,6 +71,12 @@ public class AlarmTakenMedicineAdapter extends BaseAdapter {
         viewHolder.mLblDose.setText(dose);
 
         return pConvertView;
+    }
+
+    @Override
+    public void setListView(ListView pListView) {
+        super.setListView(pListView);
+        this.setListViewHeightBasedOnItems();
     }
 
     private static class ViewHolder {

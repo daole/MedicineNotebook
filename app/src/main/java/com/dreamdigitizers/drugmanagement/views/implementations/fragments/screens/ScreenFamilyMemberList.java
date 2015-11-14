@@ -18,7 +18,7 @@ import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFa
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterFamilyMemberList;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewFamilyMemberList;
 
-public class ScreenFamilyMemberList extends Screen implements IViewFamilyMemberList {
+public class ScreenFamilyMemberList extends ScreenEntry implements IViewFamilyMemberList {
     private ListView mListView;
     private TextView mLblEmpty;
 

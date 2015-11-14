@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.dreamdigitizers.drugmanagement.Constants;
@@ -14,18 +15,18 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeAdd;
-import com.dreamdigitizers.drugmanagement.views.implementations.adapters.TimeValueAdapter;
+import com.dreamdigitizers.drugmanagement.views.implementations.adapters.AdapterTimeValue;
 
 import java.util.List;
 
 public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAdd {
     private EditText mTxtMedicineTimeName;
     private ListView mListView;
-    private Button mBtnAddTimeValue;
+    private ImageButton mBtnAddTimeValue;
     private Button mBtnAdd;
     private Button mBtnBack;
 
-    private TimeValueAdapter mAdapter;
+    private AdapterTimeValue mAdapter;
 
     private IPresenterMedicineTimeAdd mPresenter;
 
@@ -45,14 +46,15 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
     protected void retrieveScreenItems(View pView) {
         this.mTxtMedicineTimeName = (EditText)pView.findViewById(R.id.txtMedicineTimeName);
         this.mListView = (ListView)pView.findViewById(R.id.lstMedicineTimeValues);
-        this.mBtnAddTimeValue = (Button)pView.findViewById(R.id.btnAddTimeValue);
+        this.mBtnAddTimeValue = (ImageButton)pView.findViewById(R.id.btnAddTimeValue);
         this.mBtnAdd = (Button)pView.findViewById(R.id.btnAdd);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
     }
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
-        this.mAdapter = new TimeValueAdapter(this.getContext());
+        this.mAdapter = new AdapterTimeValue(this.getContext());
+        this.mAdapter.setListView(this.mListView);
         this.mListView.setAdapter(this.mAdapter);
 
         this.mBtnAddTimeValue.setOnClickListener(new View.OnClickListener() {

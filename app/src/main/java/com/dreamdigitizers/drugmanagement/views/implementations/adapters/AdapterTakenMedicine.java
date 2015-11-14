@@ -1,35 +1,23 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.adapters;
 
 import android.content.Context;
+import android.support.v4.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.data.models.TakenMedicine;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+public class AdapterTakenMedicine extends AdapterBase {
+    ArrayMap<Long, TakenMedicine> mData;
 
-public class TimeValueAdapter extends BaseAdapter {
-    private Context mContext;
-    private List<String> mData;
+    public AdapterTakenMedicine(Context pContext) {
+        super(pContext);
 
-    public TimeValueAdapter(Context pContext) {
-        this(pContext, new ArrayList<String>());
-    }
-
-    public TimeValueAdapter(Context pContext, String[] pData) {
-        this(pContext, Arrays.asList(pData));
-    }
-
-    public TimeValueAdapter(Context pContext, List<String> pData) {
-        this.mContext = pContext;
-        this.mData = pData;
+        this.mData = new ArrayMap<>();
     }
 
     @Override
@@ -52,58 +40,59 @@ public class TimeValueAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         if(pConvertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater)this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            pConvertView = layoutInflater.inflate(R.layout.part__medicine_time_value, pParent, false);
+            pConvertView = layoutInflater.inflate(R.layout.part__taken_medicine, pParent, false);
 
             viewHolder = new ViewHolder();
-            viewHolder.mLblMedicineTimeValue = (TextView)pConvertView.findViewById(R.id.lblMedicineTimeValue);
+            viewHolder.mLblMedicineName = (TextView)pConvertView.findViewById(R.id.lblMedicineName);
+            viewHolder.mLblDose = (TextView)pConvertView.findViewById(R.id.lblDose);
             viewHolder.mBtnDelete = (ImageButton)pConvertView.findViewById(R.id.btnDelete);
             pConvertView.setTag(viewHolder);
         }
 
+        TakenMedicine takenMedicine = this.mData.valueAt(pPosition);
         viewHolder = (ViewHolder)pConvertView.getTag();
-        viewHolder.mLblMedicineTimeValue.setText(this.mData.get(pPosition));
+        viewHolder.mLblMedicineName.setText(takenMedicine.getFallbackMedicineName());
+        viewHolder.mLblDose.setText(takenMedicine.getDose());
         viewHolder.mBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View pView) {
-                TimeValueAdapter.this.onButtonDeleteClick(pPosition);
+                AdapterTakenMedicine.this.onButtonDeleteClick(pPosition);
             }
         });
 
         return pConvertView;
     }
 
-    public List<String> getData() {
+    public ArrayMap getData() {
         return this.mData;
     }
 
-    public void addItem(String pItem) {
-        if(!this.mData.contains(pItem)) {
-            this.mData.add(pItem);
-            Collections.sort(this.mData);
-        }
+    public void addItem(TakenMedicine pItem) {
+        this.mData.put(pItem.getMedicineId(), pItem);
         this.notifyDataSetChanged();
+        this.setListViewHeightBasedOnItems();
     }
 
-    public void addItems(String[] pItems) {
+    public void addItems(TakenMedicine[] pItems) {
         if (pItems != null && pItems.length > 0) {
-            for (String item : pItems) {
-                if(!this.mData.contains(item)) {
-                    this.mData.add(item);
-                }
+            for (TakenMedicine item : pItems) {
+                this.addItem(item);
             }
-            Collections.sort(this.mData);
             this.notifyDataSetChanged();
+            this.setListViewHeightBasedOnItems();
         }
     }
 
     public void removeItem(int pPosition) {
-        this.mData.remove(pPosition);
+        this.mData.removeAt(pPosition);
         this.notifyDataSetChanged();
+        this.setListViewHeightBasedOnItems();
     }
 
     public void clearItem() {
         this.mData.clear();
         this.notifyDataSetChanged();
+        this.setListViewHeightBasedOnItems();
     }
 
     private void onButtonDeleteClick(int pPosition) {
@@ -111,7 +100,8 @@ public class TimeValueAdapter extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        public TextView mLblMedicineTimeValue;
+        public TextView mLblMedicineName;
+        public TextView mLblDose;
         public ImageButton mBtnDelete;
     }
 }

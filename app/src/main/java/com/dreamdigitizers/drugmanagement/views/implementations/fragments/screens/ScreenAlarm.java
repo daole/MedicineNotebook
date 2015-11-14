@@ -17,7 +17,7 @@ import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFa
 import com.dreamdigitizers.drugmanagement.utils.AlarmUtils;
 import com.dreamdigitizers.drugmanagement.utils.SoundUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewAlarm;
-import com.dreamdigitizers.drugmanagement.views.implementations.adapters.AlarmTakenMedicineAdapter;
+import com.dreamdigitizers.drugmanagement.views.implementations.adapters.AdapterAlarmTakenMedicine;
 
 import java.text.DateFormat;
 import java.util.GregorianCalendar;
@@ -120,7 +120,8 @@ public class ScreenAlarm extends Screen implements IViewAlarm {
         }
         this.mLblFamilyMemberName.setText(familyMemberName);
 
-        AlarmTakenMedicineAdapter adapter = new AlarmTakenMedicineAdapter(this.getContext(), pModel.getSchedule().getTakenMedicines());
+        AdapterAlarmTakenMedicine adapter = new AdapterAlarmTakenMedicine(this.getContext(), pModel.getSchedule().getTakenMedicines());
+        adapter.setListView(this.mListView);
         this.mListView.setAdapter(adapter);
     }
 }
