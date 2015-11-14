@@ -2,13 +2,14 @@ package com.dreamdigitizers.drugmanagement.views.implementations.fragments.scree
 
 import android.app.Activity;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -59,6 +60,29 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     private MedicineTime mMedicineTime;
     private MedicineInterval mMedicineInterval;
 
+    private TakenMedicine[] mAdapterData;
+
+    @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mAdapter = new TakenMedicineAdapter(this.getContext());
+        if(this.mAdapterData != null) {
+            this.mAdapter.addItems(this.mAdapterData);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle pOutState) {
+        super.onSaveInstanceState(pOutState);
+        ArrayMap<Long, TakenMedicine> adapterData = this.mAdapter.getData();
+        pOutState.putSerializable(Screen.BUNDLE_KEY__ADAPTER_DATA, adapterData.values().toArray());
+    }
+
+    @Override
+    protected void recoverInstanceState(Bundle pSavedInstanceState) {
+        this.mAdapterData = (TakenMedicine[])pSavedInstanceState.getSerializable(Screen.BUNDLE_KEY__ADAPTER_DATA);
+    }
+
     @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__schedule_add, pContainer, false);
@@ -86,7 +110,6 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
-        this.mAdapter = new TakenMedicineAdapter(this.getContext());
         this.mListView.setAdapter(this.mAdapter);
 
         this.mSelFamilyMembers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

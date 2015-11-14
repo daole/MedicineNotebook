@@ -15,6 +15,7 @@ import com.dreamdigitizers.drugmanagement.views.implementations.fragments.Fragme
 
 public abstract class Screen extends FragmentBase implements IView {
 	protected static final String BUNDLE_KEY__ROW_ID = "row_id";
+	protected static final String BUNDLE_KEY__ADAPTER_DATA = "adapter_data";
 
 	private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IOnScreenActionsListener.";
 
