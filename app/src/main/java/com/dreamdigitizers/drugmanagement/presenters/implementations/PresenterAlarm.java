@@ -7,7 +7,9 @@ import android.net.Uri;
 
 import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableAlarm;
+import com.dreamdigitizers.drugmanagement.data.dal.tables.TableTakenMedicine;
 import com.dreamdigitizers.drugmanagement.data.models.AlarmExtended;
+import com.dreamdigitizers.drugmanagement.data.models.TakenMedicineExtended;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterAlarm;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewAlarm;
 
@@ -26,11 +28,20 @@ class PresenterAlarm implements IPresenterAlarm {
         projection = TableAlarm.getColumnsForJoin().toArray(projection);
         Uri uri = ContentProviderMedicine.CONTENT_URI__ALARM;
         uri = ContentUris.withAppendedId(uri, pRowId);
-        Cursor cursor = this.mView.getViewContext().getContentResolver().query(uri, projection, null, null, null);
-        if(cursor != null) {
-            List<AlarmExtended> list = AlarmExtended.fetchExtendedData(cursor);
+        Cursor alarmCursor = this.mView.getViewContext().getContentResolver().query(uri, projection, null, null, null);
+        if(alarmCursor != null) {
+            List<AlarmExtended> list = AlarmExtended.fetchExtendedData(alarmCursor);
             if(list.size() > 0) {
                 AlarmExtended model = list.get(0);
+
+                projection = new String[0];
+                projection = TableTakenMedicine.getColumnsForJoin().toArray(projection);
+                String selection = TableTakenMedicine.COLUMN_NAME__SCHEDULE_ID + " = " + model.getSchedule().getRowId();
+                uri = ContentProviderMedicine.CONTENT_URI__TAKEN_MEDICINE;
+                Cursor takenMedicineCursor = this.mView.getViewContext().getContentResolver().query(uri, projection, selection, null, null);
+                List<TakenMedicineExtended> takenMedicines = TakenMedicineExtended.fetchExtendedData(takenMedicineCursor);
+                model.getSchedule().setTakenMedicines(takenMedicines);
+
                 this.mView.bindData(model);
             }
         }

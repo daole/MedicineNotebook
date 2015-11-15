@@ -4,7 +4,7 @@
 
     <TextView
         android:id="@+id/lblMedicineTimeValue"
-        style="@style/RowBeginningItem"/>
+        style="@style/RowTextView"/>
 
     <ImageButton
         android:id="@+id/btnDelete"

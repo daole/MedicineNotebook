@@ -15,6 +15,7 @@ public class TableAlarm extends Table {
     public static final String COLUMN_NAME__ALARM_DATE = "alarm_date";
     public static final String COLUMN_NAME__ALARM_HOUR = "alarm_hour";
     public static final String COLUMN_NAME__ALARM_MINUTE = "alarm_minute";
+    public static final String COLUMN_NAME__IS_ALARM = "is_alarm";
     public static final String COLUMN_NAME__IS_DONE = "is_done";
 
     public static final int COLUMN_INDEX__SCHEDULE_ID = 1;
@@ -23,7 +24,8 @@ public class TableAlarm extends Table {
     public static final int COLUMN_INDEX__ALARM_DATE = 4;
     public static final int COLUMN_INDEX__ALARM_HOUR = 5;
     public static final int COLUMN_INDEX__ALARM_MINUTE = 6;
-    public static final int COLUMN_INDEX__IS_DONE = 7;
+    public static final int COLUMN_INDEX__IS_ALARM = 7;
+    public static final int COLUMN_INDEX__IS_DONE = 8;
 
     private static final String STATEMENT__CREATE = "CREATE TABLE `" + TableAlarm.TABLE_NAME + "` ("
         + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
@@ -33,6 +35,7 @@ public class TableAlarm extends Table {
         + "`" + TableAlarm.COLUMN_NAME__ALARM_DATE + "` INTEGER NOT NULL,"
         + "`" + TableAlarm.COLUMN_NAME__ALARM_HOUR + "` INTEGER NOT NULL,"
         + "`" + TableAlarm.COLUMN_NAME__ALARM_MINUTE + "` INTEGER NOT NULL,"
+        + "`" + TableAlarm.COLUMN_NAME__IS_ALARM + "` INTEGER NOT NULL,"
         + "`" + TableAlarm.COLUMN_NAME__IS_DONE + "` INTEGER NOT NULL DEFAULT '0'"
         + ");";
 
@@ -59,6 +62,7 @@ public class TableAlarm extends Table {
         columns.add(tableName + TableAlarm.COLUMN_NAME__ALARM_DATE);
         columns.add(tableName + TableAlarm.COLUMN_NAME__ALARM_HOUR);
         columns.add(tableName + TableAlarm.COLUMN_NAME__ALARM_MINUTE);
+        columns.add(tableName + TableAlarm.COLUMN_NAME__IS_ALARM);
         columns.add(tableName + TableAlarm.COLUMN_NAME__IS_DONE);
 
         return columns;
@@ -70,6 +74,7 @@ public class TableAlarm extends Table {
         List<String> scheduleColumns = TableSchedule.getColumns(true, false);
         columns.addAll(scheduleColumns);
 
+        /*
         List<String> takenMedicineColumns = TableTakenMedicine.getColumns(true, false);
         columns.add(TableTakenMedicine.COLUMN_NAME__ID);
         columns.addAll(takenMedicineColumns);
@@ -79,6 +84,7 @@ public class TableAlarm extends Table {
 
         List<String> medicineCategoryColumns = TableMedicineCategory.getColumns(true, false);
         columns.addAll(medicineCategoryColumns);
+        */
 
         List<String> familyMemberColumns = TableFamilyMember.getColumns(true, false);
         columns.addAll(familyMemberColumns);

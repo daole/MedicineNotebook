@@ -56,6 +56,18 @@ public class TableTakenMedicine extends Table {
         return columns;
     }
 
+    public static List<String> getColumnsForJoin() {
+        List<String> columns = TableTakenMedicine.getColumns(true, true);
+
+        List<String> medicineColumns = TableMedicine.getColumns(true, false);
+        columns.addAll(medicineColumns);
+
+        List<String> medicineCategoryColumns = TableMedicineCategory.getColumns(true, false);
+        columns.addAll(medicineCategoryColumns);
+
+        return  columns;
+    }
+
     public static void onCreate(Context pContext, SQLiteDatabase pSQLiteDatabase) {
         pSQLiteDatabase.execSQL(TableTakenMedicine.STATEMENT__CREATE);
     }

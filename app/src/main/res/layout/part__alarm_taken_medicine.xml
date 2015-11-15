@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/lblMedicineName"
         android:layout_toRightOf="@id/imgMedicinePicture"
-        style="@style/RowBeginningItem"/>
+        style="@style/RowTextView"/>
 
     <TextView
         android:id="@+id/lblDose"

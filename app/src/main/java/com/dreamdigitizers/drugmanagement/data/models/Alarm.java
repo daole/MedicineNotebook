@@ -15,6 +15,7 @@ public class Alarm extends Model {
     private int mAlarmDate;
     private int mAlarmHour;
     private int mAlarmMinute;
+    private boolean mIsAlarm;
     private boolean mIsDone;
 
     public long getScheduleId() {
@@ -65,6 +66,14 @@ public class Alarm extends Model {
         this.mAlarmMinute = pAlarmMinute;
     }
 
+    public boolean getIsAlarm() {
+        return this.mIsAlarm;
+    }
+
+    public void setIsAlarm(boolean pIsAlarm) {
+        this.mIsAlarm = pIsAlarm;
+    }
+
     public boolean getIsDone() {
         return this.mIsDone;
     }
@@ -103,6 +112,7 @@ public class Alarm extends Model {
             int alarmDate = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__ALARM_DATE));
             int alarmHour = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__ALARM_HOUR));
             int alarmMinute = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__ALARM_MINUTE));
+            boolean isAlarm = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__IS_ALARM)) != 0 ? true : false;
             boolean isDone = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__IS_DONE)) != 0 ? true : false;
 
             model = new Alarm();
@@ -113,6 +123,7 @@ public class Alarm extends Model {
             model.setAlarmDate(alarmDate);
             model.setAlarmHour(alarmHour);
             model.setAlarmMinute(alarmMinute);
+            model.setIsAlarm(isAlarm);
             model.setIsDone(isDone);
         }
 

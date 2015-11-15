@@ -4,7 +4,7 @@
 
     <TextView
         android:id="@+id/lblMedicineName"
-        style="@style/RowBeginningItem"/>
+        style="@style/RowTextView"/>
 
     <CheckBox
         android:id="@+id/chkSelect"

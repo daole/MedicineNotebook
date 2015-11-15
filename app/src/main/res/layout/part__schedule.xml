@@ -3,14 +3,19 @@
     style="@style/Row">
 
     <TextView
-        android:id="@+id/lblMedicineTimeName"
+        android:id="@+id/lblMedicineTimeValue"
         style="@style/RowTextView"/>
 
     <TextView
-        android:id="@+id/lblMedicineTimeValue"
+        android:id="@+id/lblFamilyMemberName"
+        android:layout_toLeftOf="@+id/chkAlarm"
+        android:layout_toRightOf="@+id/lblMedicineTimeValue"
+        style="@style/RowTextView"/>
+
+    <CheckBox
+        android:id="@id/chkAlarm"
         android:layout_toLeftOf="@+id/chkSelect"
-        android:layout_toRightOf="@id/lblMedicineTimeName"
-        style="@style/RowMiddleItemAlignRight"/>
+        style="@style/CheckBoxInListViewAlarm"/>
 
     <CheckBox
         android:id="@id/chkSelect"

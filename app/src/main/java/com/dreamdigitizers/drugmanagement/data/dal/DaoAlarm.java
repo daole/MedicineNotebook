@@ -6,12 +6,9 @@ import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableAlarm;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableFamilyMember;
-import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicine;
-import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineInterval;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTime;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableSchedule;
-import com.dreamdigitizers.drugmanagement.data.dal.tables.TableTakenMedicine;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +17,7 @@ public class DaoAlarm extends Dao {
     private static final String JOIN_CLAUSE;
     static {
         StringBuilder stringBuilder = new StringBuilder();
+
         stringBuilder.append(TableAlarm.TABLE_NAME);
         stringBuilder.append(" JOIN ");
         stringBuilder.append(TableSchedule.TABLE_NAME);
@@ -32,6 +30,7 @@ public class DaoAlarm extends Dao {
         stringBuilder.append(".");
         stringBuilder.append(Table.COLUMN_NAME__ID);
 
+        /*
         stringBuilder.append(" JOIN ");
         stringBuilder.append(TableTakenMedicine.TABLE_NAME);
         stringBuilder.append(" ON ");
@@ -64,6 +63,7 @@ public class DaoAlarm extends Dao {
         stringBuilder.append(TableMedicineCategory.TABLE_NAME);
         stringBuilder.append(".");
         stringBuilder.append(Table.COLUMN_NAME__ID);
+        */
 
         stringBuilder.append(" LEFT JOIN ");
         stringBuilder.append(TableFamilyMember.TABLE_NAME);

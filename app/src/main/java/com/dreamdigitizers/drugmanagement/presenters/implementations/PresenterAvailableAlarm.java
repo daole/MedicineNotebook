@@ -29,21 +29,20 @@ class PresenterAvailableAlarm implements IPresenterAvailableAlarm {
     private List<Alarm> select() {
         String[] projection = new String[0];
         projection = TableAlarm.getColumns(true, true).toArray(projection);
-        String selection = TableAlarm.COLUMN_NAME__IS_DONE + " = 0";
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(TableAlarm.COLUMN_NAME__IS_ALARM);
+        stringBuilder.append(" = 1 AND ");
+        stringBuilder.append(TableAlarm.COLUMN_NAME__IS_DONE);
+        stringBuilder.append(" = 0");
+        String selection = stringBuilder.toString();
         Cursor cursor = this.mView.getViewContext().getContentResolver().query(ContentProviderMedicine.CONTENT_URI__ALARM, projection, selection, null, null);
         List<Alarm> alarms = Alarm.fetchData(cursor);
         return  alarms;
     }
 
     private void setAlarms(List<Alarm> pAlarms) {
-        List<Long> handleRowIds = new ArrayList<>();
         for(Alarm alarm : pAlarms) {
             long rowId = alarm.getRowId();
-            if(handleRowIds.contains(rowId)) {
-                continue;
-            }
-
-            handleRowIds.add(rowId);
             int year = alarm.getAlarmYear();
             int month = alarm.getAlarmMonth();
             int date = alarm.getAlarmDate();

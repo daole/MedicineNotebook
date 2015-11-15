@@ -14,8 +14,7 @@ public class Schedule extends Model {
     private long mMedicineIntervalId;
     private String mFallbackFamilyMemberName;
     private String mStartDate;
-    private boolean mIsAlarm;
-    private int mAlarmTimes;
+    private int mTimes;
     private String mImagePath;
     private String mScheduleNote;
 
@@ -59,20 +58,12 @@ public class Schedule extends Model {
         this.mStartDate = pStartDate;
     }
 
-    public int getAlarmTimes() {
-        return this.mAlarmTimes;
+    public int getTimes() {
+        return this.mTimes;
     }
 
-    public void setAlarmTimes(int pAlarmTimes) {
-        this.mAlarmTimes = pAlarmTimes;
-    }
-
-    public boolean getIsAlarm() {
-        return this.mIsAlarm;
-    }
-
-    public void setIsAlarm(boolean pIsAlarm) {
-        this.mIsAlarm = pIsAlarm;
+    public void setTimes(int pTimes) {
+        this.mTimes = pTimes;
     }
 
     public String getImagePath() {
@@ -120,8 +111,7 @@ public class Schedule extends Model {
             long medicineIntervalId = pCursor.getLong(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__MEDICINE_INTERVAL_ID));
             String fallbackFamilyMemberName = pCursor.getString(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__FALLBACK_FAMILY_MEMBER_NAME));
             String startDate = pCursor.getString(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__START_DATE));
-            boolean isAlarm = pCursor.getInt(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__IS_ALARM)) != 0 ? true : false;
-            int alarmTimes = pCursor.getInt(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__ALARM_TIMES));
+            int alarmTimes = pCursor.getInt(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__TIMES));
             String imagePath = pCursor.getString(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__IMAGE_PATH));
             String scheduleNote = pCursor.getString(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__SCHEDULE_NOTE));
 
@@ -132,8 +122,7 @@ public class Schedule extends Model {
             model.setMedicineIntervalId(medicineIntervalId);
             model.setFallbackFamilyMemberName(fallbackFamilyMemberName);
             model.setStartDate(startDate);
-            model.setIsAlarm(isAlarm);
-            model.setAlarmTimes(alarmTimes);
+            model.setTimes(alarmTimes);
             model.setImagePath(imagePath);
             model.setScheduleNote(scheduleNote);
         }

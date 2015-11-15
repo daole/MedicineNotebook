@@ -47,7 +47,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     private Spinner mSelMedicineIntervals;
     private ImageButton mBtnAddMedicineInterval;
     private Switch mSwiAlarm;
-    private EditText mTxtAlarmTimes;
+    private EditText mTxtTimes;
     private EditText mTxtScheduleNote;
     private Button mBtnBack;
     private Button mBtnAdd;
@@ -102,7 +102,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
         this.mSelMedicineIntervals = (Spinner)pView.findViewById(R.id.selMedicineTimeIntervals);
         this.mBtnAddMedicineInterval = (ImageButton)pView.findViewById(R.id.btnAddMedicineInterval);
         this.mSwiAlarm = (Switch)pView.findViewById(R.id.swiAlarm);
-        this.mTxtAlarmTimes = (EditText)pView.findViewById(R.id.txtTimes);
+        this.mTxtTimes = (EditText)pView.findViewById(R.id.txtTimes);
         this.mTxtScheduleNote = (EditText)pView.findViewById(R.id.txtScheduleNote);
         this.mBtnAdd = (Button)pView.findViewById(R.id.btnAdd);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
@@ -212,7 +212,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
         this.mSelMedicineTimes.setSelection(0);
         this.mSelMedicineIntervals.setSelection(0);
         this.mLblStartDateValue.setText("");
-        this.mTxtAlarmTimes.setText("");
+        this.mTxtTimes.setText("");
         this.mTxtScheduleNote.setText("");
         this.mAdapter.clearItem();
         this.mSwiAlarm.setChecked(true);
@@ -329,7 +329,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
                 this.mMedicineTime,
                 this.mMedicineInterval,
                 this.mSwiAlarm.isChecked(),
-                this.mTxtAlarmTimes.getText().toString().trim(),
+                this.mTxtTimes.getText().toString().trim(),
                 this.mTxtScheduleNote.getText().toString().trim());
     }
 

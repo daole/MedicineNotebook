@@ -14,8 +14,7 @@ public class TableSchedule extends Table {
     public static final String COLUMN_NAME__MEDICINE_INTERVAL_ID = "medicine_interval_id";
     public static final String COLUMN_NAME__FALLBACK_FAMILY_MEMBER_NAME = "fallback_family_member_name";
     public static final String COLUMN_NAME__START_DATE = "start_date";
-    public static final String COLUMN_NAME__IS_ALARM = "is_alarm";
-    public static final String COLUMN_NAME__ALARM_TIMES = "alarm_times";
+    public static final String COLUMN_NAME__TIMES = "times";
     public static final String COLUMN_NAME__IMAGE_PATH = "image_path";
     public static final String COLUMN_NAME__SCHEDULE_NOTE = "schedule_note";
 
@@ -24,10 +23,9 @@ public class TableSchedule extends Table {
     public static final int COLUMN_INDEX__MEDICINE_INTERVAL_ID = 3;
     public static final int COLUMN_INDEX__FALLBACK_FAMILY_MEMBER_NAME = 4;
     public static final int COLUMN_INDEX__START_DATE = 5;
-    public static final int COLUMN_INDEX__IS_ALARM = 6;
-    public static final int COLUMN_INDEX__ALARM_TIMES = 7;
-    public static final int COLUMN_INDEX__IMAGE_PATH = 8;
-    public static final int COLUMN_INDEX__SCHEDULE_NOTE = 9;
+    public static final int COLUMN_INDEX__TIMES = 6;
+    public static final int COLUMN_INDEX__IMAGE_PATH = 7;
+    public static final int COLUMN_INDEX__SCHEDULE_NOTE = 8;
 
     private static final String STATEMENT__CREATE = "CREATE TABLE `" + TableSchedule.TABLE_NAME + "` ("
             + "`" + Table.COLUMN_NAME__ID + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
@@ -36,8 +34,7 @@ public class TableSchedule extends Table {
             + "`" + TableSchedule.COLUMN_NAME__MEDICINE_INTERVAL_ID + "` INTEGER NOT NULL,"
             + "`" + TableSchedule.COLUMN_NAME__FALLBACK_FAMILY_MEMBER_NAME + "` TEXT NOT NULL,"
             + "`" + TableSchedule.COLUMN_NAME__START_DATE + "` TEXT NOT NULL,"
-            + "`" + TableSchedule.COLUMN_NAME__IS_ALARM + "` INTEGER NOT NULL DEFAULT '0',"
-            + "`" + TableSchedule.COLUMN_NAME__ALARM_TIMES + "` INTEGER NOT NULL,"
+            + "`" + TableSchedule.COLUMN_NAME__TIMES + "` INTEGER NOT NULL,"
             + "`" + TableSchedule.COLUMN_NAME__IMAGE_PATH + "` TEXT,"
             + "`" + TableSchedule.COLUMN_NAME__SCHEDULE_NOTE + "` TEXT"
             + ");";
@@ -64,8 +61,7 @@ public class TableSchedule extends Table {
         columns.add(tableName + TableSchedule.COLUMN_NAME__MEDICINE_INTERVAL_ID);
         columns.add(tableName + TableSchedule.COLUMN_NAME__FALLBACK_FAMILY_MEMBER_NAME);
         columns.add(tableName + TableSchedule.COLUMN_NAME__START_DATE);
-        columns.add(tableName + TableSchedule.COLUMN_NAME__IS_ALARM);
-        columns.add(tableName + TableSchedule.COLUMN_NAME__ALARM_TIMES);
+        columns.add(tableName + TableSchedule.COLUMN_NAME__TIMES);
         columns.add(tableName + TableSchedule.COLUMN_NAME__IMAGE_PATH);
         columns.add(tableName + TableSchedule.COLUMN_NAME__SCHEDULE_NOTE);
 

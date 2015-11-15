@@ -13,12 +13,14 @@ public class AlarmExtended extends Alarm {
     }
 
     public AlarmExtended(Alarm pAlarm) {
+        this.setRowId(pAlarm.getRowId());
         this.setScheduleId(pAlarm.getScheduleId());
         this.setAlarmYear(pAlarm.getAlarmYear());
         this.setAlarmMonth(pAlarm.getAlarmMonth());
         this.setAlarmDate(pAlarm.getAlarmDate());
         this.setAlarmHour(pAlarm.getAlarmHour());
         this.setAlarmMinute(pAlarm.getAlarmMinute());
+        this.setIsAlarm(pAlarm.getIsAlarm());
         this.setIsDone(pAlarm.getIsDone());
     }
 

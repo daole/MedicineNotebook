@@ -14,11 +14,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleList;
+import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleList;
 
 public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList {
     private ListView mListView;
     private TextView mLblEmpty;
+
+    private IPresenterScheduleList mPresenter;
 
     @Override
     public void createOptionsMenu(Menu pMenu, MenuInflater pInflater) {
@@ -62,6 +66,8 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
     @Override
     protected void mapInformationToScreenItems(View pView) {
         this.mListView.setEmptyView(this.mLblEmpty);
+
+        this.mPresenter = (IPresenterScheduleList)PresenterFactory.createPresenter(IPresenterScheduleList.class, this);
     }
 
     @Override

@@ -70,9 +70,10 @@
         <item name="android:minWidth">@dimen/input_label_min_width</item>
     </style>
 
-    <style name="RowBeginningItem" parent="RowItem">
+    <style name="RowTextView" parent="RowItem">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/row_items_gap</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
     </style>
@@ -406,6 +407,12 @@
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:focusable">false</item>
         <item name="android:focusableInTouchMode">false</item>
+    </style>
+
+    <style name="CheckBoxInListViewAlarm" parent="CheckBoxInListView">
+        <item name="android:layout_alignParentRight">false</item>
+        <item name="android:layout_marginRight">@dimen/margin</item>
+        <item name="android:button">@drawable/selector__alarm_status</item>
     </style>
 
     <style name="NavigationDrawer">

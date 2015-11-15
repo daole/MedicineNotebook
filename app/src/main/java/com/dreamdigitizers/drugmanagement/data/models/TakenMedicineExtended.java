@@ -2,6 +2,8 @@ package com.dreamdigitizers.drugmanagement.data.models;
 
 import android.database.Cursor;
 
+import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class TakenMedicineExtended extends TakenMedicine {
     }
 
     public TakenMedicineExtended(TakenMedicine pTakenMedicine) {
+        this.setRowId(pTakenMedicine.getRowId());
         this.setScheduleId(pTakenMedicine.getScheduleId());
         this.setMedicineId(pTakenMedicine.getMedicineId());
         this.setFallbackMedicineName(pTakenMedicine.getFallbackMedicineName());
@@ -37,9 +40,23 @@ public class TakenMedicineExtended extends TakenMedicine {
     }
 
     public static List<TakenMedicineExtended> fetchExtendedData(Cursor pCursor) {
+        return TakenMedicineExtended.fetchExtendedData(pCursor, false);
+    }
+
+    public static List<TakenMedicineExtended> fetchExtendedData(Cursor pCursor, boolean pIsJoint) {
+        long currentAlarmId = 0;
         List<TakenMedicineExtended> list = new ArrayList<>();
         if (pCursor != null && pCursor.moveToFirst()) {
             do {
+                if(pIsJoint) {
+                    long alarmId = pCursor.getLong(pCursor.getColumnIndex(Table.COLUMN_NAME__ID));
+                    if (currentAlarmId > 0 && currentAlarmId != alarmId) {
+                        pCursor.moveToPrevious();
+                        break;
+                    }
+                    currentAlarmId = alarmId;
+                }
+
                 TakenMedicineExtended model = TakenMedicineExtended.fetchExtendedDataAtCurrentPosition(pCursor);
                 list.add(model);
             } while (pCursor.moveToNext());

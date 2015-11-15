@@ -77,14 +77,14 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                         MedicineTime pMedicineTime,
                         MedicineInterval pMedicineInterval,
                         boolean pIsAlarm,
-                        String pAlarmTimes,
+                        String pTimes,
                         String pScheduleNote) {
         int result = this.checkInputData(pFamilyMember,
                 pTakenMedicines,
                 pStartDate,
                 pMedicineTime,
                 pMedicineInterval,
-                pAlarmTimes);
+                pTimes);
         if(result != 0) {
             this.mView.showError(result);
             return;
@@ -94,8 +94,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                 pStartDate,
                 pMedicineTime,
                 pMedicineInterval,
-                pIsAlarm,
-                pAlarmTimes,
+                pTimes,
                 pScheduleNote);
 
         List<ContentValues> takenMedicines = this.buildTakenMedicineData(pTakenMedicines);
@@ -118,7 +117,8 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                     pStartDate,
                     pMedicineTime,
                     pMedicineInterval,
-                    pAlarmTimes);
+                    pIsAlarm,
+                    pTimes);
 
             for(ContentValues alarm : alarms) {
                 operations.add(ContentProviderOperation.newInsert(ContentProviderMedicine.CONTENT_URI__ALARM)
@@ -309,6 +309,8 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                     String medicineTimeValue = pCursor.getString(pCursor.getColumnIndex(TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_VALUE));
                     if(TextUtils.isEmpty(medicineTimeValue)) {
                         pView.setVisibility(View.GONE);
+                    } else {
+                        pView.setVisibility(View.VISIBLE);
                     }
                 }
                 return false;
@@ -331,8 +333,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                                             String pStartDate,
                                             MedicineTime pMedicineTime,
                                             MedicineInterval pMedicineInterval,
-                                            boolean pIsAlarm,
-                                            String pAlarmTimes,
+                                            String pTimes,
                                             String pScheduleNote) {
         long familyMemberId = pFamilyMember.getRowId();
         String fallbackFamilyMemberName = pFamilyMember.getFamilyMemberName();
@@ -345,8 +346,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         contentValues.put(TableSchedule.COLUMN_NAME__MEDICINE_INTERVAL_ID, medicineIntervalId);
         contentValues.put(TableSchedule.COLUMN_NAME__FALLBACK_FAMILY_MEMBER_NAME, fallbackFamilyMemberName);
         contentValues.put(TableSchedule.COLUMN_NAME__START_DATE, pStartDate);
-        contentValues.put(TableSchedule.COLUMN_NAME__IS_ALARM, pIsAlarm);
-        contentValues.put(TableSchedule.COLUMN_NAME__ALARM_TIMES, pAlarmTimes);
+        contentValues.put(TableSchedule.COLUMN_NAME__TIMES, pTimes);
         contentValues.put(TableSchedule.COLUMN_NAME__SCHEDULE_NOTE, pScheduleNote);
 
         return contentValues;
@@ -375,13 +375,14 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                                 String pStartDate,
                                 MedicineTime pMedicineTime,
                                 MedicineInterval pMedicineInterval,
-                                String pAlarmTimes) throws ParseException {
+                                boolean pIsAlarm,
+                                String pTimes) throws ParseException {
 
         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this.mView.getViewContext());
         Date startDate = dateFormat.parse(pStartDate);
 
         int intervalValue = pMedicineInterval.getMedicineIntervalValue();
-        int alarmTimes = Integer.parseInt(pAlarmTimes);
+        int times = Integer.parseInt(pTimes);
 
         String[] medicineTimeValues = pMedicineTime.getMedicineTimeValues();
         int[] hours = new int[medicineTimeValues.length];
@@ -395,7 +396,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startDate);
         List<ContentValues> alarms = new ArrayList<>();
-        for(int i = 0; i < alarmTimes; i++) {
+        for(int i = 0; i < times; i++) {
             if(i > 0) {
                 calendar.add(Calendar.DATE, intervalValue);
             }
@@ -409,6 +410,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                 contentValues.put(TableAlarm.COLUMN_NAME__ALARM_DATE, date);
                 contentValues.put(TableAlarm.COLUMN_NAME__ALARM_HOUR, hours[j]);
                 contentValues.put(TableAlarm.COLUMN_NAME__ALARM_MINUTE, minutes[j]);
+                contentValues.put(TableAlarm.COLUMN_NAME__IS_ALARM, pIsAlarm);
 
                 alarms.add(contentValues);
             }
@@ -422,7 +424,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                                String pStartDate,
                                MedicineTime pMedicineTime,
                                MedicineInterval pMedicineInterval,
-                               String pAlarmTimes) {
+                               String pTimes) {
         if(pFamilyMember == null) {
             return R.string.error__blank_family_member;
         }
@@ -439,7 +441,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         if(pMedicineInterval == null) {
             return R.string.error__blank_medicine_interval;
         }
-        if(!StringUtils.isInteger(pAlarmTimes)) {
+        if(!StringUtils.isInteger(pTimes)) {
             return R.string.error__invalid_alarm_times;
         }
         return 0;

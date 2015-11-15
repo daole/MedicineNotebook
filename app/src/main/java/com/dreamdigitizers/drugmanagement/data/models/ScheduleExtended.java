@@ -16,13 +16,13 @@ public class ScheduleExtended extends Schedule {
     }
 
     public ScheduleExtended(Schedule pSchedule) {
+        this.setRowId(pSchedule.getRowId());
         this.setFamilyMemberId(pSchedule.getFamilyMemberId());
         this.setMedicineTimeId(pSchedule.getMedicineTimeId());
         this.setMedicineIntervalId(pSchedule.getMedicineIntervalId());
         this.setFallbackFamilyMemberName(pSchedule.getFallbackFamilyMemberName());
         this.setStartDate(pSchedule.getStartDate());
-        this.setIsAlarm(pSchedule.getIsAlarm());
-        this.setAlarmTimes(pSchedule.getAlarmTimes());
+        this.setTimes(pSchedule.getTimes());
         this.setImagePath(pSchedule.getImagePath());
         this.setScheduleNote(pSchedule.getScheduleNote());
     }
@@ -83,13 +83,13 @@ public class ScheduleExtended extends Schedule {
             FamilyMember familyMember = FamilyMember.fetchDataAtCurrentPosition(pCursor, schedule.getFamilyMemberId());
             MedicineTime medicineTime = MedicineTime.fetchDataAtCurrentPosition(pCursor, schedule.getMedicineTimeId());
             MedicineInterval medicineInterval = MedicineInterval.fetchDataAtCurrentPosition(pCursor, schedule.getMedicineIntervalId());
-            List<TakenMedicineExtended> takenMedicines = TakenMedicineExtended.fetchExtendedData(pCursor);
+            //List<TakenMedicineExtended> takenMedicines = TakenMedicineExtended.fetchExtendedData(pCursor, true);
 
             model = new ScheduleExtended(schedule);
             model.setFamilyMember(familyMember);
             model.setMedicineTime(medicineTime);
             model.setMedicineInterval(medicineInterval);
-            model.setTakenMedicines(takenMedicines);
+            //model.setTakenMedicines(takenMedicines);
         }
 
         return  model;

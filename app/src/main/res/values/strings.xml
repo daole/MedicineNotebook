@@ -37,7 +37,7 @@
     <string name="lbl__dose">Dose:</string>
     <string name="lbl__start_date">Start Date:</string>
     <string name="lbl__alarm">Alarm:</string>
-    <string name="lbl__times">Alarm Times:</string>
+    <string name="lbl__times">Times:</string>
     <string name="lbl__select">Select</string>
     <string name="lbl__on">On</string>
     <string name="lbl__off">Off</string>
