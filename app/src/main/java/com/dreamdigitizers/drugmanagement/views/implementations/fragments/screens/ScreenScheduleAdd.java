@@ -270,6 +270,14 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
         } else {
             this.mMedicineInterval = null;
         }
+
+        if(this.mMedicineInterval != null && this.mMedicineInterval.getMedicineIntervalValue() <= 0) {
+            this.mTxtTimes.setText("1");
+            this.mTxtTimes.setEnabled(false);
+        } else {
+            this.mTxtTimes.setText("");
+            this.mTxtTimes.setEnabled(true);
+        }
     }
 
     private void buttonAddFamilyMemberClick() {

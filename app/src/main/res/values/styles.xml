@@ -349,6 +349,7 @@
     <style name="ImageViewInListView" parent="ImageView">
         <item name="android:layout_width">@dimen/image_view_in_list_view_height</item>
         <item name="android:layout_height">@dimen/image_view_in_list_view_height</item>
+        <item name="android:layout_marginRight">@dimen/row_items_gap</item>
     </style>
 
     <style name="ImageViewInListViewMedicine" parent="ImageViewInListView">

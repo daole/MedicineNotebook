@@ -1,46 +1,116 @@
 package com.dreamdigitizers.drugmanagement.presenters.implementations;
 
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.ContentProviderOperation;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.content.OperationApplicationException;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
+import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.ContentProviderMedicine;
+import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableAlarm;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableFamilyMember;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTime;
+import com.dreamdigitizers.drugmanagement.data.models.Alarm;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleList;
+import com.dreamdigitizers.drugmanagement.utils.AlarmUtils;
+import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleList;
+import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityAlarm;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 class PresenterScheduleList implements IPresenterScheduleList {
     private IViewScheduleList mView;
     private SimpleCursorAdapter mAdapter;
     private List<Integer> mSelectedPositions;
-    private List<Long> mSelectedRowIds;
+    private ArrayMap<Long, Alarm> mSelectedAlarms;
 
     public PresenterScheduleList(IViewScheduleList pView) {
         this.mView = pView;
         this.mView.getViewLoaderManager().initLoader(0, null, this);
         this.mSelectedPositions = new ArrayList<>();
-        this.mSelectedRowIds = new ArrayList<>();
+        this.mSelectedAlarms = new ArrayMap<>();
         this.createAdapter();
+    }
+
+    @Override
+    public void delete() {
+        if(this.mSelectedAlarms.isEmpty()) {
+            this.mView.showError(R.string.error__no_data_selected);
+            return;
+        }
+
+        Uri uri = ContentProviderMedicine.CONTENT_URI__ALARM;
+        final ArrayList<ContentProviderOperation> operations = new ArrayList<>();
+        for(Alarm alarm : this.mSelectedAlarms.values()) {
+            operations.add(ContentProviderOperation.newDelete(ContentUris.withAppendedId(uri, alarm.getRowId())).build());
+        }
+
+        DialogUtils.IOnDialogButtonClickListener listener = new DialogUtils.IOnDialogButtonClickListener() {
+            @Override
+            public void onPositiveButtonClick(Activity pActivity, String pTitle, String pMessage, boolean pIsTwoButton, String pPositiveButtonText, String pNegativeButtonText) {
+                try {
+                    for(Alarm alarm : PresenterScheduleList.this.mSelectedAlarms.values()) {
+                        PresenterScheduleList.this.updateAlarmIntent(alarm.getRowId(), alarm.getAlarmYear(), alarm.getAlarmMonth(), alarm.getAlarmDate(), alarm.getAlarmMonth(), alarm.getAlarmMinute(), false);
+                    }
+
+                    PresenterScheduleList.this.mView.getViewContext().getContentResolver().applyBatch(ContentProviderMedicine.AUTHORITY, operations);
+                    PresenterScheduleList.this.mSelectedPositions.clear();
+                    PresenterScheduleList.this.mSelectedAlarms.clear();
+                    PresenterScheduleList.this.mView.showMessage(R.string.message__delete_successful);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                    PresenterScheduleList.this.mView.showError(R.string.error__unknown_error);
+                } catch (OperationApplicationException e) {
+                    e.printStackTrace();
+                    PresenterScheduleList.this.mView.showError(R.string.error__unknown_error);
+                }
+            }
+
+            @Override
+            public void onNegativeButtonClick(Activity pActivity, String pTitle, String pMessage, boolean pIsTwoButton, String pPositiveButtonText, String pNegativeButtonText) {
+
+            }
+        };
+        this.mView.showConfirmation(R.string.confirmation__delete_data, listener);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int pId, Bundle pArgs) {
         String[] projection = new String[0];
         projection = TableAlarm.getColumnsForJoin().toArray(projection);
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int date = calendar.get(Calendar.DATE);
+        String selection = this.buildDateSelectionClause(null, year, month, date);
+
+        selection = this.buildNotDoneSelectionClause(selection);
+
         CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
-                ContentProviderMedicine.CONTENT_URI__ALARM, projection, null, null, null);
+                ContentProviderMedicine.CONTENT_URI__ALARM, projection, selection, null, null);
         return cursorLoader;
     }
 
@@ -61,31 +131,46 @@ class PresenterScheduleList implements IPresenterScheduleList {
                 R.layout.part__schedule, null, from, to, 0);
         this.mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
-            public boolean setViewValue(View pView, Cursor pCursor, int pColumnIndex) {
+            public boolean setViewValue(View pView, final Cursor pCursor, int pColumnIndex) {
+                if (pView.getId() == R.id.lblMedicineTimeValue) {
+                    TextView textView = (TextView)pView;
+                    int hour = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__ALARM_HOUR));
+                    int minute = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__ALARM_MINUTE));
+                    String timeValue = String.format(Constants.FORMAT__TIME_VALUE, hour)
+                            + Constants.DELIMITER__TIME
+                            + String.format(Constants.FORMAT__TIME_VALUE, minute);
+                    textView.setText(timeValue);
+                    return true;
+                }
                 if (pView.getId() == R.id.chkAlarm) {
-                    CheckBox checkBox = (CheckBox)pView;
+                    CheckBox checkBox = (CheckBox) pView;
+                    checkBox.setOnCheckedChangeListener(null);
                     boolean isAlarm = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__IS_ALARM)) != 0 ? true : false;
                     checkBox.setChecked(isAlarm);
 
-                    final int position = pCursor.getPosition();
                     final long rowId = pCursor.getLong(pCursor.getColumnIndex(Table.COLUMN_NAME__ID));
+                    final int year = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__ALARM_YEAR));
+                    final int month = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__ALARM_MONTH));
+                    final int date = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__ALARM_DATE));
+                    final int hour = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__ALARM_HOUR));
+                    final int minute = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__ALARM_MINUTE));
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton pButtonView, boolean pIsChecked) {
-                            PresenterScheduleList.this.changeAlarmStatus(position, rowId, pIsChecked);
+                            PresenterScheduleList.this.changeAlarmStatus(rowId, year, month, date, hour, minute, pIsChecked);
                         }
                     });
 
                     return true;
                 }
                 if (pView.getId() == R.id.chkSelect) {
-                    CheckBox checkBox = (CheckBox)pView;
+                    CheckBox checkBox = (CheckBox) pView;
                     final int position = pCursor.getPosition();
-                    final long rowId = pCursor.getLong(pCursor.getColumnIndex(Table.COLUMN_NAME__ID));
+                    final Alarm alarm = Alarm.fetchDataAtCurrentPosition(pCursor);
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton pButtonView, boolean pIsChecked) {
-                            PresenterScheduleList.this.check(position, rowId, pIsChecked);
+                            PresenterScheduleList.this.check(position, alarm, pIsChecked);
                         }
                     });
 
@@ -102,24 +187,102 @@ class PresenterScheduleList implements IPresenterScheduleList {
         this.mView.setAdapter(this.mAdapter);
     }
 
-    private void changeAlarmStatus(Integer pPosition, Long pRowId, boolean pIsChecked) {
+    private String buildDateSelectionClause(String pSelection, int pYear, int pMonth, int pDate) {
+        StringBuilder stringBuilder = new StringBuilder();
 
+        if(!TextUtils.isEmpty(pSelection)) {
+            stringBuilder.append(pSelection);
+            stringBuilder.append(" AND ");
+        }
+
+        stringBuilder.append(TableAlarm.COLUMN_NAME__ALARM_YEAR);
+        stringBuilder.append(" = ");
+        stringBuilder.append(pYear);
+        stringBuilder.append(" AND ");
+        stringBuilder.append(TableAlarm.COLUMN_NAME__ALARM_MONTH);
+        stringBuilder.append(" = ");
+        stringBuilder.append(pMonth);
+        stringBuilder.append(" AND ");
+        stringBuilder.append(TableAlarm.COLUMN_NAME__ALARM_DATE);
+        stringBuilder.append(" = ");
+        stringBuilder.append(pDate);
+
+        return stringBuilder.toString();
     }
 
-    private void check(Integer pPosition, Long pRowId, boolean pIsChecked) {
+    private String buildNotDoneSelectionClause(String pSelection) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if(!TextUtils.isEmpty(pSelection)) {
+            stringBuilder.append(pSelection);
+            stringBuilder.append(" AND ");
+        }
+
+        stringBuilder.append(TableAlarm.COLUMN_NAME__IS_DONE);
+        stringBuilder.append(" = 0 ");
+
+        return stringBuilder.toString();
+    }
+
+    private void changeAlarmStatus(Long pRowId, int pYear, int pMonth, int pDate, int pHour, int pMinute, boolean pIsChecked) {
+        boolean result = this.updateAlarmStatus(pRowId, pIsChecked);
+        if(result) {
+            this.updateAlarmIntent(pRowId, pYear, pMonth, pDate, pHour, pMinute, pIsChecked);
+        }
+    }
+
+    private boolean updateAlarmStatus(long pRowId, boolean pIsAlarm) {
+        boolean result = false;
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TableAlarm.COLUMN_NAME__IS_ALARM, pIsAlarm);
+
+        Uri uri = ContentProviderMedicine.CONTENT_URI__ALARM;
+        uri = ContentUris.withAppendedId(uri, pRowId);
+        int affectedRows = this.mView.getViewContext().getContentResolver().update(
+                uri, contentValues, null, null);
+        if(affectedRows == DatabaseHelper.DB_ERROR_CODE__CONSTRAINT) {
+            this.mView.showError(R.string.error__duplicated_data);
+        } else if(affectedRows == DatabaseHelper.DB_ERROR_CODE__OTHER) {
+            this.mView.showError(R.string.error__unknown_error);
+        } else {
+            this.mView.showMessage(R.string.message__edit_successful);
+            result = true;
+        }
+
+        return result;
+    }
+
+    private void updateAlarmIntent(long pRowId, int pYear, int pMonth, int pDate, int pHour, int pMinute, boolean pIsAlarm) {
+        Bundle extras = new Bundle();
+        extras.putLong(Constants.BUNDLE_KEY__ROW_ID, pRowId);
+        PendingIntent pendingIntent = AlarmUtils.createPendingIntent(this.mView.getViewContext(),
+                ActivityAlarm.class,
+                (int)pRowId,
+                Intent.FLAG_ACTIVITY_NEW_TASK,
+                extras);
+
+        if(pIsAlarm) {
+            AlarmUtils.setAlarm(this.mView.getViewContext(), pendingIntent, pYear, pMonth, pDate, pHour, pMinute);
+        } else {
+            AlarmUtils.cancelAlarm(this.mView.getViewContext(), pendingIntent);
+        }
+    }
+
+    private void check(Integer pPosition, Alarm pAlarm, boolean pIsChecked) {
         if(pIsChecked) {
             if(!this.mSelectedPositions.contains(pPosition)) {
                 this.mSelectedPositions.add(pPosition);
             }
-            if(!this.mSelectedRowIds.contains(pRowId)) {
-                this.mSelectedRowIds.add(pRowId);
+            if(!this.mSelectedAlarms.containsKey(pAlarm.getRowId())) {
+                this.mSelectedAlarms.put(pAlarm.getRowId(), pAlarm);
             }
         } else {
             if(this.mSelectedPositions.contains(pPosition)) {
                 this.mSelectedPositions.remove(pPosition);
             }
-            if(this.mSelectedRowIds.contains(pRowId)) {
-                this.mSelectedRowIds.remove(pRowId);
+            if(this.mSelectedAlarms.containsKey(pAlarm.getRowId())) {
+                this.mSelectedAlarms.remove(pAlarm.getRowId());
             }
         }
     }

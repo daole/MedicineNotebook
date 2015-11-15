@@ -43,7 +43,7 @@ public class AdapterAlarmTakenMedicine extends AdapterBase {
         ViewHolder viewHolder;
         if(pConvertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater)this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            pConvertView = layoutInflater.inflate(R.layout.part__alarm_taken_medicine, pParent, false);
+            pConvertView = layoutInflater.inflate(R.layout.part__taken_medicine_alarm, pParent, false);
 
             viewHolder = new ViewHolder();
             viewHolder.mImgMedicinePicture = (ImageView)pConvertView.findViewById(R.id.imgMedicinePicture);

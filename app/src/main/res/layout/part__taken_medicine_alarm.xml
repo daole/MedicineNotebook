@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/lblDose"
-        android:layout_toLeftOf="@id/lblMedicineName"
+        android:layout_toRightOf="@id/lblMedicineName"
         style="@style/RowLastItem"/>
 
 </RelativeLayout>

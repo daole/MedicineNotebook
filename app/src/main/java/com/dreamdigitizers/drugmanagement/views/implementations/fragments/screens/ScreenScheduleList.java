@@ -75,12 +75,12 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
         return R.string.title__screen_schedule_list;
     }
 
-    //@Override
+    @Override
     public LoaderManager getViewLoaderManager() {
         return this.getLoaderManager();
     }
 
-    //@Override
+    @Override
     public void setAdapter(ListAdapter pAdapter) {
         this.mListView.setAdapter(pAdapter);
     }
@@ -90,7 +90,7 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
     }
 
     private void optionDeleteSelected() {
-        //this.mPresenter.delete();
+        this.mPresenter.delete();
     }
 
     private void listItemClick(long pRowId) {

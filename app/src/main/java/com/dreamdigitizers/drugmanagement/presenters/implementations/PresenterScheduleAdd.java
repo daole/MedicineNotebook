@@ -396,6 +396,9 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startDate);
         List<ContentValues> alarms = new ArrayList<>();
+        if(intervalValue <= 0) {
+            times = 1;
+        }
         for(int i = 0; i < times; i++) {
             if(i > 0) {
                 calendar.add(Calendar.DATE, intervalValue);
