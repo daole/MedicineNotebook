@@ -16,6 +16,8 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.text.TextUtils;
+import android.view.View;
 
 import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
@@ -300,6 +302,18 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         int[] to = new int[] {R.id.lblText1, R.id.lblText2};
         this.mMedicineTimeAdapter = new SimpleCursorAdapter(this.mView.getViewContext(),
                 R.layout.part__spinner_2_text_views, null, from, to, 0);
+        this.mMedicineTimeAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View pView, Cursor pCursor, int pColumnIndex) {
+                if (pView.getId() == R.id.lblText2) {
+                    String medicineTimeValue = pCursor.getString(pCursor.getColumnIndex(TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_VALUE));
+                    if(TextUtils.isEmpty(medicineTimeValue)) {
+                        pView.setVisibility(View.GONE);
+                    }
+                }
+                return false;
+            }
+        });
         this.mMedicineTimeAdapter.setDropDownViewResource(R.layout.part__spinner_2_text_views);
         this.mView.setMedicineTimeAdapter(this.mMedicineTimeAdapter);
     }

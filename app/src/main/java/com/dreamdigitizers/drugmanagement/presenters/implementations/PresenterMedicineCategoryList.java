@@ -108,7 +108,7 @@ class PresenterMedicineCategoryList implements IPresenterMedicineCategoryList {
                 if (pView.getId() == R.id.chkSelect) {
                     CheckBox checkBox = (CheckBox)pView;
                     final int position = pCursor.getPosition();
-                    final long rowId = pCursor.getLong(Table.COLUMN_INDEX__ID);
+                    final long rowId = pCursor.getLong(pCursor.getColumnIndex(Table.COLUMN_NAME__ID));
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton pButtonView, boolean pIsChecked) {

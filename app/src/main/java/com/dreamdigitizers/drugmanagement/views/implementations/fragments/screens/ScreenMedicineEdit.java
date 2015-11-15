@@ -224,7 +224,7 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
     private void bindMedicineCategoryId(long pMedicineCategoryId) {
         for(int i = 0; i < this.mSelMedicineCategories.getCount(); i++) {
             Cursor cursor = (Cursor)this.mSelMedicineCategories.getItemAtPosition(i);
-            long rowId = cursor.getLong(Table.COLUMN_INDEX__ID);
+            long rowId = cursor.getLong(cursor.getColumnIndex(Table.COLUMN_NAME__ID));
             if(rowId == pMedicineCategoryId) {
                 this.mSelMedicineCategories.setSelection(i);
                 break;
