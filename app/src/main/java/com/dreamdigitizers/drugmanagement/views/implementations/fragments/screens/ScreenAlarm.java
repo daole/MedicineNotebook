@@ -109,12 +109,13 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this.getContext());
         GregorianCalendar gregorianCalendar = new GregorianCalendar(pModel.getAlarmYear(),
                 pModel.getAlarmMonth(),
-                pModel.getAlarmDate(),
-                pModel.getAlarmHour(),
-                pModel.getAlarmMinute());
+                pModel.getAlarmDate());
         dateFormat.setCalendar(gregorianCalendar);
-        String startDate = dateFormat.format(gregorianCalendar.getTime());
-        this.mLblTime.setText(startDate);
+        String dateValue = dateFormat.format(gregorianCalendar.getTime());
+        String timeValue = String.format(Constants.FORMAT__TIME_VALUE, pModel.getAlarmHour())
+                + Constants.DELIMITER__TIME
+                + String.format(Constants.FORMAT__TIME_VALUE, pModel.getAlarmMinute());
+        this.mLblTime.setText(dateValue + " " + timeValue);
 
         String familyMemberName = pModel.getSchedule().getFamilyMember().getFamilyMemberName();
         if(TextUtils.isEmpty(familyMemberName)) {
