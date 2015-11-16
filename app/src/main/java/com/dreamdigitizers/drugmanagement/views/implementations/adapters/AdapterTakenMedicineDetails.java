@@ -1,10 +1,13 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,13 +17,17 @@ import com.dreamdigitizers.drugmanagement.data.models.TakenMedicineExtended;
 
 import java.util.List;
 
-public class AdapterAlarmTakenMedicine extends AdapterBase {
+public class AdapterTakenMedicineDetails extends AdapterBase {
     private List<TakenMedicineExtended> mData;
+    private IBitmapLoader mBitmapLoader;
+    private ArrayMap<Long, Bitmap> mBitmaps;
 
-    public AdapterAlarmTakenMedicine(Context pContext, List<TakenMedicineExtended> pData) {
+    public AdapterTakenMedicineDetails(Context pContext, List<TakenMedicineExtended> pData, IBitmapLoader pPictureLoader) {
         super(pContext);
 
         this.mData = pData;
+        this.mBitmapLoader = pPictureLoader;
+        this.mBitmaps = new ArrayMap<>();
     }
 
     @Override
@@ -56,9 +63,25 @@ public class AdapterAlarmTakenMedicine extends AdapterBase {
         TakenMedicineExtended takenMedicine = this.mData.get(pPosition);
         viewHolder = (ViewHolder)pConvertView.getTag();
 
-        String medicineImagePath = takenMedicine.getMedicine().getMedicineImagePath();
+        final String medicineImagePath = takenMedicine.getMedicine().getMedicineImagePath();
         if(!TextUtils.isEmpty(medicineImagePath)) {
-
+            Bitmap bitmap = this.mBitmaps.get(takenMedicine.getRowId());
+            if(bitmap != null) {
+                viewHolder.mImgMedicinePicture.setImageBitmap(bitmap);
+            } else if(this.mBitmapLoader != null) {
+                final ImageView medicinePicture = viewHolder.mImgMedicinePicture;
+                medicinePicture.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @SuppressWarnings("deprecation")
+                    @Override
+                    public void onGlobalLayout() {
+                        Bitmap bitmap = AdapterTakenMedicineDetails.this.mBitmapLoader.loadBitmap(medicineImagePath, medicinePicture.getWidth(), medicinePicture.getHeight());
+                        if(bitmap != null) {
+                            medicinePicture.setImageBitmap(bitmap);
+                        }
+                        medicinePicture.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    }
+                });
+            }
         }
 
         String medicineName = takenMedicine.getMedicine().getMedicineName();
@@ -77,6 +100,10 @@ public class AdapterAlarmTakenMedicine extends AdapterBase {
     public void setListView(ListView pListView) {
         super.setListView(pListView);
         this.setListViewHeightBasedOnItems();
+    }
+
+    public interface IBitmapLoader {
+        Bitmap loadBitmap(String pFilePath, int pWidth, int pHeight);
     }
 
     private static class ViewHolder {

@@ -365,6 +365,11 @@
         <item name="android:src">@drawable/icon__no_photo</item>
     </style>
 
+    <style name="ImageViewDone" parent="ImageView">
+        <item name="android:src">@drawable/icon__done</item>
+        <item name="android:contentDescription">@string/desc__image_done</item>
+    </style>
+
     <style name="ImageViewNavigationDrawerIcon">
         <item name="android:layout_width">@dimen/navigation_drawer_icon_width</item>
         <item name="android:layout_height">@dimen/navigation_drawer_icon_height</item>
@@ -450,6 +455,12 @@
     <style name="CheckBox">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="CheckBoxAlarm" parent="CheckBox">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:button">@drawable/selector__alarm_status</item>
     </style>
 
     <style name="CheckBoxInListView" parent="CheckBox">

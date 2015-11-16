@@ -12,15 +12,11 @@
                 android:id="@+id/lblFamilyMemberName"
                 style="@style/TextViewFamilyMemberName"/>
 
-            <Spinner
-                android:id="@+id/selFamilyMembers"
-                android:layout_toLeftOf="@+id/btnAddFamilyMember"
+            <TextView
+                android:id="@+id/lblFamilyMemberNameValue"
                 android:layout_toRightOf="@id/lblFamilyMemberName"
-                style="@style/Spinner"/>
-
-            <ImageButton
-                android:id="@id/btnAddFamilyMember"
-                style="@style/ImageButtonAdd"/>
+                android:gravity="right"
+                style="@style/RowInputItem"/>
 
         </RelativeLayout>
 
@@ -34,14 +30,9 @@
 
             <ListView
                 android:id="@+id/lstMedicines"
-                android:layout_below="@id/lblMedicineName"
+                android:layout_alignTop="@id/lblMedicineName"
                 android:layout_toRightOf="@id/lblMedicineName"
                 style="@style/ListViewInputItem"/>
-
-            <ImageButton
-                android:id="@+id/btnSelectMedicine"
-                android:layout_alignTop="@id/lblMedicineName"
-                style="@style/ImageButtonAdd"/>
 
         </RelativeLayout>
 
@@ -54,13 +45,9 @@
 
             <TextView
                 android:id="@+id/lblStartDateValue"
-                android:layout_toLeftOf="@+id/btnSelectStartDate"
                 android:layout_toRightOf="@id/lblStartDate"
-                style="@style/TextView"/>
-
-            <ImageButton
-                android:id="@id/btnSelectStartDate"
-                style="@style/ImageButtonAdd"/>
+                android:gravity="right"
+                style="@style/RowInputItem"/>
 
         </RelativeLayout>
 
@@ -71,15 +58,11 @@
                 android:id="@+id/lblMedicineTimeName"
                 style="@style/TextViewMedicineTimeName"/>
 
-            <Spinner
-                android:id="@+id/selMedicineTimes"
-                android:layout_toLeftOf="@+id/btnAddMedicineTime"
+            <TextView
+                android:id="@+id/lblMedicineTimeValue"
                 android:layout_toRightOf="@id/lblMedicineTimeName"
-                style="@style/Spinner"/>
-
-            <ImageButton
-                android:id="@id/btnAddMedicineTime"
-                style="@style/ImageButtonAdd"/>
+                android:gravity="right"
+                style="@style/RowInputItem"/>
 
         </RelativeLayout>
 
@@ -90,15 +73,11 @@
                 android:id="@+id/lblMedicineIntervalName"
                 style="@style/TextViewMedicineIntervalName"/>
 
-            <Spinner
-                android:id="@+id/selMedicineTimeIntervals"
-                android:layout_toLeftOf="@+id/btnAddMedicineInterval"
+            <TextView
+                android:id="@+id/lblMedicineIntervalValue"
                 android:layout_toRightOf="@id/lblMedicineIntervalName"
-                style="@style/Spinner"/>
-
-            <ImageButton
-                android:id="@id/btnAddMedicineInterval"
-                style="@style/ImageButtonAdd"/>
+                android:gravity="right"
+                style="@style/RowInputItem"/>
 
         </RelativeLayout>
 
@@ -109,9 +88,14 @@
                 android:id="@+id/lblAlarm"
                 style="@style/TextViewAlarm"/>
 
+            <ImageView
+                android:id="@+id/imgDone"
+                android:layout_toLeftOf="@+id/chkAlarm"
+                android:layout_alignWithParentIfMissing="true"
+                style="@style/ImageViewDone"/>
+
             <CheckBox
-                android:id="@+id/chkAlarm"
-                android:checked="true"
+                android:id="@id/chkAlarm"
                 style="@style/CheckBoxAlarm"/>
 
         </RelativeLayout>
@@ -123,10 +107,11 @@
                 android:id="@+id/lblTimes"
                 style="@style/TextViewTimes"/>
 
-            <EditText
-                android:id="@+id/txtTimes"
+            <TextView
+                android:id="@+id/lblTimesValue"
                 android:layout_toRightOf="@id/lblTimes"
-                style="@style/EditTextTimes"/>
+                android:gravity="right"
+                style="@style/RowInputItem"/>
 
         </RelativeLayout>
 
@@ -137,10 +122,11 @@
                 android:id="@+id/lblScheduleNote"
                 style="@style/TextViewNote"/>
 
-            <EditText
-                android:id="@+id/txtScheduleNote"
+            <TextView
+                android:id="@+id/lblScheduleNoteValue"
                 android:layout_toRightOf="@id/lblScheduleNote"
-                style="@style/EditTextScheduleNote"/>
+                android:gravity="right"
+                style="@style/RowInputItem"/>
 
         </RelativeLayout>
 
@@ -150,11 +136,6 @@
             <Button
                 android:id="@+id/btnBack"
                 style="@style/ButtonBack"/>
-
-            <Button
-                android:id="@+id/btnAdd"
-                android:layout_toRightOf="@id/btnBack"
-                style="@style/ButtonAdd"/>
 
         </LinearLayout>
 

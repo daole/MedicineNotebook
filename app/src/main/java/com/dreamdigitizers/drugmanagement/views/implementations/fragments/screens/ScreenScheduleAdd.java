@@ -10,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
@@ -46,7 +46,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     private ImageButton mBtnAddMedicineTime;
     private Spinner mSelMedicineIntervals;
     private ImageButton mBtnAddMedicineInterval;
-    private Switch mSwiAlarm;
+    private CheckBox mChkAlarm;
     private EditText mTxtTimes;
     private EditText mTxtScheduleNote;
     private Button mBtnBack;
@@ -61,6 +61,12 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     private MedicineInterval mMedicineInterval;
 
     private TakenMedicine[] mAdapterData;
+
+    @Override
+    public boolean onBackPressed() {
+        this.buttonBackClick();
+        return true;
+    }
 
     @Override
     public void onCreate(Bundle pSavedInstanceState) {
@@ -101,7 +107,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
         this.mBtnAddMedicineTime = (ImageButton)pView.findViewById(R.id.btnAddMedicineTime);
         this.mSelMedicineIntervals = (Spinner)pView.findViewById(R.id.selMedicineTimeIntervals);
         this.mBtnAddMedicineInterval = (ImageButton)pView.findViewById(R.id.btnAddMedicineInterval);
-        this.mSwiAlarm = (Switch)pView.findViewById(R.id.swiAlarm);
+        this.mChkAlarm = (CheckBox)pView.findViewById(R.id.chkAlarm);
         this.mTxtTimes = (EditText)pView.findViewById(R.id.txtTimes);
         this.mTxtScheduleNote = (EditText)pView.findViewById(R.id.txtScheduleNote);
         this.mBtnAdd = (Button)pView.findViewById(R.id.btnAdd);
@@ -215,7 +221,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
         this.mTxtTimes.setText("");
         this.mTxtScheduleNote.setText("");
         this.mAdapter.clearItem();
-        this.mSwiAlarm.setChecked(true);
+        this.mChkAlarm.setChecked(true);
     }
 
     @Override
@@ -336,7 +342,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
                 this.mLblStartDateValue.getText().toString().trim(),
                 this.mMedicineTime,
                 this.mMedicineInterval,
-                this.mSwiAlarm.isChecked(),
+                this.mChkAlarm.isChecked(),
                 this.mTxtTimes.getText().toString().trim(),
                 this.mTxtScheduleNote.getText().toString().trim());
     }

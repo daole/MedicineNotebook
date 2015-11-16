@@ -1,7 +1,6 @@
 package com.dreamdigitizers.drugmanagement.presenters.implementations;
 
 import android.content.ContentUris;
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -11,16 +10,16 @@ import com.dreamdigitizers.drugmanagement.data.dal.tables.TableAlarm;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableTakenMedicine;
 import com.dreamdigitizers.drugmanagement.data.models.AlarmExtended;
 import com.dreamdigitizers.drugmanagement.data.models.TakenMedicineExtended;
-import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterAlarm;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleEdit;
 import com.dreamdigitizers.drugmanagement.utils.FileUtils;
-import com.dreamdigitizers.drugmanagement.views.abstracts.IViewAlarm;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleEdit;
 
 import java.util.List;
 
-class PresenterAlarm implements IPresenterAlarm {
-    private IViewAlarm mView;
+class PresenterScheduleEdit implements IPresenterScheduleEdit {
+    private IViewScheduleEdit mView;
 
-    public PresenterAlarm(IViewAlarm pView) {
+    public PresenterScheduleEdit(IViewScheduleEdit pView) {
         this.mView = pView;
     }
 
@@ -36,7 +35,7 @@ class PresenterAlarm implements IPresenterAlarm {
         Uri uri = ContentProviderMedicine.CONTENT_URI__ALARM;
         uri = ContentUris.withAppendedId(uri, pRowId);
         Cursor alarmCursor = this.mView.getViewContext().getContentResolver().query(uri, projection, null, null, null);
-        if(alarmCursor != null) {
+        if (alarmCursor != null) {
             List<AlarmExtended> list = AlarmExtended.fetchExtendedData(alarmCursor);
             if(list.size() > 0) {
                 AlarmExtended model = list.get(0);
@@ -57,15 +56,7 @@ class PresenterAlarm implements IPresenterAlarm {
     }
 
     @Override
-    public boolean setAlarmDone(long pRowId) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(TableAlarm.COLUMN_NAME__IS_DONE, true);
+    public void changeAlarmStatus(boolean pIsAlarm) {
 
-        Uri uri = ContentProviderMedicine.CONTENT_URI__ALARM;
-        uri = ContentUris.withAppendedId(uri, pRowId);
-        int affectedRows = this.mView.getViewContext().getContentResolver().update(
-                uri, contentValues, null, null);
-
-        return affectedRows >= 0 ? true : false;
     }
 }

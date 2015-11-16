@@ -139,10 +139,12 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
     @Override
     public void onPictureTaken(byte[] pData, Camera pCamera) {
         this.mPresenter.saveImage(pData, this.getRotationDegrees());
+        this.mBtnCapture.setEnabled(true);
     }
 
     private void buttonCaptureClick() {
         if(this.mCamera != null) {
+            this.mBtnCapture.setEnabled(false);
             this.mCamera.takePicture(this, null, this);
         }
     }

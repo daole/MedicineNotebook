@@ -1,5 +1,6 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,14 +16,15 @@ import com.dreamdigitizers.drugmanagement.data.models.AlarmExtended;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterAlarm;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.utils.AlarmUtils;
+import com.dreamdigitizers.drugmanagement.utils.FileUtils;
 import com.dreamdigitizers.drugmanagement.utils.SoundUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewAlarm;
-import com.dreamdigitizers.drugmanagement.views.implementations.adapters.AdapterAlarmTakenMedicine;
+import com.dreamdigitizers.drugmanagement.views.implementations.adapters.AdapterTakenMedicineDetails;
 
 import java.text.DateFormat;
 import java.util.GregorianCalendar;
 
-public class ScreenAlarm extends Screen implements IViewAlarm {
+public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedicineDetails.IBitmapLoader {
     private TextView mLblTime;
     private TextView mLblFamilyMemberName;
     private ListView mListView;
@@ -120,8 +122,13 @@ public class ScreenAlarm extends Screen implements IViewAlarm {
         }
         this.mLblFamilyMemberName.setText(familyMemberName);
 
-        AdapterAlarmTakenMedicine adapter = new AdapterAlarmTakenMedicine(this.getContext(), pModel.getSchedule().getTakenMedicines());
+        AdapterTakenMedicineDetails adapter = new AdapterTakenMedicineDetails(this.getContext(), pModel.getSchedule().getTakenMedicines(), this);
         adapter.setListView(this.mListView);
         this.mListView.setAdapter(adapter);
+    }
+
+    @Override
+    public Bitmap loadBitmap(String pFilePath, int pWidth, int pHeight) {
+        return this.mPresenter.loadImage(pFilePath, pWidth, pHeight);
     }
 }

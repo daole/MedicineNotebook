@@ -131,9 +131,9 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
     private void goToEditScreen(long pRowId) {
         Bundle arguments = new Bundle();
         arguments.putLong(Screen.BUNDLE_KEY__ROW_ID, pRowId);
-        //Screen screen = new ScreenMedicineCategoryEdit();
-        //screen.setArguments(arguments);
-        //this.mScreenActionsListener.onChangeScreen(screen);
+        Screen screen = new ScreenScheduleEdit();
+        screen.setArguments(arguments);
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 
     private void buttonPreviousClick() {

@@ -18,7 +18,7 @@
         style="@style/ImageViewInListViewDone"/>
 
     <CheckBox
-        android:id="@+id/chkAlarm"
+        android:id="@id/chkAlarm"
         android:layout_toLeftOf="@+id/chkSelect"
         style="@style/CheckBoxInListViewAlarm"/>
 

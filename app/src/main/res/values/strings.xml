@@ -6,6 +6,7 @@
     <string name="title__dialog_medicine_select">Select Medicine</string>
     <string name="title__screen_schedule_list">Schedule</string>
     <string name="title__screen_schedule_add">Add Schedule</string>
+    <string name="title__screen_schedule_edit">Schedule Details</string>
     <string name="title__screen_family_member_list">Family Members</string>
     <string name="title__screen_family_member_add">Add Family Member</string>
     <string name="title__screen_family_member_edit">Edit Family Member</string>
