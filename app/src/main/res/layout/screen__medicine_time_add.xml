@@ -21,7 +21,6 @@
 
         <TextView
             android:id="@+id/lblMedicineTimeValue"
-            android:layout_centerVertical="false"
             style="@style/TextViewMedicineTimeValue"/>
 
         <ListView
@@ -32,7 +31,6 @@
 
         <ImageButton
             android:id="@+id/btnAddTimeValue"
-            android:layout_alignTop="@id/lblMedicineTimeValue"
             style="@style/ImageButtonAdd"/>
 
     </RelativeLayout>

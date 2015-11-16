@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -19,6 +20,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.Constants;
@@ -36,6 +38,7 @@ import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleList;
 import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityAlarm;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -45,12 +48,14 @@ class PresenterScheduleList implements IPresenterScheduleList {
     private SimpleCursorAdapter mAdapter;
     private List<Integer> mSelectedPositions;
     private ArrayMap<Long, Alarm> mSelectedAlarms;
+    private Calendar mCalendar;
 
     public PresenterScheduleList(IViewScheduleList pView) {
         this.mView = pView;
-        this.mView.getViewLoaderManager().initLoader(0, null, this);
         this.mSelectedPositions = new ArrayList<>();
         this.mSelectedAlarms = new ArrayMap<>();
+        this.mCalendar = Calendar.getInstance();
+        this.initLoader();
         this.createAdapter();
     }
 
@@ -97,20 +102,32 @@ class PresenterScheduleList implements IPresenterScheduleList {
     }
 
     @Override
+    public void previous() {
+        this.mCalendar.add(Calendar.DATE, -1);
+        this.initLoader();
+    }
+
+    @Override
+    public void next() {
+        this.mCalendar.add(Calendar.DATE, 1);
+        this.initLoader();
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int pId, Bundle pArgs) {
         String[] projection = new String[0];
         projection = TableAlarm.getColumnsForJoin().toArray(projection);
 
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int date = calendar.get(Calendar.DATE);
+        int year = this.mCalendar.get(Calendar.YEAR);
+        int month = this.mCalendar.get(Calendar.MONTH);
+        int date = this.mCalendar.get(Calendar.DATE);
         String selection = this.buildDateSelectionClause(null, year, month, date);
+        //selection = this.buildNotDoneSelectionClause(selection);
 
-        selection = this.buildNotDoneSelectionClause(selection);
+        String sortOrder = this.buildSortOrderByString();
 
         CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
-                ContentProviderMedicine.CONTENT_URI__ALARM, projection, selection, null, null);
+                ContentProviderMedicine.CONTENT_URI__ALARM, projection, selection, null, sortOrder);
         return cursorLoader;
     }
 
@@ -125,15 +142,15 @@ class PresenterScheduleList implements IPresenterScheduleList {
     }
 
     private void createAdapter() {
-        String[] from = new String[] {TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_VALUE, TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME, TableAlarm.COLUMN_NAME__IS_ALARM, Table.COLUMN_NAME__ID};
-        int[] to = new int[] {R.id.lblMedicineTimeValue, R.id.lblFamilyMemberName, R.id.chkAlarm, R.id.chkSelect};
+        String[] from = new String[] {TableMedicineTime.COLUMN_NAME__MEDICINE_TIME_VALUE, TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME, TableAlarm.COLUMN_NAME__IS_DONE, TableAlarm.COLUMN_NAME__IS_ALARM, Table.COLUMN_NAME__ID};
+        int[] to = new int[] {R.id.lblMedicineTimeValue, R.id.lblFamilyMemberName, R.id.imgDone, R.id.chkAlarm, R.id.chkSelect};
         this.mAdapter = new SimpleCursorAdapter(this.mView.getViewContext(),
                 R.layout.part__schedule, null, from, to, 0);
         this.mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View pView, final Cursor pCursor, int pColumnIndex) {
                 if (pView.getId() == R.id.lblMedicineTimeValue) {
-                    TextView textView = (TextView)pView;
+                    TextView textView = (TextView) pView;
                     int hour = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__ALARM_HOUR));
                     int minute = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__ALARM_MINUTE));
                     String timeValue = String.format(Constants.FORMAT__TIME_VALUE, hour)
@@ -142,11 +159,24 @@ class PresenterScheduleList implements IPresenterScheduleList {
                     textView.setText(timeValue);
                     return true;
                 }
+                if (pView.getId() == R.id.imgDone) {
+                    ImageView imageView = (ImageView)pView;
+                    boolean isDone = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__IS_DONE)) != 0 ? true : false;
+                    if(isDone) {
+                        imageView.setImageBitmap(BitmapFactory.decodeResource(PresenterScheduleList.this.mView.getViewContext().getResources(), R.drawable.icon__done));
+                    } else {
+                        imageView.setImageBitmap(null);
+                    }
+                    return true;
+                }
                 if (pView.getId() == R.id.chkAlarm) {
                     CheckBox checkBox = (CheckBox) pView;
                     checkBox.setOnCheckedChangeListener(null);
                     boolean isAlarm = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__IS_ALARM)) != 0 ? true : false;
                     checkBox.setChecked(isAlarm);
+
+                    boolean isDone = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__IS_DONE)) != 0 ? true : false;
+                    checkBox.setEnabled(!isDone);
 
                     final long rowId = pCursor.getLong(pCursor.getColumnIndex(Table.COLUMN_NAME__ID));
                     final int year = pCursor.getInt(pCursor.getColumnIndex(TableAlarm.COLUMN_NAME__ALARM_YEAR));
@@ -179,12 +209,26 @@ class PresenterScheduleList implements IPresenterScheduleList {
                     } else {
                         checkBox.setChecked(false);
                     }
+
                     return true;
                 }
                 return false;
             }
         });
         this.mView.setAdapter(this.mAdapter);
+    }
+
+    private void initLoader() {
+        this.mView.getViewLoaderManager().destroyLoader(0);
+        this.mView.getViewLoaderManager().initLoader(0, null, this);
+        this.mView.bindSelectionDate(this.buildSelectionDateString());
+    }
+
+    private String buildSelectionDateString() {
+        DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this.mView.getViewContext());
+        dateFormat.setCalendar(this.mCalendar);
+        String date = dateFormat.format(this.mCalendar.getTime());
+        return date;
     }
 
     private String buildDateSelectionClause(String pSelection, int pYear, int pMonth, int pDate) {
@@ -210,6 +254,18 @@ class PresenterScheduleList implements IPresenterScheduleList {
         return stringBuilder.toString();
     }
 
+    private String buildSortOrderByString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(TableAlarm.COLUMN_NAME__ALARM_HOUR);
+        stringBuilder.append(" asc, ");
+        stringBuilder.append(TableAlarm.COLUMN_NAME__ALARM_MINUTE);
+        stringBuilder.append(" asc ");
+
+        return stringBuilder.toString();
+    }
+
+    /*
     private String buildNotDoneSelectionClause(String pSelection) {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -223,6 +279,7 @@ class PresenterScheduleList implements IPresenterScheduleList {
 
         return stringBuilder.toString();
     }
+    */
 
     private void changeAlarmStatus(Long pRowId, int pYear, int pMonth, int pDate, int pHour, int pMinute, boolean pIsChecked) {
         boolean result = this.updateAlarmStatus(pRowId, pIsChecked);

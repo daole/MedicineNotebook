@@ -8,12 +8,17 @@
 
     <TextView
         android:id="@+id/lblFamilyMemberName"
-        android:layout_toLeftOf="@+id/chkAlarm"
+        android:layout_toLeftOf="@+id/imgDone"
         android:layout_toRightOf="@+id/lblMedicineTimeValue"
         style="@style/RowTextView"/>
 
+    <ImageView
+        android:id="@id/imgDone"
+        android:layout_toLeftOf="@+id/chkAlarm"
+        style="@style/ImageViewInListViewDone"/>
+
     <CheckBox
-        android:id="@id/chkAlarm"
+        android:id="@+id/chkAlarm"
         android:layout_toLeftOf="@+id/chkSelect"
         style="@style/CheckBoxInListViewAlarm"/>
 

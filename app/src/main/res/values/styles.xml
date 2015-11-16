@@ -143,13 +143,16 @@
         <item name="android:freezesText">true</item>
     </style>
 
-    <style name="TextViewSpinnerItem">
+    <style name="TextViewSpinnerDropDownItem">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingLeft">@dimen/padding</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Widget.TextView.SpinnerItem</item>
+    </style>
+
+    <style name="TextViewSpinnerItem" parent="TextViewSpinnerDropDownItem">
+        <item name="android:paddingLeft">@dimen/padding</item>
     </style>
 
     <style name="TextViewNavigationItem">
@@ -352,6 +355,11 @@
         <item name="android:layout_marginRight">@dimen/row_items_gap</item>
     </style>
 
+    <style name="ImageViewInListViewDone" parent="ImageViewInListView">
+        <item name="android:src">@null</item>
+        <item name="android:contentDescription">@string/desc__image_done</item>
+    </style>
+
     <style name="ImageViewInListViewMedicine" parent="ImageViewInListView">
         <item name="android:contentDescription">@string/desc__medicine_picture</item>
     </style>
@@ -363,21 +371,37 @@
     </style>
 
     <style name="ImageButton">
-        <item name="android:layout_width">@dimen/image_button_add_width</item>
-        <item name="android:layout_height">@dimen/image_button_add_height</item>
-        <item name="android:layout_marginLeft">@dimen/row_items_gap</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_alignParentRight">true</item>
         <item name="android:scaleType">centerInside</item>
         <item name="android:background">@null</item>
     </style>
 
-    <style name="ImageButtonInListView" parent="ImageButton">
+    <style name="ImageButtonPrevious" parent="ImageButton">
+        <item name="android:src">@drawable/icon__previous</item>
+        <item name="android:contentDescription">@string/desc__image_button_previous</item>
+    </style>
+
+    <style name="ImageButtonNext" parent="ImageButton">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:src">@drawable/icon__next</item>
+        <item name="android:contentDescription">@string/desc__image_button_next</item>
+    </style>
+
+    <style name="ImageButtonAlignRight" parent="ImageButton">
+        <item name="android:layout_width">@dimen/image_button_add_width</item>
+        <item name="android:layout_height">@dimen/image_button_add_height</item>
+        <item name="android:layout_marginLeft">@dimen/row_items_gap</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="ImageButtonInListView" parent="ImageButtonAlignRight">
         <item name="android:focusable">false</item>
         <item name="android:focusableInTouchMode">false</item>
     </style>
 
-    <style name="ImageButtonAdd" parent="ImageButton">
+    <style name="ImageButtonAdd" parent="ImageButtonAlignRight">
         <item name="android:src">@drawable/icon__add</item>
         <item name="android:contentDescription">@string/desc__image_button_add</item>
     </style>

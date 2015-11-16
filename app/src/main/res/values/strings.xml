@@ -99,8 +99,11 @@
     <string name="desc__navigation_drawer_close">Close navigation drawer</string>
     <string name="desc__captured_picture">Captured picture</string>
     <string name="desc__medicine_picture">Medicine picture</string>
+    <string name="desc__image_done">Done</string>
     <string name="desc__image_button_add">Add</string>
     <string name="desc__image_button_delete">Delete</string>
+    <string name="desc__image_button_next">Next</string>
+    <string name="desc__image_button_previous">Previous</string>
 
     <plurals name="lbl__day">
         <item quantity="one">%d day</item>

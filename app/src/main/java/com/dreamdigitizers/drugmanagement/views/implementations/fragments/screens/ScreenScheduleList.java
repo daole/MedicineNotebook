@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +20,9 @@ import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFa
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleList;
 
 public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList {
+    private ImageButton mBtnPrevious;
+    private ImageButton mBtnNext;
+    private TextView mLblDate;
     private ListView mListView;
     private TextView mLblEmpty;
 
@@ -53,6 +57,9 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
 
     @Override
     protected void retrieveScreenItems(View pView) {
+        this.mBtnPrevious = (ImageButton)pView.findViewById(R.id.btnPrevious);
+        this.mLblDate = (TextView)pView.findViewById(R.id.lblDate);
+        this.mBtnNext = (ImageButton)pView.findViewById(R.id.btnNext);
         this.mListView = (ListView)pView.findViewById(R.id.lstSchedules);
         this.mLblEmpty = (TextView)pView.findViewById(R.id.lblEmpty);
         this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,6 +72,20 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
+        this.mBtnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ScreenScheduleList.this.buttonPreviousClick();
+            }
+        });
+
+        this.mBtnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ScreenScheduleList.this.buttonNextClick();
+            }
+        });
+
         this.mListView.setEmptyView(this.mLblEmpty);
 
         this.mPresenter = (IPresenterScheduleList)PresenterFactory.createPresenter(IPresenterScheduleList.class, this);
@@ -83,6 +104,11 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
     @Override
     public void setAdapter(ListAdapter pAdapter) {
         this.mListView.setAdapter(pAdapter);
+    }
+
+    @Override
+    public void bindSelectionDate(String pSelectionDate) {
+        this.mLblDate.setText(pSelectionDate);
     }
 
     private void optionAddSelected() {
@@ -108,5 +134,13 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
         //Screen screen = new ScreenMedicineCategoryEdit();
         //screen.setArguments(arguments);
         //this.mScreenActionsListener.onChangeScreen(screen);
+    }
+
+    private void buttonPreviousClick() {
+        this.mPresenter.previous();
+    }
+
+    private void buttonNextClick() {
+        this.mPresenter.next();
     }
 }
