@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/RootVertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Root">
 
     <FrameLayout
         android:id="@+id/container"
         style="@style/RootWithPadding"/>
 
-</LinearLayout>
+</RelativeLayout>

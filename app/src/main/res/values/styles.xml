@@ -16,6 +16,8 @@
 
     <style name="RootVertical" parent="Root">
         <item name="android:orientation">vertical</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:divider">?android:attr/dividerHorizontal</item>
     </style>
 
     <style name="RootVerticalCenter" parent="RootVertical">
@@ -50,6 +52,14 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingTop">@dimen/padding</item>
         <item name="android:paddingBottom">@dimen/padding</item>
+    </style>
+
+    <style name="RowButtons">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:divider">?android:attr/dividerVertical</item>
     </style>
 
     <style name="RowContentCenter" parent="Row">
@@ -98,7 +108,7 @@
         <item name="android:gravity">right</item>
     </style>
 
-    <style name="RowInputItem">
+    <style name="RowInputItem" parent="RowItem">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -296,35 +306,50 @@
         <item name="android:minWidth">@dimen/button_min_width</item>
     </style>
 
-    <style name="ButtonAdd" parent="Button">
-        <item name="android:text">@string/btn__add</item>
+    <style name="ButtonBackNormal" parent="Button">
+        <item name="android:text">@string/btn__back</item>
     </style>
 
-    <style name="ButtonEdit" parent="Button">
-        <item name="android:text">@string/btn__edit</item>
-    </style>
-
-    <style name="ButtonDelete" parent="Button">
-        <item name="android:text">@string/btn__delete</item>
-    </style>
-
-    <style name="ButtonSelect" parent="Button">
-        <item name="android:text">@string/btn__select</item>
+    <style name="ButtonOKNormal" parent="Button">
+        <item name="android:text">@string/btn__ok</item>
     </style>
 
     <style name="ButtonCapture" parent="Button">
         <item name="android:text">@string/btn__capture</item>
     </style>
 
-    <style name="ButtonBack" parent="Button">
+    <style name="DialogButtonStyle" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="ButtonAdd" parent="DialogButtonStyle">
+        <item name="android:text">@string/btn__add</item>
+    </style>
+
+    <style name="ButtonEdit" parent="DialogButtonStyle">
+        <item name="android:text">@string/btn__edit</item>
+    </style>
+
+    <style name="ButtonDelete" parent="DialogButtonStyle">
+        <item name="android:text">@string/btn__delete</item>
+    </style>
+
+    <style name="ButtonSelect" parent="DialogButtonStyle">
+        <item name="android:text">@string/btn__select</item>
+    </style>
+
+    <style name="ButtonBack" parent="DialogButtonStyle">
         <item name="android:text">@string/btn__back</item>
     </style>
 
-    <style name="ButtonOK" parent="Button">
+    <style name="ButtonOK" parent="DialogButtonStyle">
         <item name="android:text">@string/btn__ok</item>
     </style>
 
-    <style name="ButtonCancel" parent="Button">
+    <style name="ButtonCancel" parent="DialogButtonStyle">
         <item name="android:text">@string/btn__cancel</item>
     </style>
 

@@ -1,52 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/RootVerticalCenter">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Root">
 
-    <RelativeLayout
-        style="@style/Row">
+    <LinearLayout
+        style="@style/RootVerticalCenter">
 
-        <TextView
-            android:id="@+id/lblMedicineTimeName"
-            style="@style/TextViewMedicineTimeName"/>
+        <RelativeLayout
+            style="@style/Row">
 
-        <EditText
-            android:id="@+id/txtMedicineTimeName"
-            android:layout_toRightOf="@id/lblMedicineTimeName"
-            style="@style/EditTextMedicineTimeName"/>
+            <TextView
+                android:id="@+id/lblMedicineTimeName"
+                style="@style/TextViewMedicineTimeName"/>
 
-    </RelativeLayout>
+            <EditText
+                android:id="@+id/txtMedicineTimeName"
+                android:layout_toRightOf="@id/lblMedicineTimeName"
+                style="@style/EditTextMedicineTimeName"/>
 
-    <RelativeLayout
-        style="@style/Row">
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/lblMedicineTimeValue"
-            style="@style/TextViewMedicineTimeValue"/>
+        <RelativeLayout
+            style="@style/Row">
 
-        <ListView
-            android:id="@+id/lstMedicineTimeValues"
-            android:layout_below="@id/lblMedicineTimeValue"
-            android:layout_toRightOf="@id/lblMedicineTimeValue"
-            style="@style/ListViewInputItem"/>
+            <TextView
+                android:id="@+id/lblMedicineTimeValue"
+                style="@style/TextViewMedicineTimeValue"/>
 
-        <ImageButton
-            android:id="@+id/btnAddTimeValue"
-            style="@style/ImageButtonAdd"/>
+            <ListView
+                android:id="@+id/lstMedicineTimeValues"
+                android:layout_below="@id/lblMedicineTimeValue"
+                android:layout_toRightOf="@id/lblMedicineTimeValue"
+                style="@style/ListViewInputItem"/>
 
-    </RelativeLayout>
+            <ImageButton
+                android:id="@+id/btnAddTimeValue"
+                style="@style/ImageButtonAdd"/>
 
-    <RelativeLayout
-        style="@style/RowContentCenter">
+        </RelativeLayout>
 
-        <Button
-            android:id="@+id/btnBack"
-            style="@style/ButtonBack"/>
+        <LinearLayout
+            style="@style/RowButtons">
 
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_toRightOf="@id/btnBack"
-            style="@style/ButtonAdd"/>
+            <Button
+                android:id="@+id/btnBack"
+                style="@style/ButtonBack"/>
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_toRightOf="@id/btnBack"
+                style="@style/ButtonAdd"/>
 
-</LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

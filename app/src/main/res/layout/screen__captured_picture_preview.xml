@@ -24,12 +24,11 @@
 
             <Button
                 android:id="@+id/btnBack"
-                style="@style/ButtonBack"/>
+                style="@style/ButtonBackNormal"/>
 
             <Button
                 android:id="@+id/btnOK"
-                android:layout_toRightOf="@id/btnBack"
-                style="@style/ButtonOK"/>
+                style="@style/ButtonOKNormal"/>
 
         </LinearLayout>
 

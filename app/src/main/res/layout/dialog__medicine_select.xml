@@ -36,8 +36,8 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        style="@style/RowContentCenter">
+    <LinearLayout
+        style="@style/RowButtons">
 
         <Button
             android:id="@+id/btnCancel"
@@ -48,6 +48,6 @@
             android:layout_toRightOf="@id/btnCancel"
             style="@style/ButtonSelect"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

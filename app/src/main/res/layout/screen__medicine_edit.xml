@@ -24,7 +24,6 @@
 
             <TextView
                 android:id="@+id/lblMedicineCategoryName"
-                android:layout_marginTop="20dp"
                 style="@style/TextViewMedicineCategoryName"/>
 
             <Spinner
@@ -69,8 +68,8 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            style="@style/RowContentCenter">
+        <LinearLayout
+            style="@style/RowButtons">
 
             <Button
                 android:id="@+id/btnBack"
@@ -78,10 +77,9 @@
 
             <Button
                 android:id="@+id/btnEdit"
-                android:layout_toRightOf="@id/btnBack"
                 style="@style/ButtonEdit"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

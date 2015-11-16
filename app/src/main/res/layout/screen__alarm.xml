@@ -42,16 +42,16 @@
 
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/row4"
             android:layout_below="@id/row3"
-            style="@style/RowContentCenter">
+            style="@style/RowButtons">
 
             <Button
                 android:id="@+id/btnOK"
                 style="@style/ButtonOK"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 

@@ -35,8 +35,8 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        style="@style/RowContentCenter">
+    <LinearLayout
+        style="@style/RowButtons">
 
         <Button
             android:id="@+id/btnBack"
@@ -47,6 +47,6 @@
             android:layout_toRightOf="@id/btnBack"
             style="@style/ButtonAdd"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>
