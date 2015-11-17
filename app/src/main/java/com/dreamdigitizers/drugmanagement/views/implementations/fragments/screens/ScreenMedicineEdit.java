@@ -159,7 +159,7 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
             }
         });
 
-        this.mPresenter = (IPresenterMedicineEdit) PresenterFactory.createPresenter(IPresenterMedicineEdit.class, this);
+        this.mPresenter = (IPresenterMedicineEdit)PresenterFactory.createPresenter(IPresenterMedicineEdit.class, this);
         this.mPresenter.select(this.mRowId);
     }
 

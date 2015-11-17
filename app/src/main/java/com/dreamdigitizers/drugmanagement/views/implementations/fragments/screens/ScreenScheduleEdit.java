@@ -127,6 +127,9 @@ public class ScreenScheduleEdit extends Screen implements IViewScheduleEdit, Ada
         this.mLblMedicineTimeValue.setText(dateValue + " " + timeValue);
 
         int intervalValue = pModel.getSchedule().getMedicineInterval().getMedicineIntervalValue();
+        if(TextUtils.isEmpty(pModel.getSchedule().getMedicineInterval().getMedicineIntervalName())) {
+            intervalValue = pModel.getSchedule().getFallbackIntervalValue();
+        }
         String intervalValueWithUnit = this.getResources().getQuantityString(R.plurals.lbl__day, intervalValue, intervalValue);
         this.mLblMedicineIntervalValue.setText(intervalValueWithUnit);
 

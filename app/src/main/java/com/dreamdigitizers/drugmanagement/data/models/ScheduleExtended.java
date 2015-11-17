@@ -21,6 +21,7 @@ public class ScheduleExtended extends Schedule {
         this.setMedicineTimeId(pSchedule.getMedicineTimeId());
         this.setMedicineIntervalId(pSchedule.getMedicineIntervalId());
         this.setFallbackFamilyMemberName(pSchedule.getFallbackFamilyMemberName());
+        this.setFallbackIntervalValue(pSchedule.getFallbackIntervalValue());
         this.setStartDate(pSchedule.getStartDate());
         this.setTimes(pSchedule.getTimes());
         this.setImagePath(pSchedule.getImagePath());

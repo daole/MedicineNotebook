@@ -134,7 +134,7 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
             }
         });
 
-        this.mPresenter = (IPresenterMedicineAdd) PresenterFactory.createPresenter(IPresenterMedicineAdd.class, this);
+        this.mPresenter = (IPresenterMedicineAdd)PresenterFactory.createPresenter(IPresenterMedicineAdd.class, this);
     }
 
     @Override

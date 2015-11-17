@@ -13,6 +13,7 @@ public class Schedule extends Model {
     private long mMedicineTimeId;
     private long mMedicineIntervalId;
     private String mFallbackFamilyMemberName;
+    private int mFallbackIntervalValue;
     private String mStartDate;
     private int mTimes;
     private String mImagePath;
@@ -48,6 +49,14 @@ public class Schedule extends Model {
 
     public void setFallbackFamilyMemberName(String pFallbackFamilyMemberName) {
         this.mFallbackFamilyMemberName = pFallbackFamilyMemberName;
+    }
+
+    public int getFallbackIntervalValue() {
+        return this.mFallbackIntervalValue;
+    }
+
+    public void setFallbackIntervalValue(int pFallbackIntervalValue) {
+        this.mFallbackIntervalValue = pFallbackIntervalValue;
     }
 
     public String getStartDate() {
@@ -110,6 +119,7 @@ public class Schedule extends Model {
             long medicineTimeId = pCursor.getLong(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__MEDICINE_TIME_ID));
             long medicineIntervalId = pCursor.getLong(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__MEDICINE_INTERVAL_ID));
             String fallbackFamilyMemberName = pCursor.getString(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__FALLBACK_FAMILY_MEMBER_NAME));
+            int fallbackIntervalValue = pCursor.getInt(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__FALLBACK_INTERVAL_VALUE));
             String startDate = pCursor.getString(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__START_DATE));
             int alarmTimes = pCursor.getInt(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__TIMES));
             String imagePath = pCursor.getString(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__IMAGE_PATH));
@@ -121,6 +131,7 @@ public class Schedule extends Model {
             model.setMedicineTimeId(medicineTimeId);
             model.setMedicineIntervalId(medicineIntervalId);
             model.setFallbackFamilyMemberName(fallbackFamilyMemberName);
+            model.setFallbackIntervalValue(fallbackIntervalValue);
             model.setStartDate(startDate);
             model.setTimes(alarmTimes);
             model.setImagePath(imagePath);
