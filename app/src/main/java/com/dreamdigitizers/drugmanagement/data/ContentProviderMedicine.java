@@ -19,6 +19,7 @@ import com.dreamdigitizers.drugmanagement.data.dal.DaoMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.DaoMedicineCategory;
 import com.dreamdigitizers.drugmanagement.data.dal.DaoMedicineInterval;
 import com.dreamdigitizers.drugmanagement.data.dal.DaoMedicineTime;
+import com.dreamdigitizers.drugmanagement.data.dal.DaoPrescription;
 import com.dreamdigitizers.drugmanagement.data.dal.DaoSchedule;
 import com.dreamdigitizers.drugmanagement.data.dal.DaoTakenMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.Table;
@@ -28,6 +29,7 @@ import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineInterval;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTime;
+import com.dreamdigitizers.drugmanagement.data.dal.tables.TablePrescription;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableSchedule;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableTakenMedicine;
 import com.dreamdigitizers.drugmanagement.utils.StringUtils;
@@ -50,10 +52,12 @@ public class ContentProviderMedicine extends ContentProvider {
     private static final int MEDICINE_INTERVAL = 41;
     private static final int MEDICINE_TIMES = 50;
     private static final int MEDICINE_TIME = 51;
-    private static final int SCHEDULES = 60;
-    private static final int SCHEDULE = 61;
-    private static final int TAKEN_MEDICINES = 70;
-    private static final int TAKEN_MEDICINE = 71;
+    private static final int PRESCRIPTIONS = 60;
+    private static final int PRESCRIPTION = 61;
+    private static final int SCHEDULES = 70;
+    private static final int SCHEDULE = 71;
+    private static final int TAKEN_MEDICINES = 80;
+    private static final int TAKEN_MEDICINE = 81;
 
     private static final String SCHEME = "content://";
 
@@ -65,6 +69,7 @@ public class ContentProviderMedicine extends ContentProvider {
     public static final Uri CONTENT_URI__MEDICINE_CATEGORY = Uri.parse(ContentProviderMedicine.SCHEME + ContentProviderMedicine.AUTHORITY + "/" + TableMedicineCategory.TABLE_NAME);
     public static final Uri CONTENT_URI__MEDICINE_INTERVAL = Uri.parse(ContentProviderMedicine.SCHEME + ContentProviderMedicine.AUTHORITY + "/" + TableMedicineInterval.TABLE_NAME);
     public static final Uri CONTENT_URI__MEDICINE_TIME = Uri.parse(ContentProviderMedicine.SCHEME + ContentProviderMedicine.AUTHORITY + "/" + TableMedicineTime.TABLE_NAME);
+    public static final Uri CONTENT_URI__PRESCRIPTION = Uri.parse(ContentProviderMedicine.SCHEME + ContentProviderMedicine.AUTHORITY + "/" + TablePrescription.TABLE_NAME);
     public static final Uri CONTENT_URI__SCHEDULE = Uri.parse(ContentProviderMedicine.SCHEME + ContentProviderMedicine.AUTHORITY + "/" + TableSchedule.TABLE_NAME);
     public static final Uri CONTENT_URI__TAKEN_MEDICINE = Uri.parse(ContentProviderMedicine.SCHEME + ContentProviderMedicine.AUTHORITY + "/" + TableTakenMedicine.TABLE_NAME);
 
@@ -85,6 +90,9 @@ public class ContentProviderMedicine extends ContentProvider {
 
     public static final String CONTENT_TYPE__MEDICINE_TIME = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + ContentProviderMedicine.AUTHORITY + "." + TableMedicineTime.TABLE_NAME;
     public static final String CONTENT_ITEM_TYPE__MEDICINE_TIME = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + ContentProviderMedicine.AUTHORITY + "." + TableMedicineTime.TABLE_NAME;
+
+    public static final String CONTENT_TYPE__PRESCRIPTION = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + ContentProviderMedicine.AUTHORITY + "." + TablePrescription.TABLE_NAME;
+    public static final String CONTENT_ITEM_TYPE__PRESCRIPTION = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + ContentProviderMedicine.AUTHORITY + "." + TablePrescription.TABLE_NAME;
 
     public static final String CONTENT_TYPE__SCHEDULE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + ContentProviderMedicine.AUTHORITY + "." + TableSchedule.TABLE_NAME;
     public static final String CONTENT_ITEM_TYPE__SCHEDULE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + ContentProviderMedicine.AUTHORITY + "." + TableSchedule.TABLE_NAME;
@@ -111,6 +119,9 @@ public class ContentProviderMedicine extends ContentProvider {
 
         ContentProviderMedicine.uriMatcher.addURI(ContentProviderMedicine.AUTHORITY, TableMedicineTime.TABLE_NAME, ContentProviderMedicine.MEDICINE_TIMES);
         ContentProviderMedicine.uriMatcher.addURI(ContentProviderMedicine.AUTHORITY, TableMedicineTime.TABLE_NAME + "/#", ContentProviderMedicine.MEDICINE_TIME);
+
+        ContentProviderMedicine.uriMatcher.addURI(ContentProviderMedicine.AUTHORITY, TablePrescription.TABLE_NAME, ContentProviderMedicine.PRESCRIPTIONS);
+        ContentProviderMedicine.uriMatcher.addURI(ContentProviderMedicine.AUTHORITY, TablePrescription.TABLE_NAME + "/#", ContentProviderMedicine.PRESCRIPTION);
 
         ContentProviderMedicine.uriMatcher.addURI(ContentProviderMedicine.AUTHORITY, TableSchedule.TABLE_NAME, ContentProviderMedicine.SCHEDULES);
         ContentProviderMedicine.uriMatcher.addURI(ContentProviderMedicine.AUTHORITY, TableSchedule.TABLE_NAME + "/#", ContentProviderMedicine.SCHEDULE);
@@ -181,6 +192,12 @@ public class ContentProviderMedicine extends ContentProvider {
             case ContentProviderMedicine.MEDICINE_TIME:
                 type = ContentProviderMedicine.CONTENT_ITEM_TYPE__MEDICINE_TIME;
                 break;
+            case ContentProviderMedicine.PRESCRIPTIONS:
+                type = ContentProviderMedicine.CONTENT_TYPE__PRESCRIPTION;
+                break;
+            case ContentProviderMedicine.PRESCRIPTION:
+                type = ContentProviderMedicine.CONTENT_ITEM_TYPE__PRESCRIPTION;
+                break;
             case ContentProviderMedicine.SCHEDULES:
                 type = ContentProviderMedicine.CONTENT_TYPE__SCHEDULE;
                 break;
@@ -249,6 +266,13 @@ public class ContentProviderMedicine extends ContentProvider {
                 id = pUri.getLastPathSegment();
                 dao = new DaoMedicineTime(this.mDatabaseHelper);
                 break;
+            case ContentProviderMedicine.PRESCRIPTIONS:
+                dao = new DaoPrescription(this.mDatabaseHelper);
+                break;
+            case ContentProviderMedicine.PRESCRIPTION:
+                id = pUri.getLastPathSegment();
+                dao = new DaoPrescription(this.mDatabaseHelper);
+                break;
             case ContentProviderMedicine.SCHEDULES:
                 dao = new DaoSchedule(this.mDatabaseHelper);
                 break;
@@ -313,6 +337,9 @@ public class ContentProviderMedicine extends ContentProvider {
                 break;
             case ContentProviderMedicine.MEDICINE_TIMES:
                 dao = new DaoMedicineTime(this.mDatabaseHelper);
+                break;
+            case ContentProviderMedicine.PRESCRIPTIONS:
+                dao = new DaoPrescription(this.mDatabaseHelper);
                 break;
             case ContentProviderMedicine.SCHEDULES:
                 dao = new DaoSchedule(this.mDatabaseHelper);
@@ -382,6 +409,13 @@ public class ContentProviderMedicine extends ContentProvider {
             case ContentProviderMedicine.MEDICINE_TIME:
                 id = pUri.getLastPathSegment();
                 dao = new DaoMedicineTime(this.mDatabaseHelper);
+                break;
+            case ContentProviderMedicine.PRESCRIPTIONS:
+                dao = new DaoPrescription(this.mDatabaseHelper);
+                break;
+            case ContentProviderMedicine.PRESCRIPTION:
+                id = pUri.getLastPathSegment();
+                dao = new DaoPrescription(this.mDatabaseHelper);
                 break;
             case ContentProviderMedicine.SCHEDULES:
                 dao = new DaoSchedule(this.mDatabaseHelper);
@@ -466,6 +500,13 @@ public class ContentProviderMedicine extends ContentProvider {
             case ContentProviderMedicine.MEDICINE_TIME:
                 id = pUri.getLastPathSegment();
                 dao = new DaoMedicineTime(this.mDatabaseHelper);
+                break;
+            case ContentProviderMedicine.PRESCRIPTIONS:
+                dao = new DaoPrescription(this.mDatabaseHelper);
+                break;
+            case ContentProviderMedicine.PRESCRIPTION:
+                id = pUri.getLastPathSegment();
+                dao = new DaoPrescription(this.mDatabaseHelper);
                 break;
             case ContentProviderMedicine.SCHEDULES:
                 dao = new DaoSchedule(this.mDatabaseHelper);

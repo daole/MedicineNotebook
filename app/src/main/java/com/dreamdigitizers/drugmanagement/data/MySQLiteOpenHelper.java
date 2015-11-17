@@ -10,6 +10,7 @@ import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicine;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineCategory;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineInterval;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableMedicineTime;
+import com.dreamdigitizers.drugmanagement.data.dal.tables.TablePrescription;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableSchedule;
 import com.dreamdigitizers.drugmanagement.data.dal.tables.TableTakenMedicine;
 
@@ -33,6 +34,7 @@ class MySQLiteOpenHelper extends SQLiteOpenHelper {
 		TableMedicineCategory.onCreate(this.mContext, pSQLiteDatabase);
 		TableMedicineInterval.onCreate(this.mContext, pSQLiteDatabase);
 		TableMedicineTime.onCreate(this.mContext, pSQLiteDatabase);
+		TablePrescription.onCreate(this.mContext, pSQLiteDatabase);
 		TableSchedule.onCreate(this.mContext, pSQLiteDatabase);
 		TableTakenMedicine.onCreate(this.mContext, pSQLiteDatabase);
 	}
@@ -45,6 +47,7 @@ class MySQLiteOpenHelper extends SQLiteOpenHelper {
 		TableMedicineCategory.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
 		TableMedicineInterval.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
 		TableMedicineTime.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
+		TablePrescription.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
 		TableSchedule.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
 		TableTakenMedicine.onUpgrade(this.mContext, pSQLiteDatabase, pOldVersion, pNewVersion);
 	}

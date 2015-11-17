@@ -11,7 +11,7 @@
             style="@style/ImageButtonPrevious"/>
 
         <TextView
-            android:id="@+id/lblDate"
+            android:id="@+id/lblPrescriptionDate"
             android:layout_centerInParent="true"
             style="@style/TextView"/>
 

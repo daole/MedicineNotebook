@@ -24,9 +24,6 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineAdd;
 import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityCamera;
 
 public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
-    private static final String BUNDLE_KEY__MEDICINE_CATEGORY_ID = "category_id";
-    private static final String BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH = "medicine_picture";
-
     private EditText mTxtMedicineName;
     private Spinner mSelMedicineCategories;
     private ImageButton mBtnAddMedicineCategory;
@@ -49,14 +46,14 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
     @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
-        pOutState.putLong(ScreenMedicineAdd.BUNDLE_KEY__MEDICINE_CATEGORY_ID, this.mMedicineCategoryId);
-        pOutState.putString(ScreenMedicineAdd.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH, this.mMedicinePictureFilePath);
+        pOutState.putLong(Screen.BUNDLE_KEY__MEDICINE_CATEGORY_ID, this.mMedicineCategoryId);
+        pOutState.putString(Screen.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH, this.mMedicinePictureFilePath);
     }
 
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        this.mMedicineCategoryId = pSavedInstanceState.getLong(ScreenMedicineAdd.BUNDLE_KEY__MEDICINE_CATEGORY_ID);
-        this.mMedicinePictureFilePath = pSavedInstanceState.getString(ScreenMedicineAdd.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH);
+        this.mMedicineCategoryId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__MEDICINE_CATEGORY_ID);
+        this.mMedicinePictureFilePath = pSavedInstanceState.getString(Screen.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH);
     }
 
     @Override
@@ -109,17 +106,17 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
             }
         });
 
-        this.mBtnAddMedicineCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ScreenMedicineAdd.this.buttonAddMedicineCategoryClick();
-            }
-        });
-
         this.mImgMedicinePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View pView) {
                 ScreenMedicineAdd.this.medicinePictureClick();
+            }
+        });
+
+        this.mBtnAddMedicineCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ScreenMedicineAdd.this.buttonAddMedicineCategoryClick();
             }
         });
 

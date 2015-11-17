@@ -9,24 +9,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dreamdigitizers.drugmanagement.R;
-import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleList;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterPrescriptionList;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
-import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleList;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewPrescriptionList;
 
-public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList {
-    private ImageButton mBtnPrevious;
-    private ImageButton mBtnNext;
-    private TextView mLblDate;
+public class ScreenPrescriptionList extends ScreenEntry implements IViewPrescriptionList {
     private ListView mListView;
     private TextView mLblEmpty;
 
-    private IPresenterScheduleList mPresenter;
+    private IPresenterPrescriptionList mPresenter;
 
     @Override
     public void createOptionsMenu(Menu pMenu, MenuInflater pInflater) {
@@ -51,49 +47,32 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
 
     @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
-        View rootView = pInflater.inflate(R.layout.screen__schedule_list, pContainer, false);
+        View rootView = pInflater.inflate(R.layout.screen__prescription_list, pContainer, false);
         return rootView;
     }
 
     @Override
     protected void retrieveScreenItems(View pView) {
-        this.mBtnPrevious = (ImageButton)pView.findViewById(R.id.btnPrevious);
-        this.mLblDate = (TextView)pView.findViewById(R.id.lblPrescriptionDate);
-        this.mBtnNext = (ImageButton)pView.findViewById(R.id.btnNext);
-        this.mListView = (ListView)pView.findViewById(R.id.lstSchedules);
+        this.mListView = (ListView)pView.findViewById(R.id.lstPrescriptions);
         this.mLblEmpty = (TextView)pView.findViewById(R.id.lblEmpty);
-        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
-                ScreenScheduleList.this.listItemClick(pRowId);
-            }
-        });
     }
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
-        this.mBtnPrevious.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ScreenScheduleList.this.buttonPreviousClick();
-            }
-        });
-
-        this.mBtnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ScreenScheduleList.this.buttonNextClick();
-            }
-        });
-
         this.mListView.setEmptyView(this.mLblEmpty);
+        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
+                ScreenPrescriptionList.this.listItemClick(pRowId);
+            }
+        });
 
-        this.mPresenter = (IPresenterScheduleList)PresenterFactory.createPresenter(IPresenterScheduleList.class, this);
+        this.mPresenter = (IPresenterPrescriptionList)PresenterFactory.createPresenter(IPresenterPrescriptionList.class, this);
     }
 
     @Override
     protected int getTitle() {
-        return R.string.title__screen_schedule_list;
+        return R.string.title__screen_prescription_list;
     }
 
     @Override
@@ -104,11 +83,6 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
     @Override
     public void setAdapter(ListAdapter pAdapter) {
         this.mListView.setAdapter(pAdapter);
-    }
-
-    @Override
-    public void bindSelectionDate(String pSelectionDate) {
-        this.mLblDate.setText(pSelectionDate);
     }
 
     private void optionAddSelected() {
@@ -124,23 +98,15 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
     }
 
     private void goToAddScreen() {
-        Screen screen = new ScreenScheduleAdd();
+        Screen screen = new ScreenPrescriptionAdd();
         this.mScreenActionsListener.onChangeScreen(screen);
     }
 
     private void goToEditScreen(long pRowId) {
         Bundle arguments = new Bundle();
         arguments.putLong(Screen.BUNDLE_KEY__ROW_ID, pRowId);
-        Screen screen = new ScreenScheduleEdit();
+        Screen screen = new ScreenPrescriptionEdit();
         screen.setArguments(arguments);
         this.mScreenActionsListener.onChangeScreen(screen);
-    }
-
-    private void buttonPreviousClick() {
-        this.mPresenter.previous();
-    }
-
-    private void buttonNextClick() {
-        this.mPresenter.next();
     }
 }

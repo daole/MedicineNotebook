@@ -7,5 +7,6 @@
         <item>@drawable/icon__medicine_categories</item>
         <item>@drawable/icon__medicine_time</item>
         <item>@drawable/icon__medicine_intervals</item>
+        <item>@drawable/icon__prescription</item>
     </array>
 </resources>

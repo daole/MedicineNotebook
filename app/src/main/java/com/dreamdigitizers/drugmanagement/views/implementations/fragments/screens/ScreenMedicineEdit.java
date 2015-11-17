@@ -29,10 +29,6 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineEdit;
 import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityCamera;
 
 public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
-    private static final String BUNDLE_KEY__MEDICINE_CATEGORY_ID = "category_id";
-    private static final String BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH = "medicine_picture";
-    private static final String BUNDLE_KEY__OLD_MEDICINE_PICTURE_FILE_PATH = "old_medicine_picture";
-
     private EditText mTxtMedicineName;
     private Spinner mSelMedicineCategories;
     private ImageButton mBtnAddMedicineCategory;
@@ -58,9 +54,9 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
         pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
-        pOutState.putLong(ScreenMedicineEdit.BUNDLE_KEY__MEDICINE_CATEGORY_ID, this.mMedicineCategoryId);
-        pOutState.putString(ScreenMedicineEdit.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH, this.mMedicinePictureFilePath);
-        pOutState.putString(ScreenMedicineEdit.BUNDLE_KEY__OLD_MEDICINE_PICTURE_FILE_PATH, this.mOldMedicinePictureFilePath);
+        pOutState.putLong(Screen.BUNDLE_KEY__MEDICINE_CATEGORY_ID, this.mMedicineCategoryId);
+        pOutState.putString(Screen.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH, this.mMedicinePictureFilePath);
+        pOutState.putString(Screen.BUNDLE_KEY__OLD_MEDICINE_PICTURE_FILE_PATH, this.mOldMedicinePictureFilePath);
     }
 
     @Override
@@ -71,9 +67,9 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
         this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
-        this.mMedicineCategoryId = pSavedInstanceState.getLong(ScreenMedicineEdit.BUNDLE_KEY__MEDICINE_CATEGORY_ID);
-        this.mMedicinePictureFilePath = pSavedInstanceState.getString(ScreenMedicineEdit.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH);
-        this.mOldMedicinePictureFilePath = pSavedInstanceState.getString(ScreenMedicineEdit.BUNDLE_KEY__OLD_MEDICINE_PICTURE_FILE_PATH);
+        this.mMedicineCategoryId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__MEDICINE_CATEGORY_ID);
+        this.mMedicinePictureFilePath = pSavedInstanceState.getString(Screen.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH);
+        this.mOldMedicinePictureFilePath = pSavedInstanceState.getString(Screen.BUNDLE_KEY__OLD_MEDICINE_PICTURE_FILE_PATH);
     }
 
     @Override
@@ -135,17 +131,17 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
             }
         });
 
-        this.mBtnAddMedicineCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ScreenMedicineEdit.this.buttonAddMedicineCategoryClick();
-            }
-        });
-
         this.mImgMedicinePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View pView) {
                 ScreenMedicineEdit.this.medicinePictureClick();
+            }
+        });
+
+        this.mBtnAddMedicineCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ScreenMedicineEdit.this.buttonAddMedicineCategoryClick();
             }
         });
 
@@ -232,16 +228,16 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
         }
     }
 
+    private void deleteMedicinePicture() {
+        if(!TextUtils.isEmpty(this.mMedicinePictureFilePath) && !this.mMedicinePictureFilePath.equals(this.mOldMedicinePictureFilePath)) {
+            this.mPresenter.deleteImage(this.mMedicinePictureFilePath);
+        }
+    }
+
     private void deleteOldMedicinePicture() {
         if(!TextUtils.isEmpty(this.mMedicinePictureFilePath) && !this.mMedicinePictureFilePath.equals(this.mOldMedicinePictureFilePath)) {
             this.mPresenter.deleteImage(this.mOldMedicinePictureFilePath);
             this.mOldMedicinePictureFilePath = this.mMedicinePictureFilePath;
-        }
-    }
-
-    private void deleteMedicinePicture() {
-        if(!TextUtils.isEmpty(this.mMedicinePictureFilePath) && !this.mMedicinePictureFilePath.equals(this.mOldMedicinePictureFilePath)) {
-            this.mPresenter.deleteImage(this.mMedicinePictureFilePath);
         }
     }
 

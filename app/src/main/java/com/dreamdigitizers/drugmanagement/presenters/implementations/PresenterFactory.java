@@ -21,6 +21,9 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeEdit;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicineTimeList;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterAvailableAlarm;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterPrescriptionAdd;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterPrescriptionEdit;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterPrescriptionList;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleAdd;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleEdit;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleList;
@@ -45,6 +48,9 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeAdd;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeEdit;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineTimeList;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewAvailableAlarm;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewPrescriptionAdd;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewPrescriptionEdit;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewPrescriptionList;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleAdd;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleEdit;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleList;
@@ -127,6 +133,17 @@ public class PresenterFactory {
         if(pClass == IPresenterMedicineIntervalEdit.class) {
             return new PresenterMedicineIntervalEdit((IViewMedicineIntervalEdit)pView);
         }
+
+        if(pClass == IPresenterPrescriptionList.class) {
+            return new PresenterPrescriptionList((IViewPrescriptionList)pView);
+        }
+        if(pClass == IPresenterPrescriptionAdd.class) {
+            return new PresenterPrescriptionAdd((IViewPrescriptionAdd)pView);
+        }
+        if(pClass == IPresenterPrescriptionEdit.class) {
+            return new PresenterPrescriptionEdit((IViewPrescriptionEdit)pView);
+        }
+
         return null;
     }
 }

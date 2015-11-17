@@ -22,6 +22,9 @@
     <string name="title__screen_medicine_interval_list">Intervals</string>
     <string name="title__screen_medicine_interval_add">Add Interval</string>
     <string name="title__screen_medicine_interval_edit">Edit Interval</string>
+    <string name="title__screen_prescription_list">Prescriptions</string>
+    <string name="title__screen_prescription_add">Add Prescription</string>
+    <string name="title__screen_prescription_edit">Edit Prescription</string>
 
     <string name="menu_item__add">Add</string>
     <string name="menu_item__delete">Delete</string>
@@ -39,6 +42,8 @@
     <string name="lbl__start_date">Start Date:</string>
     <string name="lbl__alarm">Alarm:</string>
     <string name="lbl__times">Times:</string>
+    <string name="lbl__name">Name:</string>
+    <string name="lbl__date">Date:</string>
     <string name="lbl__select">Select</string>
     <string name="lbl__on">On</string>
     <string name="lbl__off">Off</string>
@@ -57,6 +62,8 @@
     <string name="hint__times">1</string>
     <string name="hint__schedule_note">Note about the schedule.</string>
     <string name="hint__dose">1 tablet</string>
+    <string name="hint__name">Name</string>
+    <string name="hint__prescription_note">Note about the prescription.</string>
 
     <string name="btn__add">Add</string>
     <string name="btn__edit">Edit</string>
@@ -90,6 +97,7 @@
     <string name="error__blank_medicine_time">Please select time.</string>
     <string name="error__blank_medicine_interval">Please select interval.</string>
     <string name="error__invalid_alarm_times">Please enter positive number for alarm times.</string>
+    <string name="error__blank_prescription_name">Please enter name of the prescription.</string>
     <string name="error__duplicated_data">Same data already exists.</string>
     <string name="error__no_data_selected">You have not selected anything.</string>
     <string name="error__image_save_failed">An error has occurred. The picture could not be saved.</string>
@@ -100,6 +108,7 @@
     <string name="desc__navigation_drawer_close">Close navigation drawer</string>
     <string name="desc__captured_picture">Captured picture</string>
     <string name="desc__medicine_picture">Medicine picture</string>
+    <string name="desc__prescription_picture">Prescription picture</string>
     <string name="desc__image_done">Done</string>
     <string name="desc__image_button_add">Add</string>
     <string name="desc__image_button_delete">Delete</string>
