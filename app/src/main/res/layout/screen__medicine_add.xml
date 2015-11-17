@@ -48,8 +48,8 @@
 
             <ImageView
                 android:id="@+id/imgMedicinePicture"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@id/lblMedicinePicture"
+                android:layout_centerHorizontal="true"
                 style="@style/ImageViewMedicine"/>
 
         </RelativeLayout>

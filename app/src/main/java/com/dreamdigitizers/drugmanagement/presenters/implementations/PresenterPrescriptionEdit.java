@@ -54,7 +54,7 @@ class PresenterPrescriptionEdit implements IPresenterPrescriptionEdit {
     @Override
     public  void select(long pRowId) {
         String[] projection = new String[0];
-        projection = TablePrescription.getColumns().toArray(projection);
+        projection = TablePrescription.getColumnsForJoin().toArray(projection);
         Uri uri = ContentProviderMedicine.CONTENT_URI__PRESCRIPTION;
         uri = ContentUris.withAppendedId(uri, pRowId);
         Cursor cursor = this.mView.getViewContext().getContentResolver().query(uri, projection, null, null, null);

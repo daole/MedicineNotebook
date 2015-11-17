@@ -17,6 +17,7 @@ import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screen
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenMedicineIntervalList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenMedicineList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenMedicineTimeList;
+import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenPrescriptionList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenScheduleList;
 
 public class ActivityMain extends ActivityBase implements INavigationDrawerItemSelectListener {
@@ -116,6 +117,11 @@ public class ActivityMain extends ActivityBase implements INavigationDrawerItemS
             case Constants.NAVIGATION_DRAWER_ITEM_ID__MEDICINE_INTERVALS:
                 if(!(this.mCurrentScreen instanceof ScreenMedicineIntervalList)) {
                     screen = new ScreenMedicineIntervalList();
+                }
+                break;
+            case Constants.NAVIGATION_DRAWER_ITEM_ID__MEDICINE_PRESCRIPTIONS:
+                if(!(this.mCurrentScreen instanceof ScreenPrescriptionList)) {
+                    screen = new ScreenPrescriptionList();
                 }
                 break;
             default:

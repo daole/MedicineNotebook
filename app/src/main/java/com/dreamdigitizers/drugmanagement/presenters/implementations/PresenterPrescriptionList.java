@@ -81,7 +81,7 @@ class PresenterPrescriptionList implements IPresenterPrescriptionList {
     @Override
     public Loader<Cursor> onCreateLoader(int pId, Bundle pArgs) {
         String[] projection = new String[0];
-        projection = TablePrescription.getColumns().toArray(projection);
+        projection = TablePrescription.getColumnsForJoin().toArray(projection);
         CursorLoader cursorLoader = new CursorLoader(this.mView.getViewContext(),
                 ContentProviderMedicine.CONTENT_URI__PRESCRIPTION, projection, null, null, null);
         return cursorLoader;

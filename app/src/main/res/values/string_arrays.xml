@@ -7,7 +7,7 @@
         <item>Medicine Categories</item>
         <item>Medicine Time</item>
         <item>Medicine Intervals</item>
-        <item>Prescription</item>
+        <item>Prescriptions</item>
     </string-array>
 
     <string-array name="family_member_names">

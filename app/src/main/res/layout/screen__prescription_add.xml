@@ -68,6 +68,7 @@
             <ImageView
                 android:id="@+id/imgPrescriptionPicture"
                 android:layout_below="@id/lblPrescriptionPicture"
+                android:layout_centerHorizontal="true"
                 style="@style/ImageViewPrescription"/>
 
         </RelativeLayout>
