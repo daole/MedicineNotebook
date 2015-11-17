@@ -27,7 +27,7 @@ public class TablePrescription extends Table {
             + "`" + TablePrescription.COLUMN_NAME__PRESCRIPTION_NAME + "` TEXT NOT NULL,"
             + "`" + TablePrescription.COLUMN_NAME__PRESCRIPTION_DATE + "` TEXT,"
             + "`" + TablePrescription.COLUMN_NAME__IMAGE_PATH + "` TEXT,"
-            + "`" + TablePrescription.COLUMN_NAME__PRESCRIPTION_NOTE + "` TEXT,"
+            + "`" + TablePrescription.COLUMN_NAME__PRESCRIPTION_NOTE + "` TEXT"
             + ");";
 
     private static final String STATEMENT__UPDATE = "";
