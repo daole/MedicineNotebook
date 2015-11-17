@@ -49,7 +49,7 @@
             <ImageView
                 android:id="@+id/imgMedicinePicture"
                 android:layout_centerHorizontal="true"
-                android:layout_alignTop="@id/lblMedicinePicture"
+                android:layout_below="@id/lblMedicinePicture"
                 style="@style/ImageViewMedicine"/>
 
         </RelativeLayout>

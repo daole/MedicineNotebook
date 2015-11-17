@@ -374,18 +374,6 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="ImageView">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:scaleType">centerInside</item>
-        <item name="android:src">@drawable/icon__no_photo</item>
-    </style>
-
-    <style name="ImageViewDone" parent="ImageView">
-        <item name="android:src">@drawable/icon__done</item>
-        <item name="android:contentDescription">@string/desc__image_done</item>
-    </style>
-
     <style name="ImageViewNavigationDrawerIcon">
         <item name="android:layout_width">@dimen/navigation_drawer_icon_width</item>
         <item name="android:layout_height">@dimen/navigation_drawer_icon_height</item>
@@ -393,6 +381,26 @@
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_marginRight">@dimen/row_items_gap</item>
         <item name="android:contentDescription">@string/desc__menu_item_icon</item>
+    </style>
+
+    <style name="ImageView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:src">@drawable/icon__no_photo</item>
+    </style>
+
+    <style name="ImageViewMedicine" parent="ImageView">
+        <item name="android:contentDescription">@string/desc__medicine_picture</item>
+    </style>
+
+    <style name="ImageViewPrescription" parent="ImageView">
+        <item name="android:contentDescription">@string/desc__prescription_picture</item>
+    </style>
+
+    <style name="ImageViewDone" parent="ImageView">
+        <item name="android:src">@drawable/icon__done</item>
+        <item name="android:contentDescription">@string/desc__image_done</item>
     </style>
 
     <style name="ImageViewInListView" parent="ImageView">
@@ -408,16 +416,6 @@
 
     <style name="ImageViewInListViewMedicine" parent="ImageViewInListView">
         <item name="android:contentDescription">@string/desc__medicine_picture</item>
-    </style>
-
-    <style name="ImageViewMedicine" parent="ImageView">
-        <item name="android:layout_width">@dimen/medicine_picture_width</item>
-        <item name="android:layout_height">@dimen/medicine_picture_height</item>
-        <item name="android:contentDescription">@string/desc__medicine_picture</item>
-    </style>
-
-    <style name="ImageViewPrescription" parent="ImageView">
-        <item name="android:contentDescription">@string/desc__prescription_picture</item>
     </style>
 
     <style name="ImageButton">
