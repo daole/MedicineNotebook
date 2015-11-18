@@ -35,6 +35,7 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
     private Spinner mSelFamilyMembers;
     private ImageButton mBtnAddFamilyMember;
     private ImageView mImgPrescriptionPicture;
+    private ImageButton mBtnAddImage;
     private EditText mTxtPrescriptionNote;
     private Button mBtnAdd;
     private Button mBtnBack;
@@ -96,6 +97,7 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
         this.mSelFamilyMembers = (Spinner)pView.findViewById(R.id.selFamilyMembers);
         this.mBtnAddFamilyMember = (ImageButton)pView.findViewById(R.id.btnAddFamilyMember);
         this.mImgPrescriptionPicture = (ImageView)pView.findViewById(R.id.imgPrescriptionPicture);
+        this.mBtnAddImage = (ImageButton)pView.findViewById(R.id.btnAddImage);
         this.mTxtPrescriptionNote = (EditText)pView.findViewById(R.id.txtPrescriptionNote);
         this.mBtnAdd = (Button)pView.findViewById(R.id.btnAdd);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
@@ -119,6 +121,13 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
             @Override
             public void onClick(View pView) {
                 ScreenPrescriptionAdd.this.prescriptionPictureClick();
+            }
+        });
+
+        this.mBtnAddImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View pView) {
+                ScreenPrescriptionAdd.this.buttonAddImageClick();
             }
         });
 
@@ -183,8 +192,13 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
     }
 
     private void prescriptionPictureClick() {
-        Intent intent = new Intent(ScreenPrescriptionAdd.this.getContext(), ActivityCamera.class);
-        ScreenPrescriptionAdd.this.startActivityForResult(intent, Constants.REQUEST_CODE__CAMERA);
+        Intent intent = new Intent(this.getContext(), ActivityCamera.class);
+        this.startActivityForResult(intent, Constants.REQUEST_CODE__CAMERA);
+    }
+
+    private void buttonAddImageClick() {
+        Intent intent = new Intent(this.getContext(), ActivityCamera.class);
+        this.startActivityForResult(intent, Constants.REQUEST_CODE__CAMERA);
     }
 
     private void buttonSelectDateClick() {

@@ -71,6 +71,11 @@
                 android:layout_centerHorizontal="true"
                 style="@style/ImageViewPrescription"/>
 
+            <ImageButton
+                android:id="@+id/btnAddImage"
+                android:layout_centerVertical="false"
+                style="@style/ImageButtonAdd"/>
+
         </RelativeLayout>
 
         <RelativeLayout
