@@ -24,6 +24,14 @@ public class ScreenMedicineTimeList extends ScreenEntry implements IViewMedicine
 
     private IPresenterMedicineTimeList mPresenter;
 
+    private ListAdapter mAdapter;
+
+    @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterMedicineTimeList)PresenterFactory.createPresenter(IPresenterMedicineTimeList.class, this);
+    }
+
     @Override
     public void createOptionsMenu(Menu pMenu, MenuInflater pInflater) {
         pInflater.inflate(R.menu.menu__add_delete, pMenu);
@@ -54,6 +62,7 @@ public class ScreenMedicineTimeList extends ScreenEntry implements IViewMedicine
     @Override
     protected void retrieveScreenItems(View pView) {
         this.mListView = (ListView)pView.findViewById(R.id.lstMedicineTimes);
+        this.mListView.setAdapter(this.mAdapter);
         this.mLblEmpty = (TextView)pView.findViewById(R.id.lblEmpty);
     }
 
@@ -66,8 +75,6 @@ public class ScreenMedicineTimeList extends ScreenEntry implements IViewMedicine
                 ScreenMedicineTimeList.this.listItemClick(pRowId);
             }
         });
-
-        this.mPresenter = (IPresenterMedicineTimeList)PresenterFactory.createPresenter(IPresenterMedicineTimeList.class, this);
     }
 
     @Override
@@ -82,7 +89,7 @@ public class ScreenMedicineTimeList extends ScreenEntry implements IViewMedicine
 
     @Override
     public void setAdapter(ListAdapter pAdapter) {
-        this.mListView.setAdapter(pAdapter);
+        this.mAdapter = pAdapter;
     }
 
     private void optionAddSelected() {

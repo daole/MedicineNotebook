@@ -30,6 +30,12 @@ public class ScreenMedicineCategoryAdd extends Screen implements IViewMedicineCa
     }
 
     @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterMedicineCategoryAdd)PresenterFactory.createPresenter(IPresenterMedicineCategoryAdd.class, this);
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__medicine_category_add, pContainer, false);
         return rootView;
@@ -68,8 +74,6 @@ public class ScreenMedicineCategoryAdd extends Screen implements IViewMedicineCa
                 ScreenMedicineCategoryAdd.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterMedicineCategoryAdd)PresenterFactory.createPresenter(IPresenterMedicineCategoryAdd.class, this);
     }
 
     @Override

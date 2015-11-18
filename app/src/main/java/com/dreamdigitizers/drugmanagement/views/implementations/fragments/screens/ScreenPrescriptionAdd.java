@@ -2,12 +2,15 @@ package com.dreamdigitizers.drugmanagement.views.implementations.fragments.scree
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,6 +47,7 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
 
     private long mFamilyMemberId;
     private String mPrescriptionPictureFilePath;
+    private SpinnerAdapter mAdapter;
 
     @Override
     public boolean onBackPressed() {
@@ -52,15 +56,19 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
     }
 
     @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterPrescriptionAdd)PresenterFactory.createPresenter(IPresenterPrescriptionAdd.class, this);
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
-        pOutState.putLong(Screen.BUNDLE_KEY__FAMILY_MEMBER_ID, this.mFamilyMemberId);
         pOutState.putString(Screen.BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH, this.mPrescriptionPictureFilePath);
     }
 
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        this.mFamilyMemberId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__FAMILY_MEMBER_ID);
         this.mPrescriptionPictureFilePath = pSavedInstanceState.getString(Screen.BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH);
     }
 
@@ -105,6 +113,18 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
+        if(!TextUtils.isEmpty(this.mPrescriptionPictureFilePath)) {
+            pView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @SuppressWarnings("deprecation")
+                @Override
+                public void onGlobalLayout() {
+                    ScreenPrescriptionAdd.this.loadPrescriptionPicture();
+                    ScreenPrescriptionAdd.this.getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+            });
+        }
+
+        this.mSelFamilyMembers.setAdapter(this.mAdapter);
         this.mSelFamilyMembers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
@@ -158,8 +178,6 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
                 ScreenPrescriptionAdd.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterPrescriptionAdd)PresenterFactory.createPresenter(IPresenterPrescriptionAdd.class, this);
     }
 
     @Override
@@ -184,7 +202,7 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
 
     @Override
     public void setAdapter(SpinnerAdapter pAdapter) {
-        this.mSelFamilyMembers.setAdapter(pAdapter);
+        this.mAdapter = pAdapter;
     }
 
     private void selectFamilyMember(long pRowId) {
@@ -239,11 +257,12 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
     }
 
     private void loadPrescriptionPicture() {
-        this.mImgPrescriptionPicture.setImageBitmap(
-                this.mPresenter.loadImage(
-                        this.mPrescriptionPictureFilePath,
-                        this.mImgPrescriptionPicture.getWidth(),
-                        this.mImgPrescriptionPicture.getHeight()));
+        Bitmap bitmap = this.mPresenter.loadImage(this.mPrescriptionPictureFilePath,
+                this.mImgPrescriptionPicture.getWidth(),
+                this.mImgPrescriptionPicture.getHeight());
+        if(bitmap != null) {
+            this.mImgPrescriptionPicture.setImageBitmap(bitmap);
+        }
     }
 
     private void goToFamilyMemberAddScreen() {

@@ -8,5 +8,6 @@ import com.dreamdigitizers.drugmanagement.data.models.Medicine;
 public interface IViewMedicineEdit extends IViewEdit<Medicine> {
     LoaderManager getViewLoaderManager();
     void setAdapter(SpinnerAdapter pAdapter);
+    void onMedicineCategoryDataLoaded();
     void onDataEdited();
 }

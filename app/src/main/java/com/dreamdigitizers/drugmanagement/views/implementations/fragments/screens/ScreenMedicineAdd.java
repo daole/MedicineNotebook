@@ -2,12 +2,15 @@ package com.dreamdigitizers.drugmanagement.views.implementations.fragments.scree
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +40,7 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
 
     private long mMedicineCategoryId;
     private String mMedicinePictureFilePath;
+    private SpinnerAdapter mAdapter;
 
     @Override
     public boolean onBackPressed() {
@@ -45,15 +49,19 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
     }
 
     @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterMedicineAdd)PresenterFactory.createPresenter(IPresenterMedicineAdd.class, this);
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
-        pOutState.putLong(Screen.BUNDLE_KEY__MEDICINE_CATEGORY_ID, this.mMedicineCategoryId);
         pOutState.putString(Screen.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH, this.mMedicinePictureFilePath);
     }
 
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        this.mMedicineCategoryId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__MEDICINE_CATEGORY_ID);
         this.mMedicinePictureFilePath = pSavedInstanceState.getString(Screen.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH);
     }
 
@@ -96,6 +104,18 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
+        if(!TextUtils.isEmpty(this.mMedicinePictureFilePath)) {
+            pView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @SuppressWarnings("deprecation")
+                @Override
+                public void onGlobalLayout() {
+                    ScreenMedicineAdd.this.loadMedicinePicture();
+                    ScreenMedicineAdd.this.getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+            });
+        }
+
+        this.mSelMedicineCategories.setAdapter(this.mAdapter);
         this.mSelMedicineCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
@@ -142,8 +162,6 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
                 ScreenMedicineAdd.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterMedicineAdd)PresenterFactory.createPresenter(IPresenterMedicineAdd.class, this);
     }
 
     @Override
@@ -167,7 +185,7 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
 
     @Override
     public void setAdapter(SpinnerAdapter pAdapter) {
-        this.mSelMedicineCategories.setAdapter(pAdapter);
+        this.mAdapter = pAdapter;
     }
 
     private void selectMedicineCategory(long pRowId) {
@@ -204,11 +222,12 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
     }
 
     private void loadMedicinePicture() {
-        this.mImgMedicinePicture.setImageBitmap(
-                this.mPresenter.loadImage(
-                        this.mMedicinePictureFilePath,
-                        this.mImgMedicinePicture.getWidth(),
-                        this.mImgMedicinePicture.getHeight()));
+        Bitmap bitmap = this.mPresenter.loadImage(this.mMedicinePictureFilePath,
+                this.mImgMedicinePicture.getWidth(),
+                this.mImgMedicinePicture.getHeight());
+        if(bitmap != null) {
+            this.mImgMedicinePicture.setImageBitmap(bitmap);
+        }
     }
 
     private void goToMedicineCategoryAddScreen() {

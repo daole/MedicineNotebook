@@ -30,6 +30,12 @@ public class ScreenMedicineIntervalAdd extends Screen implements IViewMedicineIn
     }
 
     @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterMedicineIntervalAdd)PresenterFactory.createPresenter(IPresenterMedicineIntervalAdd.class, this);
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__medicine_interval_add, pContainer, false);
         return rootView;
@@ -68,8 +74,6 @@ public class ScreenMedicineIntervalAdd extends Screen implements IViewMedicineIn
                 ScreenMedicineIntervalAdd.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterMedicineIntervalAdd)PresenterFactory.createPresenter(IPresenterMedicineIntervalAdd.class, this);
     }
 
     @Override

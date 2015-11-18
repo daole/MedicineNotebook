@@ -24,6 +24,14 @@ public class ScreenMedicineIntervalList extends ScreenEntry implements IViewMedi
 
     private IPresenterMedicineIntervalList mPresenter;
 
+    private ListAdapter mAdapter;
+
+    @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterMedicineIntervalList)PresenterFactory.createPresenter(IPresenterMedicineIntervalList.class, this);
+    }
+
     @Override
     public void createOptionsMenu(Menu pMenu, MenuInflater pInflater) {
         pInflater.inflate(R.menu.menu__add_delete, pMenu);
@@ -60,14 +68,13 @@ public class ScreenMedicineIntervalList extends ScreenEntry implements IViewMedi
     @Override
     protected void mapInformationToScreenItems(View pView) {
         this.mListView.setEmptyView(this.mLblEmpty);
+        this.mListView.setAdapter(this.mAdapter);
         this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
                 ScreenMedicineIntervalList.this.listItemClick(pRowId);
             }
         });
-
-        this.mPresenter = (IPresenterMedicineIntervalList)PresenterFactory.createPresenter(IPresenterMedicineIntervalList.class, this);
     }
 
     @Override
@@ -82,7 +89,7 @@ public class ScreenMedicineIntervalList extends ScreenEntry implements IViewMedi
 
     @Override
     public void setAdapter(ListAdapter pAdapter) {
-        this.mListView.setAdapter(pAdapter);
+        this.mAdapter = pAdapter;
     }
 
     private void optionAddSelected() {

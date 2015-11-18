@@ -43,6 +43,12 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
     private IPresenterCamera mPresenter;
 
     @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterCamera)PresenterFactory.createPresenter(IPresenterCamera.class, this);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
@@ -113,8 +119,6 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
                 ScreenCamera.this.handleOrientation(pOrientation);
             }
         };
-
-        this.mPresenter = (IPresenterCamera)PresenterFactory.createPresenter(IPresenterCamera.class, this);
     }
 
     @Override

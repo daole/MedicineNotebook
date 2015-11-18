@@ -25,11 +25,19 @@ public class ScreenMedicineIntervalEdit extends Screen implements IViewMedicineI
     private IPresenterMedicineIntervalEdit mPresenter;
 
     private long mRowId;
+    private MedicineInterval mModel;
 
     @Override
     public boolean onBackPressed() {
         this.buttonBackClick();
         return true;
+    }
+
+    @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterMedicineIntervalEdit)PresenterFactory.createPresenter(IPresenterMedicineIntervalEdit.class, this);
+        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -64,6 +72,8 @@ public class ScreenMedicineIntervalEdit extends Screen implements IViewMedicineI
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
+        this.bindModelData(this.mModel);
+
         this.mTxtMedicineIntervalValue.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView pTextView, int pActionId, KeyEvent pEvent) {
@@ -87,9 +97,6 @@ public class ScreenMedicineIntervalEdit extends Screen implements IViewMedicineI
                 ScreenMedicineIntervalEdit.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterMedicineIntervalEdit)PresenterFactory.createPresenter(IPresenterMedicineIntervalEdit.class, this);
-        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -99,8 +106,7 @@ public class ScreenMedicineIntervalEdit extends Screen implements IViewMedicineI
 
     @Override
     public void bindData(MedicineInterval pModel) {
-        this.mTxtMedicineIntervalName.setText(pModel.getMedicineIntervalName());
-        this.mTxtMedicineIntervalValue.setText(Integer.toString(pModel.getMedicineIntervalValue()));
+        this.mModel = pModel;
     }
 
     private void buttonEditClick() {
@@ -111,5 +117,10 @@ public class ScreenMedicineIntervalEdit extends Screen implements IViewMedicineI
 
     private void buttonBackClick() {
         this.mScreenActionsListener.onBack();
+    }
+
+    private void bindModelData(MedicineInterval pModel) {
+        this.mTxtMedicineIntervalName.setText(pModel.getMedicineIntervalName());
+        this.mTxtMedicineIntervalValue.setText(Integer.toString(pModel.getMedicineIntervalValue()));
     }
 }

@@ -24,6 +24,14 @@ public class ScreenPrescriptionList extends ScreenEntry implements IViewPrescrip
 
     private IPresenterPrescriptionList mPresenter;
 
+    private ListAdapter mAdapter;
+
+    @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterPrescriptionList)PresenterFactory.createPresenter(IPresenterPrescriptionList.class, this);
+    }
+
     @Override
     public void createOptionsMenu(Menu pMenu, MenuInflater pInflater) {
         pInflater.inflate(R.menu.menu__add_delete, pMenu);
@@ -60,14 +68,13 @@ public class ScreenPrescriptionList extends ScreenEntry implements IViewPrescrip
     @Override
     protected void mapInformationToScreenItems(View pView) {
         this.mListView.setEmptyView(this.mLblEmpty);
+        this.mListView.setAdapter(this.mAdapter);
         this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
                 ScreenPrescriptionList.this.listItemClick(pRowId);
             }
         });
-
-        this.mPresenter = (IPresenterPrescriptionList)PresenterFactory.createPresenter(IPresenterPrescriptionList.class, this);
     }
 
     @Override
@@ -82,7 +89,7 @@ public class ScreenPrescriptionList extends ScreenEntry implements IViewPrescrip
 
     @Override
     public void setAdapter(ListAdapter pAdapter) {
-        this.mListView.setAdapter(pAdapter);
+        this.mAdapter = pAdapter;
     }
 
     private void optionAddSelected() {

@@ -34,6 +34,17 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
     private IPresenterAlarm mPresenter;
 
     private long mRowId;
+    private AlarmExtended mModel;
+
+    @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterAlarm)PresenterFactory.createPresenter(IPresenterAlarm.class, this);
+        this.mPresenter.select(this.mRowId);
+        if(!this.mStateChecker.isRecreated()) {
+            this.mPresenter.setAlarmDone(this.mRowId);
+        }
+    }
 
     @Override
     public void onResume() {
@@ -75,6 +86,8 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
+        this.bindModelData(this.mModel);
+
         this.mListView.setEmptyView(this.mLblEmpty);
 
         this.mBtnOK.setOnClickListener(new View.OnClickListener() {
@@ -83,13 +96,6 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
                 ScreenAlarm.this.buttonOKClick();
             }
         });
-
-        this.mPresenter = (IPresenterAlarm)PresenterFactory.createPresenter(IPresenterAlarm.class, this);
-        this.mPresenter.select(this.mRowId);
-
-        if(!this.mStateChecker.isRecreated()) {
-            this.mPresenter.setAlarmDone(this.mRowId);
-        }
     }
 
     @Override
@@ -106,6 +112,15 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
 
     @Override
     public void bindData(AlarmExtended pModel) {
+        this.mModel = pModel;
+    }
+
+    @Override
+    public Bitmap loadBitmap(String pFilePath, int pWidth, int pHeight) {
+        return this.mPresenter.loadImage(pFilePath, pWidth, pHeight);
+    }
+
+    private void bindModelData(AlarmExtended pModel) {
         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this.getContext());
         GregorianCalendar gregorianCalendar = new GregorianCalendar(pModel.getAlarmYear(),
                 pModel.getAlarmMonth(),
@@ -126,10 +141,5 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
         AdapterTakenMedicineDetails adapter = new AdapterTakenMedicineDetails(this.getContext(), pModel.getSchedule().getTakenMedicines(), this);
         adapter.setListView(this.mListView);
         this.mListView.setAdapter(adapter);
-    }
-
-    @Override
-    public Bitmap loadBitmap(String pFilePath, int pWidth, int pHeight) {
-        return this.mPresenter.loadImage(pFilePath, pWidth, pHeight);
     }
 }

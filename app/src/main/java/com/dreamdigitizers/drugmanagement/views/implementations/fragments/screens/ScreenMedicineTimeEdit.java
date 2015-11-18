@@ -33,11 +33,19 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
     private IPresenterMedicineTimeEdit mPresenter;
 
     private long mRowId;
+    private MedicineTime mModel;
 
     @Override
     public boolean onBackPressed() {
         this.buttonBackClick();
         return true;
+    }
+
+    @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterMedicineTimeEdit)PresenterFactory.createPresenter(IPresenterMedicineTimeEdit.class, this);
+        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -73,6 +81,8 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
+        this.bindModelData(this.mModel);
+
         this.mAdapter = new AdapterTimeValue(this.getContext());
         this.mAdapter.setListView(this.mListView);
         this.mListView.setAdapter(this.mAdapter);
@@ -97,9 +107,6 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
                 ScreenMedicineTimeEdit.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterMedicineTimeEdit)PresenterFactory.createPresenter(IPresenterMedicineTimeEdit.class, this);
-        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -109,8 +116,7 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
 
     @Override
     public void bindData(MedicineTime pModel) {
-        this.mTxtMedicineTimeName.setText(pModel.getMedicineTimeName());
-        this.mAdapter.addItems(pModel.getMedicineTimeValues());
+        this.mModel = pModel;
     }
 
     private void buttonAddTimeValueClick() {
@@ -138,5 +144,10 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
 
     private void buttonBackClick() {
         this.mScreenActionsListener.onBack();
+    }
+
+    private void bindModelData(MedicineTime pModel) {
+        this.mTxtMedicineTimeName.setText(pModel.getMedicineTimeName());
+        this.mAdapter.addItems(pModel.getMedicineTimeValues());
     }
 }

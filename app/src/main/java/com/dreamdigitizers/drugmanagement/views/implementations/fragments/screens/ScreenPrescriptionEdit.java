@@ -51,6 +51,8 @@ public class ScreenPrescriptionEdit extends Screen implements IViewPrescriptionE
     private long mFamilyMemberId;
     private String mPrescriptionPictureFilePath;
     private String mOldPrescriptionPictureFilePath;
+    private SpinnerAdapter mAdapter;
+    private PrescriptionExtended mModel;
 
     @Override
     public boolean onBackPressed() {
@@ -59,12 +61,17 @@ public class ScreenPrescriptionEdit extends Screen implements IViewPrescriptionE
     }
 
     @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterPrescriptionEdit)PresenterFactory.createPresenter(IPresenterPrescriptionEdit.class, this);
+        this.mPresenter.select(this.mRowId);
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
         pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
-        pOutState.putLong(Screen.BUNDLE_KEY__FAMILY_MEMBER_ID, this.mFamilyMemberId);
         pOutState.putString(Screen.BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH, this.mPrescriptionPictureFilePath);
-        pOutState.putString(Screen.BUNDLE_KEY__OLD_PRESCRIPTION_PICTURE_FILE_PATH, this.mOldPrescriptionPictureFilePath);
     }
 
     @Override
@@ -75,9 +82,7 @@ public class ScreenPrescriptionEdit extends Screen implements IViewPrescriptionE
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
         this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
-        this.mFamilyMemberId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__FAMILY_MEMBER_ID);
         this.mPrescriptionPictureFilePath = pSavedInstanceState.getString(Screen.BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH);
-        this.mOldPrescriptionPictureFilePath = pSavedInstanceState.getString(Screen.BUNDLE_KEY__OLD_PRESCRIPTION_PICTURE_FILE_PATH);
     }
 
     @Override
@@ -121,15 +126,20 @@ public class ScreenPrescriptionEdit extends Screen implements IViewPrescriptionE
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
-        pView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @SuppressWarnings("deprecation")
-            @Override
-            public void onGlobalLayout() {
-                ScreenPrescriptionEdit.this.loadPrescriptionPicture();
-                ScreenPrescriptionEdit.this.getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
-            }
-        });
+        this.bindModelData(this.mModel);
 
+        if(!TextUtils.isEmpty(this.mPrescriptionPictureFilePath)) {
+            pView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @SuppressWarnings("deprecation")
+                @Override
+                public void onGlobalLayout() {
+                    ScreenPrescriptionEdit.this.loadPrescriptionPicture();
+                    ScreenPrescriptionEdit.this.getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+            });
+        }
+
+        this.mSelFamilyMembers.setAdapter(this.mAdapter);
         this.mSelFamilyMembers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
@@ -183,9 +193,6 @@ public class ScreenPrescriptionEdit extends Screen implements IViewPrescriptionE
                 ScreenPrescriptionEdit.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterPrescriptionEdit)PresenterFactory.createPresenter(IPresenterPrescriptionEdit.class, this);
-        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -195,13 +202,7 @@ public class ScreenPrescriptionEdit extends Screen implements IViewPrescriptionE
 
     @Override
     public void bindData(PrescriptionExtended pModel) {
-        this.mTxtPrescriptionName.setText(pModel.getPrescriptionName());
-        this.mLblPrescriptionDateValue.setText(pModel.getPrescriptionDate());
-        this.bindFamilyMemberId(pModel.getFamilyMemberId());
-        this.mOldPrescriptionPictureFilePath = pModel.getImagePath();
-        this.mPrescriptionPictureFilePath = this.mOldPrescriptionPictureFilePath;
-        this.loadPrescriptionPicture();
-        this.mTxtPrescriptionNote.setText(pModel.getPrescriptionNote());
+        this.mModel = pModel;
     }
 
     @Override
@@ -211,7 +212,14 @@ public class ScreenPrescriptionEdit extends Screen implements IViewPrescriptionE
 
     @Override
     public void setAdapter(SpinnerAdapter pAdapter) {
-        this.mSelFamilyMembers.setAdapter(pAdapter);
+        this.mAdapter = pAdapter;
+    }
+
+    @Override
+    public void onFamilyMemberDataLoaded() {
+        if(this.mSelFamilyMembers != null) {
+            this.bindFamilyMemberId(this.mModel.getFamilyMemberId());
+        }
     }
 
     @Override
@@ -302,5 +310,16 @@ public class ScreenPrescriptionEdit extends Screen implements IViewPrescriptionE
     private void goToFamilyMemberAddScreen() {
         Screen screen = new ScreenFamilyMemberAdd();
         this.mScreenActionsListener.onChangeScreen(screen);
+    }
+
+    public void bindModelData(PrescriptionExtended pModel) {
+        this.mTxtPrescriptionName.setText(pModel.getPrescriptionName());
+        this.mLblPrescriptionDateValue.setText(pModel.getPrescriptionDate());
+        this.bindFamilyMemberId(pModel.getFamilyMemberId());
+        this.mOldPrescriptionPictureFilePath = pModel.getImagePath();
+        if(TextUtils.isEmpty(this.mPrescriptionPictureFilePath)) {
+            this.mPrescriptionPictureFilePath = this.mOldPrescriptionPictureFilePath;
+        }
+        this.mTxtPrescriptionNote.setText(pModel.getPrescriptionNote());
     }
 }

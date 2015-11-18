@@ -1,6 +1,7 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,12 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
     public boolean onBackPressed() {
         this.buttonBackClick();
         return true;
+    }
+
+    @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterMedicineTimeAdd)PresenterFactory.createPresenter(IPresenterMedicineTimeAdd.class, this);
     }
 
     @Override
@@ -77,8 +84,6 @@ public class ScreenMedicineTimeAdd extends Screen implements IViewMedicineTimeAd
                 ScreenMedicineTimeAdd.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterMedicineTimeAdd)PresenterFactory.createPresenter(IPresenterMedicineTimeAdd.class, this);
     }
 
     @Override

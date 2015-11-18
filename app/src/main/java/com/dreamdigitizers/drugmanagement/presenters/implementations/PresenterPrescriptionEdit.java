@@ -29,9 +29,7 @@ import java.util.List;
 class PresenterPrescriptionEdit implements IPresenterPrescriptionEdit {
     private IViewPrescriptionEdit mView;
     private SimpleCursorAdapter mAdapter;
-    private PrescriptionExtended mModel;
-    private boolean mIsFamilyMembersDataRetrieved;
-    private boolean mIsDataBound;
+    private boolean mIsFamilyMemberDataLoaded;
 
     public PresenterPrescriptionEdit(IViewPrescriptionEdit pView) {
         this.mView = pView;
@@ -61,11 +59,8 @@ class PresenterPrescriptionEdit implements IPresenterPrescriptionEdit {
         if (cursor != null) {
             List<PrescriptionExtended> list = PrescriptionExtended.fetchExtendedData(cursor);
             if(list.size() > 0) {
-                this.mModel = list.get(0);
-                if(this.mIsFamilyMembersDataRetrieved) {
-                    this.mIsDataBound = true;
-                    this.mView.bindData(this.mModel);
-                }
+                PrescriptionExtended model = list.get(0);
+                this.mView.bindData(model);
             }
             cursor.close();
         }
@@ -117,10 +112,9 @@ class PresenterPrescriptionEdit implements IPresenterPrescriptionEdit {
         Cursor cursor = new MergeCursor(new Cursor[]{extras, pData});
         this.mAdapter.swapCursor(cursor);
 
-        this.mIsFamilyMembersDataRetrieved = true;
-        if(!mIsDataBound && this.mModel != null) {
-            this.mIsDataBound = true;
-            this.mView.bindData(this.mModel);
+        if(!this.mIsFamilyMemberDataLoaded) {
+            this.mIsFamilyMemberDataLoaded = true;
+            this.mView.onFamilyMemberDataLoaded();
         }
     }
 

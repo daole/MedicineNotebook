@@ -67,15 +67,15 @@ public class FileUtils {
     }
 
     private static int calculateInSampleSize(BitmapFactory.Options pOptions, int pWidth, int pHeight) {
-        int height = pOptions.outHeight;
         int width = pOptions.outWidth;
+        int height = pOptions.outHeight;
         int inSampleSize = 1;
 
-        if (height > pHeight || width > pWidth) {
-            int halfHeight = height / 2;
+        if (width > pWidth || height > pHeight) {
             int halfWidth = width / 2;
+            int halfHeight = height / 2;
 
-            while ((halfHeight / inSampleSize) > pHeight && (halfWidth / inSampleSize) > pWidth) {
+            while ((halfWidth / inSampleSize) >= pWidth && (halfHeight / inSampleSize) >= pHeight) {
                 inSampleSize *= 2;
             }
         }

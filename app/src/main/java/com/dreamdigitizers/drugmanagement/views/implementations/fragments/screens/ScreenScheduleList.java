@@ -28,6 +28,15 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
 
     private IPresenterScheduleList mPresenter;
 
+    private String mSelectionDate;
+    private ListAdapter mAdapter;
+
+    @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterScheduleList)PresenterFactory.createPresenter(IPresenterScheduleList.class, this);
+    }
+
     @Override
     public void createOptionsMenu(Menu pMenu, MenuInflater pInflater) {
         pInflater.inflate(R.menu.menu__add_delete, pMenu);
@@ -62,12 +71,6 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
         this.mBtnNext = (ImageButton)pView.findViewById(R.id.btnNext);
         this.mListView = (ListView)pView.findViewById(R.id.lstSchedules);
         this.mLblEmpty = (TextView)pView.findViewById(R.id.lblEmpty);
-        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
-                ScreenScheduleList.this.listItemClick(pRowId);
-            }
-        });
     }
 
     @Override
@@ -86,9 +89,16 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
             }
         });
 
-        this.mListView.setEmptyView(this.mLblEmpty);
+        this.bindSelectionDate(this.mSelectionDate);
 
-        this.mPresenter = (IPresenterScheduleList)PresenterFactory.createPresenter(IPresenterScheduleList.class, this);
+        this.mListView.setEmptyView(this.mLblEmpty);
+        this.mListView.setAdapter(this.mAdapter);
+        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
+                ScreenScheduleList.this.listItemClick(pRowId);
+            }
+        });
     }
 
     @Override
@@ -103,12 +113,16 @@ public class ScreenScheduleList extends ScreenEntry implements IViewScheduleList
 
     @Override
     public void setAdapter(ListAdapter pAdapter) {
-        this.mListView.setAdapter(pAdapter);
+        this.mAdapter = pAdapter;
     }
 
     @Override
     public void bindSelectionDate(String pSelectionDate) {
-        this.mLblDate.setText(pSelectionDate);
+        if(this.mLblDate == null) {
+            this.mSelectionDate = pSelectionDate;
+        } else {
+            this.mLblDate.setText(pSelectionDate);
+        }
     }
 
     private void optionAddSelected() {

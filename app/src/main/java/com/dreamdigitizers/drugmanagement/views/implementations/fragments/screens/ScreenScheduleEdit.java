@@ -18,7 +18,6 @@ import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.models.AlarmExtended;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleEdit;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
-import com.dreamdigitizers.drugmanagement.utils.FileUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleEdit;
 import com.dreamdigitizers.drugmanagement.views.implementations.adapters.AdapterTakenMedicineDetails;
 
@@ -40,11 +39,19 @@ public class ScreenScheduleEdit extends Screen implements IViewScheduleEdit, Ada
     private IPresenterScheduleEdit mPresenter;
 
     private long mRowId;
+    private AlarmExtended mModel;
 
     @Override
     public boolean onBackPressed() {
         this.buttonBackClick();
         return true;
+    }
+
+    @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterScheduleEdit)PresenterFactory.createPresenter(IPresenterScheduleEdit.class, this);
+        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -85,15 +92,14 @@ public class ScreenScheduleEdit extends Screen implements IViewScheduleEdit, Ada
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
+        this.bindModelData(this.mModel);
+
         this.mBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View pView) {
                 ScreenScheduleEdit.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterScheduleEdit)PresenterFactory.createPresenter(IPresenterScheduleEdit.class, this);
-        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -103,6 +109,23 @@ public class ScreenScheduleEdit extends Screen implements IViewScheduleEdit, Ada
 
     @Override
     public void bindData(AlarmExtended pModel) {
+        this.mModel = pModel;
+    }
+
+    @Override
+    public Bitmap loadBitmap(String pFilePath, int pWidth, int pHeight) {
+        return this.mPresenter.loadImage(pFilePath, pWidth, pHeight);
+    }
+
+    private void buttonBackClick() {
+        this.mScreenActionsListener.onBack();
+    }
+
+    private void checkBoxAlarmCheckChanged(boolean pIsChecked) {
+        this.mPresenter.changeAlarmStatus(pIsChecked);
+    }
+
+    public void bindModelData(AlarmExtended pModel) {
         String familyMemberName = pModel.getSchedule().getFamilyMember().getFamilyMemberName();
         if(TextUtils.isEmpty(familyMemberName)) {
             familyMemberName = pModel.getSchedule().getFallbackFamilyMemberName();
@@ -151,18 +174,5 @@ public class ScreenScheduleEdit extends Screen implements IViewScheduleEdit, Ada
         this.mLblTimesValue.setText(Integer.toString(pModel.getSchedule().getTimes()));
 
         this.mLblScheduleNoteValue.setText(pModel.getSchedule().getScheduleNote());
-    }
-
-    @Override
-    public Bitmap loadBitmap(String pFilePath, int pWidth, int pHeight) {
-        return this.mPresenter.loadImage(pFilePath, pWidth, pHeight);
-    }
-
-    private void buttonBackClick() {
-        this.mScreenActionsListener.onBack();
-    }
-
-    private void checkBoxAlarmCheckChanged(boolean pIsChecked) {
-        this.mPresenter.changeAlarmStatus(pIsChecked);
     }
 }

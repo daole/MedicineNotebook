@@ -44,6 +44,8 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
     private long mMedicineCategoryId;
     private String mMedicinePictureFilePath;
     private String mOldMedicinePictureFilePath;
+    private Medicine mModel;
+    private SpinnerAdapter mAdapter;
 
     @Override
     public boolean onBackPressed() {
@@ -52,12 +54,17 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
     }
 
     @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterMedicineEdit)PresenterFactory.createPresenter(IPresenterMedicineEdit.class, this);
+        this.mPresenter.select(this.mRowId);
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
         pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
-        pOutState.putLong(Screen.BUNDLE_KEY__MEDICINE_CATEGORY_ID, this.mMedicineCategoryId);
         pOutState.putString(Screen.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH, this.mMedicinePictureFilePath);
-        pOutState.putString(Screen.BUNDLE_KEY__OLD_MEDICINE_PICTURE_FILE_PATH, this.mOldMedicinePictureFilePath);
     }
 
     @Override
@@ -68,9 +75,7 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
         this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
-        this.mMedicineCategoryId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__MEDICINE_CATEGORY_ID);
         this.mMedicinePictureFilePath = pSavedInstanceState.getString(Screen.BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH);
-        this.mOldMedicinePictureFilePath = pSavedInstanceState.getString(Screen.BUNDLE_KEY__OLD_MEDICINE_PICTURE_FILE_PATH);
     }
 
     @Override
@@ -112,15 +117,20 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
-        pView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @SuppressWarnings("deprecation")
-            @Override
-            public void onGlobalLayout() {
-                ScreenMedicineEdit.this.loadMedicinePicture();
-                ScreenMedicineEdit.this.getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
-            }
-        });
+        this.bindModelData(this.mModel);
 
+        if(!TextUtils.isEmpty(this.mMedicinePictureFilePath)) {
+            pView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @SuppressWarnings("deprecation")
+                @Override
+                public void onGlobalLayout() {
+                    ScreenMedicineEdit.this.loadMedicinePicture();
+                    ScreenMedicineEdit.this.getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+            });
+        }
+
+        this.mSelMedicineCategories.setAdapter(this.mAdapter);
         this.mSelMedicineCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
@@ -167,9 +177,6 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
                 ScreenMedicineEdit.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterMedicineEdit)PresenterFactory.createPresenter(IPresenterMedicineEdit.class, this);
-        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -179,12 +186,7 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
 
     @Override
     public void bindData(Medicine pModel) {
-        this.mTxtMedicineName.setText(pModel.getMedicineName());
-        this.bindMedicineCategoryId(pModel.getMedicineCategoryId());
-        this.mOldMedicinePictureFilePath = pModel.getMedicineImagePath();
-        this.mMedicinePictureFilePath = this.mOldMedicinePictureFilePath;
-        this.loadMedicinePicture();
-        this.mTxtMedicineNote.setText(pModel.getMedicineNote());
+        this.mModel = pModel;
     }
 
     @Override
@@ -194,7 +196,14 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
 
     @Override
     public void setAdapter(SpinnerAdapter pAdapter) {
-        this.mSelMedicineCategories.setAdapter(pAdapter);
+        this.mAdapter = pAdapter;
+    }
+
+    @Override
+    public void onMedicineCategoryDataLoaded() {
+        if(this.mSelMedicineCategories != null) {
+            this.bindMedicineCategoryId(this.mModel.getMedicineCategoryId());
+        }
     }
 
     @Override
@@ -267,5 +276,15 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
     private void goToMedicineCategoryAddScreen() {
         Screen screen = new ScreenMedicineCategoryAdd();
         this.mScreenActionsListener.onChangeScreen(screen);
+    }
+
+    private void bindModelData(Medicine pModel) {
+        this.mTxtMedicineName.setText(pModel.getMedicineName());
+        this.bindMedicineCategoryId(pModel.getMedicineCategoryId());
+        this.mOldMedicinePictureFilePath = pModel.getMedicineImagePath();
+        if(TextUtils.isEmpty(this.mMedicinePictureFilePath)) {
+            this.mMedicinePictureFilePath = this.mOldMedicinePictureFilePath;
+        }
+        this.mTxtMedicineNote.setText(pModel.getMedicineNote());
     }
 }

@@ -30,6 +30,7 @@
                 android:id="@+id/lblPrescriptionDateValue"
                 android:layout_toLeftOf="@+id/btnSelectPrescriptionDate"
                 android:layout_toRightOf="@id/lblPrescriptionDate"
+                android:layout_centerVertical="true"
                 style="@style/TextView"/>
 
             <ImageButton

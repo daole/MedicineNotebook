@@ -53,8 +53,12 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     private Button mBtnAdd;
 
     private IPresenterScheduleAdd mPresenter;
-    //private SpinnerAdapter mMedicineAdapter;
+
     private AdapterTakenMedicine mAdapter;
+    private SpinnerAdapter mFamilyMemberAdapter;
+    //private SpinnerAdapter mMedicineAdapter;
+    private SpinnerAdapter mMedicineTimeAdapter;
+    private SpinnerAdapter mMedicineIntervalAdapter;
 
     private FamilyMember mFamilyMember;
     private MedicineTime mMedicineTime;
@@ -75,6 +79,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
         if(this.mAdapterData != null) {
             this.mAdapter.addItems(this.mAdapterData);
         }
+        this.mPresenter = (IPresenterScheduleAdd)PresenterFactory.createPresenter(IPresenterScheduleAdd.class, this);
     }
 
     @Override
@@ -119,6 +124,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
         this.mAdapter.setListView(this.mListView);
         this.mListView.setAdapter(this.mAdapter);
 
+        this.mSelFamilyMembers.setAdapter(this.mFamilyMemberAdapter);
         this.mSelFamilyMembers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
@@ -131,6 +137,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
             }
         });
 
+        this.mSelMedicineTimes.setAdapter(this.mMedicineTimeAdapter);
         this.mSelMedicineTimes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
@@ -143,6 +150,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
             }
         });
 
+        this.mSelMedicineIntervals.setAdapter(this.mMedicineIntervalAdapter);
         this.mSelMedicineIntervals.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
@@ -203,8 +211,6 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
                 ScreenScheduleAdd.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterScheduleAdd)PresenterFactory.createPresenter(IPresenterScheduleAdd.class, this);
     }
 
     @Override
@@ -231,7 +237,7 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
 
     @Override
     public void setFamilyMemberAdapter(SpinnerAdapter pAdapter) {
-        this.mSelFamilyMembers.setAdapter(pAdapter);
+        this.mFamilyMemberAdapter = pAdapter;
     }
 
     /*
@@ -243,12 +249,12 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
 
     @Override
     public void setMedicineTimeAdapter(SpinnerAdapter pAdapter) {
-        this.mSelMedicineTimes.setAdapter(pAdapter);
+        this.mMedicineTimeAdapter = pAdapter;
     }
 
     @Override
     public void setMedicineIntervalAdapter(SpinnerAdapter pAdapter) {
-        this.mSelMedicineIntervals.setAdapter(pAdapter);
+        this.mMedicineIntervalAdapter = pAdapter;
     }
 
     private void selectFamilyMember(int pPosition, long pRowId) {

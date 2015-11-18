@@ -24,11 +24,19 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
     private IPresenterFamilyMemberEdit mPresenter;
 
     private long mRowId;
+    private FamilyMember mModel;
 
     @Override
     public boolean onBackPressed() {
         this.buttonBackClick();
         return true;
+    }
+
+    @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterFamilyMemberEdit)PresenterFactory.createPresenter(IPresenterFamilyMemberEdit.class, this);
+        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -62,6 +70,8 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
+        this.bindModelData(this.mModel);
+
         this.mTxtFamilyMemberName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView pTextView, int pActionId, KeyEvent pEvent) {
@@ -85,9 +95,6 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
                 ScreenFamilyMemberEdit.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterFamilyMemberEdit)PresenterFactory.createPresenter(IPresenterFamilyMemberEdit.class, this);
-        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -97,7 +104,7 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
 
     @Override
     public void bindData(FamilyMember pModel) {
-        this.mTxtFamilyMemberName.setText(pModel.getFamilyMemberName());
+        this.mModel = pModel;
     }
 
     private void buttonEditClick() {
@@ -107,5 +114,9 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
 
     private void buttonBackClick() {
         this.mScreenActionsListener.onBack();
+    }
+
+    private void bindModelData(FamilyMember pModel) {
+        this.mTxtFamilyMemberName.setText(pModel.getFamilyMemberName());
     }
 }

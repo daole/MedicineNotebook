@@ -29,9 +29,7 @@ import java.util.List;
 class PresenterMedicineEdit implements IPresenterMedicineEdit {
     private IViewMedicineEdit mView;
     private SimpleCursorAdapter mAdapter;
-    private Medicine mModel;
-    private boolean mIsMedicineCategoriesDataRetrieved;
-    private boolean mIsDataBound;
+    private boolean mIsMedicineCategoryDataLoaded;
 
     public PresenterMedicineEdit(IViewMedicineEdit pView) {
         this.mView = pView;
@@ -61,11 +59,8 @@ class PresenterMedicineEdit implements IPresenterMedicineEdit {
         if (cursor != null) {
             List<Medicine> list = Medicine.fetchData(cursor);
             if(list.size() > 0) {
-                this.mModel = list.get(0);
-                if(this.mIsMedicineCategoriesDataRetrieved) {
-                    this.mIsDataBound = true;
-                    this.mView.bindData(this.mModel);
-                }
+                Medicine model = list.get(0);
+                this.mView.bindData(model);
             }
             cursor.close();
         }
@@ -117,10 +112,9 @@ class PresenterMedicineEdit implements IPresenterMedicineEdit {
         Cursor cursor = new MergeCursor(new Cursor[]{extras, pData});
         this.mAdapter.swapCursor(cursor);
 
-        this.mIsMedicineCategoriesDataRetrieved = true;
-        if(!mIsDataBound && this.mModel != null) {
-            this.mIsDataBound = true;
-            this.mView.bindData(this.mModel);
+        if(!this.mIsMedicineCategoryDataLoaded) {
+            this.mIsMedicineCategoryDataLoaded = true;
+            this.mView.onMedicineCategoryDataLoaded();
         }
     }
 

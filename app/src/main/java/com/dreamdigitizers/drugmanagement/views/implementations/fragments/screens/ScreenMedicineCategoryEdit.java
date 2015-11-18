@@ -25,11 +25,19 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
     private IPresenterMedicineCategoryEdit mPresenter;
 
     private long mRowId;
+    private MedicineCategory mModel;
 
     @Override
     public boolean onBackPressed() {
         this.buttonBackClick();
         return true;
+    }
+
+    @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterMedicineCategoryEdit)PresenterFactory.createPresenter(IPresenterMedicineCategoryEdit.class, this);
+        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -64,6 +72,8 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
+        this.bindModelData(this.mModel);
+
         this.mTxtMedicineCategoryNote.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView pTextView, int pActionId, KeyEvent pEvent) {
@@ -87,9 +97,6 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
                 ScreenMedicineCategoryEdit.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterMedicineCategoryEdit)PresenterFactory.createPresenter(IPresenterMedicineCategoryEdit.class, this);
-        this.mPresenter.select(this.mRowId);
     }
 
     @Override
@@ -99,8 +106,7 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
 
     @Override
     public void bindData(MedicineCategory pModel) {
-        this.mTxtMedicineCategoryName.setText(pModel.getMedicineCategoryName());
-        this.mTxtMedicineCategoryNote.setText(pModel.getMedicineCategoryNote());
+        this.mModel = pModel;
     }
 
     private void buttonEditClick() {
@@ -111,5 +117,10 @@ public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineC
 
     private void buttonBackClick() {
         this.mScreenActionsListener.onBack();
+    }
+
+    private void bindModelData(MedicineCategory pModel) {
+        this.mTxtMedicineCategoryName.setText(pModel.getMedicineCategoryName());
+        this.mTxtMedicineCategoryNote.setText(pModel.getMedicineCategoryNote());
     }
 }

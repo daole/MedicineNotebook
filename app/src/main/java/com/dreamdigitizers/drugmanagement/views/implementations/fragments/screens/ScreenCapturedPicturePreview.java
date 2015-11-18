@@ -33,6 +33,12 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
     }
 
     @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterCapturedPicturePreview)PresenterFactory.createPresenter(IPresenterCapturedPicturePreview.class, this);
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
         pOutState.putString(Constants.BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH, this.mCapturedPictureFilePath);
@@ -95,8 +101,6 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
                 ScreenCapturedPicturePreview.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterCapturedPicturePreview) PresenterFactory.createPresenter(IPresenterCapturedPicturePreview.class, this);
     }
 
     @Override

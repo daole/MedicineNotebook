@@ -8,5 +8,6 @@ import com.dreamdigitizers.drugmanagement.data.models.PrescriptionExtended;
 public interface IViewPrescriptionEdit extends IViewEdit<PrescriptionExtended> {
     LoaderManager getViewLoaderManager();
     void setAdapter(SpinnerAdapter pAdapter);
+    void onFamilyMemberDataLoaded();
     void onDataEdited();
 }

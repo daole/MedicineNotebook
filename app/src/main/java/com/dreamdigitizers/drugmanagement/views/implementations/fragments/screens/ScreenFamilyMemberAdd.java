@@ -29,6 +29,12 @@ public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAd
     }
 
     @Override
+    public void onCreate(Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
+        this.mPresenter = (IPresenterFamilyMemberAdd)PresenterFactory.createPresenter(IPresenterFamilyMemberAdd.class, this);
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__family_member_add, pContainer, false);
         return rootView;
@@ -66,8 +72,6 @@ public class ScreenFamilyMemberAdd extends Screen implements IViewFamilyMemberAd
                 ScreenFamilyMemberAdd.this.buttonBackClick();
             }
         });
-
-        this.mPresenter = (IPresenterFamilyMemberAdd)PresenterFactory.createPresenter(IPresenterFamilyMemberAdd.class, this);
     }
 
     @Override
