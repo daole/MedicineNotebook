@@ -57,17 +57,17 @@ public class ScreenScheduleEdit extends Screen implements IViewScheduleEdit, Ada
     @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
-        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
+        pOutState.putLong(Constants.BUNDLE_KEY__ROW_ID, this.mRowId);
     }
 
     @Override
     protected void retrieveArguments(Bundle pArguments) {
-        this.mRowId = pArguments.getLong(Screen.BUNDLE_KEY__ROW_ID);
+        this.mRowId = pArguments.getLong(Constants.BUNDLE_KEY__ROW_ID);
     }
 
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
+        this.mRowId = pSavedInstanceState.getLong(Constants.BUNDLE_KEY__ROW_ID);
     }
 
     @Override

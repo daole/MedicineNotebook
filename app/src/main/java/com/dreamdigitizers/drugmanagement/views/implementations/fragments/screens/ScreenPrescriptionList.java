@@ -13,6 +13,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterPrescriptionList;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
@@ -111,7 +112,7 @@ public class ScreenPrescriptionList extends ScreenEntry implements IViewPrescrip
 
     private void goToEditScreen(long pRowId) {
         Bundle arguments = new Bundle();
-        arguments.putLong(Screen.BUNDLE_KEY__ROW_ID, pRowId);
+        arguments.putLong(Constants.BUNDLE_KEY__ROW_ID, pRowId);
         Screen screen = new ScreenPrescriptionEdit();
         screen.setArguments(arguments);
         this.mScreenActionsListener.onChangeScreen(screen);

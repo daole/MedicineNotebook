@@ -14,11 +14,6 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IView;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentBase;
 
 public abstract class Screen extends FragmentBase implements IView {
-	protected static final String BUNDLE_KEY__ROW_ID = "row_id";
-	protected static final String BUNDLE_KEY__ADAPTER_DATA = "adapter_data";
-	protected static final String BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH = "medicine_picture";
-	protected static final String BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH = "prescription_picture";
-
 	private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement IOnScreenActionsListener.";
 
 	protected boolean mIsRecoverable;

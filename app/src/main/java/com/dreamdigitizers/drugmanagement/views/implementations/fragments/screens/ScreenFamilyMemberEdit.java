@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.models.FamilyMember;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
@@ -42,17 +43,17 @@ public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberE
     @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
-        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
+        pOutState.putLong(Constants.BUNDLE_KEY__ROW_ID, this.mRowId);
     }
 
     @Override
     protected void retrieveArguments(Bundle pArguments) {
-        this.mRowId = pArguments.getLong(Screen.BUNDLE_KEY__ROW_ID);
+        this.mRowId = pArguments.getLong(Constants.BUNDLE_KEY__ROW_ID);
     }
 
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
+        this.mRowId = pSavedInstanceState.getLong(Constants.BUNDLE_KEY__ROW_ID);
     }
 
     @Override

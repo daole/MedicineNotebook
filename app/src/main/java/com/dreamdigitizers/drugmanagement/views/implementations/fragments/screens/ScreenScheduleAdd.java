@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.data.models.FamilyMember;
 import com.dreamdigitizers.drugmanagement.data.models.Medicine;
@@ -86,12 +87,12 @@ public class ScreenScheduleAdd extends Screen implements IViewScheduleAdd {
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
         ArrayMap<Long, TakenMedicine> adapterData = this.mAdapter.getData();
-        pOutState.putSerializable(Screen.BUNDLE_KEY__ADAPTER_DATA, adapterData.values().toArray());
+        pOutState.putSerializable(Constants.BUNDLE_KEY__ADAPTER_DATA, adapterData.values().toArray());
     }
 
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        this.mAdapterData = (TakenMedicine[])pSavedInstanceState.getSerializable(Screen.BUNDLE_KEY__ADAPTER_DATA);
+        this.mAdapterData = (TakenMedicine[])pSavedInstanceState.getSerializable(Constants.BUNDLE_KEY__ADAPTER_DATA);
     }
 
     @Override

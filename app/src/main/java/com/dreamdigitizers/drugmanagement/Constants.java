@@ -21,6 +21,9 @@ public class Constants {
     public static final String BUNDLE_KEY__IMAGE_TYPE = "image_type";
     public static final String BUNDLE_KEY__IS_CROPPED = "is_cropped";
     public static final String BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH = "captured_picture";
+    public static final String BUNDLE_KEY__ADAPTER_DATA = "adapter_data";
+    public static final String BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH = "medicine_picture";
+    public static final String BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH = "prescription_picture";
 
     public static final int IMAGE_TYPE__MEDICINE = 0;
     public static final int IMAGE_TYPE__PRESCRIPTION = 1;

@@ -70,19 +70,19 @@ public class ScreenPrescriptionEdit extends Screen implements IViewPrescriptionE
     @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
-        pOutState.putLong(Screen.BUNDLE_KEY__ROW_ID, this.mRowId);
-        pOutState.putString(Screen.BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH, this.mPrescriptionPictureFilePath);
+        pOutState.putLong(Constants.BUNDLE_KEY__ROW_ID, this.mRowId);
+        pOutState.putString(Constants.BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH, this.mPrescriptionPictureFilePath);
     }
 
     @Override
     protected void retrieveArguments(Bundle pArguments) {
-        this.mRowId = pArguments.getLong(Screen.BUNDLE_KEY__ROW_ID);
+        this.mRowId = pArguments.getLong(Constants.BUNDLE_KEY__ROW_ID);
     }
 
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        this.mRowId = pSavedInstanceState.getLong(Screen.BUNDLE_KEY__ROW_ID);
-        this.mPrescriptionPictureFilePath = pSavedInstanceState.getString(Screen.BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH);
+        this.mRowId = pSavedInstanceState.getLong(Constants.BUNDLE_KEY__ROW_ID);
+        this.mPrescriptionPictureFilePath = pSavedInstanceState.getString(Constants.BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH);
     }
 
     @Override

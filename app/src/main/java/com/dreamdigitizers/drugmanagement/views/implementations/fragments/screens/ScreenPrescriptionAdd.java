@@ -64,12 +64,12 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
     @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
-        pOutState.putString(Screen.BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH, this.mPrescriptionPictureFilePath);
+        pOutState.putString(Constants.BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH, this.mPrescriptionPictureFilePath);
     }
 
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        this.mPrescriptionPictureFilePath = pSavedInstanceState.getString(Screen.BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH);
+        this.mPrescriptionPictureFilePath = pSavedInstanceState.getString(Constants.BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH);
     }
 
     @Override
