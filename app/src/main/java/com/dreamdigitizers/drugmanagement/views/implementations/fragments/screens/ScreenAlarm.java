@@ -16,7 +16,6 @@ import com.dreamdigitizers.drugmanagement.data.models.AlarmExtended;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterAlarm;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.utils.AlarmUtils;
-import com.dreamdigitizers.drugmanagement.utils.FileUtils;
 import com.dreamdigitizers.drugmanagement.utils.SoundUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewAlarm;
 import com.dreamdigitizers.drugmanagement.views.implementations.adapters.AdapterTakenMedicineDetails;
@@ -54,7 +53,7 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
 
     @Override
     protected void handleExtras(Bundle pExtras) {
-        Bundle bundle = pExtras.getBundle(AlarmUtils.INTENT_EXTRA_KEY__ALARM_DATA);
+        Bundle bundle = pExtras.getBundle(AlarmUtils.INTENT_EXTRA_KEY__DATA);
         this.mRowId = bundle.getLong(Constants.BUNDLE_KEY__ROW_ID);
     }
 

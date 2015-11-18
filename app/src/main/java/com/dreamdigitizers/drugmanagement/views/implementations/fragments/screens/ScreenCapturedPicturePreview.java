@@ -22,6 +22,7 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
     private Button mBtnBack;
     private View mCovBottom;
 
+    private boolean mIsCropped;
     private String mCapturedPictureFilePath;
 
     private IPresenterCapturedPicturePreview mPresenter;
@@ -41,16 +42,19 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
     @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
+        pOutState.putBoolean(Constants.BUNDLE_KEY__IS_CROPPED, this.mIsCropped);
         pOutState.putString(Constants.BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH, this.mCapturedPictureFilePath);
     }
 
     @Override
     protected void retrieveArguments(Bundle pArguments) {
+        this.mIsCropped = pArguments.getBoolean(Constants.BUNDLE_KEY__IS_CROPPED);
         this.mCapturedPictureFilePath = pArguments.getString(Constants.BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH);
     }
 
     @Override
     protected void recoverInstanceState(Bundle pSavedInstanceState) {
+        this.mIsCropped = pSavedInstanceState.getBoolean(Constants.BUNDLE_KEY__IS_CROPPED);
         this.mCapturedPictureFilePath = pSavedInstanceState.getString(Constants.BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH);
     }
 
@@ -83,7 +87,9 @@ public class ScreenCapturedPicturePreview extends Screen implements IViewCapture
             @Override
             public void onGlobalLayout() {
                 ScreenCapturedPicturePreview.this.loadCapturedPicture();
-                ScreenCapturedPicturePreview.this.resizeCoverBottom();
+                if(ScreenCapturedPicturePreview.this.mIsCropped) {
+                    ScreenCapturedPicturePreview.this.resizeCoverBottom();
+                }
                 ScreenCapturedPicturePreview.this.getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         });

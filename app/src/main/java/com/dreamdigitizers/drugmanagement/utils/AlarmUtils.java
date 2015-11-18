@@ -8,16 +8,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class AlarmUtils {
-    public static final String INTENT_EXTRA_KEY__ALARM_DATA = "data";
+    public static final String INTENT_EXTRA_KEY__DATA = "extra";
 
     public static PendingIntent createPendingIntent(Context pContext, Class pActivityClass, int pId, int pFlag, Bundle pExtras) {
         Intent intent = new Intent(pActivityClass.getName());
         if(pExtras != null) {
-            intent.putExtra(AlarmUtils.INTENT_EXTRA_KEY__ALARM_DATA, pExtras);
+            intent.putExtra(AlarmUtils.INTENT_EXTRA_KEY__DATA, pExtras);
         }
         PendingIntent pendingIntent = PendingIntent.getActivity(pContext, pId, intent, pFlag);
         return pendingIntent;

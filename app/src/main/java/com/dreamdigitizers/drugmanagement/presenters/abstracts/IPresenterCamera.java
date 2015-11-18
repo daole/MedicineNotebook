@@ -1,5 +1,5 @@
 package com.dreamdigitizers.drugmanagement.presenters.abstracts;
 
 public interface IPresenterCamera extends IPresenter {
-    public void saveImage(byte[] pData, int pDegrees);
+    void saveImage(byte[] pData, int pDegrees, int pImageType, boolean pIsCropped);
 }

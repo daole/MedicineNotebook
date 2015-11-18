@@ -25,8 +25,21 @@ class PresenterCamera implements IPresenterCamera {
         this.mView = pView;
     }
 
-    public void saveImage(byte[] pData, int pDegrees) {
-        String fileName = new SimpleDateFormat(Constants.FORMAT__DATE_TIME_STRING).format(new Date()) + Constants.EXTENSION__JPG;
+    public void saveImage(byte[] pData, int pDegrees, int pImageType, boolean pIsCropped) {
+        String prefix = "";
+        switch (pImageType) {
+            case Constants.IMAGE_TYPE__MEDICINE:
+                prefix = Constants.PREFIX__MEDICINE;
+                break;
+            case Constants.IMAGE_TYPE__PRESCRIPTION:
+                prefix = Constants.PREFIX__PRESCRIPTION;
+                break;
+            default:
+                 break;
+        }
+        String fileName = prefix
+                + new SimpleDateFormat(Constants.FORMAT__DATE_TIME_STRING).format(new Date())
+                + Constants.EXTENSION__JPG;
         File file = FileUtils.getOutputMediaFile(Constants.FOLDER__IMAGE, fileName);
         if(file == null) {
             this.mView.showError(R.string.error__image_save_failed);
@@ -46,7 +59,7 @@ class PresenterCamera implements IPresenterCamera {
             Bitmap bitmap = BitmapFactory.decodeByteArray(pData, 0, pData.length, options);
 
             Bitmap rotatedBitmap = bitmap;
-            rotatedBitmap = this.rotateAndCropBitmap(bitmap, pDegrees);
+            rotatedBitmap = this.rotateAndCropBitmap(bitmap, pDegrees, pIsCropped);
 
             boolean result = rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 
@@ -75,15 +88,19 @@ class PresenterCamera implements IPresenterCamera {
         }
     }
 
-    private Bitmap rotateAndCropBitmap(Bitmap pBitmap, int pDegrees) {
+    private Bitmap rotateAndCropBitmap(Bitmap pBitmap, int pDegrees, boolean pIsCropped) {
         Matrix matrix = new Matrix();
         matrix.postRotate(pDegrees);
         int width = pBitmap.getWidth();
         int height = pBitmap.getHeight();
-        if (width >= height) {
-            return Bitmap.createBitmap(pBitmap, (width - height) / 2, 0, pBitmap.getHeight(), pBitmap.getHeight(), matrix, true);
+        if(pIsCropped) {
+            if (width >= height) {
+                return Bitmap.createBitmap(pBitmap, (width - height) / 2, 0, height, height, matrix, true);
+            } else {
+                return Bitmap.createBitmap(pBitmap, 0, (height - width) / 2, width, width, matrix, true);
+            }
         } else {
-            return Bitmap.createBitmap(pBitmap, 0, (height - width) / 2, pBitmap.getWidth(), pBitmap.getWidth(), matrix, true);
+            return Bitmap.createBitmap(pBitmap, 0, 0, width, height, matrix, true);
         }
     }
 }

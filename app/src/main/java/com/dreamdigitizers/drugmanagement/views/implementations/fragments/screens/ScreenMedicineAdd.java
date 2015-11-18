@@ -193,12 +193,16 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
     }
 
     private void medicinePictureClick() {
-        Intent intent = new Intent(this.getContext(), ActivityCamera.class);
-        this.startActivityForResult(intent, Constants.REQUEST_CODE__CAMERA);
+        //Intent intent = new Intent(this.getContext(), ActivityCamera.class);
+        //this.startActivityForResult(intent, Constants.REQUEST_CODE__CAMERA);
     }
 
     private void buttonAddImageClick() {
+        Bundle extras = new Bundle();
+        extras.putInt(Constants.BUNDLE_KEY__IMAGE_TYPE, Constants.IMAGE_TYPE__MEDICINE);
+        extras.putBoolean(Constants.BUNDLE_KEY__IS_CROPPED, true);
         Intent intent = new Intent(this.getContext(), ActivityCamera.class);
+        intent.putExtra(Constants.INTENT_EXTRA_KEY__DATA, extras);
         this.startActivityForResult(intent, Constants.REQUEST_CODE__CAMERA);
     }
 

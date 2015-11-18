@@ -12,8 +12,18 @@ public class Constants {
     public static final String FORMAT__DATE_TIME_STRING = "yyyyMMdd_HHmmss";
     public static final String FORMAT__TIME_VALUE = "%02d";
 
-    public static final String BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH = "captured_picture";
+    public static final String PREFIX__MEDICINE = "MED_";
+    public static final String PREFIX__PRESCRIPTION = "PRE_";
+
+    public static final String INTENT_EXTRA_KEY__DATA = "extra";
+
     public static final String BUNDLE_KEY__ROW_ID = "row_id";
+    public static final String BUNDLE_KEY__IMAGE_TYPE = "image_type";
+    public static final String BUNDLE_KEY__IS_CROPPED = "is_cropped";
+    public static final String BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH = "captured_picture";
+
+    public static final int IMAGE_TYPE__MEDICINE = 0;
+    public static final int IMAGE_TYPE__PRESCRIPTION = 1;
 
     public static final int ROW_ID__NO_SELECT = 0;
 

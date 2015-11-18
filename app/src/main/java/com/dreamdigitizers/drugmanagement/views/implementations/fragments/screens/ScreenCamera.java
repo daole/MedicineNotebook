@@ -36,11 +36,13 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
     private View mCovBottom;
     private CameraPreviewView mCameraPreviewView;
 
+    private IPresenterCamera mPresenter;
+
     private Camera mCamera;
     private OrientationEventListener mOrientationEventListener;
     private int mOrientation;
-
-    private IPresenterCamera mPresenter;
+    private int mImageType;
+    private boolean mIsCropped;
 
     @Override
     public void onCreate(Bundle pSavedInstanceState) {
@@ -79,6 +81,26 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
     }
 
     @Override
+    protected void handleExtras(Bundle pExtras) {
+        Bundle bundle = pExtras.getBundle(Constants.INTENT_EXTRA_KEY__DATA);
+        this.mImageType = bundle.getInt(Constants.BUNDLE_KEY__IMAGE_TYPE);
+        this.mIsCropped = bundle.getBoolean(Constants.BUNDLE_KEY__IS_CROPPED);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle pOutState) {
+        super.onSaveInstanceState(pOutState);
+        pOutState.putInt(Constants.BUNDLE_KEY__IMAGE_TYPE, this.mImageType);
+        pOutState.putBoolean(Constants.BUNDLE_KEY__IMAGE_TYPE, this.mIsCropped);
+    }
+
+    @Override
+    protected void recoverInstanceState(Bundle pSavedInstanceState) {
+        this.mImageType = pSavedInstanceState.getInt(Constants.BUNDLE_KEY__IMAGE_TYPE);
+        this.mIsCropped = pSavedInstanceState.getBoolean(Constants.BUNDLE_KEY__IS_CROPPED);
+    }
+
+    @Override
     protected View loadView(LayoutInflater pInflater, ViewGroup pContainer) {
         View rootView = pInflater.inflate(R.layout.screen__camera, pContainer, false);
         return rootView;
@@ -95,6 +117,19 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
 
     @Override
     protected void mapInformationToScreenItems(View pView) {
+        if(this.mIsCropped) {
+            pView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @SuppressWarnings("deprecation")
+                @Override
+                public void onGlobalLayout() {
+                    ScreenCamera.this.cropCameraPreview();
+                    ScreenCamera.this.getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+            });
+        } else {
+            this.mCovTop.setAlpha(0);
+        }
+
         this.mCameraPreviewView = new CameraPreviewView(this.getContext());
         this.mFrmCameraPreview.addView(this.mCameraPreviewView);
 
@@ -102,15 +137,6 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
             @Override
             public void onClick(View pView) {
                 ScreenCamera.this.buttonCaptureClick();
-            }
-        });
-
-        pView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @SuppressWarnings("deprecation")
-            @Override
-            public void onGlobalLayout() {
-                ScreenCamera.this.cropCameraPreview();
-                ScreenCamera.this.getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         });
 
@@ -129,6 +155,7 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
     @Override
     public void onImageSaved(File pFile) {
         Bundle arguments = new Bundle();
+        arguments.putBoolean(Constants.BUNDLE_KEY__IS_CROPPED, this.mIsCropped);
         arguments.putString(Constants.BUNDLE_KEY__CAPTURED_PICTURE_FILE_PATH, pFile.getAbsolutePath());
         Screen screen = new ScreenCapturedPicturePreview();
         screen.setArguments(arguments);
@@ -142,7 +169,7 @@ public class ScreenCamera extends Screen implements IViewCamera, Camera.ShutterC
 
     @Override
     public void onPictureTaken(byte[] pData, Camera pCamera) {
-        this.mPresenter.saveImage(pData, this.getRotationDegrees());
+        this.mPresenter.saveImage(pData, this.getRotationDegrees(), this.mImageType, this.mIsCropped);
         this.mBtnCapture.setEnabled(true);
     }
 
