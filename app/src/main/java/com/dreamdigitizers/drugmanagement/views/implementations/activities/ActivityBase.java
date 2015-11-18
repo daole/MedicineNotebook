@@ -10,9 +10,6 @@ import com.dreamdigitizers.drugmanagement.views.implementations.fragments.Fragme
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.Screen;
 
 public class ActivityBase extends AppCompatActivity implements FragmentBase.IStateChecker, Screen.IOnScreenActionsListener {
-    protected static final String BUNDLE_KEY__DUMP = "dump";
-    protected static final String BUNDLE_VALUE__DUMP = "dump";
-
     protected Screen mCurrentScreen;
     protected boolean mIsRecreated;
 
@@ -28,12 +25,6 @@ public class ActivityBase extends AppCompatActivity implements FragmentBase.ISta
         if(extras != null) {
             this.handleExtras(extras);
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle pOutState) {
-        super.onSaveInstanceState(pOutState);
-        pOutState.putString(ActivityBase.BUNDLE_KEY__DUMP, ActivityBase.BUNDLE_VALUE__DUMP);
     }
 
     @Override

@@ -106,7 +106,7 @@ public class ScreenPrescriptionEdit extends Screen implements IViewPrescriptionE
 
     @Override
     protected void retrieveScreenItems(View pView) {
-        this.mTxtPrescriptionName = (EditText)pView.findViewById(R.id.txtFamilyMemberName);
+        this.mTxtPrescriptionName = (EditText)pView.findViewById(R.id.txtPrescriptionName);
         this.mLblPrescriptionDateValue = (TextView)pView.findViewById(R.id.lblPrescriptionDateValue);
         this.mBtnSelectPrescriptionDate = (ImageButton)pView.findViewById(R.id.btnSelectPrescriptionDate);
         this.mSelFamilyMembers = (Spinner)pView.findViewById(R.id.selFamilyMembers);

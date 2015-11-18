@@ -68,7 +68,7 @@ class PresenterPrescriptionAdd implements IPresenterPrescriptionAdd {
         }
 
         Uri uri = this.mView.getViewContext().getContentResolver().insert(
-                ContentProviderMedicine.CONTENT_URI__FAMILY_MEMBER, contentValues);
+                ContentProviderMedicine.CONTENT_URI__PRESCRIPTION, contentValues);
         long newId = Long.parseLong(uri.getLastPathSegment());
         if(newId == DatabaseHelper.DB_ERROR_CODE__CONSTRAINT) {
             this.mView.showError(R.string.error__duplicated_data);
