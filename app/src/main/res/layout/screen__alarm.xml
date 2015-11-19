@@ -2,11 +2,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/Root">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        style="@style/Root">
+    <LinearLayout
+        style="@style/RootVerticalCenter">
 
         <RelativeLayout
-            android:id="@+id/row1"
             style="@style/RowContentCenter">
 
             <TextView
@@ -16,8 +15,6 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/row2"
-            android:layout_below="@id/row1"
             style="@style/RowContentCenter">
 
             <TextView
@@ -27,9 +24,7 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/row3"
             android:orientation="vertical"
-            android:layout_below="@id/row2"
             style="@style/Row">
 
             <ListView
@@ -43,8 +38,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/row4"
-            android:layout_below="@id/row3"
             style="@style/RowButtons">
 
             <Button
@@ -53,6 +46,6 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </ScrollView>

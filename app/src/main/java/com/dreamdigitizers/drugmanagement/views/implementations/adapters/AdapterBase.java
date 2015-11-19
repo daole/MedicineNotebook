@@ -16,6 +16,7 @@ public abstract class AdapterBase extends BaseAdapter {
 
     public void setListView(ListView pListView) {
         this.mListView = pListView;
+        this.setListViewHeightBasedOnItems();
     }
 
     protected void setListViewHeightBasedOnItems() {

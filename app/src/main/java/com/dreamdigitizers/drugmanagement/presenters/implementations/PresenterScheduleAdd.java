@@ -337,6 +337,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
                                             String pScheduleNote) {
         long familyMemberId = pFamilyMember.getRowId();
         String fallbackFamilyMemberName = pFamilyMember.getFamilyMemberName();
+        int fallbackIntervalValue = pMedicineInterval.getMedicineIntervalValue();
         long medicineTimeId = pMedicineTime.getRowId();
         long medicineIntervalId = pMedicineInterval.getRowId();
 
@@ -345,6 +346,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         contentValues.put(TableSchedule.COLUMN_NAME__MEDICINE_TIME_ID, medicineTimeId);
         contentValues.put(TableSchedule.COLUMN_NAME__MEDICINE_INTERVAL_ID, medicineIntervalId);
         contentValues.put(TableSchedule.COLUMN_NAME__FALLBACK_FAMILY_MEMBER_NAME, fallbackFamilyMemberName);
+        contentValues.put(TableSchedule.COLUMN_NAME__FALLBACK_INTERVAL_VALUE, fallbackIntervalValue);
         contentValues.put(TableSchedule.COLUMN_NAME__START_DATE, pStartDate);
         contentValues.put(TableSchedule.COLUMN_NAME__TIMES, pTimes);
         contentValues.put(TableSchedule.COLUMN_NAME__SCHEDULE_NOTE, pScheduleNote);
