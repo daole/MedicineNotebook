@@ -33,6 +33,11 @@ class PresenterPrescriptionAdd implements IPresenterPrescriptionAdd {
     }
 
     @Override
+    public Bitmap loadImage(String pFilePath) {
+        return FileUtils.decodeBitmapFromFile(pFilePath);
+    }
+
+    @Override
     public Bitmap loadImage(String pFilePath, int pWidth, int pHeight) {
         return FileUtils.decodeSampledBitmapFromFile(pFilePath, pWidth, pHeight);
     }

@@ -55,6 +55,10 @@ public class FileUtils {
         return mediaFile;
     }
 
+    public static Bitmap decodeBitmapFromFile(String pImagePath) {
+        return BitmapFactory.decodeFile(pImagePath);
+    }
+
     public static Bitmap decodeSampledBitmapFromFile(String pImagePath, int pWidth, int pHeight) {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;

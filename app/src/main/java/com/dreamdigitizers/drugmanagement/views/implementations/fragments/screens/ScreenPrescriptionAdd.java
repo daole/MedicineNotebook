@@ -27,11 +27,13 @@ import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFa
 import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewPrescriptionAdd;
 import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityCamera;
+import com.dreamdigitizers.drugmanagement.views.implementations.customviews.ZoomableImageView;
 
 import java.text.DateFormat;
 import java.util.GregorianCalendar;
 
 public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAdd {
+    private View mZoomContainer;
     private EditText mTxtPrescriptionName;
     private TextView mLblPrescriptionDateValue;
     private ImageButton mBtnSelectPrescriptionDate;
@@ -42,10 +44,12 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
     private EditText mTxtPrescriptionNote;
     private Button mBtnAdd;
     private Button mBtnBack;
+    private ZoomableImageView mImgZoomablePrescriptionImage;
 
     private IPresenterPrescriptionAdd mPresenter;
 
     private long mFamilyMemberId;
+    private Bitmap mFullPrescriptionPicture;
     private String mPrescriptionPictureFilePath;
     private SpinnerAdapter mAdapter;
 
@@ -99,6 +103,7 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
 
     @Override
     protected void retrieveScreenItems(View pView) {
+        this.mZoomContainer = pView.findViewById(R.id.zoomContainer);
         this.mTxtPrescriptionName = (EditText)pView.findViewById(R.id.txtPrescriptionName);
         this.mLblPrescriptionDateValue = (TextView)pView.findViewById(R.id.lblPrescriptionDateValue);
         this.mBtnSelectPrescriptionDate = (ImageButton)pView.findViewById(R.id.btnSelectPrescriptionDate);
@@ -109,6 +114,7 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
         this.mTxtPrescriptionNote = (EditText)pView.findViewById(R.id.txtPrescriptionNote);
         this.mBtnAdd = (Button)pView.findViewById(R.id.btnAdd);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
+        this.mImgZoomablePrescriptionImage = (ZoomableImageView)pView.findViewById(R.id.imgZoomablePrescriptionImage);
     }
 
     @Override
@@ -210,8 +216,15 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
     }
 
     private void prescriptionPictureClick() {
-        //Intent intent = new Intent(this.getContext(), ActivityCamera.class);
-        //this.startActivityForResult(intent, Constants.REQUEST_CODE__CAMERA);
+        if(this.mFullPrescriptionPicture == null && !TextUtils.isEmpty(this.mPrescriptionPictureFilePath)) {
+            this.mFullPrescriptionPicture = this.mPresenter.loadImage(this.mPrescriptionPictureFilePath);
+        }
+        if(this.mFullPrescriptionPicture != null) {
+            this.mImgZoomablePrescriptionImage.zoomImageFromThumb(this.mZoomContainer,
+                    this.mImgPrescriptionPicture,
+                    this.mFullPrescriptionPicture,
+                    this.getResources().getInteger(android.R.integer.config_shortAnimTime));
+        }
     }
 
     private void buttonAddImageClick() {

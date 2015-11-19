@@ -2,110 +2,120 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/Root">
 
-    <LinearLayout
-        style="@style/RootVerticalCenter">
-
-        <RelativeLayout
-            style="@style/Row">
-
-            <TextView
-                android:id="@+id/lblPrescriptionName"
-                style="@style/TextViewPrescriptionName"/>
-
-            <EditText
-                android:id="@+id/txtPrescriptionName"
-                android:layout_toRightOf="@id/lblPrescriptionName"
-                style="@style/EditTextPrescriptionName"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            style="@style/Row">
-
-            <TextView
-                android:id="@+id/lblPrescriptionDate"
-                style="@style/TextViewDate"/>
-
-            <TextView
-                android:id="@+id/lblPrescriptionDateValue"
-                android:layout_toLeftOf="@+id/btnSelectPrescriptionDate"
-                android:layout_toRightOf="@id/lblPrescriptionDate"
-                android:layout_centerVertical="true"
-                style="@style/TextView"/>
-
-            <ImageButton
-                android:id="@id/btnSelectPrescriptionDate"
-                style="@style/ImageButtonAdd"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            style="@style/Row">
-
-            <TextView
-                android:id="@+id/lblFamilyMemberName"
-                style="@style/TextViewFamilyMemberName"/>
-
-            <Spinner
-                android:id="@+id/selFamilyMembers"
-                android:layout_toLeftOf="@+id/btnAddFamilyMember"
-                android:layout_toRightOf="@id/lblFamilyMemberName"
-                style="@style/Spinner"/>
-
-            <ImageButton
-                android:id="@id/btnAddFamilyMember"
-                style="@style/ImageButtonAdd"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            style="@style/Row">
-
-            <TextView
-                android:id="@+id/lblPrescriptionPicture"
-                android:layout_centerVertical="false"
-                style="@style/TextViewPicture"/>
-
-            <ImageView
-                android:id="@+id/imgPrescriptionPicture"
-                android:layout_below="@id/lblPrescriptionPicture"
-                android:layout_centerHorizontal="true"
-                style="@style/ImageViewPrescription"/>
-
-            <ImageButton
-                android:id="@+id/btnAddImage"
-                android:layout_centerVertical="false"
-                style="@style/ImageButtonAdd"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            style="@style/Row">
-
-            <TextView
-                android:id="@+id/lblPrescriptionNote"
-                style="@style/TextViewNote"/>
-
-            <EditText
-                android:id="@+id/txtPrescriptionNote"
-                android:layout_toRightOf="@id/lblPrescriptionNote"
-                style="@style/EditTextPrescriptionNote"/>
-
-        </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/zoomContainer"
+        style="@style/Root">
 
         <LinearLayout
-            style="@style/RowButtons">
+            style="@style/RootVerticalCenter">
 
-            <Button
-                android:id="@+id/btnBack"
-                style="@style/ButtonBack"/>
+            <RelativeLayout
+                style="@style/Row">
 
-            <Button
-                android:id="@+id/btnAdd"
-                style="@style/ButtonAdd"/>
+                <TextView
+                    android:id="@+id/lblPrescriptionName"
+                    style="@style/TextViewPrescriptionName"/>
+
+                <EditText
+                    android:id="@+id/txtPrescriptionName"
+                    android:layout_toRightOf="@id/lblPrescriptionName"
+                    style="@style/EditTextPrescriptionName"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/Row">
+
+                <TextView
+                    android:id="@+id/lblPrescriptionDate"
+                    style="@style/TextViewDate"/>
+
+                <TextView
+                    android:id="@+id/lblPrescriptionDateValue"
+                    android:layout_toLeftOf="@+id/btnSelectPrescriptionDate"
+                    android:layout_toRightOf="@id/lblPrescriptionDate"
+                    android:layout_centerVertical="true"
+                    style="@style/TextView"/>
+
+                <ImageButton
+                    android:id="@id/btnSelectPrescriptionDate"
+                    style="@style/ImageButtonAdd"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/Row">
+
+                <TextView
+                    android:id="@+id/lblFamilyMemberName"
+                    style="@style/TextViewFamilyMemberName"/>
+
+                <Spinner
+                    android:id="@+id/selFamilyMembers"
+                    android:layout_toLeftOf="@+id/btnAddFamilyMember"
+                    android:layout_toRightOf="@id/lblFamilyMemberName"
+                    style="@style/Spinner"/>
+
+                <ImageButton
+                    android:id="@id/btnAddFamilyMember"
+                    style="@style/ImageButtonAdd"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/Row">
+
+                <TextView
+                    android:id="@+id/lblPrescriptionPicture"
+                    android:layout_centerVertical="false"
+                    style="@style/TextViewPicture"/>
+
+                <ImageView
+                    android:id="@+id/imgPrescriptionPicture"
+                    android:layout_below="@id/lblPrescriptionPicture"
+                    android:layout_centerHorizontal="true"
+                    style="@style/ImageViewPrescription"/>
+
+                <ImageButton
+                    android:id="@+id/btnAddImage"
+                    android:layout_centerVertical="false"
+                    style="@style/ImageButtonAdd"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/Row">
+
+                <TextView
+                    android:id="@+id/lblPrescriptionNote"
+                    style="@style/TextViewNote"/>
+
+                <EditText
+                    android:id="@+id/txtPrescriptionNote"
+                    android:layout_toRightOf="@id/lblPrescriptionNote"
+                    style="@style/EditTextPrescriptionNote"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                style="@style/RowButtons">
+
+                <Button
+                    android:id="@+id/btnBack"
+                    style="@style/ButtonBack"/>
+
+                <Button
+                    android:id="@+id/btnAdd"
+                    style="@style/ButtonAdd"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <com.dreamdigitizers.drugmanagement.views.implementations.customviews.ZoomableImageView
+            android:id="@+id/imgZoomablePrescriptionImage"
+            style="@style/ZoomableImageViewPrescription"/>
+
+    </FrameLayout>
 
 </ScrollView>

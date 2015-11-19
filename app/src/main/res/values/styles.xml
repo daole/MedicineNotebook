@@ -383,6 +383,20 @@
         <item name="android:contentDescription">@string/desc__menu_item_icon</item>
     </style>
 
+    <style name="ZoomableImageView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="ZoomableImageViewMedicine" parent="ZoomableImageView">
+        <item name="android:contentDescription">@string/desc__medicine_picture</item>
+    </style>
+
+    <style name="ZoomableImageViewPrescription" parent="ZoomableImageView">
+        <item name="android:contentDescription">@string/desc__prescription_picture</item>
+    </style>
+
     <style name="ImageView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -391,7 +405,7 @@
     </style>
 
     <style name="ImageViewCapturedImage" parent="ImageView">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">@dimen/thumbnail_width</item>
     </style>
 
     <style name="ImageViewMedicine" parent="ImageViewCapturedImage">

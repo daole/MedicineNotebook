@@ -11,6 +11,7 @@
     <dimen name="padding">10dp</dimen>
     <dimen name="margin">10dp</dimen>
     <dimen name="row_items_gap">10dp</dimen>
+    <dimen name="thumbnail_width">200dp</dimen>
     <dimen name="image_button_add_width">30dp</dimen>
     <dimen name="image_button_add_height">30dp</dimen>
     <dimen name="image_view_in_list_view_width">50dp</dimen>

@@ -2,90 +2,100 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/Root">
 
-    <LinearLayout
-        style="@style/RootVerticalCenter">
-
-        <RelativeLayout
-            style="@style/Row">
-
-            <TextView
-                android:id="@+id/lblMedicineName"
-                style="@style/TextViewMedicineName"/>
-
-            <EditText
-                android:id="@+id/txtMedicineName"
-                android:layout_toRightOf="@id/lblMedicineName"
-                style="@style/EditTextMedicineName"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            style="@style/Row">
-
-            <TextView
-                android:id="@+id/lblMedicineCategoryName"
-                style="@style/TextViewMedicineCategoryName"/>
-
-            <Spinner
-                android:id="@+id/selMedicineCategories"
-                android:layout_toLeftOf="@+id/btnAddMedicineCategory"
-                android:layout_toRightOf="@id/lblMedicineCategoryName"
-                style="@style/Spinner"/>
-
-            <ImageButton
-                android:id="@id/btnAddMedicineCategory"
-                style="@style/ImageButtonAdd"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            style="@style/Row">
-
-            <TextView
-                android:id="@+id/lblMedicinePicture"
-                android:layout_centerVertical="false"
-                style="@style/TextViewPicture"/>
-
-            <ImageView
-                android:id="@+id/imgMedicinePicture"
-                android:layout_below="@id/lblMedicinePicture"
-                android:layout_centerHorizontal="true"
-                style="@style/ImageViewMedicine"/>
-
-            <ImageButton
-                android:id="@+id/btnAddImage"
-                android:layout_centerVertical="false"
-                style="@style/ImageButtonAdd"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            style="@style/Row">
-
-            <TextView
-                android:id="@+id/lblMedicineNote"
-                style="@style/TextViewNote"/>
-
-            <EditText
-                android:id="@+id/txtMedicineNote"
-                android:layout_toRightOf="@id/lblMedicineNote"
-                style="@style/EditTextMedicineNote"/>
-
-        </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/zoomContainer"
+        style="@style/Root">
 
         <LinearLayout
-            style="@style/RowButtons">
+            style="@style/RootVerticalCenter">
 
-            <Button
-                android:id="@+id/btnBack"
-                style="@style/ButtonBack"/>
+            <RelativeLayout
+                style="@style/Row">
 
-            <Button
-                android:id="@+id/btnEdit"
-                style="@style/ButtonEdit"/>
+                <TextView
+                    android:id="@+id/lblMedicineName"
+                    style="@style/TextViewMedicineName"/>
+
+                <EditText
+                    android:id="@+id/txtMedicineName"
+                    android:layout_toRightOf="@id/lblMedicineName"
+                    style="@style/EditTextMedicineName"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/Row">
+
+                <TextView
+                    android:id="@+id/lblMedicineCategoryName"
+                    style="@style/TextViewMedicineCategoryName"/>
+
+                <Spinner
+                    android:id="@+id/selMedicineCategories"
+                    android:layout_toLeftOf="@+id/btnAddMedicineCategory"
+                    android:layout_toRightOf="@id/lblMedicineCategoryName"
+                    style="@style/Spinner"/>
+
+                <ImageButton
+                    android:id="@id/btnAddMedicineCategory"
+                    style="@style/ImageButtonAdd"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/Row">
+
+                <TextView
+                    android:id="@+id/lblMedicinePicture"
+                    android:layout_centerVertical="false"
+                    style="@style/TextViewPicture"/>
+
+                <ImageView
+                    android:id="@+id/imgMedicinePicture"
+                    android:layout_below="@id/lblMedicinePicture"
+                    android:layout_centerHorizontal="true"
+                    style="@style/ImageViewMedicine"/>
+
+                <ImageButton
+                    android:id="@+id/btnAddImage"
+                    android:layout_centerVertical="false"
+                    style="@style/ImageButtonAdd"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/Row">
+
+                <TextView
+                    android:id="@+id/lblMedicineNote"
+                    style="@style/TextViewNote"/>
+
+                <EditText
+                    android:id="@+id/txtMedicineNote"
+                    android:layout_toRightOf="@id/lblMedicineNote"
+                    style="@style/EditTextMedicineNote"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                style="@style/RowButtons">
+
+                <Button
+                    android:id="@+id/btnBack"
+                    style="@style/ButtonBack"/>
+
+                <Button
+                    android:id="@+id/btnEdit"
+                    style="@style/ButtonEdit"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <com.dreamdigitizers.drugmanagement.views.implementations.customviews.ZoomableImageView
+            android:id="@+id/imgZoomableMedicineImage"
+            style="@style/ZoomableImageViewMedicine"/>
+
+    </FrameLayout>
 
 </ScrollView>

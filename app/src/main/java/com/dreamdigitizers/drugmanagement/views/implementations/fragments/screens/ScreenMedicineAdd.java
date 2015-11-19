@@ -25,8 +25,10 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineAdd;
 import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityCamera;
+import com.dreamdigitizers.drugmanagement.views.implementations.customviews.ZoomableImageView;
 
 public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
+    private View mZoomContainer;
     private EditText mTxtMedicineName;
     private Spinner mSelMedicineCategories;
     private ImageButton mBtnAddMedicineCategory;
@@ -35,10 +37,12 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
     private EditText mTxtMedicineNote;
     private Button mBtnAdd;
     private Button mBtnBack;
+    private ZoomableImageView mImgZoomableMedicineImage;
 
     private IPresenterMedicineAdd mPresenter;
 
     private long mMedicineCategoryId;
+    private Bitmap mFullMedicinePicture;
     private String mMedicinePictureFilePath;
     private SpinnerAdapter mAdapter;
 
@@ -92,6 +96,7 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
 
     @Override
     protected void retrieveScreenItems(View pView) {
+        this.mZoomContainer = pView.findViewById(R.id.zoomContainer);
         this.mTxtMedicineName = (EditText)pView.findViewById(R.id.txtMedicineName);
         this.mSelMedicineCategories = (Spinner)pView.findViewById(R.id.selMedicineCategories);
         this.mBtnAddMedicineCategory = (ImageButton)pView.findViewById(R.id.btnAddMedicineCategory);
@@ -193,8 +198,15 @@ public class ScreenMedicineAdd extends Screen implements IViewMedicineAdd {
     }
 
     private void medicinePictureClick() {
-        //Intent intent = new Intent(this.getContext(), ActivityCamera.class);
-        //this.startActivityForResult(intent, Constants.REQUEST_CODE__CAMERA);
+        if(this.mFullMedicinePicture == null && !TextUtils.isEmpty(this.mMedicinePictureFilePath)) {
+            this.mFullMedicinePicture = this.mPresenter.loadImage(this.mMedicinePictureFilePath);
+        }
+        if(this.mFullMedicinePicture != null) {
+            this.mImgZoomableMedicineImage.zoomImageFromThumb(this.mZoomContainer,
+                    this.mImgMedicinePicture,
+                    this.mFullMedicinePicture,
+                    this.getResources().getInteger(android.R.integer.config_shortAnimTime));
+        }
     }
 
     private void buttonAddImageClick() {

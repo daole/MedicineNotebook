@@ -27,8 +27,10 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterMedicin
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineEdit;
 import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityCamera;
+import com.dreamdigitizers.drugmanagement.views.implementations.customviews.ZoomableImageView;
 
 public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
+    private View mZoomContainer;
     private EditText mTxtMedicineName;
     private Spinner mSelMedicineCategories;
     private ImageButton mBtnAddMedicineCategory;
@@ -37,6 +39,7 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
     private EditText mTxtMedicineNote;
     private Button mBtnEdit;
     private Button mBtnBack;
+    private ZoomableImageView mImgZoomableMedicineImage;
 
     private IPresenterMedicineEdit mPresenter;
 
@@ -44,8 +47,9 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
     private long mMedicineCategoryId;
     private String mMedicinePictureFilePath;
     private String mOldMedicinePictureFilePath;
-    private Medicine mModel;
+    private Bitmap mFullMedicinePicture;
     private SpinnerAdapter mAdapter;
+    private Medicine mModel;
 
     @Override
     public boolean onBackPressed() {
@@ -105,6 +109,7 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
 
     @Override
     protected void retrieveScreenItems(View pView) {
+        this.mZoomContainer = pView.findViewById(R.id.zoomContainer);
         this.mTxtMedicineName = (EditText)pView.findViewById(R.id.txtMedicineName);
         this.mSelMedicineCategories = (Spinner)pView.findViewById(R.id.selMedicineCategories);
         this.mBtnAddMedicineCategory = (ImageButton)pView.findViewById(R.id.btnAddMedicineCategory);
@@ -216,8 +221,15 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
     }
 
     private void medicinePictureClick() {
-        //Intent intent = new Intent(this.getContext(), ActivityCamera.class);
-        //this.startActivityForResult(intent, Constants.REQUEST_CODE__CAMERA);
+        if(this.mFullMedicinePicture == null && !TextUtils.isEmpty(this.mMedicinePictureFilePath)) {
+            this.mFullMedicinePicture = this.mPresenter.loadImage(this.mMedicinePictureFilePath);
+        }
+        if(this.mFullMedicinePicture != null) {
+            this.mImgZoomableMedicineImage.zoomImageFromThumb(this.mZoomContainer,
+                    this.mImgMedicinePicture,
+                    this.mFullMedicinePicture,
+                    this.getResources().getInteger(android.R.integer.config_shortAnimTime));
+        }
     }
 
     private void buttonAddImageClick() {
