@@ -11,7 +11,6 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -47,6 +46,7 @@ public class ZoomableImageView extends ImageView {
     private int mViewHeight;
     private int mOldMeasuredWidth;
     private int mOldMeasuredHeight;
+    private boolean mIsOpen;
 
     public ZoomableImageView(Context pContext) {
         super(pContext);
@@ -100,7 +100,33 @@ public class ZoomableImageView extends ImageView {
         this.translate();
     }
 
-    public void zoomImageFromThumb(final View pContainerView, final View pThumbView, final Bitmap pBitmap, final int pAnimationDuration) {
+    public boolean isOpen() {
+        return this.mIsOpen;
+    }
+
+    public void zoomImageFromThumb(final View pThumbnailView, final Bitmap pBitmap) {
+        this.setImageBitmap(pBitmap);
+        this.setVisibility(View.VISIBLE);
+        pThumbnailView.setAlpha(0f);
+
+        this.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ZoomableImageView.this.zoomImageToThumbnail(pThumbnailView);
+            }
+        });
+
+        this.mIsOpen = true;
+    }
+    public void zoomImageToThumbnail(final View pThumbnailView) {
+        pThumbnailView.setAlpha(1f);
+        ZoomableImageView.this.setVisibility(View.GONE);
+
+        this.mIsOpen = false;
+    }
+
+
+    public void zoomImageFromThumb(final View pContainerView, final View pThumbnailView, final Bitmap pBitmap, final int pAnimationDuration) {
         if (this.mAnimator != null) {
             this.mAnimator.cancel();
         }
@@ -109,14 +135,11 @@ public class ZoomableImageView extends ImageView {
 
         final Rect startBounds = new Rect();
         final Rect finalBounds = new Rect();
-        Point globalOffset = new Point();
 
-        pThumbView.getGlobalVisibleRect(startBounds);
-        pContainerView.getGlobalVisibleRect(finalBounds, globalOffset);
-        startBounds.offset(-globalOffset.x, -globalOffset.y);
-        finalBounds.offset(-globalOffset.x, -globalOffset.y);
+        pThumbnailView.getGlobalVisibleRect(startBounds);
+        pContainerView.getGlobalVisibleRect(finalBounds);
 
-        float startScale;
+        final float startScale;
         if ((float)finalBounds.width() / finalBounds.height() > (float)startBounds.width() / startBounds.height()) {
             startScale = (float)startBounds.height() / finalBounds.height();
             float startWidth = startScale * finalBounds.width();
@@ -131,7 +154,7 @@ public class ZoomableImageView extends ImageView {
             startBounds.bottom += deltaHeight;
         }
 
-        pThumbView.setAlpha(0f);
+        pThumbnailView.setAlpha(0f);
         this.setVisibility(View.VISIBLE);
 
         this.setPivotX(0f);
@@ -158,39 +181,47 @@ public class ZoomableImageView extends ImageView {
         animatorSet.start();
         this.mAnimator = animatorSet;
 
-        final float startScaleFinal = startScale;
         this.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ZoomableImageView.this.mAnimator != null) {
-                    ZoomableImageView.this.mAnimator.cancel();
-                }
-                AnimatorSet animatorSet = new AnimatorSet();
-                animatorSet.play(ObjectAnimator.ofFloat(ZoomableImageView.this, View.X, startBounds.left))
-                        .with(ObjectAnimator.ofFloat(ZoomableImageView.this, View.Y, startBounds.top))
-                        .with(ObjectAnimator.ofFloat(ZoomableImageView.this, View.SCALE_X, startScaleFinal))
-                        .with(ObjectAnimator.ofFloat(ZoomableImageView.this, View.SCALE_Y, startScaleFinal));
-                animatorSet.setDuration(pAnimationDuration);
-                animatorSet.setInterpolator(new DecelerateInterpolator());
-                animatorSet.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        pThumbView.setAlpha(1f);
-                        ZoomableImageView.this.setVisibility(View.GONE);
-                        ZoomableImageView.this.mAnimator = null;
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                        pThumbView.setAlpha(1f);
-                        ZoomableImageView.this.setVisibility(View.GONE);
-                        ZoomableImageView.this.mAnimator = null;
-                    }
-                });
-                animatorSet.start();
-                ZoomableImageView.this.mAnimator = animatorSet;
+                ZoomableImageView.this.zoomImageToThumbnail(pThumbnailView, startBounds, startScale, pAnimationDuration);
             }
         });
+
+        this.mIsOpen = true;
+    }
+
+    public void zoomImageToThumbnail(final View pThumbnailView, final Rect pStartBounds, float pStartScaleFinal, final int pAnimationDuration) {
+        if (ZoomableImageView.this.mAnimator != null) {
+            ZoomableImageView.this.mAnimator.cancel();
+        }
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(ObjectAnimator.ofFloat(ZoomableImageView.this, View.X, pStartBounds.left))
+                .with(ObjectAnimator.ofFloat(ZoomableImageView.this, View.Y, pStartBounds.top))
+                .with(ObjectAnimator.ofFloat(ZoomableImageView.this, View.SCALE_X, pStartScaleFinal))
+                .with(ObjectAnimator.ofFloat(ZoomableImageView.this, View.SCALE_Y, pStartScaleFinal));
+        animatorSet.setDuration(pAnimationDuration);
+        animatorSet.setInterpolator(new DecelerateInterpolator());
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                pThumbnailView.setAlpha(1f);
+                ZoomableImageView.this.setVisibility(View.GONE);
+                ZoomableImageView.this.mAnimator = null;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                pThumbnailView.setAlpha(1f);
+                ZoomableImageView.this.setVisibility(View.GONE);
+                ZoomableImageView.this.mAnimator = null;
+            }
+        });
+        animatorSet.start();
+        ZoomableImageView.this.mAnimator = animatorSet;
+
+        this.mIsOpen = false;
     }
 
     private void initialize(Context pContext) {

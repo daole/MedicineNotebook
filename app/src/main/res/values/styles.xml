@@ -386,7 +386,8 @@
     <style name="ZoomableImageView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:visibility">invisible</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:background">#aa000000</item>
     </style>
 
     <style name="ZoomableImageViewMedicine" parent="ZoomableImageView">
@@ -405,7 +406,7 @@
     </style>
 
     <style name="ImageViewCapturedImage" parent="ImageView">
-        <item name="android:layout_width">@dimen/thumbnail_width</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 
     <style name="ImageViewMedicine" parent="ImageViewCapturedImage">

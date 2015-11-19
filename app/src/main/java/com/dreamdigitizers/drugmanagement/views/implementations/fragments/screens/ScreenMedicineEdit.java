@@ -53,7 +53,11 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
 
     @Override
     public boolean onBackPressed() {
-        this.buttonBackClick();
+        if (this.mImgZoomableMedicineImage.isOpen()) {
+            this.mImgZoomableMedicineImage.zoomImageToThumbnail(this.mImgMedicinePicture);
+        } else {
+            this.buttonBackClick();
+        }
         return true;
     }
 
@@ -118,6 +122,7 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
         this.mTxtMedicineNote = (EditText)pView.findViewById(R.id.txtMedicineNote);
         this.mBtnEdit = (Button)pView.findViewById(R.id.btnEdit);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);
+        this.mImgZoomableMedicineImage = (ZoomableImageView)pView.findViewById(R.id.imgZoomableMedicineImage);
     }
 
     @Override
@@ -225,10 +230,13 @@ public class ScreenMedicineEdit extends Screen implements IViewMedicineEdit {
             this.mFullMedicinePicture = this.mPresenter.loadImage(this.mMedicinePictureFilePath);
         }
         if(this.mFullMedicinePicture != null) {
+            this.mImgZoomableMedicineImage.zoomImageFromThumb(this.mImgMedicinePicture, this.mFullMedicinePicture);
+            /*
             this.mImgZoomableMedicineImage.zoomImageFromThumb(this.mZoomContainer,
                     this.mImgMedicinePicture,
                     this.mFullMedicinePicture,
                     this.getResources().getInteger(android.R.integer.config_shortAnimTime));
+            */
         }
     }
 

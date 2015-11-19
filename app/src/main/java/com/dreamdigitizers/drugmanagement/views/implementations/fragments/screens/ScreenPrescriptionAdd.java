@@ -55,7 +55,11 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
 
     @Override
     public boolean onBackPressed() {
-        this.buttonBackClick();
+        if (this.mImgZoomablePrescriptionImage.isOpen()) {
+            this.mImgZoomablePrescriptionImage.zoomImageToThumbnail(this.mImgPrescriptionPicture);
+        } else {
+            this.buttonBackClick();
+        }
         return true;
     }
 
@@ -220,10 +224,13 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
             this.mFullPrescriptionPicture = this.mPresenter.loadImage(this.mPrescriptionPictureFilePath);
         }
         if(this.mFullPrescriptionPicture != null) {
+            this.mImgZoomablePrescriptionImage.zoomImageFromThumb(this.mImgPrescriptionPicture, this.mFullPrescriptionPicture);
+            /*
             this.mImgZoomablePrescriptionImage.zoomImageFromThumb(this.mZoomContainer,
                     this.mImgPrescriptionPicture,
                     this.mFullPrescriptionPicture,
                     this.getResources().getInteger(android.R.integer.config_shortAnimTime));
+            */
         }
     }
 
