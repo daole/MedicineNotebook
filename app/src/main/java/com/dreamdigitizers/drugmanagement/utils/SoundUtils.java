@@ -11,6 +11,13 @@ import java.io.IOException;
 public class SoundUtils {
     private static MediaPlayer mediaPlayer;
 
+    public static boolean isPlaying() {
+        if(SoundUtils.mediaPlayer == null) {
+            return false;
+        }
+        return SoundUtils.mediaPlayer.isPlaying();
+    }
+
     public static void playCameraShutterSound(Context pContext) {
         AudioManager audioManager = (AudioManager)pContext.getSystemService(Context.AUDIO_SERVICE);
         audioManager.playSoundEffect(AudioManager.FLAG_PLAY_SOUND);
@@ -21,7 +28,7 @@ public class SoundUtils {
             Uri uri = SoundUtils.getAlarmUri();
 
             final AudioManager audioManager = (AudioManager)pContext.getSystemService(Context.AUDIO_SERVICE);
-            if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
+            if(audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
                 if(SoundUtils.mediaPlayer == null) {
                     SoundUtils.mediaPlayer = new MediaPlayer();
                 }

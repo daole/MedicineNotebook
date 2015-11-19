@@ -446,7 +446,7 @@ class PresenterScheduleAdd implements IPresenterScheduleAdd {
         if(pMedicineInterval == null) {
             return R.string.error__blank_medicine_interval;
         }
-        if(!StringUtils.isInteger(pTimes)) {
+        if(!StringUtils.isInteger(pTimes) || Integer.parseInt(pTimes) <= 0) {
             return R.string.error__invalid_alarm_times;
         }
         return 0;

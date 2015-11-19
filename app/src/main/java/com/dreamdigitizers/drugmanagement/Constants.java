@@ -28,8 +28,8 @@ public class Constants {
     public static final int IMAGE_TYPE__MEDICINE = 0;
     public static final int IMAGE_TYPE__PRESCRIPTION = 1;
 
+    public static final int ALARM_TIME = 30000;
     public static final int ROW_ID__NO_SELECT = 0;
-
     public static final int REQUEST_CODE__CAMERA = 0;
 
     public static final int ORIENTATION_THRESHOLD = 45;

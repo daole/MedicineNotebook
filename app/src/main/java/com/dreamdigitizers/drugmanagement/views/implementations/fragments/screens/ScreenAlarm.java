@@ -2,6 +2,7 @@ package com.dreamdigitizers.drugmanagement.views.implementations.fragments.scree
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
 
     private long mRowId;
     private AlarmExtended mModel;
+    private Handler mHandler;
 
     @Override
     public void onCreate(Bundle pSavedInstanceState) {
@@ -48,7 +50,19 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
     @Override
     public void onResume() {
         super.onResume();
-        SoundUtils.playAlarmSound(this.getContext());
+        if(!SoundUtils.isPlaying()) {
+            SoundUtils.playAlarmSound(this.getContext());
+        }
+
+        this.mHandler = new Handler();
+        this.mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(SoundUtils.isPlaying()) {
+                    ScreenAlarm.this.buttonOKClick();
+                }
+            }
+        }, Constants.ALARM_TIME);
     }
 
     @Override
@@ -103,9 +117,11 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
     }
 
     private void buttonOKClick() {
-        SoundUtils.stop();
-        SoundUtils.reset();
-        SoundUtils.release();
+        if(SoundUtils.isPlaying()) {
+            SoundUtils.stop();
+            SoundUtils.reset();
+            SoundUtils.release();
+        }
         this.getActivity().finish();
     }
 
