@@ -1,17 +1,33 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.dreamdigitizers.drugmanagement.ApplicationBase;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentBase;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.Screen;
 
+import java.util.Locale;
+
 public class ActivityBase extends AppCompatActivity implements FragmentBase.IStateChecker, Screen.IOnScreenActionsListener {
     protected Screen mCurrentScreen;
     protected boolean mIsRecreated;
+
+    @Override
+    public void onBackPressed() {
+        if(this.mCurrentScreen != null) {
+            boolean isHandled = this.mCurrentScreen.onBackPressed();
+            if(isHandled) {
+                return;
+            }
+        }
+
+        this.back();
+    }
 
     @Override
     protected void onCreate(Bundle pSavedInstanceState) {
@@ -25,18 +41,6 @@ public class ActivityBase extends AppCompatActivity implements FragmentBase.ISta
         if(extras != null) {
             this.handleExtras(extras);
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(this.mCurrentScreen != null) {
-            boolean isHandled = this.mCurrentScreen.onBackPressed();
-            if(isHandled) {
-                return;
-            }
-        }
-
-        this.back();
     }
 
     @Override
@@ -63,6 +67,12 @@ public class ActivityBase extends AppCompatActivity implements FragmentBase.ISta
     public void returnActivityResult(int pResultCode, Intent pData) {
         this.setResult(pResultCode, pData);
         this.finish();
+    }
+
+    @Override
+    public void changeLanguage(String pLanguage) {
+        ApplicationBase applicationBase = (ApplicationBase)this.getApplication();
+        applicationBase.setLocale(pLanguage);
     }
 
     @Override

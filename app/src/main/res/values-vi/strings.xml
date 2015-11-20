@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="btn__add">Thêm</string>
-    <string name="btn__back">Trở lui</string>
+    <string name="btn__back">Quay về</string>
     <string name="btn__cancel">Hủy</string>
     <string name="btn__capture">Chụp</string>
     <string name="btn__delete">Xóa</string>
@@ -78,6 +78,7 @@
     <string name="lbl__times">Số lần:</string>
     <string name="menu_item__add">Thêm</string>
     <string name="menu_item__delete">Xóa</string>
+    <string name="message__initialization">Đang khởi tạo...</string>
     <string name="message__delete_successful">Dữ liệu đã được xóa.</string>
     <string name="message__edit_successful">Dữ liệu đã được sửa.</string>
     <string name="message__insert_successful">Dữ liệu đã được lưu.</string>

@@ -1,10 +1,12 @@
 package com.dreamdigitizers.drugmanagement.presenters.implementations;
 
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import com.dreamdigitizers.drugmanagement.Constants;
+import com.dreamdigitizers.drugmanagement.data.DatabaseHelper;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterInitialization;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewInitialization;
 
@@ -15,6 +17,13 @@ class PresenterInitialization implements IPresenterInitialization {
     public PresenterInitialization(IViewInitialization pView) {
         this.mView = pView;
         this.mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.mView.getViewContext());
+    }
+
+    @Override
+    public void initialize() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this.mView.getViewContext());
+        databaseHelper.open(SQLiteDatabase.OPEN_READWRITE);
+        databaseHelper.close();
     }
 
     @Override

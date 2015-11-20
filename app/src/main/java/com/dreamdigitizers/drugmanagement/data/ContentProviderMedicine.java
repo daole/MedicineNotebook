@@ -153,7 +153,7 @@ public class ContentProviderMedicine extends ContentProvider {
 
     @Override
     public String getType(Uri pUri) {
-        String type = null;
+        String type;
         int uriType = ContentProviderMedicine.uriMatcher.match(pUri);
         switch (uriType) {
             case ContentProviderMedicine.ALARMS:
@@ -220,7 +220,7 @@ public class ContentProviderMedicine extends ContentProvider {
     public Cursor query(Uri pUri, String[] pProjection, String pSelection, String[] pSelectionArgs, String pSortOrder) {
         Cursor cursor = null;
         String id = null;
-        Dao dao = null;
+        Dao dao;
 
         int uriType = ContentProviderMedicine.uriMatcher.match(pUri);
         switch (uriType) {
@@ -316,7 +316,7 @@ public class ContentProviderMedicine extends ContentProvider {
     @Override
     public Uri insert(Uri pUri, ContentValues pValues) {
         Uri newDataUri = null;
-        Dao dao = null;
+        Dao dao;
 
         int uriType = ContentProviderMedicine.uriMatcher.match(pUri);
         switch (uriType) {
@@ -364,7 +364,7 @@ public class ContentProviderMedicine extends ContentProvider {
     public int update(Uri pUri, ContentValues pValues, String pSelection, String[] pSelectionArgs) {
         int affectedRows = 0;
         String id = null;
-        Dao dao = null;
+        Dao dao;
 
         int uriType = ContentProviderMedicine.uriMatcher.match(pUri);
         switch (uriType) {
@@ -455,7 +455,7 @@ public class ContentProviderMedicine extends ContentProvider {
     public int delete(Uri pUri, String pSelection, String[] pSelectionArgs) {
         int affectedRows = 0;
         String id = null;
-        Dao dao = null;
+        Dao dao;
 
         int uriType = ContentProviderMedicine.uriMatcher.match(pUri);
         switch (uriType) {

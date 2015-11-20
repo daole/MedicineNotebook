@@ -70,7 +70,7 @@ public abstract class Screen extends FragmentBase implements IView {
 
 	@Override
 	public void showConfirmation(int pStringResourceId, DialogUtils.IOnDialogButtonClickListener pListener) {
-		String title = this.getString(R.string.title__dialog_error);
+		String title = this.getString(R.string.title__dialog);
 		String positiveButtonText = this.getString(R.string.btn__ok);
 		String negativeButtonText = this.getString(R.string.btn__no);
 		String message = this.getString(pStringResourceId);
@@ -119,6 +119,7 @@ public abstract class Screen extends FragmentBase implements IView {
 		void onSetCurrentScreen(Screen pCurrentScreen);
 		void onChangeScreen(Screen pScreen);
 		void returnActivityResult(int pResultCode, Intent pData);
+		void changeLanguage(String pLanguage);
 		void onBack();
 	}
 }

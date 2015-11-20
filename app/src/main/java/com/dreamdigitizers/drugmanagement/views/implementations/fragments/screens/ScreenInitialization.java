@@ -1,8 +1,10 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.dreamdigitizers.drugmanagement.R;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterInitialization;
 import com.dreamdigitizers.drugmanagement.presenters.implementations.PresenterFactory;
+import com.dreamdigitizers.drugmanagement.utils.DialogUtils;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewInitialization;
 import com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityMain;
 
@@ -28,16 +31,17 @@ public class ScreenInitialization extends Screen implements IViewInitialization 
     private IPresenterInitialization mPresenter;
     private AdapterLanguages mAdapter;
 
+    private AsyncTask<Void, Void, Void> mAsyncTask;
+
     @Override
     public void onCreate(Bundle pSavedInstanceState) {
         super.onCreate(pSavedInstanceState);
 
         this.mPresenter = (IPresenterInitialization)PresenterFactory.createPresenter(IPresenterInitialization.class, this);
         if(this.mPresenter.isPreferredLanguageAlreadySet()) {
-            Intent intent = new Intent(this.getContext(), ActivityMain.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            this.startActivity(intent);
-            this.getActivity().finish();
+            String language = this.mPresenter.getPreferredLanguage();
+            this.changeLanguage(language);
+            this.goToMainActivity();
             return;
         }
 
@@ -86,9 +90,47 @@ public class ScreenInitialization extends Screen implements IViewInitialization 
     }
 
     private void buttonSelectLanguageClick() {
-        String selectedLanguage = (String)this.mSelLanguages.getSelectedItem();
-        this.mPresenter.setPreferredLanguage(selectedLanguage);
+        String language = (String)this.mSelLanguages.getSelectedItem();
+        this.mPresenter.setPreferredLanguage(language);
+        this.changeLanguage(language);
+        this.mAsyncTask = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected void onPreExecute() {
+                DialogUtils.displayProgressDialog(ScreenInitialization.this.getActivity(),
+                        ProgressDialog.STYLE_SPINNER,
+                        ScreenInitialization.this.getString(R.string.title__dialog),
+                        ScreenInitialization.this.getString(R.string.message__initialization),
+                        false,
+                        null,
+                        false,
+                        true,
+                        null);
+            }
 
+            @Override
+            protected Void doInBackground(Void[] pParams) {
+                ScreenInitialization.this.mPresenter.initialize();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void pResult) {
+                DialogUtils.closeProgressDialog();
+                ScreenInitialization.this.goToMainActivity();
+            }
+        };
+        this.mAsyncTask.execute();
+    }
+
+    private void changeLanguage(String pLanguage) {
+        this.mScreenActionsListener.changeLanguage(pLanguage);
+    }
+
+    private void goToMainActivity() {
+        Intent intent = new Intent(this.getContext(), ActivityMain.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startActivity(intent);
+        this.getActivity().finish();
     }
 
     private static class AdapterLanguages extends BaseAdapter {
