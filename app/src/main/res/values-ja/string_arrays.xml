@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="languages">
+        <item>英語</item>
+        <item>日本語</item>
+        <item>ベトナム語</item>
+    </string-array>
+    <string-array name="locales">
+        <item>en</item>
+        <item>ja</item>
+        <item>vi</item>
+    </string-array>
+
+    <string-array name="navigation_drawer_titles">
+        <item>スケジュール</item>
+        <item>家族</item>
+        <item>薬</item>
+        <item>薬カテゴリ</item>
+        <item>服用時間</item>
+        <item>服用間隔</item>
+        <item>処方箋</item>
+    </string-array>
+
+    <string-array name="family_member_names">
+        <item>自分</item>
+        <item>母</item>
+        <item>父</item>
+    </string-array>
+
+    <string-array name="medicine_category_names">
+        <item>心身医学</item>
+        <item>耳鼻咽喉科学</item>
+        <item>内科学</item>
+    </string-array>
+    <string-array name="medicine_category_notes">
+        <item>主に心身症やストレスからくる身体症状を扱う。</item>
+        <item>耳、鼻腔、副鼻腔、口腔、咽頭、喉頭、甲状腺等の症状を扱う。</item>
+        <item>主に身体の臓器（内臓）を対象とし、一般に手術によらない方法。</item>
+    </string-array>
+
+    <string-array name="medicine_time_names">
+        <item>朝食前</item>
+        <item>朝食</item>
+        <item>朝食後</item>
+        <item>食間（朝～昼）</item>
+        <item>昼食前</item>
+        <item>昼食</item>
+        <item>昼食後</item>
+        <item>食間（昼～夜）</item>
+        <item>夕食前</item>
+        <item>夕食</item>
+        <item>夕食後</item>
+        <item>夜</item>
+        <item>朝食、昼食、夕食</item>
+    </string-array>
+    <string-array name="medicine_time_values">
+        <item>07:30</item>
+        <item>08:00</item>
+        <item>08:30</item>
+        <item>10:00</item>
+        <item>11:30</item>
+        <item>12:00</item>
+        <item>12:30</item>
+        <item>15:00</item>
+        <item>17:30</item>
+        <item>18:00</item>
+        <item>18:30</item>
+        <item>22:00</item>
+        <item>08:00, 12:00, 18:00</item>
+    </string-array>
+
+    <string-array name="medicine_interval_names">
+        <item>頓服</item>
+        <item>毎日</item>
+        <item>1日おき</item>
+        <item>2日おき</item>
+        <item>3日おき</item>
+        <item>4日おき</item>
+        <item>5日おき</item>
+        <item>6日おき</item>
+    </string-array>
+    <string-array name="medicine_interval_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+</resources>

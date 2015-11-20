@@ -9,4 +9,9 @@
         <item>@drawable/icon__medicine_intervals</item>
         <item>@drawable/icon__prescription</item>
     </array>
+    <array name="flag_icons">
+        <item>@drawable/icon__uk_flag</item>
+        <item>@drawable/icon__japan_flag</item>
+        <item>@drawable/icon__vietnam_flag</item>
+    </array>
 </resources>

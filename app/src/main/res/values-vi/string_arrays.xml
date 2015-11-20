@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="languages">
+        <item>Tiếng Anh</item>
+        <item>Tiếng Nhật</item>
+        <item>Tiếng Việt</item>
+    </string-array>
+    <string-array name="locales">
+        <item>en</item>
+        <item>ja</item>
+        <item>vi</item>
+    </string-array>
+
+    <string-array name="navigation_drawer_titles">
+        <item>Lịch</item>
+        <item>Gia đình</item>
+        <item>Thuốc</item>
+        <item>Loại thuốc</item>
+        <item>Thời điểm</item>
+        <item>Khoảng thời gian</item>
+        <item>Toa thuốc</item>
+    </string-array>
+
+    <string-array name="family_member_names">
+        <item>Bản thân</item>
+        <item>Mẹ</item>
+        <item>Bố</item>
+    </string-array>
+
+    <string-array name="medicine_category_names">
+        <item>Thần kinh</item>
+        <item>Tai, mũi, họng</item>
+        <item>Nội khoa</item>
+    </string-array>
+    <string-array name="medicine_category_notes">
+        <item>Dùng để chữa rối loạn thần kinh.</item>
+        <item>Chữa các bệnh liên quan đến tai, mũi, họng.</item>
+        <item>Điều trị không phẫu thuật các bệnh của cơ quan bên trong cơ thể, đặc biệt là ở người lớn.</item>
+    </string-array>
+
+    <string-array name="medicine_time_names">
+        <item>Trước bữa sáng</item>
+        <item>Bữa sáng</item>
+        <item>Sau bữa sáng</item>
+        <item>Giữa bữa sáng và trưa</item>
+        <item>Trước bữa trưa</item>
+        <item>Bữa trưa</item>
+        <item>Sau bữa trưa</item>
+        <item>Giữa bữa trưa và bữa tối</item>
+        <item>Trước bữa tối</item>
+        <item>Bữa tối</item>
+        <item>Sau bữa tối</item>
+        <item>Khuya</item>
+        <item>Bữa sáng, bữa trưa, bữa tối</item>
+    </string-array>
+    <string-array name="medicine_time_values">
+        <item>07:30</item>
+        <item>08:00</item>
+        <item>08:30</item>
+        <item>10:00</item>
+        <item>11:30</item>
+        <item>12:00</item>
+        <item>12:30</item>
+        <item>15:00</item>
+        <item>17:30</item>
+        <item>18:00</item>
+        <item>18:30</item>
+        <item>22:00</item>
+        <item>08:00, 12:00, 18:00</item>
+    </string-array>
+
+    <string-array name="medicine_interval_names">
+        <item>1 lần duy nhất</item>
+        <item>Mỗi ngày</item>
+        <item>Mỗi 2 ngày</item>
+        <item>Mỗi 3 ngày</item>
+        <item>Mỗi 4 ngày</item>
+        <item>Mỗi 5 ngày</item>
+        <item>Mỗi 6 ngày</item>
+        <item>Mỗi 7 ngày</item>
+    </string-array>
+    <string-array name="medicine_interval_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+</resources>

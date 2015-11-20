@@ -219,6 +219,8 @@ class PresenterScheduleList implements IPresenterScheduleList {
     }
 
     private void initLoader() {
+        PresenterScheduleList.this.mSelectedPositions.clear();
+        PresenterScheduleList.this.mSelectedAlarms.clear();
         this.mView.getViewLoaderManager().destroyLoader(0);
         this.mView.getViewLoaderManager().initLoader(0, null, this);
         this.mView.bindSelectionDate(this.buildSelectionDateString());

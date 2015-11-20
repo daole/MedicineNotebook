@@ -136,7 +136,7 @@ public class FragmentNavigationDrawer extends FragmentBase {
      */
     public void setUp(int pIconsResourceId, int pTitlesResourceId, int pFragmentContainerViewId, DrawerLayout pDrawerLayout) {
         // set up the drawer's list view with items and click listener
-        this.mDrawerListView.setAdapter(new NavigationDrawerListAdapter(this.getContext(), pIconsResourceId, pTitlesResourceId));
+        this.mDrawerListView.setAdapter(new AdapterNavigationDrawerList(this.getContext(), pIconsResourceId, pTitlesResourceId));
         this.setItemChecked(this.mCurrentSelectedPosition);
 
         // Select either the default item (0) or the last selected item.
@@ -217,12 +217,12 @@ public class FragmentNavigationDrawer extends FragmentBase {
         }
     }
 
-    public static class NavigationDrawerListAdapter extends BaseAdapter {
+    private static class AdapterNavigationDrawerList extends BaseAdapter {
         private Context mContext;
         private TypedArray mMenuItemIcons;
         private String[] mMenuItemTitles;
 
-        public NavigationDrawerListAdapter(Context pContext, int pIconsKeys, int pTitlesKey) {
+        public AdapterNavigationDrawerList(Context pContext, int pIconsKeys, int pTitlesKey) {
             this.mContext = pContext;
             this.mMenuItemIcons = this.mContext.getResources().obtainTypedArray(pIconsKeys);
             this.mMenuItemTitles = this.mContext.getResources().getStringArray(pTitlesKey);
@@ -251,23 +251,23 @@ public class FragmentNavigationDrawer extends FragmentBase {
                 pConvertView = layoutInflater.inflate(R.layout.part__navigation_drawer_item, pParent, false);
 
                 viewHolder = new ViewHolder();
-                viewHolder.mMenuItemIcon = (ImageView)pConvertView.findViewById(R.id.menu_item_icon);
-                viewHolder.mMenuItemText = (TextView)pConvertView.findViewById(R.id.menu_item_text);
-                viewHolder.mMenuItemCounter = (TextView)pConvertView.findViewById(R.id.menu_item_counter);
+                viewHolder.mImgMenuItemIcon = (ImageView)pConvertView.findViewById(R.id.imgMenuItemIcon);
+                viewHolder.mLblMenuItemText = (TextView)pConvertView.findViewById(R.id.lblMenuItemText);
+                viewHolder.mLblMenuItemCounter = (TextView)pConvertView.findViewById(R.id.lblMenuItemCounter);
                 pConvertView.setTag(viewHolder);
             }
 
             viewHolder = (ViewHolder)pConvertView.getTag();
-            viewHolder.mMenuItemIcon.setImageResource(this.mMenuItemIcons.getResourceId(pPosition, -1));
-            viewHolder.mMenuItemText.setText(this.mMenuItemTitles[pPosition]);
+            viewHolder.mImgMenuItemIcon.setImageResource(this.mMenuItemIcons.getResourceId(pPosition, -1));
+            viewHolder.mLblMenuItemText.setText(this.mMenuItemTitles[pPosition]);
 
             return pConvertView;
         }
 
         private static class ViewHolder {
-            public ImageView mMenuItemIcon;
-            public TextView mMenuItemText;
-            public TextView mMenuItemCounter;
+            public ImageView mImgMenuItemIcon;
+            public TextView mLblMenuItemText;
+            public TextView mLblMenuItemCounter;
         }
     }
 

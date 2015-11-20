@@ -15,6 +15,8 @@ public class Constants {
     public static final String PREFIX__MEDICINE = "MED_";
     public static final String PREFIX__PRESCRIPTION = "PRE_";
 
+    public static final String SHARED_PREFERENCES_FLAG__LOCALE = "locale";
+
     public static final String INTENT_EXTRA_KEY__DATA = "extra";
 
     public static final String BUNDLE_KEY__ROW_ID = "row_id";

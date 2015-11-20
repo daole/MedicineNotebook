@@ -3,16 +3,16 @@
     style="@style/RowNavigationDrawer">
 
     <ImageView
-        android:id="@+id/menu_item_icon"
+        android:id="@+id/imgMenuItemIcon"
         style="@style/ImageViewNavigationDrawerIcon"/>
 
     <TextView
-        android:id="@+id/menu_item_text"
-        android:layout_toRightOf="@id/menu_item_icon"
+        android:id="@+id/lblMenuItemText"
+        android:layout_toRightOf="@id/imgMenuItemIcon"
         style="@style/TextViewNavigationItem"/>
 
     <TextView
-        android:id="@+id/menu_item_counter"
+        android:id="@+id/lblMenuItemCounter"
         style="@style/TextViewNavigationCounter"/>
 
 </RelativeLayout>

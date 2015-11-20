@@ -5,7 +5,7 @@
     </style>
 
     <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowFullscreen">true</item>
+        <!--<item name="android:windowFullscreen">true</item>-->
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
@@ -16,15 +16,22 @@
 
     <style name="RootVertical" parent="Root">
         <item name="android:orientation">vertical</item>
-        <item name="android:showDividers">middle</item>
-        <item name="android:divider">?android:attr/dividerHorizontal</item>
     </style>
 
     <style name="RootVerticalCenter" parent="RootVertical">
         <item name="android:gravity">center_horizontal|center_vertical</item>
     </style>
 
-    <style name="RootVerticalCenterWithPadding" parent="RootVerticalCenter">
+    <style name="RootVerticalWithDividers" parent="RootVertical">
+        <item name="android:showDividers">middle</item>
+        <item name="android:divider">?android:attr/dividerHorizontal</item>
+    </style>
+
+    <style name="RootVerticalCenterWithDividers" parent="RootVerticalWithDividers">
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+    </style>
+
+    <style name="RootVerticalCenterWithDividersAndPadding" parent="RootVerticalCenterWithDividers">
         <item name="android:padding">@dimen/padding</item>
     </style>
 
@@ -328,6 +335,10 @@
 
     <style name="ButtonOKNormal" parent="Button">
         <item name="android:text">@string/btn__ok</item>
+    </style>
+
+    <style name="ButtonSelectNormal" parent="Button">
+        <item name="android:text">@string/btn__select</item>
     </style>
 
     <style name="ButtonCapture" parent="Button">

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Row">
+
+    <ImageView
+        android:id="@+id/imgFlagIcon"
+        style="@style/ImageViewInListViewMedicine"/>
+
+    <TextView
+        android:id="@+id/lblLanguage"
+        android:layout_toRightOf="@id/imgFlagIcon"
+        style="@style/RowTextView"/>
+
+</RelativeLayout>

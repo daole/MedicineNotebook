@@ -1,9 +1,6 @@
 package com.dreamdigitizers.drugmanagement.views.implementations.activities;
 
-import android.content.Context;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.dreamdigitizers.drugmanagement.R;

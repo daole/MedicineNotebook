@@ -3,7 +3,7 @@
     style="@style/Root">
 
     <LinearLayout
-        style="@style/RootVertical">
+        style="@style/RootVerticalWithDividers">
 
         <RelativeLayout
             style="@style/Row">
