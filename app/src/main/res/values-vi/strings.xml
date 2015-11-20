@@ -10,6 +10,7 @@
     <string name="btn__ok">Đồng ý</string>
     <string name="btn__select">Chọn</string>
     <string name="confirmation__delete_data">Bạn có chắc là bạn muốn xóa dữ liệu đã chọn?</string>
+    <string name="desc__logo">Logo</string>
     <string name="desc__captured_picture">Hình chụp</string>
     <string name="desc__image_button_add">Thêm</string>
     <string name="desc__image_button_delete">Xóa</string>
@@ -82,7 +83,7 @@
     <string name="message__delete_successful">Dữ liệu đã được xóa.</string>
     <string name="message__edit_successful">Dữ liệu đã được sửa.</string>
     <string name="message__insert_successful">Dữ liệu đã được lưu.</string>
-    <string name="title__app_name">Quản lý thuốc</string>
+    <string name="title__app_name">Medicine Notebook</string>
     <string name="title__dialog">Thông tin</string>
     <string name="title__dialog_error">Lỗi</string>
     <string name="title__dialog_medicine_select">Chọn thuốc</string>

@@ -5,11 +5,14 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:gravity="center_horizontal"
+        android:gravity="center_horizontal|center_vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"
+        android:layout_weight="6"
         tools:ignore="Suspicious0dp">
+
+        <ImageView
+            style="@style/ImageViewLogo"/>
 
     </LinearLayout>
 
@@ -18,7 +21,7 @@
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="4"
         tools:ignore="Suspicious0dp">
 
         <Spinner

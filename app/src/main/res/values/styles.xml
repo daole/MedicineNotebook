@@ -416,6 +416,11 @@
         <item name="android:src">@drawable/icon__no_photo</item>
     </style>
 
+    <style name="ImageViewLogo" parent="ImageView">
+        <item name="android:src">@drawable/icon__app_logo</item>
+        <item name="android:contentDescription">@string/desc__logo</item>
+    </style>
+
     <style name="ImageViewCapturedImage" parent="ImageView">
         <item name="android:layout_width">match_parent</item>
     </style>

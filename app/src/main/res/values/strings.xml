@@ -1,5 +1,5 @@
 <resources>
-    <string name="title__app_name">Drug Manager</string>
+    <string name="title__app_name">Medicine Notebook</string>
     <string name="title__menu">Menu</string>
     <string name="title__dialog">Message</string>
     <string name="title__dialog_error">Error</string>
@@ -104,6 +104,7 @@
     <string name="error__image_save_failed">An error has occurred. The picture could not be saved.</string>
     <string name="error__unknown_error">An error has occurred. The operation could not be completed.</string>
 
+    <string name="desc__logo">Logo</string>
     <string name="desc__menu_item_icon">Menu item icon</string>
     <string name="desc__navigation_drawer_open">Open navigation drawer</string>
     <string name="desc__navigation_drawer_close">Close navigation drawer</string>

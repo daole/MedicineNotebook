@@ -13,7 +13,7 @@
     <application
         android:name=".ApplicationBase"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon__app_logo"
         android:label="@string/title__app_name"
         android:theme="@style/AppTheme">
         <activity
