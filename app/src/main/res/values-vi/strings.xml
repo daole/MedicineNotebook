@@ -111,6 +111,7 @@
     <string name="title__screen_schedule_edit">Thông tin lịch</string>
     <string name="title__screen_schedule_list">Lịch</string>
     <string name="title__screen_settings">Thiết lập</string>
+    <string name="title__screen_medicine_information">Thông tin thuốc</string>
     <plurals name="lbl__day">
         <item quantity="one">%d ngày</item>
         <item quantity="other">%d ngày</item>

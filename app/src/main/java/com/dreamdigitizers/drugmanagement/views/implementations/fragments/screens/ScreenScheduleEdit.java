@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -117,6 +118,10 @@ public class ScreenScheduleEdit extends Screen implements IViewScheduleEdit, Ada
         return this.mPresenter.loadImage(pFilePath, pWidth, pHeight);
     }
 
+    private void listItemClick(long pRowId) {
+        this.goToMedicineInformationScreen(pRowId);
+    }
+
     private void buttonBackClick() {
         this.mScreenActionsListener.onBack();
     }
@@ -135,6 +140,12 @@ public class ScreenScheduleEdit extends Screen implements IViewScheduleEdit, Ada
         AdapterTakenMedicineDetails adapter = new AdapterTakenMedicineDetails(this.getContext(), pModel.getSchedule().getTakenMedicines(), this);
         adapter.setListView(this.mListView);
         this.mListView.setAdapter(adapter);
+        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
+                ScreenScheduleEdit.this.listItemClick(pRowId);
+            }
+        });
 
         this.mLblStartDateValue.setText(pModel.getSchedule().getStartDate());
 
@@ -174,5 +185,13 @@ public class ScreenScheduleEdit extends Screen implements IViewScheduleEdit, Ada
         this.mLblTimesValue.setText(Integer.toString(pModel.getSchedule().getTimes()));
 
         this.mLblScheduleNoteValue.setText(pModel.getSchedule().getScheduleNote());
+    }
+
+    private void goToMedicineInformationScreen(long pRowId) {
+        Bundle arguments = new Bundle();
+        arguments.putLong(Constants.BUNDLE_KEY__ROW_ID, pRowId);
+        Screen screen = new ScreenMedicineInformation();
+        screen.setArguments(arguments);
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 }

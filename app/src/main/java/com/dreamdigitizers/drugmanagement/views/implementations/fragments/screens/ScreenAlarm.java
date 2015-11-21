@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -58,7 +59,7 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
         this.mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(SoundUtils.isPlaying()) {
+                if (SoundUtils.isPlaying()) {
                     ScreenAlarm.this.buttonOKClick();
                 }
             }
@@ -116,15 +117,6 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
         return 0;
     }
 
-    private void buttonOKClick() {
-        if(SoundUtils.isPlaying()) {
-            SoundUtils.stop();
-            SoundUtils.reset();
-            SoundUtils.release();
-        }
-        this.getActivity().finish();
-    }
-
     @Override
     public void bindData(AlarmExtended pModel) {
         this.mModel = pModel;
@@ -133,6 +125,19 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
     @Override
     public Bitmap loadBitmap(String pFilePath, int pWidth, int pHeight) {
         return this.mPresenter.loadImage(pFilePath, pWidth, pHeight);
+    }
+
+    private void listItemClick(long pRowId) {
+        this.goToMedicineInformationScreen(pRowId);
+    }
+
+    private void buttonOKClick() {
+        if(SoundUtils.isPlaying()) {
+            SoundUtils.stop();
+            SoundUtils.reset();
+            SoundUtils.release();
+        }
+        this.getActivity().finish();
     }
 
     private void bindModelData(AlarmExtended pModel) {
@@ -156,5 +161,19 @@ public class ScreenAlarm extends Screen implements IViewAlarm, AdapterTakenMedic
         AdapterTakenMedicineDetails adapter = new AdapterTakenMedicineDetails(this.getContext(), pModel.getSchedule().getTakenMedicines(), this);
         adapter.setListView(this.mListView);
         this.mListView.setAdapter(adapter);
+        this.mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> pParent, View pView, int pPosition, long pRowId) {
+                ScreenAlarm.this.listItemClick(pRowId);
+            }
+        });
+    }
+
+    private void goToMedicineInformationScreen(long pRowId) {
+        Bundle arguments = new Bundle();
+        arguments.putLong(Constants.BUNDLE_KEY__ROW_ID, pRowId);
+        Screen screen = new ScreenMedicineInformation();
+        screen.setArguments(arguments);
+        this.mScreenActionsListener.onChangeScreen(screen);
     }
 }

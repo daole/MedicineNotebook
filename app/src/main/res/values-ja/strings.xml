@@ -111,6 +111,7 @@
     <string name="title__screen_schedule_edit">スケジュール詳細</string>
     <string name="title__screen_schedule_list">スケジュール</string>
     <string name="title__screen_settings">設定</string>
+    <string name="title__screen_medicine_information">薬情報</string>
     <plurals name="lbl__day">
         <item quantity="one">%d 日</item>
         <item quantity="other">%d 日</item>

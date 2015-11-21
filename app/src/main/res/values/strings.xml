@@ -26,6 +26,7 @@
     <string name="title__screen_prescription_add">Add Prescription</string>
     <string name="title__screen_prescription_edit">Edit Prescription</string>
     <string name="title__screen_settings">Setting</string>
+    <string name="title__screen_medicine_information">Medicine Information</string>
 
     <string name="menu_item__add">Add</string>
     <string name="menu_item__delete">Delete</string>

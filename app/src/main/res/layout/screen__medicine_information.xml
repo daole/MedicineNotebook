@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/zoomContainer"
+    style="@style/Root">
+
+    <ScrollView
+        style="@style/Root">
+
+        <LinearLayout
+            style="@style/RootVerticalCenterWithDividers">
+
+            <RelativeLayout
+                style="@style/Row">
+
+                <TextView
+                    android:id="@+id/lblMedicineName"
+                    style="@style/TextViewMedicineName"/>
+
+                <TextView
+                    android:id="@+id/lblMedicineNameValue"
+                    android:layout_toRightOf="@id/lblMedicineName"
+                    android:layout_centerVertical="true"
+                    style="@style/TextView"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/Row">
+
+                <TextView
+                    android:id="@+id/lblMedicineNote"
+                    style="@style/TextViewNote"/>
+
+                <TextView
+                    android:id="@+id/lblMedicineNoteValue"
+                    android:layout_toRightOf="@id/lblMedicineNote"
+                    android:layout_centerVertical="true"
+                    style="@style/TextView"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/Row">
+
+                <TextView
+                    android:id="@+id/lblMedicineCategoryName"
+                    style="@style/TextViewMedicineCategoryName"/>
+
+                <TextView
+                    android:id="@+id/lblMedicineCategoryNameValue"
+                    android:layout_toRightOf="@id/lblMedicineCategoryName"
+                    android:layout_centerVertical="true"
+                    style="@style/TextView"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/Row">
+
+                <TextView
+                    android:id="@+id/lblMedicineCategoryNote"
+                    style="@style/TextViewNote"/>
+
+                <TextView
+                    android:id="@+id/lblMedicineCategoryNoteValue"
+                    android:layout_toRightOf="@id/lblMedicineCategoryNote"
+                    android:layout_centerVertical="true"
+                    style="@style/TextView"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/Row">
+
+                <TextView
+                    android:id="@+id/lblMedicinePicture"
+                    android:layout_centerVertical="false"
+                    style="@style/TextViewPicture"/>
+
+                <ImageView
+                    android:id="@+id/imgMedicinePicture"
+                    android:layout_below="@id/lblMedicinePicture"
+                    android:layout_centerHorizontal="true"
+                    style="@style/ImageViewMedicine"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                style="@style/RowButtons">
+
+                <Button
+                    android:id="@+id/btnBack"
+                    style="@style/ButtonBack"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.dreamdigitizers.drugmanagement.views.implementations.customviews.ZoomableImageView
+        android:id="@+id/imgZoomableMedicineImage"
+        style="@style/ZoomableImageViewMedicine"/>
+
+</FrameLayout>
