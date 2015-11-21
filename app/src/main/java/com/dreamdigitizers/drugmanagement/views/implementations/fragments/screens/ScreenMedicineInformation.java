@@ -78,7 +78,7 @@ public class ScreenMedicineInformation extends Screen implements IViewMedicineIn
     protected void retrieveScreenItems(View pView) {
         this.mLblMedicineNameValue = (TextView)pView.findViewById(R.id.lblMedicineNameValue);
         this.mLblMedicineNoteValue = (TextView)pView.findViewById(R.id.lblMedicineNoteValue);
-        this.mLblMedicineCategoryNameValue = (TextView)pView.findViewById(R.id.lblMedicineCategoryName);
+        this.mLblMedicineCategoryNameValue = (TextView)pView.findViewById(R.id.lblMedicineCategoryNameValue);
         this.mLblMedicineCategoryNoteValue = (TextView)pView.findViewById(R.id.lblMedicineCategoryNoteValue);
         this.mImgMedicinePicture = (ImageView)pView.findViewById(R.id.imgMedicinePicture);
         this.mBtnBack = (Button)pView.findViewById(R.id.btnBack);

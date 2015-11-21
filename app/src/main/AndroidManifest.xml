@@ -36,7 +36,7 @@
 
         <activity
             android:name=".views.implementations.activities.ActivityAlarm"
-            android:theme="@style/FullScreenTheme"
+            android:theme="@style/NoActionBarTheme"
             android:configChanges="orientation|screenSize|locale">
         </activity>
 
