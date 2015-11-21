@@ -223,6 +223,10 @@
         <item name="android:text">@string/lbl__note</item>
     </style>
 
+    <style name="TextViewLanguage" parent="TextViewInputLabel">
+        <item name="android:text">@string/lbl__language</item>
+    </style>
+
     <style name="TextViewMedicineIntervalName" parent="TextViewInputLabel">
         <item name="android:text">@string/lbl__medicine_interval_name</item>
     </style>

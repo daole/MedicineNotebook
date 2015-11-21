@@ -18,7 +18,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.utils.AlarmUtils;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -27,11 +29,6 @@ import com.dreamdigitizers.drugmanagement.R;
  */
 public class FragmentNavigationDrawer extends FragmentBase {
     private static final String ERROR_MESSAGE__CONTEXT_NOT_IMPLEMENTS_INTERFACE = "Activity must implement INavigationDrawerItemSelectListener.";
-
-    /**
-     * Remember the position of the selected item.
-     */
-    private static final String BUNDLE_KEY__STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
     /**
      * A pointer to the current callbacks instance (the Activity).
@@ -72,10 +69,21 @@ public class FragmentNavigationDrawer extends FragmentBase {
     }
 
     @Override
+    protected void handleExtras(Bundle pExtras) {
+        Bundle bundle = pExtras.getBundle(AlarmUtils.INTENT_EXTRA_KEY__DATA);
+        this.mCurrentSelectedPosition = bundle.getInt(Constants.BUNDLE_KEY__STATE_SELECTED_POSITION);
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle pOutState) {
         super.onSaveInstanceState(pOutState);
 
-        pOutState.putInt(FragmentNavigationDrawer.BUNDLE_KEY__STATE_SELECTED_POSITION, this.mCurrentSelectedPosition);
+        pOutState.putInt(Constants.BUNDLE_KEY__STATE_SELECTED_POSITION, this.mCurrentSelectedPosition);
+    }
+
+    @Override
+    protected void recoverInstanceState(Bundle pSavedInstanceState) {
+        this.mCurrentSelectedPosition = pSavedInstanceState.getInt(Constants.BUNDLE_KEY__STATE_SELECTED_POSITION);
     }
 
     @Override
@@ -104,13 +112,6 @@ public class FragmentNavigationDrawer extends FragmentBase {
     @Override
     protected void retrieveScreenItems(View pView) {
 
-    }
-
-    @Override
-    protected void recoverInstanceState(Bundle pSavedInstanceState) {
-        if (pSavedInstanceState != null) {
-            this.mCurrentSelectedPosition = pSavedInstanceState.getInt(FragmentNavigationDrawer.BUNDLE_KEY__STATE_SELECTED_POSITION);
-        }
     }
 
     @Override

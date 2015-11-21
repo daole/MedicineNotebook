@@ -28,6 +28,7 @@ import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterPrescri
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleAdd;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleEdit;
 import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterScheduleList;
+import com.dreamdigitizers.drugmanagement.presenters.abstracts.IPresenterSettings;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewAlarm;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewInitialization;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewMedicineEdit;
@@ -56,11 +57,16 @@ import com.dreamdigitizers.drugmanagement.views.abstracts.IViewPrescriptionList;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleAdd;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleEdit;
 import com.dreamdigitizers.drugmanagement.views.abstracts.IViewScheduleList;
+import com.dreamdigitizers.drugmanagement.views.abstracts.IViewSettings;
 
 public class PresenterFactory {
     public static IPresenter createPresenter(Class pClass, IView pView) {
         if(pClass == IPresenterInitialization.class) {
             return new PresenterInitialization((IViewInitialization)pView);
+        }
+
+        if(pClass == IPresenterSettings.class) {
+            return new PresenterSettings((IViewSettings)pView);
         }
 
         if(pClass == IPresenterAlarm.class) {

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="languages">
+        <item>ベトナム語</item>
         <item>英語</item>
         <item>日本語</item>
-        <item>ベトナム語</item>
     </string-array>
     <string-array name="locales">
+        <item>vi</item>
         <item>en</item>
         <item>ja</item>
-        <item>vi</item>
     </string-array>
 
     <string-array name="navigation_drawer_titles">
@@ -19,6 +19,7 @@
         <item>服用時間</item>
         <item>服用間隔</item>
         <item>処方箋</item>
+        <item>設定</item>
     </string-array>
 
     <string-array name="family_member_names">

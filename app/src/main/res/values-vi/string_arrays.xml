@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="languages">
+        <item>Tiếng Việt</item>
         <item>Tiếng Anh</item>
         <item>Tiếng Nhật</item>
-        <item>Tiếng Việt</item>
     </string-array>
     <string-array name="locales">
+        <item>vi</item>
         <item>en</item>
         <item>ja</item>
-        <item>vi</item>
     </string-array>
 
     <string-array name="navigation_drawer_titles">
@@ -19,6 +19,7 @@
         <item>Thời điểm</item>
         <item>Khoảng thời gian</item>
         <item>Toa thuốc</item>
+        <item>Thiết lập</item>
     </string-array>
 
     <string-array name="family_member_names">

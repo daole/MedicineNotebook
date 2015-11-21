@@ -19,6 +19,7 @@ import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screen
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenMedicineTimeList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenPrescriptionList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenScheduleList;
+import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenSettings;
 
 public class ActivityMain extends ActivityBase implements INavigationDrawerItemSelectListener {
     private FragmentNavigationDrawer mNavigationDrawerFragment;
@@ -35,9 +36,6 @@ public class ActivityMain extends ActivityBase implements INavigationDrawerItemS
     @Override
     public boolean onCreateOptionsMenu(Menu pMenu) {
         if(!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
             this.getMenuInflater().inflate(R.menu.menu__main, pMenu);
             this.restoreActionBar();
             return true;
@@ -48,11 +46,6 @@ public class ActivityMain extends ActivityBase implements INavigationDrawerItemS
 
     @Override
     public boolean onOptionsItemSelected(MenuItem pItem) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = pItem.getItemId();
-
         return super.onOptionsItemSelected(pItem);
     }
 
@@ -86,7 +79,6 @@ public class ActivityMain extends ActivityBase implements INavigationDrawerItemS
 
     @Override
     public void onNavigationDrawerItemSelected(int pPosition) {
-        // Update the menu__main content by replacing fragments
         Screen screen = null;
         switch (pPosition) {
             case Constants.NAVIGATION_DRAWER_ITEM_ID__SCHEDULE:
@@ -122,6 +114,11 @@ public class ActivityMain extends ActivityBase implements INavigationDrawerItemS
             case Constants.NAVIGATION_DRAWER_ITEM_ID__MEDICINE_PRESCRIPTIONS:
                 if(!(this.mCurrentScreen instanceof ScreenPrescriptionList)) {
                     screen = new ScreenPrescriptionList();
+                }
+                break;
+            case Constants.NAVIGATION_DRAWER_ITEM_ID__SETTINGS:
+                if(!(this.mCurrentScreen instanceof ScreenSettings)) {
+                    screen = new ScreenSettings();
                 }
                 break;
             default:

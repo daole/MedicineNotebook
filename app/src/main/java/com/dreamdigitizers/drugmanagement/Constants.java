@@ -26,6 +26,7 @@ public class Constants {
     public static final String BUNDLE_KEY__ADAPTER_DATA = "adapter_data";
     public static final String BUNDLE_KEY__MEDICINE_PICTURE_FILE_PATH = "medicine_picture";
     public static final String BUNDLE_KEY__PRESCRIPTION_PICTURE_FILE_PATH = "prescription_picture";
+    public static final String BUNDLE_KEY__STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
     public static final int IMAGE_TYPE__MEDICINE = 0;
     public static final int IMAGE_TYPE__PRESCRIPTION = 1;
@@ -48,4 +49,5 @@ public class Constants {
     public static final int NAVIGATION_DRAWER_ITEM_ID__MEDICINE_TIME = 4;
     public static final int NAVIGATION_DRAWER_ITEM_ID__MEDICINE_INTERVALS = 5;
     public static final int NAVIGATION_DRAWER_ITEM_ID__MEDICINE_PRESCRIPTIONS = 6;
+    public static final int NAVIGATION_DRAWER_ITEM_ID__SETTINGS = 7;
 }

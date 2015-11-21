@@ -77,6 +77,7 @@
     <string name="lbl__select">選択</string>
     <string name="lbl__start_date">開始日：</string>
     <string name="lbl__times">回数：</string>
+    <string name="lbl__language">言語:</string>
     <string name="menu_item__add">追加</string>
     <string name="menu_item__delete">削除</string>
     <string name="message__initialization">初期化...</string>
@@ -109,6 +110,7 @@
     <string name="title__screen_schedule_add">スケジュール追加</string>
     <string name="title__screen_schedule_edit">スケジュール詳細</string>
     <string name="title__screen_schedule_list">スケジュール</string>
+    <string name="title__screen_settings">設定</string>
     <plurals name="lbl__day">
         <item quantity="one">%d 日</item>
         <item quantity="other">%d 日</item>

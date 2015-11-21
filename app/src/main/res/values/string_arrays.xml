@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="languages">
+        <item>Vietnamese</item>
         <item>English</item>
         <item>Japanese</item>
-        <item>Vietnamese</item>
     </string-array>
     <string-array name="locales">
+        <item>vi</item>
         <item>en</item>
         <item>ja</item>
-        <item>vi</item>
     </string-array>
 
     <string-array name="navigation_drawer_titles">
@@ -19,6 +19,7 @@
         <item>Medicine Time</item>
         <item>Medicine Intervals</item>
         <item>Prescriptions</item>
+        <item>Settings</item>
     </string-array>
 
     <string-array name="family_member_names">

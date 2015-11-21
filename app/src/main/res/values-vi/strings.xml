@@ -77,6 +77,7 @@
     <string name="lbl__select">Chọn</string>
     <string name="lbl__start_date">Ngày bắt đầu:</string>
     <string name="lbl__times">Số lần:</string>
+    <string name="lbl__language">Ngôn ngữ:</string>
     <string name="menu_item__add">Thêm</string>
     <string name="menu_item__delete">Xóa</string>
     <string name="message__initialization">Đang khởi tạo...</string>
@@ -109,6 +110,7 @@
     <string name="title__screen_schedule_add">Thêm lịch</string>
     <string name="title__screen_schedule_edit">Thông tin lịch</string>
     <string name="title__screen_schedule_list">Lịch</string>
+    <string name="title__screen_settings">Thiết lập</string>
     <plurals name="lbl__day">
         <item quantity="one">%d ngày</item>
         <item quantity="other">%d ngày</item>
