@@ -10,7 +10,7 @@ public class ActivityStart extends ActivityBase {
     protected void onCreate(Bundle pSavedInstanceState) {
         super.onCreate(pSavedInstanceState);
 
-        this.setContentView(R.layout.activity__base);
+        this.setContentView(R.layout.activity__start);
         if(!this.mIsRecreated) {
             this.setStartScreen();
         }

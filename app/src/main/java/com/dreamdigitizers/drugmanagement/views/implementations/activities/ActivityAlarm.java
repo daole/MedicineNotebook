@@ -4,9 +4,13 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.utils.AdListener;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenAlarm;
+import com.google.android.gms.ads.AdView;
 
 public class ActivityAlarm extends ActivityBase {
+    private AdView mAdView;
+
     @Override
     protected void onCreate(Bundle pSavedInstanceState) {
         super.onCreate(pSavedInstanceState);
@@ -19,6 +23,8 @@ public class ActivityAlarm extends ActivityBase {
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         this.setContentView(R.layout.activity__alarm);
+        this.mAdView = (AdView)this.findViewById(R.id.adView);
+        this.mAdView.setAdListener(new AdListener(this.mAdView));
         if(!this.mIsRecreated) {
             this.setStartScreen();
         }

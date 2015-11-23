@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 
 import com.dreamdigitizers.drugmanagement.Constants;
 import com.dreamdigitizers.drugmanagement.R;
+import com.dreamdigitizers.drugmanagement.utils.AdListener;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentBase;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentNavigationDrawer;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentNavigationDrawer.INavigationDrawerItemSelectListener;
@@ -20,9 +21,12 @@ import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screen
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenPrescriptionList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenScheduleList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenSettings;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class ActivityMain extends ActivityBase implements INavigationDrawerItemSelectListener {
     private FragmentNavigationDrawer mNavigationDrawerFragment;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle pSavedInstanceState) {
@@ -31,6 +35,8 @@ public class ActivityMain extends ActivityBase implements INavigationDrawerItemS
         this.setContentView(R.layout.activity__main);
         this.mNavigationDrawerFragment = (FragmentNavigationDrawer)this.getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         this.mNavigationDrawerFragment.setUp(R.array.navigation_drawer_icons, R.array.navigation_drawer_titles, R.id.navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_layout));
+        this.mAdView = (AdView)this.findViewById(R.id.adView);
+        this.mAdView.setAdListener(new AdListener(this.mAdView));
     }
 
     @Override

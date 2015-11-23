@@ -26,7 +26,7 @@
     </style>
 
     <style name="RootVerticalWithDividers" parent="RootVertical">
-        <item name="android:showDividers">middle</item>
+        <item name="android:showDividers">middle|end</item>
         <item name="android:divider">?android:attr/dividerHorizontal</item>
     </style>
 
@@ -543,4 +543,11 @@
         <item name="android:name">com.dreamdigitizers.drugmanagement.views.implementations.fragments.FragmentNavigationDrawer</item>
     </style>
 
+    <style name="AdView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>

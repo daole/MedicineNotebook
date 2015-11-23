@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".views.implementations.activities.ActivityStart"
-            android:theme="@style/FullScreenTheme"
+            android:theme="@style/NoActionBarTheme"
             android:configChanges="orientation|screenSize|locale"
             android:label="@string/title__app_name">
             <intent-filter>
