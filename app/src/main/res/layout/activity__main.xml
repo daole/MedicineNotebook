@@ -8,7 +8,7 @@
         android:id="@+id/drawer_layout"
         android:layout_above="@+id/adView"
         android:layout_alignWithParentIfMissing="true"
-        tools:context="com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityMain"
+        tools:context="com.dreamdigitizers.medicinenote.views.implementations.activities.ActivityMain"
         style="@style/Root">
 
         <FrameLayout

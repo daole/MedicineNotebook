@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dreamdigitizers.drugmanagement">
+    package="com.dreamdigitizers.medicinenote">
 
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
@@ -11,13 +11,13 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
-        android:name=".ApplicationBase"
+        android:name="com.dreamdigitizers.medicinenote.ApplicationBase"
         android:allowBackup="true"
         android:icon="@mipmap/icon__app_logo"
         android:label="@string/title__app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".views.implementations.activities.ActivityStart"
+            android:name="com.dreamdigitizers.medicinenote.views.implementations.activities.ActivityStart"
             android:theme="@style/NoActionBarTheme"
             android:configChanges="orientation|screenSize|locale"
             android:label="@string/title__app_name">
@@ -28,21 +28,21 @@
         </activity>
 
         <activity
-            android:name=".views.implementations.activities.ActivityMain"
+            android:name="com.dreamdigitizers.medicinenote.views.implementations.activities.ActivityMain"
             android:windowSoftInputMode="stateUnspecified|adjustResize"
             android:configChanges="orientation|screenSize|locale"
             android:label="@string/title__app_name">
         </activity>
 
         <activity
-            android:name=".views.implementations.activities.ActivityCamera"
+            android:name="com.dreamdigitizers.medicinenote.views.implementations.activities.ActivityCamera"
             android:theme="@style/FullScreenTheme"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|locale">
         </activity>
 
         <activity
-            android:name=".views.implementations.activities.ActivityAlarm"
+            android:name="com.dreamdigitizers.medicinenote.views.implementations.activities.ActivityAlarm"
             android:theme="@style/NoActionBarTheme"
             android:configChanges="orientation|screenSize|locale">
             <intent-filter>
@@ -52,11 +52,11 @@
         </activity>
 
         <provider
-            android:name=".data.ContentProviderMedicine"
-            android:authorities="com.dreamdigitizers.drugmanagement.contentprovider">
+            android:name="com.dreamdigitizers.medicinenote.data.ContentProviderMedicine"
+            android:authorities="com.dreamdigitizers.medicinenote.contentprovider">
         </provider>
 
-        <receiver android:name=".views.implementations.receivers.ReceiverBoot" android:enabled="false">
+        <receiver android:name="com.dreamdigitizers.medicinenote.views.implementations.receivers.ReceiverBoot" android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

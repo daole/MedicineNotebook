@@ -94,7 +94,7 @@
 
     </ScrollView>
 
-    <com.dreamdigitizers.drugmanagement.views.implementations.customviews.ZoomableImageView
+    <com.dreamdigitizers.medicinenote.views.implementations.customviews.ZoomableImageView
         android:id="@+id/imgZoomableMedicineImage"
         style="@style/ZoomableImageViewMedicine"/>
 
