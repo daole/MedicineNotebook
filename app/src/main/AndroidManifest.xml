@@ -46,7 +46,7 @@
             android:theme="@style/NoActionBarTheme"
             android:configChanges="orientation|screenSize|locale">
             <intent-filter>
-                <action android:name="com.dreamdigitizers.drugmanagement.views.implementations.activities.ActivityAlarm" />
+                <action android:name="com.dreamdigitizers.medicinenote.views.implementations.activities.ActivityAlarm" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

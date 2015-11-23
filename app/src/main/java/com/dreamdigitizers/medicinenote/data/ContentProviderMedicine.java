@@ -61,7 +61,7 @@ public class ContentProviderMedicine extends ContentProvider {
 
     private static final String SCHEME = "content://";
 
-    public static final String AUTHORITY = "com.dreamdigitizers.drugmanagement.contentprovider";
+    public static final String AUTHORITY = "com.dreamdigitizers.medicinenote.contentprovider";
 
     public static final Uri CONTENT_URI__ALARM = Uri.parse(ContentProviderMedicine.SCHEME + ContentProviderMedicine.AUTHORITY + "/" + TableAlarm.TABLE_NAME);
     public static final Uri CONTENT_URI__FAMILY_MEMBER = Uri.parse(ContentProviderMedicine.SCHEME + ContentProviderMedicine.AUTHORITY + "/" + TableFamilyMember.TABLE_NAME);
