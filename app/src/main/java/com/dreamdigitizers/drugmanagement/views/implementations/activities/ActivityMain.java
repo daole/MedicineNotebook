@@ -21,7 +21,6 @@ import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screen
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenPrescriptionList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenScheduleList;
 import com.dreamdigitizers.drugmanagement.views.implementations.fragments.screens.ScreenSettings;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 public class ActivityMain extends ActivityBase implements INavigationDrawerItemSelectListener {
