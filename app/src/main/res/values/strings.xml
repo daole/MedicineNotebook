@@ -1,6 +1,6 @@
 <resources>
-    <string name="banner_ad_unit_id__main">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="banner_ad_unit_id__alarm">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id__main">ca-app-pub-2332044383249316/4037951988</string>
+    <string name="banner_ad_unit_id__alarm">ca-app-pub-2332044383249316/5514685189</string>
 
     <string name="title__app_name">Medicine Notebook</string>
     <string name="title__menu">Menu</string>
