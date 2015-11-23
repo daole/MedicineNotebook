@@ -1,6 +1,7 @@
 package com.dreamdigitizers.medicinenote.utils;
 
 import android.os.Handler;
+import android.support.v7.appcompat.BuildConfig;
 import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
@@ -49,8 +50,12 @@ public class AdListener extends com.google.android.gms.ads.AdListener {
     }
 
     private void requestAd() {
-        //AdRequest adRequest = new AdRequest.Builder().build();
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice("BA60322C3D2E065E9975FB53C2D78F32").build();
+        AdRequest adRequest;
+        if (BuildConfig.DEBUG) {
+            adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice("BA60322C3D2E065E9975FB53C2D78F32").build();
+        } else {
+            adRequest = new AdRequest.Builder().build();
+        }
         AdView adView = this.mAdView.get();
         if(adView != null) {
             adView.loadAd(adRequest);
