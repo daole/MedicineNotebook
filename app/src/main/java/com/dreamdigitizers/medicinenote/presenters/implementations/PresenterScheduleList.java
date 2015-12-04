@@ -31,6 +31,7 @@ import com.dreamdigitizers.medicinenote.data.dal.tables.Table;
 import com.dreamdigitizers.medicinenote.data.dal.tables.TableAlarm;
 import com.dreamdigitizers.medicinenote.data.dal.tables.TableFamilyMember;
 import com.dreamdigitizers.medicinenote.data.dal.tables.TableMedicineTime;
+import com.dreamdigitizers.medicinenote.data.dal.tables.TableSchedule;
 import com.dreamdigitizers.medicinenote.data.models.Alarm;
 import com.dreamdigitizers.medicinenote.presenters.abstracts.IPresenterScheduleList;
 import com.dreamdigitizers.medicinenote.utils.AlarmUtils;
@@ -157,6 +158,17 @@ class PresenterScheduleList implements IPresenterScheduleList {
                             + Constants.DELIMITER__TIME
                             + String.format(Constants.FORMAT__TIME_VALUE, minute);
                     textView.setText(timeValue);
+                    return true;
+                }
+                if (pView.getId() == R.id.lblFamilyMemberName) {
+                    TextView textView = (TextView) pView;
+                    String familyMemberName = pCursor.getString(pCursor.getColumnIndex(TableFamilyMember.COLUMN_NAME__FAMILY_MEMBER_NAME));
+                    if(TextUtils.isEmpty(familyMemberName)) {
+                        String fallbackFamilyMemberName = pCursor.getString(pCursor.getColumnIndex(TableSchedule.COLUMN_NAME__FALLBACK_FAMILY_MEMBER_NAME));
+                        textView.setText(fallbackFamilyMemberName);
+                    } else {
+                        textView.setText(familyMemberName);
+                    }
                     return true;
                 }
                 if (pView.getId() == R.id.imgDone) {

@@ -46,7 +46,7 @@
     <string name="lbl__dose">Dose:</string>
     <string name="lbl__start_date">Start Date:</string>
     <string name="lbl__alarm">Alarm:</string>
-    <string name="lbl__times">Times:</string>
+    <string name="lbl__times">Medicine-Taking Times:</string>
     <string name="lbl__name">Name:</string>
     <string name="lbl__date">Date:</string>
     <string name="lbl__language">Language:</string>
@@ -86,7 +86,7 @@
     <string name="message__edit_successful">Data has been edited.</string>
     <string name="message__delete_successful">Data has been deleted.</string>
 
-    <string name="confirmation__delete_data">Are you sure you want to delete the selected data?.</string>
+    <string name="confirmation__delete_data">Are you sure you want to delete the selected data?</string>
 
     <string name="error__blank_family_member_name">Please enter your family member.</string>
     <string name="error__blank_medicine_name">Please enter medicine.</string>

@@ -46,6 +46,7 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
         super.onCreate(pSavedInstanceState);
         this.mPresenter = (IPresenterMedicineTimeEdit)PresenterFactory.createPresenter(IPresenterMedicineTimeEdit.class, this);
         this.mPresenter.select(this.mRowId);
+        this.mAdapter = new AdapterTimeValue(this.getContext());
     }
 
     @Override
@@ -83,7 +84,6 @@ public class ScreenMedicineTimeEdit extends Screen implements IViewMedicineTimeE
     protected void mapInformationToScreenItems(View pView) {
         this.bindModelData(this.mModel);
 
-        this.mAdapter = new AdapterTimeValue(this.getContext());
         this.mAdapter.setListView(this.mListView);
         this.mListView.setAdapter(this.mAdapter);
 

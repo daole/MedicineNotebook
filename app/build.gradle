@@ -5,7 +5,7 @@ android {
     buildToolsVersion '23.0.1'
 
     defaultConfig {
-        applicationId "com.dreamdigitizers.drugmanagement"
+        applicationId "com.dreamdigitizers.medicinenote"
         minSdkVersion 14
         targetSdkVersion 19
         versionCode 1
