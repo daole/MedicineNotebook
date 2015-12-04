@@ -192,7 +192,7 @@ public class ScreenPrescriptionAdd extends Screen implements IViewPrescriptionAd
 
     @Override
     protected int getTitle() {
-        return R.string.title__screen_family_member_add;
+        return R.string.title__screen_prescription_add;
     }
 
     @Override
