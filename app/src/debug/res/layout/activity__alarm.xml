@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    style="@style/Root">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_above="@+id/adView"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_marginBottom="@dimen/margin"
+        style="@style/RootWithPadding"/>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@id/adView"
+        android:visibility="gone"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id__main"
+        style="@style/AdView">
+
+    </com.google.android.gms.ads.AdView>
+
+</RelativeLayout>
