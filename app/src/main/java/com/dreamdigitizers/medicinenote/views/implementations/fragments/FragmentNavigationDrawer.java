@@ -1,13 +1,13 @@
 package com.dreamdigitizers.medicinenote.views.implementations.fragments;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.content.res.Configuration;
-import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;

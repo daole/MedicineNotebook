@@ -1,4 +1,8 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation" >
+
     <string name="banner_ad_unit_id__main">ca-app-pub-2332044383249316/4037951988</string>
     <string name="banner_ad_unit_id__alarm">ca-app-pub-2332044383249316/5514685189</string>
 
@@ -127,4 +131,5 @@
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>
     </plurals>
+
 </resources>

@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dreamdigitizers.medicinenote.R;
-import com.dreamdigitizers.medicinenote.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.medicinenote.presenters.abstracts.IPresenterMedicineCategoryAdd;
+import com.dreamdigitizers.medicinenote.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.medicinenote.views.abstracts.IViewMedicineCategoryAdd;
 
 public class ScreenMedicineCategoryAdd extends Screen implements IViewMedicineCategoryAdd {

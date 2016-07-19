@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.dreamdigitizers.medicinenote.Constants;
 import com.dreamdigitizers.medicinenote.R;
-import com.dreamdigitizers.medicinenote.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.medicinenote.presenters.abstracts.IPresenterFamilyMemberList;
+import com.dreamdigitizers.medicinenote.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.medicinenote.views.abstracts.IViewFamilyMemberList;
 
 public class ScreenFamilyMemberList extends ScreenEntry implements IViewFamilyMemberList {

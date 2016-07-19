@@ -6,8 +6,8 @@ import android.text.TextUtils;
 
 import com.dreamdigitizers.medicinenote.Constants;
 import com.dreamdigitizers.medicinenote.R;
-import com.dreamdigitizers.medicinenote.data.DatabaseHelper;
 import com.dreamdigitizers.medicinenote.data.ContentProviderMedicine;
+import com.dreamdigitizers.medicinenote.data.DatabaseHelper;
 import com.dreamdigitizers.medicinenote.data.dal.tables.TableMedicineTime;
 import com.dreamdigitizers.medicinenote.presenters.abstracts.IPresenterMedicineTimeAdd;
 import com.dreamdigitizers.medicinenote.utils.StringUtils;

@@ -1,10 +1,10 @@
 package com.dreamdigitizers.medicinenote.views.implementations.activities;
 
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.widget.DrawerLayout;
 
 import com.dreamdigitizers.medicinenote.Constants;
 import com.dreamdigitizers.medicinenote.R;

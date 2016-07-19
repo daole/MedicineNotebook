@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.dreamdigitizers.medicinenote.Constants;
 import com.dreamdigitizers.medicinenote.R;
 import com.dreamdigitizers.medicinenote.data.models.FamilyMember;
-import com.dreamdigitizers.medicinenote.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.medicinenote.presenters.abstracts.IPresenterFamilyMemberEdit;
+import com.dreamdigitizers.medicinenote.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.medicinenote.views.abstracts.IViewFamilyMemberEdit;
 
 public class ScreenFamilyMemberEdit extends Screen implements IViewFamilyMemberEdit {

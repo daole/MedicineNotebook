@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation" >
+
     <string name="btn__add">Thêm</string>
     <string name="btn__back">Quay về</string>
     <string name="btn__cancel">Hủy</string>
@@ -116,4 +119,5 @@
         <item quantity="one">%d ngày</item>
         <item quantity="other">%d ngày</item>
     </plurals>
+
 </resources>

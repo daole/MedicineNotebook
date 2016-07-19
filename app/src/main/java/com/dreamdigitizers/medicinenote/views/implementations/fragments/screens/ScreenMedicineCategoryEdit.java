@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.dreamdigitizers.medicinenote.Constants;
 import com.dreamdigitizers.medicinenote.R;
 import com.dreamdigitizers.medicinenote.data.models.MedicineCategory;
-import com.dreamdigitizers.medicinenote.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.medicinenote.presenters.abstracts.IPresenterMedicineCategoryEdit;
+import com.dreamdigitizers.medicinenote.presenters.implementations.PresenterFactory;
 import com.dreamdigitizers.medicinenote.views.abstracts.IViewMedicineCategoryEdit;
 
 public class ScreenMedicineCategoryEdit extends Screen implements IViewMedicineCategoryEdit {
